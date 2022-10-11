@@ -3,8 +3,12 @@ Directorio entregas de Israel Arroyo Alvarez
 ....
 
 > Curso Git
-    >Screenshot
+    	>Screenshot
 
-    >Microservicios
+>Microservicios
+	>Dockerfile
+	>requirements.txt
+	>docker-compose.yml
+	>app.py
 
 ....

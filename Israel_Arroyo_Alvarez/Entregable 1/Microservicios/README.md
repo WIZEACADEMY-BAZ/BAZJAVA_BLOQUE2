@@ -1,0 +1,1 @@
+Se vio la estructura del microservicio y se aprendió que es un Docker un contenedor y los volúmenes, también aprendimos lo que es Docker compost y los comandos que se ocupan para orquestar las imágenes y los contenedores, lo que es la arquitectura 
