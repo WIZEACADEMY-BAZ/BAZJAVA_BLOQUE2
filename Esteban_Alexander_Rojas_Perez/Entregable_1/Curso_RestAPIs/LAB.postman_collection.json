@@ -128,9 +128,19 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{host}}",
+					"raw": "{{hostReqres}}/api/users?page={{id}}",
 					"host": [
-						"{{host}}"
+						"{{hostReqres}}"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "{{id}}"
+						}
 					]
 				}
 			},
