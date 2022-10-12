@@ -1,0 +1,480 @@
+{
+	"info": {
+		"_postman_id": "ba2b7791-aff4-4d72-8e66-b2af946b1fab",
+		"name": "bootcamp_wizeline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/get?somevariable={{parameter}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "somevariable",
+							"value": "{{parameter}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/get",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/get?somevariable={{parameter}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "somevariable",
+									"value": "{{parameter}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 12 Oct 2022 16:03:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "420"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/19.9.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {\n        \"somevariable\": \"5000\"\n    },\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate, br\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"d4dbeb07-f07c-4fcb-9409-77b2f1ecbc8c\",\n        \"User-Agent\": \"PostmanRuntime/7.29.2\",\n        \"X-Amzn-Trace-Id\": \"Root=1-6346e53b-774a74c66ae55587036588c3\"\n    },\n    \"origin\": \"201.174.156.26\",\n    \"url\": \"http://httpbin.org/get?somevariable=5000\"\n}"
+				}
+			]
+		},
+		{
+			"name": "/post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "123",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/post?urlParams={{parameter}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "urlParams",
+							"value": "{{parameter}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/post",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "123",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/post?urlParams={{parameter}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"post"
+							],
+							"query": [
+								{
+									"key": "urlParams",
+									"value": "{{parameter}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 12 Oct 2022 16:03:02 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "662"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/19.9.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {\n        \"urlParams\": \"5000\"\n    },\n    \"data\": \"\",\n    \"files\": {},\n    \"form\": {\n        \"password\": \"123\",\n        \"username\": \"123\"\n    },\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate, br\",\n        \"Content-Length\": \"276\",\n        \"Content-Type\": \"multipart/form-data; boundary=--------------------------717191608092675383690836\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"7a848fff-8e5c-41cd-ad1b-4b9b7438b561\",\n        \"User-Agent\": \"PostmanRuntime/7.29.2\",\n        \"X-Amzn-Trace-Id\": \"Root=1-6346e536-06a18daa6e882dac3c143238\"\n    },\n    \"json\": null,\n    \"origin\": \"201.174.156.26\",\n    \"url\": \"http://httpbin.org/post?urlParams=5000\"\n}"
+				}
+			]
+		},
+		{
+			"name": "/patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "1234",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/patch",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"patch"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/patch",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/patch",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"patch"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 12 Oct 2022 16:02:57 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "623"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/19.9.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {},\n    \"data\": \"\",\n    \"files\": {},\n    \"form\": {\n        \"password\": \"1234\",\n        \"username\": \"1234\"\n    },\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate, br\",\n        \"Content-Length\": \"278\",\n        \"Content-Type\": \"multipart/form-data; boundary=--------------------------801780114255965567188447\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"346ef02f-6d0c-49e5-b330-4d43461cb599\",\n        \"User-Agent\": \"PostmanRuntime/7.29.2\",\n        \"X-Amzn-Trace-Id\": \"Root=1-6346e531-2ea6e1cd1f11771366207d08\"\n    },\n    \"json\": null,\n    \"origin\": \"201.174.156.26\",\n    \"url\": \"http://httpbin.org/patch\"\n}"
+				}
+			]
+		},
+		{
+			"name": "/put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "123",
+							"type": "default"
+						},
+						{
+							"key": "password",
+							"value": "123",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}/put",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"put"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/put",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "123",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "123",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/put",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"put"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 12 Oct 2022 16:02:53 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "619"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/19.9.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {},\n    \"data\": \"\",\n    \"files\": {},\n    \"form\": {\n        \"password\": \"123\",\n        \"username\": \"123\"\n    },\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate, br\",\n        \"Content-Length\": \"276\",\n        \"Content-Type\": \"multipart/form-data; boundary=--------------------------882017540550629916135498\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"b2509b6a-5c76-4de6-be9d-a0aab8e7c38c\",\n        \"User-Agent\": \"PostmanRuntime/7.29.2\",\n        \"X-Amzn-Trace-Id\": \"Root=1-6346e52d-4ef5c5f672b124fc317e1c59\"\n    },\n    \"json\": null,\n    \"origin\": \"201.174.156.26\",\n    \"url\": \"http://httpbin.org/put\"\n}"
+				}
+			]
+		},
+		{
+			"name": "/detele",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/delete?userId=1",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"delete"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/detele",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/delete?userId=1",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"delete"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Wed, 12 Oct 2022 16:07:54 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Content-Length",
+							"value": "468"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Server",
+							"value": "gunicorn/19.9.0"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"args\": {\n        \"userId\": \"1\"\n    },\n    \"data\": \"\",\n    \"files\": {},\n    \"form\": {},\n    \"headers\": {\n        \"Accept\": \"*/*\",\n        \"Accept-Encoding\": \"gzip, deflate, br\",\n        \"Host\": \"httpbin.org\",\n        \"Postman-Token\": \"c4ff3526-0b65-4559-b356-ca0557fffe6c\",\n        \"User-Agent\": \"PostmanRuntime/7.29.2\",\n        \"X-Amzn-Trace-Id\": \"Root=1-6346e65a-43703ba228507e163b0b602a\"\n    },\n    \"json\": null,\n    \"origin\": \"201.174.156.26\",\n    \"url\": \"http://httpbin.org/delete?userId=1\"\n}"
+				}
+			]
+		}
+	]
+}
