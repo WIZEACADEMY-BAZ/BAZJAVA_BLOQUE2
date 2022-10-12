@@ -1,4 +1,4 @@
-# Capstone project | BAZ JAVA Bloque 2
+# Proyecto Final | BAZ JAVA Bloque 2
 
 El repositorio actual tiene como proposito documentar y guardar un historial de entregas 
 y retro-alimentaciones para este Bloque 2 del bootcamp de `Wizeline Academy`.
@@ -11,18 +11,22 @@ La estructura que se tendra que seguir sera la siguiente:
 > <Nombre de Alumno> (directorio)
   > Entregable 1 (Semanas 1 y 2)
     > Curso GIT
-      - Entregable 1
-      - Entregable 2
+      - Evidencia 1
+      - Evidencia 2
       - ...
     > Curso Microservicios
-      - Entregable 1
-      - Entregable 2
+      - Evidencia 1
+      - Evidencia 2
       - ...
-    > ...
+    > Curso RESTApis
+      - Evidencia 1
+      - Evidencia 2
+      - ...
+    > Carpeta <demas cursos>
   > Entregable 2 (Semanas 3 y 4)
     > ...
   >  ...
-  - README.md
+  - README.md. (esta a la altura de la carpeta del Alumno)
 > <Nombre de Alumno 2> (directorio)
  > ...
  - README.md
