@@ -23,3 +23,12 @@ Actividad 2 DOCKER
 
 Dockerfile ejecutable
 Archivo de Docker Compose que permita levantar el contendor
+
+Actividad 3 POSTMAN
+
+Colección de postman con
+    -GET
+    -POST
+    -PUT
+    -PATCH
+    -DELETE
