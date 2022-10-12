@@ -14,6 +14,12 @@ Cristian-Jimenez
              Dockerfile
              EntregableMS1.png
              requirements.txt
+        >RestAPIs     
+             ambiente.png
+             GET.png
+             PATCH.png
+             POST.png
+             Curso_BAZ.postman_collection
         README1.md      
 
 
