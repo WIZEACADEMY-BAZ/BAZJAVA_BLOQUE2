@@ -10,5 +10,8 @@ Directorio entregas de Israel Arroyo Alvarez
 	>requirements.txt
 	>docker-compose.yml
 	>app.py
+>RestAPIs
+	> Captura variables globales
+	> Coleccion Israel Arroyo 	
 
 ....
