@@ -3,7 +3,7 @@ Generación de archivo README
 
 David Hinostroza Loera
 
-Actividad 1
+Actividad 1 GIT
 
 Generar brach
 Generar Directorio Nombre_ApellidoP_ApellidoM
@@ -17,4 +17,9 @@ Dentro de Curso GIT
         -Subir cambios
     -Prueba Pull Request
 Generar README
-GEnerar Pull Request
+Generar Pull Request
+
+Actividad 2 DOCKER
+
+Dockerfile ejecutable
+Archivo de Docker Compose que permita levantar el contendor
