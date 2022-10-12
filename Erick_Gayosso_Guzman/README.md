@@ -2,5 +2,12 @@ Directorio de entregas de Erick Gyaosso Guzman
 
 >Entregable 1
     -Curso de git
-        Screenshoot de:
-            pasos desde branch hasta push origin
+        >ScreenShot
+    -Microservices
+        > app.py
+        > Dockerfile
+        > requeriments.txt
+        > docker-compose.yml
+    -Api Rest
+        > ScreenShot
+        > Collection Postman
