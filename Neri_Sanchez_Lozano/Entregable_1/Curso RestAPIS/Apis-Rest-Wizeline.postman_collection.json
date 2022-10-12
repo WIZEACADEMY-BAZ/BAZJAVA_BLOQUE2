@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "86cb3e5a-b784-4281-b64b-c53e8ec08279",
+		"name": "Apis-Rest-Wizeline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{host}}/get",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "nerione",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "nerione",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/get?saludo={{json_value}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "saludo",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PATCH",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
