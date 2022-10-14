@@ -31,3 +31,15 @@
 ![DELETE_USER](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Postman/Entregabe%201/DELETE%20USER.png)
 ##### EVIDENCIA Entregable 1 - VARIABLES DE ENTORNO
 ![VARIABLES_DE_ENTORNO](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Postman/Entregabe%201/Variables%20de%20entorno%20BAZ%20LAB.png)
+
+#### 4. Serverless AWS
+##### EVIDENCIA Entregable 1 - Lambda 001
+![Lambda_001](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Lambda%20001.png)
+##### EVIDENCIA Entregable 1 - Lambda 002
+![Lambda_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Lambda%20002.png)
+##### EVIDENCIA Entregable 1 - Lambda 003
+![Lambda_003](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Lambda%20003.png)
+##### EVIDENCIA Entregable 1 - Cloudwatch 001
+![Cloudwatch_001](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Cloudwatch%20001.png)
+##### EVIDENCIA Entregable 1 - Cloudwatch 002
+![CloudWatch_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Cloudwatch%20002.png)
