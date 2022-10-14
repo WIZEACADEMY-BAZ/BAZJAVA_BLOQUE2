@@ -7,7 +7,7 @@ Actividad 1 GIT
 
 Generar brach
 Generar Directorio Nombre_ApellidoP_ApellidoM
-Generar Directorio ENtegrable 1/Curso GIT
+Generar Directorio Entegrable 1/Curso GIT
 Dentro de Curso GIT 
     -Subir Screenshots de pasos 
         -Crear branch
@@ -32,3 +32,9 @@ Colección de postman con
     -PUT
     -PATCH
     -DELETE
+	
+Actividad 4 Serverless
+
+	-Crear Lambda
+	-Vincular con API Gateway
+	-Generar Regla en CloudWatch 
