@@ -36,10 +36,10 @@
 ##### EVIDENCIA Entregable 1 - Lambda 001
 ![Lambda_001](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Lambda%20001.png)
 ##### EVIDENCIA Entregable 1 - Lambda 002
-![Lambda_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Lambda%20002.png)
+![Lambda_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Lambda%20002.png)
 ##### EVIDENCIA Entregable 1 - Lambda 003
-![Lambda_003](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Lambda%20003.png)
+![Lambda_003](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Lambda%20003.png)
 ##### EVIDENCIA Entregable 1 - Cloudwatch 001
-![Cloudwatch_001](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Cloudwatch%20001.png)
+![Cloudwatch_001](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Cloudwatch%20001.png)
 ##### EVIDENCIA Entregable 1 - Cloudwatch 002
-![CloudWatch_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Entregable%201/Cloudwatch%20002.png)
+![CloudWatch_002](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Serverless/Cloudwatch%20002.png)
