@@ -1,4 +1,4 @@
-#Christian Emmanuel Romero Lopez
+Christian Emmanuel Romero Lopez
 - Identidad Digital
 - christian.romerol@elektra.com.mx
 
