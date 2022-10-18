@@ -15,6 +15,8 @@ Directorio entregas de Israel Arroyo Alvarez
 	> Coleccion Israel Arroyo 	
 > Serverless
 	>Caputras de pantalla de cloudwatch, lambda, apigateway y reglas 
+> Kafka
+	> Captura de pantallas del productor y consumidor junto con el describe del topic 
 
 ....
 
