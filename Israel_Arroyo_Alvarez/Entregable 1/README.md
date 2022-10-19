@@ -17,6 +17,10 @@ Directorio entregas de Israel Arroyo Alvarez
 	>Caputras de pantalla de cloudwatch, lambda, apigateway y reglas 
 > Kafka
 	> Captura de pantallas del productor y consumidor junto con el describe del topic 
+> MongoDB
+  	>Captura de insert find y update
+	>Colleciones 
+> 
 
 ....
 
