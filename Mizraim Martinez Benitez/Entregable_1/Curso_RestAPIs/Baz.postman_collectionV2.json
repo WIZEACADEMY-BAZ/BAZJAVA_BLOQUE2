@@ -151,6 +151,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "{{host}}/patch",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Consulta previa\":\"La consulta es exitosa\"\r\n}"
+				},
+				"url": {
+					"raw": "{{host}}/patch",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"patch"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
