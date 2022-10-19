@@ -15,4 +15,7 @@ Directorio entregas de Irvin Oswaldo Cabrera Ibañez
     > Curso Kafka
         > Captura de kafka generacion de topico y su describe
         > Captura de consumidor al envio del producer
+    > Curso Mongo
+        > Capturas find, update, insert
+        > dumps de las colecciones
 ```
