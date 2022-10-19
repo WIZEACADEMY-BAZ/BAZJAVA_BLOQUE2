@@ -51,3 +51,12 @@
 ![Kafka_producer](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Kafka/Producer.png)
 ##### EVIDENCIA Entregable 1 - Consumer
 ![Kafka_consumer](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20Kafka/Consumer.png)
+
+#### 6. MongoDB
+##### EVIDENCIA Entregable 1 - Find
+![Kafka_topic](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20MongoDB/find.png)
+##### EVIDENCIA Entregable 1 - UpdateOne
+![Kafka_producer](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20MongoDB/updateOne.png)
+##### EVIDENCIA Entregable 1 - InserOne
+![Kafka_consumer](/Estefania_PonceDeLeon_Rosas/Entregable%201/Curso%20MongoDB/InsertOne.png)
+
