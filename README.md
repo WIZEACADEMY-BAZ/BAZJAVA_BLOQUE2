@@ -26,7 +26,8 @@ La estructura que se tendra que seguir sera la siguiente:
   > Entregable 2 (Semanas 3 y 4)
     > ...
   >  ...
-  - README.md. (esta a la altura de la carpeta del Alumno y debe contener una explicación de como esta compuesto tus entregables)
+  - README.md. (esta a la altura de la carpeta del Alumno y debe contener una explicación 
+                de como esta compuesto tus entregables)
 > <Nombre de Alumno 2> (directorio)
  > ...
  - README.md
