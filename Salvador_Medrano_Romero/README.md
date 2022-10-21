@@ -1,5 +1,6 @@
 Estructura y contenido correspondiente a los entregables de las semanas 1 y 2
 
+```
 > Directorio Entregas de Salvador_Medrano_Romero
   > Entregable 1 
     > Curso Docker
@@ -16,3 +17,5 @@ Estructura y contenido correspondiente a los entregables de las semanas 1 y 2
       - Screenshot variables de ambiente
     > Curso Serverless
       - Screenshots lambda y cloudwatch
+  - README.md
+```
