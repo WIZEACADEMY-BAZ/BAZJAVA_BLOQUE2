@@ -1,4 +1,12 @@
 José Manuel Mendoza García
 
+El presente documento pretende recabar los conocimientos aprendidos a los largo del curso Bloque 2 Java de Wizeline
 
-There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+Semana 1: 
+    - Aprendizaje de comando basicos de Git para versionamiento de código
+    - Levantamiento y configuración de microservicios usando Docker
+    - Consumo de servicios RestApi a una API Publica
+    - Creacion de función Lamba en AWS así como el monitoreo de esta usando CloudWatch
+Semana 2:
+    - Uso de Kafka para servicio de mensajeria basado en productor y consumidor
+    - Operaciones CRUD usando MongoDB
