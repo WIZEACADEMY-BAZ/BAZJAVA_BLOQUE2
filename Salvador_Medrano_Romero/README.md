@@ -5,6 +5,8 @@ Estructura y contenido correspondiente a los entregables de las semanas 1 y 2
   > Entregable 1 
     > Curso Docker
       - Historial de comandos (Contiene evidencia de los comandos ocupados)
+      - Archivo docker ejecutable
+      - Archivo docker compose
     > Curso GIT
       - Screenshots comandos GIT
     > Curso Kafka
