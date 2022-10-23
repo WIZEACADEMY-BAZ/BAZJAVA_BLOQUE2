@@ -5,7 +5,7 @@ De las actividades realizadas en el Bloque 2 del Bootcamp de Wizeline Academy.
 
 ## Organización del repositorio
 
-
+```
 > Abraham Morán Mendoza
   > Entregable 1
     > Curso GIT
@@ -38,3 +38,5 @@ De las actividades realizadas en el Bloque 2 del Bootcamp de Wizeline Academy.
       > Imagenes
         - Evidencia capturas de pantalla operaciones CRUD en datos de MongoDB
   - README.md
+```
+
