@@ -1,6 +1,4 @@
 .DS_Store
 .idea
-.out
-.iml
-BAZJAVA_BLOQUE2.iml
-Learning.iml
+*.iml
+out
