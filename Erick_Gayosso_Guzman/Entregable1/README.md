@@ -1,4 +1,4 @@
-Directorio de entregas de Erick Gyaosso Guzman
+Directorio de entregas de Erick Gayosso Guzman
 
 >Entregable 1
     -Curso de git
