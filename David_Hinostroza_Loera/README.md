@@ -1,40 +1,43 @@
-Generación de archivo README
+Archivo README
 
 
 David Hinostroza Loera
 
-Actividad 1 GIT
-
-Generar brach
-Generar Directorio Nombre_ApellidoP_ApellidoM
-Generar Directorio Entegrable 1/Curso GIT
-Dentro de Curso GIT 
-    -Subir Screenshots de pasos 
-        -Crear branch
+Entregable 1 
+	
+	Curso GIT
+		-Crear branch
         -Hacer cambios
         -Agregar cambios
         -Hacer commit
         -Subir cambios
-    -Prueba Pull Request
-Generar README
-Generar Pull Request
+		-Generar Pull Request
+		
+	Curso Microservicios
+		-Dockerfile ejecutable
+		-Archivo de Docker Compose que permita levantar el contendor
 
-Actividad 2 DOCKER
-
-Dockerfile ejecutable
-Archivo de Docker Compose que permita levantar el contendor
-
-Actividad 3 POSTMAN
-
-Colección de postman con
-    -GET
-    -POST
-    -PUT
-    -PATCH
-    -DELETE
+	Curso Rest APIs
+		-Screenshot de variables de ambiente
+		-Colección de postman con
+			-GET
+			-POST
+			-PUT
+			-PATCH
+			-DELETE
 	
-Actividad 4 Serverless
-
-	-Crear Lambda
-	-Vincular con API Gateway
-	-Generar Regla en CloudWatch 
+	Curso Serverless
+		-Crear Lambda
+		-Vincular con API Gateway
+		-Generar Regla en CloudWatch 
+		
+	Curso Kafka
+		-Consola de Consumer
+		-Consola de Producer
+		-Particiones del Tópico con --describe
+		
+	Curso Mongo
+		-Colecciones exportadas (customers, films y stores)
+		-find a films con query selector
+		-update a stores con query selector
+		-insert a customers
