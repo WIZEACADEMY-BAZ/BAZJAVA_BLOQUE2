@@ -6,4 +6,4 @@
 ##### EVIDENCIA 002 - EJECUCIÓN LOGIN
 ![POO_002](/Estefania_PonceDeLeon_Rosas/Entregable%202/Evidencias/POO/002_login.png)
 ##### EVIDENCIA 003 - VARIABLES DE ENTORNO USADAS EN LAS EJECUCIONES
-![POO_003](/Estefgiania_PonceDeLeon_Rosas/Entregable%202/Evidencias/POO/003_environment_variables.png)
+![POO_003](/Estefania_PonceDeLeon_Rosas/Entregable%202/Evidencias/POO/003_environment_variables.png)
