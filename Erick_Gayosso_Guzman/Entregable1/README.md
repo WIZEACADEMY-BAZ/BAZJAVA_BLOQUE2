@@ -3,6 +3,12 @@ Directorio de entregas de Erick Gayosso Guzman
 >Entregable 1
     -Curso de git
         >ScreenShot
+            >git add - git status
+            >git branch
+            >git commit
+            >git push
+            >pull request
+
     -Microservices
         > app.py
         > Dockerfile
@@ -12,10 +18,11 @@ Directorio de entregas de Erick Gayosso Guzman
         > ScreenShot
         > Collection Postman
     -Serveless
-        >ScreenShot Lamda
-        >ScreenShot ApiGateway
-        >ScreenShot Rule
-        >ScreenShot CloudWatch
+        >ScreenShot 
+            >Lamda
+            >ApiGateway
+            >Rule
+            >CloudWatch
     -Kafka
         >Producer
         >Consumer
