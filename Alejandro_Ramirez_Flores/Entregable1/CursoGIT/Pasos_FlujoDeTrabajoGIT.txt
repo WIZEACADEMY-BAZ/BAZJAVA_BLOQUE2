@@ -27,15 +27,17 @@ Paso N.6. Crear archivo README.dm (contenido variado):
 Paso N.7. Realizar el flujo de trabajo en git (Pull Request):
 
   -Hacer cambios de archivos y directorios
-  -Agregar los cambios (git add):
-     git add . 
-      o
-     git -A 
-  -Hacer los commits:
-     git commit -m "Agregar Screenshots"
-  -subir los cambios al repositorio remoto (git push):
-     git push origin Alejandro_Ramirez_Entregable1
-  - si hay cambios de archivos y directorios regresar al Paso N.7
+   -Muestra el estado del directorio de trabajo y el area del entorno de ensayo.
+     git status
+   -Agregar los cambios (git add):
+      git add . 
+       o
+      git -A 
+   -Hacer los commits:
+      git commit -m "Agregar Screenshots"
+   -subir los cambios al repositorio remoto (git push):
+      git push origin Alejandro_Ramirez_Entregable1
+   - si hay cambios de archivos y directorios regresar al Paso N.7
 
 
    
