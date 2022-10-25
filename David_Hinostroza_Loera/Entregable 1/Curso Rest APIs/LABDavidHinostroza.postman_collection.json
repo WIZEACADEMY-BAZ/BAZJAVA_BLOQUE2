@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "697f5a3e-b1fb-4c9e-ad4a-acfe98dba54c",
+		"name": "LABDavidHinostroza",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Request",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}{{endpoint_users}}{{id_user}}",
+					"host": [
+						"{{host}}{{endpoint_users}}{{id_user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}{{endpoint_users}}",
+					"host": [
+						"{{host}}{{endpoint_users}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion resident\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}{{endpoint_users}}{{id_user}}",
+					"host": [
+						"{{host}}{{endpoint_users}}{{id_user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patch Request",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"morpheus\",\r\n    \"job\": \"zion leader\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}{{endpoint_users}}{{id_user}}",
+					"host": [
+						"{{host}}{{endpoint_users}}{{id_user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}{{endpoint_users}}{{id_user}}",
+					"host": [
+						"{{host}}{{endpoint_users}}{{id_user}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "https://reqres.in/",
+			"type": "default"
+		},
+		{
+			"key": "endpoint_users",
+			"value": "api/users/",
+			"type": "default"
+		},
+		{
+			"key": "id_user",
+			"value": "2",
+			"type": "default"
+		}
+	]
+}
