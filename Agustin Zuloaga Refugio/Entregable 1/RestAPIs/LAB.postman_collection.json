@@ -12,16 +12,16 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{dato}}/post?User=30",
+					"raw": "{{url}}/post?editUser=30",
 					"host": [
-						"{{dato}}"
+						"{{url}}"
 					],
 					"path": [
 						"post"
 					],
 					"query": [
 						{
-							"key": "User",
+							"key": "editUser",
 							"value": "30"
 						}
 					]
@@ -30,21 +30,21 @@
 			"response": []
 		},
 		{
-			"name": "jsonPut",
+			"name": "PUT",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{jsonPut}}/put?User=58",
+					"raw": "{{url}}/put?updateUser=58",
 					"host": [
-						"{{jsonPut}}"
+						"{{url}}"
 					],
 					"path": [
 						"put"
 					],
 					"query": [
 						{
-							"key": "User",
+							"key": "updateUser",
 							"value": "58"
 						}
 					]
@@ -106,16 +106,16 @@
 				"method": "PATCH",
 				"header": [],
 				"url": {
-					"raw": "{{Patch}}/patch?User=33",
+					"raw": "{{url}}/patch?ModificationsUser=33",
 					"host": [
-						"{{Patch}}"
+						"{{url}}"
 					],
 					"path": [
 						"patch"
 					],
 					"query": [
 						{
-							"key": "User",
+							"key": "ModificationsUser",
 							"value": "33"
 						}
 					]
@@ -124,23 +124,17 @@
 			"response": []
 		},
 		{
-			"name": "New Request Copy 2",
+			"name": "https://wrchwzrqmb.execute-api.us-east-1.amazonaws.com/prod/",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{base_url}}/get?user=20",
+					"raw": "{{host}}/{{stage}}",
 					"host": [
-						"{{base_url}}"
+						"{{host}}"
 					],
 					"path": [
-						"get"
-					],
-					"query": [
-						{
-							"key": "user",
-							"value": "20"
-						}
+						"{{stage}}"
 					]
 				}
 			},
@@ -179,18 +173,18 @@
 			"type": "string"
 		},
 		{
-			"key": "dato",
+			"key": "url",
 			"value": "http://httpbin.org",
 			"type": "string"
 		},
 		{
-			"key": "Patch",
-			"value": "http://httpbin.org/",
+			"key": "host",
+			"value": "https://wrchwzrqmb.execute-api.us-east-1.amazonaws.com",
 			"type": "string"
 		},
 		{
-			"key": "jsonPut",
-			"value": "http://httpbin.org",
+			"key": "stage",
+			"value": "prod",
 			"type": "string"
 		}
 	]
