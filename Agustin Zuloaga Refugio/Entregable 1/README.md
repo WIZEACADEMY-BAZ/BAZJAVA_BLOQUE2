@@ -1,4 +1,7 @@
-# Capstone project | BAZ JAVA Bloque 2
+Curso Git >Screenshot
 
-El repositorio actual tiene como proposito documentar y guardar un historial de entregas 
-y retro-alimentaciones para este Bloque 2 del bootcamp de `Wizeline Academy`.
+Microservicios >Dockerfile >requirements.txt >docker-compose.yml 
+>app.py RestAPIs > Captura variables globales > Coleccion  Serverless >
+Caputras de pantalla de cloudwatch, lambda, apigateway y reglas Kafka >
+Captura de pantallas del productor y consumidor junto con el describe del topic 
+MongoDB >Captura de insert
