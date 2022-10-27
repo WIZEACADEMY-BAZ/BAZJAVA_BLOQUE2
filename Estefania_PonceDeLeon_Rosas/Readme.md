@@ -41,3 +41,8 @@
 
 ##### Genericos - EVIDENCIA 001 | Get Account by User
 ![Gen_001](/Estefania_PonceDeLeon_Rosas/Entregable%202/Evidencias/Genericos/001%20getAccountsByUser.png)
+
+
+#### 4. Clase (Funcional)
+##### Funcional - EVIDENCIA 001 | Get Accounts Group By Type
+![FUN_001](/Estefania_PonceDeLeon_Rosas/Entregable%202/Evidencias/Funcional/001%20getAccountsGroupByType.png)

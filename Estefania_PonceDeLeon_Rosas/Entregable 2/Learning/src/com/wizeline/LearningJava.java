@@ -25,6 +25,13 @@ import java.util.logging.Logger;
 
 import com.wizeline.utils.Utils;
 
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.function.Function;
+
 public class LearningJava extends Thread{
 
     private static final Logger LOGGER = Logger.getLogger(LearningJava.class.getName());
@@ -33,6 +40,8 @@ public class LearningJava extends Thread{
     private static String responseTextThread = "";
     private ResponseDTO response;
     private static String textThread = "";
+
+
 
     /*public static void main(String[] args) {
         System.out.println("Hello world! I am your Java friend");
@@ -312,6 +321,45 @@ public class LearningJava extends Thread{
                    }
                }
                JSONArray json = new JSONArray(accountsFiltered);
+               responseText = json.toString();
+               exchange.getResponseHeaders().add("Content-type", "application/json");
+               exchange.sendResponseHeaders(200, responseText.getBytes().length);
+           } else {
+               /** 405 Method Not Allowed */
+               exchange.sendResponseHeaders(405, -1);
+           }
+           OutputStream output = exchange.getResponseBody();
+           Instant finalDeEjecucion = Instant.now();
+           /**
+            * Always remember to close the resources you open.
+            * Avoid memory leaks
+            */
+           LOGGER.info("LearningJava - Cerrando recursos ...");
+           String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+           LOGGER.info("Tiempo de respuesta: ".concat(total));
+           output.write(responseText.getBytes());
+           output.flush();
+           output.close();
+           exchange.close();
+       }));
+
+       // Consultar todas las cuentas y agruparlas por su tipo utilizando Programación Funcional
+       server.createContext("/api/getAccountsGroupByType", (exchange -> {
+           LOGGER.info(msgProcPeticion);
+           Instant inicioDeEjecucion = Instant.now();
+           BankAccountBO bankAccountBO = new BankAccountBOImpl();
+           String responseText = "";
+           /** Validates the type of http request  */
+           if ("GET".equals(exchange.getRequestMethod())) {
+               LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
+               List<BankAccountDTO> accounts = bankAccountBO.getAccounts();
+
+               // Aqui implementaremos la programación funcional
+               Map<String, List<BankAccountDTO>> groupedAccounts;
+               Function<BankAccountDTO, String> groupFunction = (account) -> account.getAccountType().toString();
+               groupedAccounts = accounts.stream().collect(Collectors.groupingBy(groupFunction));
+
+               JSONObject json = new JSONObject(groupedAccounts);
                responseText = json.toString();
                exchange.getResponseHeaders().add("Content-type", "application/json");
                exchange.sendResponseHeaders(200, responseText.getBytes().length);
