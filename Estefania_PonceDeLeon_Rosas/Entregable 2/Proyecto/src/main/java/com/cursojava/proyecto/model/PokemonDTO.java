@@ -2,6 +2,7 @@ package com.cursojava.proyecto.model;
 
 import com.cursojava.proyecto.Enum.Tipo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class PokemonDTO {
     private Optional<PokemonDTO> evolucion;
 
     private Optional<LocalDateTime> lastTraning;
+
+    private Optional<String> date;
 
     public String getNombre() {
         return nombre;
@@ -60,6 +63,10 @@ public class PokemonDTO {
     public void setLastTraning(Optional<LocalDateTime> lastTraning) {
         this.lastTraning = lastTraning;
     }
+
+    public Optional<String> getDate() { return date; }
+
+    public void setDate(Optional<String> date) { this.date = date; }
 
     @Override
     public String toString() {

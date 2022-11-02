@@ -5,11 +5,9 @@ import com.cursojava.proyecto.model.ErrorDTO;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.repository.PokemonDAO;
-import com.cursojava.proyecto.repository.PokemonDAOImpl;
 import com.cursojava.proyecto.utils.Utils;
 import com.cursojava.proyecto.utils.exceptions.InvalidFormatDatePersonalException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AliasFor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -24,43 +22,36 @@ import java.util.logging.Logger;
 public class PokemonServiceImpl implements PokemonService {
 
     private static final Logger LOGGER = Logger.getLogger(PokemonServiceImpl.class.getName());
-    private static final String STATUS_OK = "OK000";
 
     @Autowired
     PokemonDAO pokemonDao;
     @Override
-    public ResponseDTO createPokemon(String nombre, String sonido, Tipo tipo1, Tipo tipo2, PokemonDTO evolucion, String lastTranning) {
+    public ResponseDTO createPokemon(PokemonDTO pokemon) {
         LOGGER.info("Inicia procesamiento en capa de negocio");
         ResponseDTO response = new ResponseDTO();
-        String resp;
-        if (Utils.validateNullValue(nombre) && Utils.validateNullValue(tipo1.toString()) && Utils.isSoundValid(sonido)) {
+        Utils<String> stringValidation=new Utils<String>();
+        if (stringValidation.validateNullValue(Optional.of(pokemon.getNombre())) &&
+                stringValidation.validateNullValue(Optional.of(pokemon.getTipo1().toString())) &&
+                Utils.isSoundValid(pokemon.getSonido())) {
             LocalDate tranning = null;
             LocalDateTime tranningDateTime = null;
-            if (Utils.validateNullValue(lastTranning)){
-                if (Utils.isDateTimeValid(lastTranning)) {
+            if (pokemon.getDate().isPresent()){
+                if (Utils.isDateTimeValid(pokemon.getDate().get())) {
                     DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    tranning = LocalDate.parse(lastTranning, dateformatter);
+                    tranning = LocalDate.parse(pokemon.getDate().get(), dateformatter);
                     tranningDateTime = tranning.atStartOfDay();
+                    pokemon.setLastTraning(Optional.of(tranningDateTime));
                 }else {
                     String excepcion = "El formato de fecha es incorrecto";
                     LOGGER.severe(excepcion);
                     throw new InvalidFormatDatePersonalException(excepcion);
                 }
             }
-            resp = pokemonDao.createPokemon(nombre, sonido, tipo1, tipo2, evolucion, tranningDateTime);
-            response.setCode(STATUS_OK);
-            response.setStatus(resp);
+            response = pokemonDao.createPokemon(pokemon);
         } else {
-            response.setCode(STATUS_OK);
-            response.setStatus(response.getStatus());
             response.setErrors(new ErrorDTO("ER001", "Error al crear el pokemon"));
         }
         return response;
-    }
-
-    @Override
-    public PokemonDTO getPokemonDetail(String nombre, String sonido, String tipo1, String tipo2, LocalDateTime lastTraning) {
-        return buildPokemon( nombre, sonido, Tipo.valueOf(tipo1), Tipo.valueOf(tipo2), null, lastTraning);
     }
 
     @Override

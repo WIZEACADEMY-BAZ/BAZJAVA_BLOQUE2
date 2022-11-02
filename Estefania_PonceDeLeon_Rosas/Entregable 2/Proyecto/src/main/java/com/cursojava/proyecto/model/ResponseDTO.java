@@ -3,13 +3,15 @@ package com.cursojava.proyecto.model;
 public class ResponseDTO {
     private String status;
     private String code;
-
+    private ErrorDTO errors;
     public ResponseDTO(){
+        this.status="sucess";
+        this.code="OK000";
+        this.errors= new ErrorDTO();
     }
     public ResponseDTO(String status){
         this.status=status;
     }
-    private ErrorDTO errors = new ErrorDTO();
 
     public String getStatus() {
         return status;

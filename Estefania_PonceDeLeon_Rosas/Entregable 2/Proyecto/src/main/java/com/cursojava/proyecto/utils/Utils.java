@@ -1,17 +1,11 @@
 package com.cursojava.proyecto.utils;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Utils {
+public class Utils <T>{
 
-    public static String getString(String value) {
-        if (value != null) {
-            return value;
-        }
-        return "";
-    }
-
-    public static boolean validateNullValue(String value) {
+    public  boolean validateNullValue(Optional<T> value) {
         if (value != null) {
             return true;
         }

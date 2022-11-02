@@ -16,11 +16,13 @@ import java.util.List;
 
 import com.cursojava.learning2.enums.Country;
 import com.cursojava.learning2.model.BankAccountDTO;
+import org.springframework.stereotype.Service;
 
 /**
  * Class Description goes here.
  * Created by jose.vazquez on 07/09/22
  */
+@Service
 public class BankAccountServiceImpl implements BankAccountService {
     @Override
     public List<BankAccountDTO> getAccounts() {

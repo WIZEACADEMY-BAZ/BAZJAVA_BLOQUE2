@@ -1,19 +1,23 @@
 package com.cursojava.learning2.repository;
 
+import com.cursojava.learning2.model.UserDTO;
+import org.springframework.stereotype.Repository;
+
 import java.io.*;
 import java.util.logging.Logger;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
 
 	private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class.getName());
 
 	@Override
-	public String createUser(String user, String password) {
+	public String crearUsuario(UserDTO usuario) {
 		createFile();
 		LOGGER.info("Inicia procesamiento en capa de acceso de datos");
 		LOGGER.info("Inicia proceso de alta de usuaro en BD...");
 
-		writeFile(user, password);
+		writeFile(usuario.getUser(), usuario.getPassword());
 		
 		LOGGER.info("Alta exitosa");
 		return "success";

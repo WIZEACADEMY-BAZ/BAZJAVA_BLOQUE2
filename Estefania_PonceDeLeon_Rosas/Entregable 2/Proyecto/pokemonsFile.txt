@@ -1,0 +1,7 @@
+Bulbasaur te saluda con un Saaur, su(s) tipo(s) es(son): Planta y Veneno, su último entrenamiento fue: 2022-11-02T00:00
+Charmander te saluda con un Chaar, su(s) tipo(s) es(son): Fuego
+Bulbasaur te saluda con un Saaur, su(s) tipo(s) es(son): Planta y Veneno
+Wartortle te saluda con un Wartortle, su(s) tipo(s) es(son): Agua
+Charmander te saluda con un Chaar, su(s) tipo(s) es(son): Fuego
+Bulbasaur te saluda con un Saaur, su(s) tipo(s) es(son): Planta y Veneno
+Wartortle te saluda con un Wartortle, su(s) tipo(s) es(son): Agua

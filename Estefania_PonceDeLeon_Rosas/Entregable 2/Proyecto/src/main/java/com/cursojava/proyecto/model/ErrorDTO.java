@@ -6,7 +6,8 @@ public class ErrorDTO {
 
 
     public ErrorDTO() {
-        super();
+        this.errorCode="";
+        this.message="";
     }
 
     public ErrorDTO(String errorCode, String message) {

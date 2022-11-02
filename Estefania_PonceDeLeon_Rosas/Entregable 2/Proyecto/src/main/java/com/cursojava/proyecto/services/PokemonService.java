@@ -11,9 +11,7 @@ import java.util.Optional;
 
 
 public interface PokemonService {
-    ResponseDTO createPokemon(String nombre, String sonido, Tipo tipo1, Tipo tipo2, PokemonDTO evolucion, String lastTraning);
-
-    PokemonDTO getPokemonDetail(String nombre, String sonido, String tipo1, String tipo2, LocalDateTime lastTraning);
+    ResponseDTO createPokemon(PokemonDTO pokemon);
     Map<Integer, PokemonDTO> getTeam();
 
 
