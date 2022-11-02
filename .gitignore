@@ -1,4 +1,9 @@
 .DS_Store
+### IntelliJ IDEA ###
+*.iws
+*.ipr
 .idea
 *.iml
+###Output###
 out
+
