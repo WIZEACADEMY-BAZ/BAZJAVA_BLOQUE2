@@ -23,8 +23,6 @@ dependencies {
 	//implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	//implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//compileOnly 'org.projectlombok:lombok'
-	//annotationProcessor 'org.projectlombok:lombok'
 	implementation group: 'org.json', name: 'json', version: '20220320'
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
 	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.72'

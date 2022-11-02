@@ -1,12 +1,9 @@
 package com.cursojava.proyecto.repository;
 
-import com.cursojava.proyecto.model.PokemonDTO;
-import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.Enum.Tipo;
-import org.springframework.stereotype.Repository;
+import com.cursojava.proyecto.model.PokemonDTO;
 
 import java.time.LocalDateTime;
-import java.util.*;
 
 public interface PokemonDAO {
 
