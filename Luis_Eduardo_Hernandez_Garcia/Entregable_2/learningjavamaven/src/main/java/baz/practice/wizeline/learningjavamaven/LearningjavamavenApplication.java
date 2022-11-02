@@ -1,12 +1,15 @@
 package baz.practice.wizeline.learningjavamaven;
 
-import com.wizeline.model.BankAccountDTO;
-import com.wizeline.model.ResponseDTO;
-import com.wizeline.model.UserDTO;
-import com.wizeline.service.BankAccountBO;
-import com.wizeline.service.BankAccountBOImpl;
-import com.wizeline.service.UserBO;
-import com.wizeline.service.UserBOImpl;
+import baz.practice.wizeline.learningjavamaven.config.EndpointBean;
+import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
+import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
+import baz.practice.wizeline.learningjavamaven.model.UserDTO;
+import baz.practice.wizeline.learningjavamaven.service.BankAccountBO;
+import baz.practice.wizeline.learningjavamaven.service.BankAccountBOImpl;
+import baz.practice.wizeline.learningjavamaven.service.UserBO;
+import baz.practice.wizeline.learningjavamaven.service.UserBOImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -20,10 +23,11 @@ import com.wizeline.DTO.BankAccountDTO;
 import com.wizeline.DTO.ResponseDTO;
 import com.wizeline.DTO.UserDTO;
  */
-import com.wizeline.utils.exceptions.ExceptionGenerica;
+import baz.practice.wizeline.learningjavamaven.utils.exceptions.ExceptionGenerica;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.context.annotation.Bean;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -42,8 +46,8 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static com.wizeline.utils.Utils.isDateFormatValid;
-import static com.wizeline.utils.Utils.isPasswordValid;
+import static baz.practice.wizeline.learningjavamaven.utils.Utils.isDateFormatValid;
+import static baz.practice.wizeline.learningjavamaven.utils.Utils.isPasswordValid;
 
 @SpringBootApplication
 public class LearningjavamavenApplication extends Thread {
@@ -54,6 +58,14 @@ public class LearningjavamavenApplication extends Thread {
 	private static String responseTextThread = "";
 	private ResponseDTO response;
 	private static String textThread = "";
+
+	@Autowired
+	private EndpointBean endpointBean;
+
+	@Bean
+	public static UserBO userService() {
+		return new UserBOImpl();
+	}
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LearningjavamavenApplication.class, args);
@@ -97,13 +109,23 @@ public class LearningjavamavenApplication extends Thread {
 			String responseText = "";
 			exchange.getRequestBody();
 			if("POST".equals(exchange.getRequestMethod())){
-				LOGGER.info("LearningJava - Procesando peticion HTTP de tipo POST");
-				UserDTO user = new UserDTO();
-				user = user.getParameters(splitQuery(exchange.getRequestURI()));
-				System.out.println(user.getUser() + "\n" + user.getPassword());
+				StringBuilder text = new StringBuilder();
+				try (Scanner scanner = new Scanner(exchange.getRequestBody())) {
+					while(scanner.hasNext()) {
+						text.append(scanner.next());
+					}
+				} catch (Exception e) {
+					LOGGER.severe(e.getMessage());
+					throw new ExceptionGenerica("Fallo al obtener el request del body");
+				}
+				LOGGER.info("LearningJava - Procesando peticion HTTP de tipo POST createUser Normal");
+				ObjectMapper objectMapper = new ObjectMapper();
+				UserDTO user = objectMapper.readValue(text.toString(), UserDTO.class);
+
 				response = createUser(user.getUser(), user.getPassword());
 				JSONObject json = new JSONObject(response);
 				responseText = json.toString();
+				exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8");
 				//exchange.getResponseHeaders().set("contentType", "application/json; charset=UTF-8");
 				exchange.sendResponseHeaders(200, responseText.getBytes().length);
 			}else{

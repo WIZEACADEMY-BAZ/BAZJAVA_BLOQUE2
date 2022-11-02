@@ -1,7 +1,7 @@
-package com.wizeline.utils;
+package baz.practice.wizeline.learningjavamaven.utils;
 
-import com.wizeline.enums.AccountType;
-import com.wizeline.enums.Country;
+import baz.practice.wizeline.learningjavamaven.enums.AccountType;
+import baz.practice.wizeline.learningjavamaven.enums.Country;
 
 import java.util.HashMap;
 import java.util.Map;

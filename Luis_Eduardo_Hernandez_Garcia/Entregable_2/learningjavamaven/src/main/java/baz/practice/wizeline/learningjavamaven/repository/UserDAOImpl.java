@@ -1,4 +1,4 @@
-package com.wizeline.repository;
+package baz.practice.wizeline.learningjavamaven.repository;
 
 import java.io.*;
 import java.util.logging.Logger;

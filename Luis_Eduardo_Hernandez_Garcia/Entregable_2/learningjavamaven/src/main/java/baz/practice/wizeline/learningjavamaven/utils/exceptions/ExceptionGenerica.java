@@ -1,4 +1,4 @@
-package com.wizeline.utils.exceptions;
+package baz.practice.wizeline.learningjavamaven.utils.exceptions;
 
 public class ExceptionGenerica extends RuntimeException {
 

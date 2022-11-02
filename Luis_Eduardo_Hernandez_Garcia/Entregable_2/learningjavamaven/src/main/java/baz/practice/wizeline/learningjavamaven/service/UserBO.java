@@ -1,7 +1,7 @@
-package com.wizeline.service;
+package baz.practice.wizeline.learningjavamaven.service;
 
 //import com.wizeline.DTO.ResponseDTO;
-import com.wizeline.model.ResponseDTO;
+import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
 
 public interface UserBO {
 

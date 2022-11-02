@@ -1,9 +1,9 @@
-package com.wizeline.service;
+package baz.practice.wizeline.learningjavamaven.service;
 
 //import com.wizeline.DTO.BankAccountDTO;
-import com.wizeline.enums.Country;
-import com.wizeline.model.BankAccountDTO;
-import com.wizeline.utils.Utils;
+import baz.practice.wizeline.learningjavamaven.enums.Country;
+import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
+import baz.practice.wizeline.learningjavamaven.utils.Utils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

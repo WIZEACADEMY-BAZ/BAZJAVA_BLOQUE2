@@ -1,6 +1,6 @@
-package com.wizeline.service;
+package baz.practice.wizeline.learningjavamaven.service;
 
-import com.wizeline.model.BankAccountDTO;
+import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
 
 import java.util.List;
 

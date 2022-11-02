@@ -1,15 +1,15 @@
-package com.wizeline.service;
+package baz.practice.wizeline.learningjavamaven.service;
 
 /*import com.wizeline.DAO.UserDAO;
 import com.wizeline.DAO.UserDAOImpl;
 import com.wizeline.DTO.ErrorDTO;
 import com.wizeline.DTO.ResponseDTO;
  */
-import com.wizeline.model.ErrorDTO;
-import com.wizeline.model.ResponseDTO;
-import com.wizeline.repository.UserDAO;
-import com.wizeline.repository.UserDAOImpl;
-import com.wizeline.utils.Utils;
+import baz.practice.wizeline.learningjavamaven.model.ErrorDTO;
+import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
+import baz.practice.wizeline.learningjavamaven.repository.UserDAO;
+import baz.practice.wizeline.learningjavamaven.repository.UserDAOImpl;
+import baz.practice.wizeline.learningjavamaven.utils.Utils;
 
 import java.util.logging.Logger;
 

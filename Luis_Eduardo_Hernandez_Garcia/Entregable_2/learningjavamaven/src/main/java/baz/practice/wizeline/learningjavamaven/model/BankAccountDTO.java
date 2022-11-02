@@ -1,6 +1,6 @@
-package com.wizeline.model;
+package baz.practice.wizeline.learningjavamaven.model;
 
-import com.wizeline.enums.AccountType;
+import baz.practice.wizeline.learningjavamaven.enums.AccountType;
 
 import java.time.LocalDateTime;
 

@@ -1,4 +1,4 @@
-package com.wizeline.model;
+package baz.practice.wizeline.learningjavamaven.model;
 
 import java.util.Map;
 

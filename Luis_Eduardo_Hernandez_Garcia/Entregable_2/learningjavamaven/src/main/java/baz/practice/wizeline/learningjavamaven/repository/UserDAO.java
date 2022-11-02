@@ -1,4 +1,4 @@
-package com.wizeline.repository;
+package baz.practice.wizeline.learningjavamaven.repository;
 
 public interface UserDAO {
 
