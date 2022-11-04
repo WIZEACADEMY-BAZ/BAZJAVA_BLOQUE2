@@ -1,5 +1,5 @@
 package com.cursojava.proyecto.utils.funcional;
 
-public interface Batalla <T,U,R>{
-    R simular(T t, U u);
+public interface Batalla <T,U>{
+    U simular(T t, U u);
 }

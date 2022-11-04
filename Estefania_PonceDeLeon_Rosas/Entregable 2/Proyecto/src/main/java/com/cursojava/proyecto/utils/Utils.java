@@ -5,12 +5,10 @@ import java.util.regex.Pattern;
 
 public class Utils <T>{
 
-    public  boolean validateNullValue(Optional<T> value) {
-        if (value != null) {
-            return true;
-        }
-        return false;
+    public boolean isNotNullValue(Optional<T> value) {
+        return (value != null);
     }
+
 
     // Definicion del patron para validar sonido
     /**
