@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "58871982-ce97-462f-876f-da33b6a58486",
+		"name": "Entregable 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16106835"
+	},
+	"item": [
+		{
+			"name": "Entregable2/guardaEstudiantes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODYzODkzNTg0LCJleHAiOjE2Njc4NjQxOTN9.cxQgFjsCNnoti7LnbL1QjYicWiybIoclXVfnE2My1JjI-OQoYnPm4HWjgJ5RiQbGW5BJfu3kxBXxVCaakkHa2w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t\t\"nombre\": \"Adrian\",\r\n\t\t\"apellidoPat\": \"Perez\",\r\n\t\t\"apellidoMat\": \"Luna\",\r\n\t\t\"matricula\": \"APL00001\",\r\n\t\t\"turno\": \"MATUTINO\",\r\n\t\t\"universidad\": \"Tec de Monterrey\",\r\n\t\t\"correo\": \"correodeAdrian\",\r\n\t\t\"semestre\": \"4\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t10,\r\n\t\t\t9,\r\n\t\t\t8,\r\n\t\t\t5\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"Azucena\",\r\n\t\t\"apellidoPat\": \"Montiel\",\r\n\t\t\"apellidoMat\": \"Fierro\",\r\n\t\t\"matricula\": \"AMF00002\",\r\n\t\t\"turno\": \"MATUTINO\",\r\n\t\t\"universidad\": \"Tec de Monterrey\",\r\n\t\t\"correo\": \"azucena@mail.com\",\r\n\t\t\"semestre\": \"5\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t6,\r\n\t\t\t5,\r\n\t\t\t5,\r\n\t\t\t5\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"David\",\r\n\t\t\"apellidoPat\": \"Cortes\",\r\n\t\t\"apellidoMat\": \"Velazquez\",\r\n\t\t\"matricula\": \"DCV00003\",\r\n\t\t\"turno\": \"VESPERTINO\",\r\n\t\t\"universidad\": \"UNAM\",\r\n\t\t\"correo\": \"esuncorreo@lmail.com\",\r\n\t\t\"semestre\": \"1\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t9,\r\n\t\t\t9,\r\n\t\t\t10,\r\n\t\t\t10\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"Brenda\",\r\n\t\t\"apellidoPat\": \"Bautista\",\r\n\t\t\"apellidoMat\": \"Ortega\",\r\n\t\t\"matricula\": \"BBO00004\",\r\n\t\t\"turno\": \"VESPERTINO\",\r\n\t\t\"universidad\": \"UNAM\",\r\n\t\t\"correo\": \"micorreo\",\r\n\t\t\"semestre\": \"8\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t8,\r\n\t\t\t7,\r\n\t\t\t8,\r\n\t\t\t9\r\n\t\t]\r\n\t}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/guardarEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"guardarEstudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/obtenerEstudiantes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODYzOTU4OTM4LCJleHAiOjE2Njc4NjQyNTh9.5pP8vQA9AMh9ItiMKs2TmZ3kh_CCtWKbdU8ktHp_0pLRy4_uiAL3A88f3ibqOa-nAxaVoN7PTN8qg6Xw8P5zmA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/obtenerEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"obtenerEstudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/borrarEstudiantes",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/borrarEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"borrarEstudiantes"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actualizarEstudiante",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"nombre\": \"Brenda\",\r\n\t\t\"apellidoPat\": \"Bautista\",\r\n\t\t\"apellidoMat\": \"Huerta\",\r\n\t\t\"matricula\": \"BBO00004\",\r\n\t\t\"turno\": \"VESPERTINO\",\r\n\t\t\"universidad\": \"UNAM\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t0,\r\n\t\t\t0,\r\n\t\t\t0,\r\n\t\t\t0\r\n\t\t]\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/actualizarEstudiante",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"actualizarEstudiante"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/autenticacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"guest\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/autenticacion",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"autenticacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/consumeRestTemplate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODY0Njk5Mzg0LCJleHAiOjE2Njc4NjQ5OTl9.M0JoC1A6_oyW2YXXwCdp7_bknO-reDh7IFB8ORIsqQb-PNAwJqdLufhhjAJf_VsvN3ZQo3eo1-LypLowcPdXPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/consumeRestTemplate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"consumeRestTemplate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

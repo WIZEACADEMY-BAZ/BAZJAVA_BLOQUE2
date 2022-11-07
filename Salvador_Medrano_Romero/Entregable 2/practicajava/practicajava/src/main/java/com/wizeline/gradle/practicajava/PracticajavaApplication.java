@@ -5,11 +5,18 @@ import java.util.logging.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @ComponentScan("com.wizeline")
 public class PracticajavaApplication extends Thread{
+	
+	@Bean
+	   public RestTemplate getRestTemplate() {
+	      return new RestTemplate();
+	   }
 
 //	@Bean
 //	public static UserService userService() {

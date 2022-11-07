@@ -40,7 +40,7 @@ public class AuthenticationController {
 		try {
 			userDetails = userDetailsService.loadUserByUsername(userDTO.getUser());
 		}catch (UsernameNotFoundException e) {
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Usuario no encontrado");
 		}
 		Claims claims = Jwts.claims().setSubject(userDTO.getUser());
 		claims.put("username", userDTO.getUser());

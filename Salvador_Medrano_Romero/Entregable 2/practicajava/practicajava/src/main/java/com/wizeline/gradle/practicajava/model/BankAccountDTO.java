@@ -11,7 +11,7 @@ public class BankAccountDTO {
 
 	private long accountNumber;
 	private String accountName;
-	private String user;
+	private String userName;
 	private double accountBalance;
 	private AccountType accountType;
 	private String country;
@@ -36,11 +36,11 @@ public class BankAccountDTO {
 	}
 
 	public String getUser() {
-		return user;
+		return userName;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.userName = user;
 	}
 
 	public double getAccountBalance() {
