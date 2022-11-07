@@ -9,31 +9,25 @@ import com.cursojava.proyecto.utils.Utils;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import javax.crypto.*;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
 import java.net.URL;
-import java.security.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.function.Predicate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
 public class PokemonServiceImpl implements PokemonService {
-
-    private static final Logger LOGGER = Logger.getLogger(PokemonServiceImpl.class.getName());
 
     @Autowired
     PokemonRepository pokemonRepository;
@@ -112,9 +106,11 @@ public class PokemonServiceImpl implements PokemonService {
         class PokeInner {
             PokeApiPokemon getContent(){
                 ObjectMapper objectMapper = new ObjectMapper();
+                RestTemplate restTemplates = new RestTemplate();
                 PokeApiPokemon pokemon;
                 try {
-                    pokemon=objectMapper.readValue(new URL(url), PokeApiPokemon.class);
+                    String value=restTemplates.getForObject(url, String.class);
+                    pokemon=objectMapper.readValue(value, PokeApiPokemon.class);
                 } catch (StreamReadException e) {
                     throw new RuntimeException(e);
                 } catch (DatabindException e) {
