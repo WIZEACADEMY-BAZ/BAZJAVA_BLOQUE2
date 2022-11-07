@@ -6,9 +6,9 @@ import java.util.Collection;
 
 public interface TipoService {
 
-    public void initTypes();
-    public void deleteAll();
+    void initTypes();
+    void deleteAll();
 
-    public Collection<TipoDTO> getAll();
+    Collection<TipoDTO> getAll();
 
 }

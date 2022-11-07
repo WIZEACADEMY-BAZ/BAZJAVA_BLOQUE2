@@ -4,7 +4,6 @@ import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 

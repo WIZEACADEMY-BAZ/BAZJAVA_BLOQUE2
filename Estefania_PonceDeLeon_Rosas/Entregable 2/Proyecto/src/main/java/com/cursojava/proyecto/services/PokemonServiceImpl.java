@@ -6,6 +6,7 @@ import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.model.TipoDTO;
 import com.cursojava.proyecto.repository.PokemonRepository;
 import com.cursojava.proyecto.utils.Utils;
+import com.cursojava.proyecto.utils.exceptions.InvalidFormatDatePersonalException;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,10 +47,14 @@ public class PokemonServiceImpl implements PokemonService {
 
 
         if(utilsDate.isNotNullValue(Optional.ofNullable(pokemon.getLastTraning()))){
-            DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-            LocalDate temp = LocalDate.parse(pokemon.getDate(), dateformatter);
-            LocalDateTime lastTranning = temp.atStartOfDay();
-            nuevoPokemon.setLastTraning(lastTranning);
+            try{
+                DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                LocalDate temp = LocalDate.parse(pokemon.getDate(), dateformatter);
+                LocalDateTime lastTranning = temp.atStartOfDay();
+                nuevoPokemon.setLastTraning(lastTranning);
+            }catch (Exception e) {
+                throw new InvalidFormatDatePersonalException("La fecha viene en formato incorrecto...");
+            }
         }
 
         this.pokemonRepository.save(nuevoPokemon);
