@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.wizeline.entregabledavid.EntregabledavidApplication;
@@ -20,6 +22,7 @@ import com.wizeline.entregabledavid.model.BankAccountDTO;
 import com.wizeline.entregabledavid.repository.BankingAccountRepository;
 
 import static com.wizeline.entregabledavid.utils.Utils.*;
+import static com.wizeline.entregabledavid.utils.Utils.randomBalance;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
@@ -87,6 +90,33 @@ public class BankAccountServiceImpl implements BankAccountService {
         Query query = new Query();
         query.addCriteria(Criteria.where("user").is(user));
         return mongoTemplate.find(query, BankAccountDTO.class);
+    }
+
+    @Override
+    public BankAccountDTO putAccountByUser(String user) {
+        //Buscamos el registro de tipo BankAccountDTO
+        //que cumple con la criteria de que el userName haga match
+        //con la variable user para actualizar accountBalance
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+
+        BankAccountDTO bankAccountDTO = mongoTemplate.findOne(query, BankAccountDTO.class);
+        Optional<BankAccountDTO> bankAccountDTOOptional = Optional.ofNullable(bankAccountDTO);
+        if (bankAccountDTOOptional.isPresent()) {
+            LOGGER.info("Balance anterior: " + bankAccountDTO.getAccountBalance());
+            bankAccountDTO.setAccountBalance(randomBalance());
+            LOGGER.info("Balance actualizado: " + bankAccountDTO.getAccountBalance());
+            Update update = new Update();
+            update.set("accountBalance", bankAccountDTO.getAccountBalance());
+
+            mongoTemplate.updateFirst(query, update, BankAccountDTO.class);
+
+            return mongoTemplate.findOne(query, BankAccountDTO.class);
+        }
+        else {
+            LOGGER.info("bankAccountDTO " + bankAccountDTO);
+            return bankAccountDTO;
+        }
     }
 
     // Creación de tipo de dato BankAccount

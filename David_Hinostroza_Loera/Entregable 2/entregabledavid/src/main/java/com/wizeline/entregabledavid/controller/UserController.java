@@ -31,26 +31,6 @@ public class UserController {
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
-/**
-    @GetMapping(value = "/login", produces = "application/json")
-    public ResponseEntity<ResponseDTO> login(@RequestParam String user, @RequestParam String password) {
-        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET - Starting...");
-        ResponseDTO response = new ResponseDTO();
-        response = userService.login(user, password);
-        LOGGER.info("Login - completed");
-        return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/createUser", produces = "application/json")
-    public ResponseEntity<ResponseDTO> createUser(@RequestBody UserDTO request) {
-        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo POST - Starting...");
-        ResponseDTO response = new ResponseDTO();
-        response = userService.createUser(request.getUser(), request.getPassword());
-        LOGGER.info("Create user - completed");
-        return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
-    }
-**/
-
 
     @GetMapping("/login")
     public ResponseEntity<ResponseDTO> loginUser(@RequestParam String user, @RequestParam String password){

@@ -21,8 +21,8 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static com.wizeline.entregabledavid.utils.Utils.isDateFormatValid;
-import static com.wizeline.entregabledavid.utils.Utils.isPasswordValid;
+import static com.wizeline.entregabledavid.utils.Utils.*;
+
 @RequestMapping("/api")
 @RestController
 public class BankingAccountController {
@@ -101,7 +101,6 @@ public class BankingAccountController {
         Instant inicioDeEjecucion = Instant.now();
         LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
         List<BankAccountDTO> accounts = bankAccountService.getAccountByUser(user);
-
         Instant finalDeEjecucion = Instant.now();
 
         LOGGER.info("LearningJava - Cerrando recursos ...");
@@ -147,6 +146,30 @@ public class BankingAccountController {
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHelloGuest() {
         return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping(value = "/putAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> putAccountByUser(@RequestParam String user) {
+        LOGGER.info(msgProcPeticion);
+        Instant inicioDeEjecucion = Instant.now();
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
+        BankAccountDTO account = bankAccountService.putAccountByUser(user);
+        if (account == null){
+            return  new ResponseEntity<>("No existe el usuario", responseHeaders, HttpStatus.OK);
+        }
+        String balanceCifrado = cifrarBalance(account.getAccountBalance());
+        account.setAccountBalanceCifrado(balanceCifrado);
+        Instant finalDeEjecucion = Instant.now();
+
+        LOGGER.info("LearningJava - Cerrando recursos ...");
+        String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+        LOGGER.info("Tiempo de respuesta: ".concat(total));
+
+        LOGGER.info(String.valueOf(new ResponseEntity<>(account, responseHeaders, HttpStatus.OK)));
+        return  new ResponseEntity<>(account, responseHeaders, HttpStatus.OK);
     }
 
     private BankAccountDTO getAccountDetails(String user, String lastUsage) {

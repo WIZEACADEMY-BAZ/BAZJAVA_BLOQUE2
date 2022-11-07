@@ -2,7 +2,12 @@ package com.wizeline.entregabledavid.utils;
 
 import com.wizeline.entregabledavid.enums.AccountType;
 import com.wizeline.entregabledavid.enums.Country;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -83,5 +88,49 @@ public class Utils {
         countries.put(Country.MX, "Mexico");
         countries.put(Country.FR, "France");
         return countries.get(country);
+    }
+
+    public static String cifrarBalance(Double balance){
+        // Aquí implementaremos nuestro código de cifrar nuestras cuentas y regresarselas al usuario de manera cifrada
+        byte[] keyBytes = new byte[]{
+                0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+        };
+        byte[] ivBytes = new byte[]{
+                0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+        };
+        Security.addProvider(new BouncyCastleProvider());
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "DES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = null;
+        try {
+            cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+            // Cifraremos solamente el nombre y el country (pueden cifrar todos los parámetros que gusten)
+
+            byte[] arrBalance = balance.toString().getBytes();
+            byte [] accountBalanceCipher = new byte[cipher.getOutputSize(arrBalance.length)];
+            int ctBalanceLength = cipher.update(arrBalance, 0, arrBalance.length, accountBalanceCipher, 0);
+            ctBalanceLength += cipher.doFinal(accountBalanceCipher, ctBalanceLength);
+            String balanceCifrado = accountBalanceCipher.toString();
+            return balanceCifrado;
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (ShortBufferException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

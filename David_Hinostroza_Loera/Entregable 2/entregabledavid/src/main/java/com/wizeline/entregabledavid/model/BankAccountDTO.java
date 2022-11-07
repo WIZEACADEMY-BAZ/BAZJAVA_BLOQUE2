@@ -12,13 +12,32 @@ public class BankAccountDTO {
     private long accountNumber;
     private String accountName;
     private String user;
-    private double accountBalance;
+    private Double accountBalance;
     private AccountType accountType;
     private String country;
     private boolean accountActive;
     private LocalDateTime creationDate;
 
     private LocalDateTime lastUsage;
+
+    private String accountBalanceCifrado;
+
+    public BankAccountDTO() {
+
+    }
+
+    public BankAccountDTO(long accountNumber, String accountName, String user, Double accountBalance, AccountType accountType, String country, boolean accountActive, LocalDateTime creationDate, LocalDateTime lastUsage, String accountBalanceCifrado) {
+        this.accountNumber = accountNumber;
+        this.accountName = accountName;
+        this.user = user;
+        this.accountBalance = accountBalance;
+        this.accountType = accountType;
+        this.country = country;
+        this.accountActive = accountActive;
+        this.creationDate = creationDate;
+        this.lastUsage = lastUsage;
+        this.accountBalanceCifrado = accountBalanceCifrado;
+    }
 
     public long getAccountNumber() {
         return accountNumber;
@@ -44,11 +63,11 @@ public class BankAccountDTO {
         this.user = user;
     }
 
-    public double getAccountBalance() {
+    public Double getAccountBalance() {
         return accountBalance;
     }
 
-    public void setAccountBalance(double accountBalance) {
+    public void setAccountBalance(Double accountBalance) {
         this.accountBalance = accountBalance;
     }
 
@@ -90,5 +109,13 @@ public class BankAccountDTO {
 
     public void setLastUsage(LocalDateTime lastUsage) {
         this.lastUsage = lastUsage;
+    }
+
+    public String getAccountBalanceCifrado() {
+        return accountBalanceCifrado;
+    }
+
+    public void setAccountBalanceCifrado(String accountBalanceCifrado) {
+        this.accountBalanceCifrado = accountBalanceCifrado;
     }
 }

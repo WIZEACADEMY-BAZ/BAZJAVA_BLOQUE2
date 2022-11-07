@@ -23,4 +23,6 @@ public interface BankAccountService {
     void deleteAccounts();
 
     List<BankAccountDTO> getAccountByUser(String user);
+
+    BankAccountDTO putAccountByUser(String user);
 }
