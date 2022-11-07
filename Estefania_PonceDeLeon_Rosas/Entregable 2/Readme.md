@@ -41,3 +41,7 @@ Los puntos que se abarcaron completamente son los siguientes:
 ## * Escritura en MongoDB
 ## * Actualización en MongoDB
 ## * Borrado en MongoDB
+## * Exponer un endpoint que genere un token de autenticación para dos tipos de usuarios (roles)
+## * Segurizar dos endpoints con acceso basado en roles protegidos con el token generado
+## * Exponer la información del proyecto mediante el endpoint Info de Actuator
+## * Exponer tres endpoints de Actuator (e.g. metrics, mappings, loggers)

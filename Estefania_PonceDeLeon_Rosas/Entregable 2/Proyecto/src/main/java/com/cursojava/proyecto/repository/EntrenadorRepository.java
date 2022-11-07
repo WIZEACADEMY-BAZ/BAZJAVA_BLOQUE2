@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface EntrenadorRepository extends MongoRepository<EntrenadorDTO, Long> {
 
     EntrenadorDTO findEntrenadorDTOByNombreAndPassword (String nombre, String password);
+    EntrenadorDTO findFirstByNombreAndPassword(String nombre, String password);
     void deleteEntrenadorDTOByNombreAndClaveDeSeguridad(String nombre, String claveDeSeguridad);
 
 }

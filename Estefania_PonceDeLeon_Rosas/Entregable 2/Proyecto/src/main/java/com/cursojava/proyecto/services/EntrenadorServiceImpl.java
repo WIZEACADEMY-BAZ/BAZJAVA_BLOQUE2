@@ -28,7 +28,6 @@ public class EntrenadorServiceImpl implements EntrenadorService{
     @Autowired
     MongoTemplate mongoTemplate;
 
-
     @Override
     public void registrarDatos(EntrenadorDTO entrenador) {
         mongoTemplate.save(entrenador);
@@ -36,7 +35,7 @@ public class EntrenadorServiceImpl implements EntrenadorService{
 
     @Override
     public EntrenadorDTO consultarInformacion(EntrenadorDTO entrenador) {
-        return entrenadorRepository.findEntrenadorDTOByNombreAndPassword(entrenador.getNombre(),entrenador.getPassword());
+        return entrenadorRepository.findFirstByNombreAndPassword(entrenador.getNombre(),entrenador.getPassword());
     }
     @Override
     public void registrarEquipo(EntrenadorDTO entrenador, PokemonDTO[] equipo) {
