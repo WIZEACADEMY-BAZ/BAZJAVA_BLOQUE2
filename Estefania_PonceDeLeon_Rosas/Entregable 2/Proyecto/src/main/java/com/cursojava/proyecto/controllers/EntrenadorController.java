@@ -7,8 +7,10 @@ import com.cursojava.proyecto.services.EntrenadorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collection;
+
 @RestController
-@RequestMapping("pokemons/perfil")
+@RequestMapping("entrenador")
 public class EntrenadorController {
 
     @Autowired
@@ -45,5 +47,9 @@ public class EntrenadorController {
         return new ResponseDTO();
     }
 
+    @GetMapping(value = "consultacifrada",produces = "application/json")
+    Collection<EntrenadorDTO> consultaCifrada(){
+        return this.entrenadorService.getEncryptedTrainers();
+    }
 
 }

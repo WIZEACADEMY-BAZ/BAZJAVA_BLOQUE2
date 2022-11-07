@@ -4,11 +4,15 @@ public class ResponseDTO {
     private String status;
     private String code;
     private ErrorDTO errors;
+
+    private String message;
+
     public ResponseDTO(){
         this.status="sucess";
         this.code="OK000";
         this.errors= new ErrorDTO();
     }
+
     public ResponseDTO(String status){
         this.status=status;
     }
@@ -27,6 +31,14 @@ public class ResponseDTO {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public ErrorDTO getErrors() {

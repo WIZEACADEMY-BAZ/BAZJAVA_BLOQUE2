@@ -1,6 +1,7 @@
 package com.cursojava.proyecto.controllers;
 
 import com.cursojava.proyecto.model.ErrorDTO;
+import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.model.TipoDTO;
@@ -8,12 +9,19 @@ import com.cursojava.proyecto.services.PokemonService;
 import com.cursojava.proyecto.utils.Utils;
 import com.cursojava.proyecto.utils.funcional.Batalla;
 import com.cursojava.proyecto.utils.threads.EntrenarPokemons;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.net.MalformedURLException;
+import java.security.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -31,8 +39,8 @@ public class PokemonController {
     }
 
     @GetMapping(value = "getAllPokemons")
-    Collection<PokemonDTO> getAllPokemons(){
-        return this.pokemonService.getAll();
+    List<PokemonDTO> getAllPokemons(){
+        return this.pokemonService.getAllPokemons();
     }
     @PostMapping(value = "entrenar3Pokemons")
     public ResponseEntity<ResponseDTO> entrenarTresPokemon(@RequestBody PokemonDTO[] pokemons) {
@@ -96,4 +104,16 @@ public class PokemonController {
         this.pokemonService.deleteAll();
         return new ResponseDTO();
     }
+
+    @GetMapping(value = "externa/api", produces = "application/json")
+    public PokeApiPokemon json_apiexterna(@RequestParam(required = true) String url) {
+        return this.pokemonService.jsonApiExterna(url);
+    }
+
+    @GetMapping(value = "total-by-type", produces = "application/json")
+    public ResponseDTO getTotalByType(@RequestParam String type){
+        return this.pokemonService.getTotalByType(type);
+    }
+
+
 }

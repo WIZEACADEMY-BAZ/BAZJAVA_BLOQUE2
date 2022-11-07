@@ -1,22 +1,34 @@
 package com.cursojava.proyecto.services;
 
+import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.model.TipoDTO;
 import com.cursojava.proyecto.repository.PokemonRepository;
 import com.cursojava.proyecto.utils.Utils;
+import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.IOException;
+import java.net.URL;
+import java.security.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class PokemonServiceImpl implements PokemonService {
@@ -31,22 +43,21 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public ResponseDTO createPokemon(PokemonDTO pokemon) {
         PokemonDTO nuevoPokemon=new PokemonDTO();
-        Utils<String> utils =new Utils<>();
         Utils<LocalDateTime> utilsDate =new Utils<>();
-
+        Utils<TipoDTO> utilsTipo =new Utils<>();
         nuevoPokemon.setNombre(pokemon.getNombre());
         nuevoPokemon.setSonido(pokemon.getSonido());
         nuevoPokemon.setTipo1(pokemon.getTipo1());
 
-        if(utils.isNotNullValue(Optional.ofNullable(pokemon.getTipo2().getNombre()))){;
-            nuevoPokemon.setTipo2(pokemon.getTipo2());
-        }
+        if(utilsTipo.isNotNullValue(Optional.ofNullable(pokemon.getTipo2())))
+                nuevoPokemon.setTipo2(pokemon.getTipo2());
+
 
         if(utilsDate.isNotNullValue(Optional.ofNullable(pokemon.getLastTraning()))){
             DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate temp = LocalDate.parse(pokemon.getDate(), dateformatter);
             LocalDateTime lastTranning = temp.atStartOfDay();
-             nuevoPokemon.setLastTraning(lastTranning);
+            nuevoPokemon.setLastTraning(lastTranning);
         }
 
         this.pokemonRepository.save(nuevoPokemon);
@@ -73,10 +84,18 @@ public class PokemonServiceImpl implements PokemonService {
     }
 
     @Override
-    public Collection<PokemonDTO> getAll() {
+    public List<PokemonDTO> getAllPokemons() {
         return pokemonRepository.findAll();
     }
 
+    @Override
+    public ResponseDTO getTotalByType(String type) {
+        List<PokemonDTO> pokemons=pokemonRepository.findAll();
+        Long totalTypes=pokemons.stream().filter(pokemonDTO -> pokemonDTO.getTipo1().getNombre().equals(type))
+                .distinct()
+                .collect(Collectors.toList()).stream().collect(Collectors.counting());
+        return new ResponseDTO("Hay "+totalTypes + " pokemones de tipo "+type + " en total");
+    }
 
     private PokemonDTO buildPokemon(String nombre, String sonido, String tipo1, String tipo2, PokemonDTO evolucion, LocalDateTime lastTraning) {
         PokemonDTO pokemon = new PokemonDTO();
@@ -88,5 +107,26 @@ public class PokemonServiceImpl implements PokemonService {
         return pokemon;
     }
 
+    @Override
+    public PokeApiPokemon jsonApiExterna(String url) {
+        class PokeInner {
+            PokeApiPokemon getContent(){
+                ObjectMapper objectMapper = new ObjectMapper();
+                PokeApiPokemon pokemon;
+                try {
+                    pokemon=objectMapper.readValue(new URL(url), PokeApiPokemon.class);
+                } catch (StreamReadException e) {
+                    throw new RuntimeException(e);
+                } catch (DatabindException e) {
+                    throw new RuntimeException(e);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                return pokemon;
+            }
+        }
+
+        return new PokeInner().getContent();
+    }
 
 }

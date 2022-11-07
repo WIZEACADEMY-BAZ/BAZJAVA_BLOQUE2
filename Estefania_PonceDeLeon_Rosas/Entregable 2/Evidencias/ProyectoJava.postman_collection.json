@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"02-11-2022\",\n  \"movimientos\": []\n}",
+					"raw": "{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -21,12 +21,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/pokemons/createOne",
+					"raw": "http://localhost:8090/pokemons/createOne",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8090",
 					"path": [
 						"pokemons",
 						"createOne"
@@ -41,12 +41,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/getAllPokemons",
+					"raw": "http://localhost:{{port}}/pokemons/getAllPokemons",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"getAllPokemons"
@@ -61,12 +61,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/borrarTodos",
+					"raw": "http://localhost:{{port}}/pokemons/borrarTodos",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"borrarTodos"
@@ -90,15 +90,15 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/pokemons/createThreePokemons",
+					"raw": "http://localhost:{{port}}/pokemons/entrenar3Pokemons",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
-						"createThreePokemons"
+						"entrenar3Pokemons"
 					]
 				}
 			},
@@ -111,7 +111,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n}]",
+					"raw": "[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\" : \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n}]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -119,12 +119,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/pokemons/batalla",
+					"raw": "http://localhost:{{port}}/pokemons/batalla",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"batalla"
@@ -139,12 +139,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/types/getAllTypes",
+					"raw": "http://localhost:{{port}}/pokemons/types/getAllTypes",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"types",
@@ -160,12 +160,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/types/deleteAllTypes",
+					"raw": "http://localhost:{{port}}/pokemons/types/deleteAllTypes",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"types",
@@ -181,12 +181,12 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/types/init",
+					"raw": "http://localhost:{{port}}/pokemons/types/init",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"pokemons",
 						"types",
@@ -203,7 +203,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Arturo\",\n  \"password\": \"123456\",\n  \"claveDeSeguridad\": \"023\"\n}",
+					"raw": "{\n  \"nombre\": \"Jose\",\n  \"password\": \"123456789\",\n  \"claveDeSeguridad\": \"023\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -211,15 +211,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/pokemons/perfil/registro",
+					"raw": "http://localhost:{{port}}/entrenador/registro",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
-						"pokemons",
-						"perfil",
+						"entrenador",
 						"registro"
 					]
 				}
@@ -232,15 +231,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/perfil/consultar?name={{entrenador}}&password={{password}}",
+					"raw": "http://localhost:{{port}}/entrenador/consultar?name={{entrenador}}&password={{password}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
-						"pokemons",
-						"perfil",
+						"entrenador",
 						"consultar"
 					],
 					"query": [
@@ -272,15 +270,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/pokemons/perfil/crearEquipo?nombre={{entrenador}}&password={{password}}",
+					"raw": "http://localhost:{{port}}/entrenador/crearEquipo?nombre={{entrenador}}&password={{password}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
-						"pokemons",
-						"perfil",
+						"entrenador",
 						"crearEquipo"
 					],
 					"query": [
@@ -303,15 +300,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/pokemons/perfil/retirarse?nombre={{entrenador}}&claveDeSeguridad={{claveDeSeguridad}}",
+					"raw": "http://localhost:{{port}}/entrenador/retirarse?nombre={{entrenador}}&claveDeSeguridad={{claveDeSeguridad}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
-						"pokemons",
-						"perfil",
+						"entrenador",
 						"retirarse"
 					],
 					"query": [
@@ -323,6 +319,79 @@
 							"key": "claveDeSeguridad",
 							"value": "{{claveDeSeguridad}}"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API EXTERNA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/externa/api?url={{url}}/{{pokemon}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"externa",
+						"api"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "{{url}}/{{pokemon}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total-by-type",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/total-by-type?type={{tipo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"total-by-type"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{tipo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultacifrada",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/consultacifrada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"consultacifrada"
 					]
 				}
 			},

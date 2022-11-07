@@ -20,4 +20,12 @@ public class TipoDTO {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    @Override
+    public String toString() {
+        return "TipoDTO{" +
+                "nombre='" + nombre + '\'' +
+                ", movimientos=" + movimientos +
+                '}';
+    }
 }
