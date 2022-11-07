@@ -18,15 +18,20 @@ import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
+import java.security.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.logging.Logger;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.function.Function;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class LearningJava extends Thread{
 
@@ -288,6 +293,89 @@ public class LearningJava extends Thread{
       }
       OutputStream output = exchange.getResponseBody();
       Instant finalDeEjecucion = Instant.now();
+      LOGGER.info("LearningJava - Cerrando recursos ...");
+      String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+      LOGGER.info("Tiempo de respuesta: ".concat(total));
+      output.write(responseText.getBytes());
+      output.flush();
+      output.close();
+      exchange.close();
+    }));
+    // Consultar todas las cuentas y regresarselas al usuario de manera cifrada
+    server.createContext("/api/getEncryptedAccounts", (exchange -> {
+      LOGGER.info("");
+      Instant inicioDeEjecucion = Instant.now();
+      BankAccountBO bankAccountBO = new BankAccountBOImpl();
+      String responseText = "";
+      /** Validates the type of http request  */
+      if ("GET".equals(exchange.getRequestMethod())) {
+        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
+        List<BankAccountDTO> accounts = bankAccountBO.getAccounts();
+
+        // Aquí implementaremos nuestro código de cifrar nuestras cuentas y regresarselas al usuario de manera cifrada
+        byte[] keyBytes = new byte[]{
+            0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+        };
+        byte[] ivBytes = new byte[]{
+            0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+        };
+        Security.addProvider(new BouncyCastleProvider());
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "DES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = null;
+        try {
+          cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
+          cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+          // Cifraremos solamente el nombre y el country (pueden cifrar todos los parámetros que gusten)
+          for (int i = 0; i < accounts.size(); i++) {
+            String accountName = accounts.get(i).getAccountName();
+            byte[] arrAccountName = accountName.getBytes();
+            byte [] accountNameCipher = new byte[cipher.getOutputSize(arrAccountName.length)];
+            int ctAccountNameLength = cipher.update(arrAccountName, 0, arrAccountName.length, accountNameCipher, 0);
+            ctAccountNameLength += cipher.doFinal(accountNameCipher, ctAccountNameLength);
+            accounts.get(i).setAccountName(accountNameCipher.toString());
+
+            String accountCountry = accounts.get(i).getCountry();
+            byte[] arrAccountCountry = accountCountry.getBytes();
+            byte[] accountCountryCipher = new byte[cipher.getOutputSize(arrAccountCountry.length)];
+            int ctAccountCountryLength = cipher.update(arrAccountCountry, 0, arrAccountCountry.length, accountCountryCipher, 0);
+            ctAccountNameLength += cipher.doFinal(accountCountryCipher, ctAccountCountryLength);
+            accounts.get(i).setCountry(accountCountryCipher.toString());
+
+          }
+        } catch (NoSuchAlgorithmException e) {
+          throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+          throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+          throw new RuntimeException(e);
+        } catch (InvalidAlgorithmParameterException e) {
+          throw new RuntimeException(e);
+        } catch (ShortBufferException e) {
+          throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+          throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+          throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+          throw new RuntimeException(e);
+        }
+
+
+        JSONArray json = new JSONArray(accounts);
+        responseText = json.toString();
+        exchange.getResponseHeaders().add("Content-type", "application/json");
+        exchange.sendResponseHeaders(200, responseText.getBytes().length);
+      } else {
+        /** 405 Method Not Allowed */
+        exchange.sendResponseHeaders(405, -1);
+      }
+      OutputStream output = exchange.getResponseBody();
+      Instant finalDeEjecucion = Instant.now();
+      /**
+       * Always remember to close the resources you open.
+       * Avoid memory leaks
+       */
       LOGGER.info("LearningJava - Cerrando recursos ...");
       String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
       LOGGER.info("Tiempo de respuesta: ".concat(total));
