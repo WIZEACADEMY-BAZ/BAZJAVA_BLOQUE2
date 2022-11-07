@@ -4,6 +4,9 @@ import com.wizeline.gradle.learningjavagradle.enums.AccountType;
 
 import java.time.LocalDateTime;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("bankAccountCollection")
 public class BankAccountDTO {
 
     private long accountNumber;

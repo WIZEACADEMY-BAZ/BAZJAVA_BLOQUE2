@@ -3,6 +3,9 @@ package com.wizeline.gradle.learningjavagradle.repository;
 import java.io.*;
 import java.util.logging.Logger;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class.getName());
     @Override

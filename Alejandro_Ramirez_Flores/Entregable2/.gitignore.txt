@@ -1,0 +1,3 @@
+# Ignora el archivo LinkcriteriosDeEvaluacion.txt
+
+LinkcriteriosDeEvaluacion.txt

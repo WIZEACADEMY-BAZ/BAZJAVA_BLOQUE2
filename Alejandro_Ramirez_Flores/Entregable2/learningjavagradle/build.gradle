@@ -20,13 +20,30 @@ repositories {
 
 dependencies {
 //	implementation 'org.springframework.boot:spring-boot-starter-batch'
-//	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 //	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 //	implementation group: 'org.json', name: 'json', version: '20220320'
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
 	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.72'
-
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-rest
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '2.7.4'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.3'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.4'
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+    // https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
+    implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
+    // https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core
+    implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-mongodb
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
+    
+    
+    
+    
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -6,10 +6,17 @@ import com.wizeline.gradle.learningjavagradle.repository.UserRepository;
 import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
 import com.wizeline.gradle.learningjavagradle.utils.Utils;
 
-
 import java.util.logging.Logger;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	UserRepository userRepository;
+	
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
     @Override
