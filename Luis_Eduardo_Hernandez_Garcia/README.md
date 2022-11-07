@@ -46,6 +46,10 @@ Entregable_2:
         --En general se realizo la importacion de la clase "LearningJava" hacia Springboot "learningjavamaven"--
         >Proyecto learningjavamaven
         >CapturaEstructuraMaven.png
+        >Export de los endpints en postman
+            -Se sugiere primero ejecutar el "getAccounts" ya que este genera los usuarios en la base de datos en mongo
+            -Nota: Si quiere probar excesos, quitar de la lista blanca los endpoints a probar y posteriormente
+            generar el toque deseado con el tipo de usuario adecuado para el endpoint "user", "guest", "admin".
 ```
 
 De antemano muchas gracias por el curso

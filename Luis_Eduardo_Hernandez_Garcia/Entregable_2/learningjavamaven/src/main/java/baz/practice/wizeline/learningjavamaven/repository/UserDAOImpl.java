@@ -1,8 +1,11 @@
 package baz.practice.wizeline.learningjavamaven.repository;
 
+import org.springframework.stereotype.Repository;
+
 import java.io.*;
 import java.util.logging.Logger;
 
+@Repository
 public class UserDAOImpl implements UserDAO{
     private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class.getName());
 

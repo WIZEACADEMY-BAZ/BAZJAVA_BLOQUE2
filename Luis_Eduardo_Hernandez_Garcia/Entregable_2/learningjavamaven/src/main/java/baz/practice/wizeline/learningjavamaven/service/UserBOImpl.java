@@ -10,10 +10,17 @@ import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
 import baz.practice.wizeline.learningjavamaven.repository.UserDAO;
 import baz.practice.wizeline.learningjavamaven.repository.UserDAOImpl;
 import baz.practice.wizeline.learningjavamaven.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
 
+@Service
 public class UserBOImpl implements UserBO{
+
+    @Autowired
+    UserDAO userDAO;
+
     private static final Logger LOGGER = Logger.getLogger(UserBOImpl.class.getName());
 
     @Override
@@ -29,7 +36,9 @@ public class UserBOImpl implements UserBO{
         }else {
             response.setCode("OK000");
             response.setStatus(result);
-            response.setErrors(new ErrorDTO("ER001","Error al crear usuario"));
+            response.setErrors(new ErrorDTO.ErrorDTOBuilder("ER001", "Error al crear usuario")
+                    .errorCode("ER001")
+                    .message("Error al crear usuario").build());
         }
         return response;
     }
@@ -48,7 +57,9 @@ public class UserBOImpl implements UserBO{
             response.setStatus(result);
         }else {
             response.setCode("ERR001");
-            response.setErrors(new ErrorDTO("ERR001",result));
+            response.setErrors(new ErrorDTO.ErrorDTOBuilder("ER001", "Error al crear usuario")
+                    .errorCode("ER001")
+                    .message("Error al crear usuario").build());
             response.setStatus("fail");
         }
         return response;

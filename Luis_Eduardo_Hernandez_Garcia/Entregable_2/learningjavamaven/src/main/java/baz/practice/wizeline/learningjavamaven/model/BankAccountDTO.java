@@ -1,13 +1,16 @@
 package baz.practice.wizeline.learningjavamaven.model;
 
 import baz.practice.wizeline.learningjavamaven.enums.AccountType;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 
+@Document("bankAccountCollection")
 public class BankAccountDTO {
     private long accountNumber;
     private String accountName;
     private String user;
+    private String userName;
     private double accountBalance;
     private AccountType accountType;
     private String country;
@@ -37,6 +40,14 @@ public class BankAccountDTO {
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public double getAccountBalance() {

@@ -6,5 +6,15 @@ import java.util.List;
 
 public interface BankAccountBO {
     BankAccountDTO getAccountDetails(String user, String lastUsage);
+
+    BankAccountDTO getAccountDetails(String lastUsage);
     List<BankAccountDTO> getAccounts();
+
+    void deleteAccounts();
+
+    BankAccountDTO getAccountByName(String name);
+
+
+    List<BankAccountDTO> getAccountByUser(String user);
+
 }
