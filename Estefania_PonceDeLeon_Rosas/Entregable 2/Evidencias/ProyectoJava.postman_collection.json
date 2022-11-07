@@ -200,10 +200,16 @@
 			"name": "registroEntrenador",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Jose\",\n  \"password\": \"123456789\",\n  \"claveDeSeguridad\": \"023\"\n}",
+					"raw": "{\n  \"nombre\": \"Maria\",\n  \"password\": \"123456\",\n  \"claveDeSeguridad\": \"023\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -226,10 +232,16 @@
 			"response": []
 		},
 		{
-			"name": "consultar?name={{entrenador}}&password={{password}}",
+			"name": "Consultar Entrenador",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/entrenador/consultar?name={{entrenador}}&password={{password}}",
 					"protocol": "http",
@@ -256,7 +268,7 @@
 			"response": []
 		},
 		{
-			"name": "perfil/crearEquipo",
+			"name": "Crear Equipo",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -295,10 +307,16 @@
 			"response": []
 		},
 		{
-			"name": "perfil/retirarse?nombre={{entrenador}}&claveDeSeguridad={{claveDeSeguridad}}",
+			"name": "Retirarse",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/entrenador/retirarse?nombre={{entrenador}}&claveDeSeguridad={{claveDeSeguridad}}",
 					"protocol": "http",
@@ -392,6 +410,184 @@
 					"path": [
 						"entrenador",
 						"consultacifrada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"guest\",\n  \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/login/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"login",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearEquipoAuth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n},\n{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charizard\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Turttle\",\n  \"sonido\": \"Turttle\",\n  \"tipo1\": \"Normal\",\n  \"date\": \"12-12-2022\"\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/crearEquipo?nombre={{entrenador}}&password={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"crearEquipo"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "{{entrenador}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Metrics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/metrics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Loggers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/loggers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"loggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Mappings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/mappings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"mappings"
 					]
 				}
 			},
