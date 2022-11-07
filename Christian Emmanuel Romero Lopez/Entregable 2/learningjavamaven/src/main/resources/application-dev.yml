@@ -7,3 +7,4 @@ consumers:
   userAccount: '/api/getUserAccount'
   authenticate: '/authenticate'
   sayHello: '/api/sayHello'
+  sayBye: '/api/sayBye'

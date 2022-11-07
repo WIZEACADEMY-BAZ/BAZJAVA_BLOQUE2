@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -21,26 +22,28 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
-@RestController
+import static com.wizeline.maven.learningjavamaven.utils.Utils.cifrarDato;
+import static com.wizeline.maven.learningjavamaven.utils.Utils.isPasswordValid;
+
 @RequestMapping("/api")
+@RestController
 public class UserController {
 
     @Autowired
     UserService userService;
 
-    @Autowired
-    CommonServices commonServices;
-
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     private static String msgProcPeticion = "LearningJavaMaven - Inicia procesamiento de peticion ...";
-    private static String path = "http://localhost:8080/api";
+    private static String path = "http://localhost:8081/api";
     private Instant inicio;
 
     @GetMapping(value="/login", produces="application/json")
     public ResponseEntity<ResponseModel> login(@RequestParam String user, @RequestParam String password){
         LOGGER.info(msgProcPeticion);
         inicio = Instant.now();
-        ResponseModel responseModel;
+        ResponseModel response;
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
 
         LOGGER.info("LearningJavaMaven - Procesando peticion HTTP de tipo GET");
         UserModel userModel = new UserModel();
@@ -50,22 +53,35 @@ public class UserController {
         URI uri = URI.create(stringBuilder.toString());
 
         userModel = userModel.getParameters(splitQuery(uri));
-        responseModel = commonServices.login(userModel.getUser(), userModel.getPassword());
+
+
+        response = userService.login(userModel.getUser(), cifrarDato(userModel.getPassword()));
 
         LOGGER.info("Login - Completed");
-        return getResponseModelResponseEntity(responseModel, inicio);
+        return getResponseModelResponseEntity(response, inicio);
     }
 
     @PostMapping(value="/createUser", produces="application/json")
-    public ResponseEntity<ResponseModel> createUser(@RequestBody UserModel request) throws JsonProcessingException {
+    public ResponseEntity<?> createUser(@RequestBody UserModel request) throws JsonProcessingException {
         LOGGER.info(msgProcPeticion);
         inicio = Instant.now();
-        ResponseModel responseModel;
+        ResponseModel response;
+        HttpHeaders responseHeaders = new HttpHeaders();
+        String responseText = "";
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
 
-        responseModel =  createUser(request.getUser(), request.getPassword());
-
-        LOGGER.info("Create User - Completed");
-        return getResponseModelResponseEntity(responseModel, inicio);
+        if (isPasswordValid(request.getPassword())) {
+            response = userService.createUser(request.getUser(),request.getPassword());
+            String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
+            LOGGER.info("Tiempo de respuesta: ".concat(total));
+            return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
+        } else {
+            LOGGER.info("LearningJava - Cerrando recursos ...");
+            String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
+            LOGGER.info("Tiempo de respuesta: ".concat(total));
+            responseText = "Password Incorrecto";
+            return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+        }
     }
 
     @PostMapping("/createUsers")
@@ -85,6 +101,12 @@ public class UserController {
 
         LOGGER.info("Create Users - Completed");
         return getResponseModelResponseEntity(responseList, inicio);
+    }
+
+    @PreAuthorize("hasRole('GUEST')")
+    @GetMapping("/sayBye")
+    public ResponseEntity<String> sayByeGuest() {
+        return new ResponseEntity<>("Adios invitado!!", HttpStatus.OK);
     }
 
     @NotNull

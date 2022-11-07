@@ -67,6 +67,18 @@ public class BankAccountServiceImpl implements BankAccountService {
         return buildBankAccouunt(user, true, Country.MX, localDate.atStartOfDay());
     }
 
+    @Override
+    public void deleteAccounts() {
+        bankAccountRepository.deleteAll();
+    }
+
+    @Override
+    public List<BankAccountModel> getAccountByUser(String user) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("user").is(user));
+        return mongoTemplate.find(query, BankAccountModel.class);
+    }
+
     private BankAccountModel buildBankAccouunt(String user, boolean isActive, Country country, LocalDateTime lastUsage){
         BankAccountModel bankAccountModel = new BankAccountModel();
         bankAccountModel.setAccountNumber(randomAcountNumber());
@@ -80,18 +92,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankAccountModel.setCreationDate(lastUsage);
         bankAccountModel.setAccountActive(isActive);
         return bankAccountModel;
-    }
-
-    @Override
-    public void deleteAccounts() {
-        bankAccountRepository.deleteAll();
-    }
-
-    @Override
-    public List<BankAccountModel> getAccountByUser(String user) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("user").is(user));
-        return mongoTemplate.find(query, BankAccountModel.class);
     }
 
 }

@@ -1,10 +1,14 @@
 package com.wizeline.maven.learningjavamaven.model;
 
+import java.util.List;
+
 public class ResponseModel {
     private String status;
     private String code;
 
     private ErrorModel errors = new ErrorModel();
+
+    private UserModel userModel = new UserModel();
 
     public String getStatus() {
         return status;
@@ -28,5 +32,13 @@ public class ResponseModel {
 
     public void setErrors(ErrorModel errors) {
         this.errors = errors;
+    }
+
+    public UserModel getUserModel() {
+        return userModel;
+    }
+
+    public void setUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 }

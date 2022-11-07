@@ -2,7 +2,12 @@ package com.wizeline.maven.learningjavamaven.utils;
 
 import com.wizeline.maven.learningjavamaven.enums.AccountType;
 import com.wizeline.maven.learningjavamaven.enums.Country;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -68,5 +73,46 @@ public class Utils {
         countries.put(Country.MX, "Mexico");
         countries.put(Country.FR, "France");
         return countries.get(country);
+    }
+
+    public static String cifrarDato(String dato){
+        //Cifrado
+        byte[] keyBytes = new byte[]{
+                0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+        };
+        byte[] ivBytes = new byte[]{
+                0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+        };
+        Security.addProvider(new BouncyCastleProvider());
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "DES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = null;
+        try{
+            cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+
+            byte[] arrPassword = dato.getBytes();
+            byte [] passwordCipher = new byte[cipher.getOutputSize(arrPassword.length)];
+            int ctAccountNameLength = cipher.update(arrPassword, 0, arrPassword.length, passwordCipher, 0);
+            ctAccountNameLength += cipher.doFinal(passwordCipher, ctAccountNameLength);
+            return passwordCipher.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (ShortBufferException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

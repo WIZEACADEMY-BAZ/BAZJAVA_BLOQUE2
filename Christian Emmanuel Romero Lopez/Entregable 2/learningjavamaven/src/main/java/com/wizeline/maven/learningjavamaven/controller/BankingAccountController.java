@@ -55,14 +55,14 @@ public class BankingAccountController {
                     BankAccountModel bankAccountModel = getAccountDetails(user, date);
                     Instant finalDeEjecucion = Instant.now();
                     LOGGER.info("LearningJava - Cerrando recursos ...");
-                    String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+                    String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
                     LOGGER.info("Tiempo de respuesta: ".concat(total));
                     return new ResponseEntity<>(bankAccountModel, responseHeaders, HttpStatus.OK);
                 }
             } else {
                 Instant finalDeEjecucion = Instant.now();
                 LOGGER.info("LearningJava - Cerrando recursos ...");
-                String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+                String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
                 LOGGER.info("Tiempo de respuesta: ".concat(total));
                 responseText = "Password Incorrecto";
                 return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
@@ -72,7 +72,7 @@ public class BankingAccountController {
         }
         Instant finalDeEjecucion = Instant.now();
         LOGGER.info("LearningJava - Cerrando recursos ...");
-        String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+        String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
         LOGGER.info("Tiempo de respuesta: ".concat(total));
         return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
     }
@@ -87,13 +87,32 @@ public class BankingAccountController {
         Instant finalDeEjecucion = Instant.now();
 
         LOGGER.info("LearningJava - Cerrando recursos ...");
-        String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+        String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
         LOGGER.info("Tiempo de respuesta: ".concat(total));
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
 
+    }
+
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping(value = "/getAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BankAccountModel>> getAccountByUser(@RequestParam String user) {
+        LOGGER.info(msgProcPeticion);
+        Instant inicioDeEjecucion = Instant.now();
+        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
+        List<BankAccountModel> accounts = bankAccountService.getAccountByUser(user);
+
+        Instant finalDeEjecucion = Instant.now();
+
+        LOGGER.info("LearningJava - Cerrando recursos ...");
+        String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
+        LOGGER.info("Tiempo de respuesta: ".concat(total));
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ADMIN')")
@@ -113,33 +132,10 @@ public class BankingAccountController {
         Instant finalDeEjecucion = Instant.now();
 
         LOGGER.info("LearningJava - Cerrando recursos ...");
-        String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
+        String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
         LOGGER.info("Tiempo de respuesta: ".concat(total));
 
         return new ResponseEntity<>(groupedAccounts, HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('USER')")
-    @GetMapping(value = "/getAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<BankAccountModel>> getAccountByUser(@RequestParam String user) {
-        LOGGER.info(msgProcPeticion);
-        Instant inicioDeEjecucion = Instant.now();
-        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
-        List<BankAccountModel> accounts = bankAccountService.getAccountByUser(user);
-
-        Instant finalDeEjecucion = Instant.now();
-
-        LOGGER.info("LearningJava - Cerrando recursos ...");
-        String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
-        LOGGER.info("Tiempo de respuesta: ".concat(total));
-
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
-    }
-
-    private BankAccountModel getAccountDetails(String user, String lastUsage) {
-        return bankAccountService.getAccountDetails(user, lastUsage);
     }
 
     @DeleteMapping("/deleteAccounts")
@@ -152,6 +148,10 @@ public class BankingAccountController {
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHelloGuest() {
         return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
+    }
+
+    private BankAccountModel getAccountDetails(String user, String lastUsage) {
+        return bankAccountService.getAccountDetails(user, lastUsage);
     }
 
 }

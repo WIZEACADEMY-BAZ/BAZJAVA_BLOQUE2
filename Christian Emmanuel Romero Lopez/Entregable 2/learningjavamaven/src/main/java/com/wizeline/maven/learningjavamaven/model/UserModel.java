@@ -1,7 +1,10 @@
 package com.wizeline.maven.learningjavamaven.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.util.Map;
 
+@Document("userAccountCollection")
 public class UserModel {
 
     private String user;
