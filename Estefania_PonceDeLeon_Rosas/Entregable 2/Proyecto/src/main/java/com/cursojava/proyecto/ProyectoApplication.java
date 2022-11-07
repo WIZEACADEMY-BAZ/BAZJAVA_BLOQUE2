@@ -17,18 +17,4 @@ public class ProyectoApplication {
 	}
 
 
-	public static Map<String, String> splitQuery(URI uri) throws UnsupportedEncodingException {
-
-		Map<String, String> query_pairs = new LinkedHashMap<String, String>();
-
-		String query = uri.getQuery();
-		String[] pairs = query.split("&");
-		for (String pair : pairs) {
-			int idx = pair.indexOf("=");
-			query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
-		}
-		//LOGGER.info(query_pairs.toString());
-		return query_pairs;
-	}
-
 }
