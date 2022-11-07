@@ -10,10 +10,16 @@
 			"name": "createOne",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\"\n}",
+					"raw": "{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"date\": \"07-11-2022\" \n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -39,7 +45,13 @@
 			"name": "getAllPokemons",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/getAllPokemons",
 					"protocol": "http",
@@ -59,7 +71,13 @@
 			"name": "pokemons/borrarTodos",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/borrarTodos",
 					"protocol": "http",
@@ -79,7 +97,13 @@
 			"name": "createThreePokemons",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n}\n]",
@@ -108,7 +132,13 @@
 			"name": "batalla",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\" : \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n}]",
@@ -137,7 +167,13 @@
 			"name": "getAllTypes",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/types/getAllTypes",
 					"protocol": "http",
@@ -158,7 +194,13 @@
 			"name": "deleteAllTypes",
 			"request": {
 				"method": "DELETE",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/types/deleteAllTypes",
 					"protocol": "http",
@@ -179,7 +221,13 @@
 			"name": "initTypes",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/types/init",
 					"protocol": "http",
@@ -209,7 +257,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"nombre\": \"Maria\",\n  \"password\": \"123456\",\n  \"claveDeSeguridad\": \"023\"\n}",
+					"raw": "{\n  \"nombre\": \"{{entrenador}}\",\n  \"password\": \"{{password}}\",\n  \"claveDeSeguridad\": \"023\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -271,7 +319,13 @@
 			"name": "Crear Equipo",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n},\n{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charizard\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Turttle\",\n  \"sonido\": \"Turttle\",\n  \"tipo1\": \"Normal\",\n  \"date\": \"12-12-2022\"\n}\n]",
@@ -346,7 +400,13 @@
 			"name": "API EXTERNA",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/externa/api?url={{url}}/{{pokemon}}",
 					"protocol": "http",
@@ -373,7 +433,13 @@
 			"name": "total-by-type",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
 				"url": {
 					"raw": "http://localhost:{{port}}/pokemons/total-by-type?type={{tipo}}",
 					"protocol": "http",
@@ -397,9 +463,22 @@
 		},
 		{
 			"name": "Consultacifrada",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:{{port}}/entrenador/consultacifrada",
 					"protocol": "http",
