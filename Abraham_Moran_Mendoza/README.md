@@ -45,6 +45,7 @@ De las actividades realizadas en el Bloque 2 del Bootcamp de Wizeline Academy.
     > Learningjavamaven
       - Proyecto migrado a spring (proyecto que cumple todos los puntos a evaluar)
     - SpringInitializrConfig
+    - learningjavaapi.json
   - README.md
 ```
 
