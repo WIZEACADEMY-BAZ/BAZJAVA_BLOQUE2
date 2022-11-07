@@ -1,7 +1,7 @@
 ## Estefania PonceDeLeon Rosas
 ### Entregable 2 (Proyecto Java - Semana 3 y 4)
 
-El tema de este proyecto es el uso de la tecnología Spring Boot (MVC), con procesos de seguridad y cifrado.
+El tema de este proyecto es el uso de la tecnología Java con Spring Boot (MVC) y sus procesos de seguridad y cifrado.
 Los puntos que se abarcaron completamente son los siguientes:
 
 ## * Usar Java 11 como versión del proyecto
