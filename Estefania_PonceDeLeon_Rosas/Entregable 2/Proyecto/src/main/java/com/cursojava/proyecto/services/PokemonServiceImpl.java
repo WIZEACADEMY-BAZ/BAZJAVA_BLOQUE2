@@ -1,5 +1,6 @@
 package com.cursojava.proyecto.services;
 
+import com.cursojava.proyecto.model.ErrorDTO;
 import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
@@ -36,24 +37,24 @@ public class PokemonServiceImpl implements PokemonService {
     @Override
     public ResponseDTO createPokemon(PokemonDTO pokemon) {
         PokemonDTO nuevoPokemon=new PokemonDTO();
-        Utils<LocalDateTime> utilsDate =new Utils<>();
+        Utils<String> utilsDate =new Utils<>();
         Utils<TipoDTO> utilsTipo =new Utils<>();
         nuevoPokemon.setNombre(pokemon.getNombre());
         nuevoPokemon.setSonido(pokemon.getSonido());
         nuevoPokemon.setTipo1(pokemon.getTipo1());
-
         if(utilsTipo.isNotNullValue(Optional.ofNullable(pokemon.getTipo2())))
                 nuevoPokemon.setTipo2(pokemon.getTipo2());
 
 
-        if(utilsDate.isNotNullValue(Optional.ofNullable(pokemon.getLastTraning()))){
+        if(utilsDate.isNotNullValue(Optional.ofNullable(pokemon.getDate()))){
             try{
                 DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate temp = LocalDate.parse(pokemon.getDate(), dateformatter);
                 LocalDateTime lastTranning = temp.atStartOfDay();
                 nuevoPokemon.setLastTraning(lastTranning);
+
             }catch (Exception e) {
-                throw new InvalidFormatDatePersonalException("La fecha viene en formato incorrecto...");
+                throw new InvalidFormatDatePersonalException("La fecha viene en formato incorrecto..."+e);
             }
         }
 
