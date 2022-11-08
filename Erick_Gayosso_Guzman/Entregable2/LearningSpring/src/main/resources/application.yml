@@ -8,6 +8,7 @@ spring:
   data:
     mongodb:
       port: 27017
+      database: baz-wizeline
   security:
     white-list:
       url: "/authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**"

@@ -11,6 +11,16 @@ public class ResponseDTO {
 
     private ErrorDTO errors;
 
+    private Object results;
+
+    public Object getResults() {
+        return results;
+    }
+
+    public void setResults(Object results) {
+        this.results = results;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -41,8 +51,7 @@ public class ResponseDTO {
                 "status='" + status + '\'' +
                 ", code='" + code + '\'' +
                 ", errors=" + errors +
+                ", results=" + results +
                 '}';
     }
-
-
 }

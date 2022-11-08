@@ -29,6 +29,8 @@ public class Utils {
     // Definicion del patron para validar formato de fecha (dd-mm-yyyy)
     private static Pattern DATE_PATTERN = Pattern.compile("^\\d{2}-\\d{2}-\\d{4}$");
 
+    private static Pattern ISDECIMAL = Pattern.compile("[0-9,]+[^.]");
+
 
     public static String getString(String value) {
         if(value != null) {
@@ -53,6 +55,12 @@ public class Utils {
     public static boolean isDateFormatValid(String date) {
         // Valida la fecha contra el patron que definimos
         return DATE_PATTERN.matcher(date).matches();
+    }
+
+    //se agrega expresion regular que valida si es decimal
+    public static boolean isDecimal(String option){
+        Matcher matcher = ISDECIMAL.matcher(option);
+        return matcher.matches();
     }
 
     public static long randomAcountNumber() {

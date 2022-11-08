@@ -7,6 +7,7 @@ import com.wizeline.baz.LearningSpring.repository.UserRepositoryImpl;
 import com.wizeline.baz.LearningSpring.utils.Utils;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
