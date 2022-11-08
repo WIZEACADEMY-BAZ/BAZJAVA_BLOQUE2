@@ -74,3 +74,4 @@ target/
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 /.classpath
 /.project
+/.gradle/
