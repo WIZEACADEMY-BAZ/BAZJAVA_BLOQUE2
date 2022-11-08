@@ -10,8 +10,6 @@ Directorio entregas de Israel Arroyo Alvarez semana 3 y 4
 > 
 
 
-
-
 ....
 
 
