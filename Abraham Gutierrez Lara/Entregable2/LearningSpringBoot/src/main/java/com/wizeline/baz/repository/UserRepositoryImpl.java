@@ -69,4 +69,9 @@ public class UserRepositoryImpl implements UserRepository  {
 		UserDTO user = mongo.findOne(query, UserDTO.class);
 		return Optional.ofNullable(user);
 	}
+
+	@Override
+	public List<UserDTO> getAllUsers() {
+		return mongo.findAll(UserDTO.class);
+	}
 }

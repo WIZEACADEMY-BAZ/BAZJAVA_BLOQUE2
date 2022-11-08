@@ -16,7 +16,7 @@ import com.wizeline.baz.filter.JwtTokenFilter;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity( prePostEnabled = true  )
 public class SecurityConfig {
 	
 	@Autowired

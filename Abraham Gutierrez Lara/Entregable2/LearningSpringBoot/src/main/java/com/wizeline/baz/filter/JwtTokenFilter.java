@@ -1,6 +1,7 @@
 package com.wizeline.baz.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -11,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.wizeline.baz.utils.JwtTokenService;
@@ -37,12 +40,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
             if (jwtTokenService.validateAccessToken(token)) {
                 Claims claims = validateToken(token);
-                setUpSpringAuthentication(claims);
-                filterChain.doFilter(request, response);
+                setUpSpringAuthentication(claims, request);
             }
         }
         filterChain.doFilter(request, response);
     }
+    
+    
 
     /**
      * Obtiene el token de acceso desde el header del request.
@@ -80,12 +84,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
      * Genera la autenticación del usuario y agrega sus roles.
      * @param claims Información adicional del usuario (roles).
      */
-    private void setUpSpringAuthentication(Claims claims) {
-        List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-                .commaSeparatedStringToAuthorityList(claims.get("authorities").toString());
-
-        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), null,
+    private void setUpSpringAuthentication(Claims claims, HttpServletRequest request) {
+    	String authorities = claims.get("authorities").toString();
+    	List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+    	for(String authority : StringUtils.tokenizeToStringArray(authorities, ",")) {
+    		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + authority));
+    	}
+    	
+        UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(claims.getSubject(), "",
                 grantedAuthorities);
+        auth.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(auth);
 
     }

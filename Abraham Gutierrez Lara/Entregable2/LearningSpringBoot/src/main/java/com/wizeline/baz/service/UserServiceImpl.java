@@ -26,6 +26,7 @@ import com.wizeline.baz.model.request.LoginRequest;
 import com.wizeline.baz.model.request.UpdatePasswordRequest;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.model.response.CreateUserResponse;
+import com.wizeline.baz.model.response.GetUsersResponse;
 import com.wizeline.baz.model.response.LoginResponse;
 import com.wizeline.baz.repository.UserRepository;
 import com.wizeline.baz.utils.BuildOperationData;
@@ -67,7 +68,8 @@ public class UserServiceImpl implements UserService {
 			throw new UserNotFoundException(request.getEmail());
 		}
 		UserDTO user = userOpt.get();
-		boolean passwordUpdated = userRepository.updateUserPassword(user.getId(), request.getNewPassword());
+		String encryptedPassword = desCipher.encrypt(request.getNewPassword());
+		boolean passwordUpdated = userRepository.updateUserPassword(user.getId(), encryptedPassword);
 		if(!passwordUpdated) {
 			throw new UserNotFoundException(user.getId());
 		}
@@ -95,11 +97,19 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		Claims claims = Jwts.claims();
-		claims.put("userId", user.getId());
-		claims.put("authorities", user.getRoles().stream().map(role -> role.toString()).collect(Collectors.toList()));
+		claims.setSubject(user.getId());
+		claims.put("authorities", user.getRoles().stream().map(role -> role.toString()).collect(Collectors.joining(",")));
 		String jwtToken = jwtTokenService.generateToken(user.getId(), claims);	
 		LoginResponse response = new LoginResponse();
 		response.setJwtToken(jwtToken);
+		response.makeSuccess();
+		return ResponseEntity.ok(response);
+	}
+	
+	@Override
+	public ResponseEntity<BaseResponseDTO> getUsers() {
+		GetUsersResponse response = new GetUsersResponse();
+		response.setUsers(userRepository.getAllUsers());
 		response.makeSuccess();
 		return ResponseEntity.ok(response);
 	}
@@ -142,6 +152,5 @@ public class UserServiceImpl implements UserService {
 		}
 		
 		
-	}
-	
+	}	
 }

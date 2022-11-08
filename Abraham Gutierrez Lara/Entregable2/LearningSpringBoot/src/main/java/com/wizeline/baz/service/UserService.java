@@ -12,4 +12,5 @@ public interface UserService {
 	ResponseEntity<BaseResponseDTO> createUser(CreateUserRequest request);
 	ResponseEntity<BaseResponseDTO> updateUserPassword(UpdatePasswordRequest request);
 	ResponseEntity<BaseResponseDTO> login(LoginRequest request);
+	ResponseEntity<BaseResponseDTO> getUsers();
 }

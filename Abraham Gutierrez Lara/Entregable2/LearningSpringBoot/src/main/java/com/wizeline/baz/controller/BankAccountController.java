@@ -34,8 +34,8 @@ public class BankAccountController {
 		return bankAccountService.getAccountDetails(account);
 	}
 	
-	@PreAuthorize("hasRole('BANKER')")
-	@GetMapping()
+	@PreAuthorize(value = "hasRole('BANKER')")
+	@GetMapping
 	public ResponseEntity<BaseResponseDTO> getAccounts() {
 		return bankAccountService.getAccounts();
 	}
