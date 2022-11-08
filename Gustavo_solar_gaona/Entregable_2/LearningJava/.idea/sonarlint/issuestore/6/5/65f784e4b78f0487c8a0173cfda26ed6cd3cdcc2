@@ -1,0 +1,10 @@
+
+_
+java:S1192'"IDefine a constant instead of duplicating this literal "file.txt" 3 times.(ÓÂçª
+^
+java:S1192"HDefine a constant instead of duplicating this literal "success" 4 times.(ùØ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(§ÛÄ¿øÿÿÿÿ
+g
+java:S2095N"LUse try-with-resources or close this "BufferedReader" in a "finally" clause.(¹®Ùœÿÿÿÿÿ
+g
+java:S2095="LUse try-with-resources or close this "BufferedWriter" in a "finally" clause.(±íîğşÿÿÿÿ
