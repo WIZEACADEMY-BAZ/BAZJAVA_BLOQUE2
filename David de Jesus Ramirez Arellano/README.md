@@ -33,3 +33,9 @@ Entregable 1
 		- CapturaFIND.png
 		- CapturaINSERT.png
 		- CapturaUpdate.png
+
+Entregable 2
+
+	- initializr.png (captura de pantalla de la creacion del proyecto gradle)
+	- LearningJava 3 entregable David.postman_collection.json (Colleccion de postman con los request necesarios para probar la aplicacion
+	- learningjavagradle (proyecto realizado en spring boot)

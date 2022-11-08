@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "71b05731-dc0d-4440-8445-ed4f89fccfa0",
+		"name": "LearningJava 3 entregable",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API NOMINA (PROPIA)",
+			"item": [
+				{
+					"name": "nomina/getUserAccount",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ12VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODU0NTI1MDU3LCJleHAiOjE2Njc4NTQ4MjV9.stzl4UzZF4gI3LefqGU42NzgifrZ6WLCAIQAja5M9AhEZ6CxFsYPFH4Ogk4VvWS1RJ5ZVqMA9UybI_3Hyyhcjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/nomina/getUserAccount?user=david.ramirezar@elektra.com.mx",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nomina",
+								"getUserAccount"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "david.ramirezar@elektra.com.mx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/deleteAccountNomina",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ12VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODU0NTI1MDU3LCJleHAiOjE2Njc4NTQ4MjV9.stzl4UzZF4gI3LefqGU42NzgifrZ6WLCAIQAja5M9AhEZ6CxFsYPFH4Ogk4VvWS1RJ5ZVqMA9UybI_3Hyyhcjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/nomina/deleteAccountNomina?user=david.ramirezar@elektra.com.mx",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nomina",
+								"deleteAccountNomina"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "david.ramirezar@elektra.com.mx"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/nomina/createAccountNomina",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ12VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODU0NTI1MDU3LCJleHAiOjE2Njc4NTQ4MjV9.stzl4UzZF4gI3LefqGU42NzgifrZ6WLCAIQAja5M9AhEZ6CxFsYPFH4Ogk4VvWS1RJ5ZVqMA9UybI_3Hyyhcjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": 12345,\r\n  \"accountName\": \"Nomina de David\",\r\n  \"user\": \"david.ramirezar@elektra.com.mx\",\r\n  \"accountBalance\": 5000.0,\r\n  \"accountType\": \"NOMINA\",\r\n  \"country\": \"MX\",\r\n  \"accountActive\": true,\r\n  \"creationDate\": \"2022-11-07T23:17:59.993Z\",\r\n  \"lastUsage\": \"2022-11-07T23:17:59.993Z\",\r\n  \"nombreUser\": \"David de Jesus\",\r\n  \"apellidosUser\": \"Ramirez Arellano\",\r\n  \"rfc\": \"RAAD970125JR2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/nomina/createAccountNomina",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nomina",
+								"createAccountNomina"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/updateAccountNomina",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ12VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODU0NTI1MDU3LCJleHAiOjE2Njc4NTQ4MjV9.stzl4UzZF4gI3LefqGU42NzgifrZ6WLCAIQAja5M9AhEZ6CxFsYPFH4Ogk4VvWS1RJ5ZVqMA9UybI_3Hyyhcjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"accountNumber\": 12345,\r\n  \"accountName\": \"Nomina de David Actualizada\",\r\n  \"user\": \"david.ramirezar@elektra.com.mx\",\r\n  \"accountBalance\": 6000.0,\r\n  \"accountType\": \"NOMINA\",\r\n  \"country\": \"MX\",\r\n  \"accountActive\": true,\r\n  \"creationDate\": \"2022-11-07T23:17:59.993Z\",\r\n  \"lastUsage\": \"2022-11-07T23:17:59.993Z\",\r\n  \"nombreUser\": \"David de Jesus\",\r\n  \"apellidosUser\": \"Ramirez Arellano\",\r\n  \"rfc\": \"RAAD970125JR2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/nomina/updateAccountNomina",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"nomina",
+								"updateAccountNomina"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate mis roles",
+			"item": [
+				{
+					"name": "authenticateUSUARIO",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":\"David2\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authenticateMisRoles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticateMisRoles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authenticateADMINISTRADOR",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":\"David\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/authenticateMisRoles",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"authenticateMisRoles"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RestTemplate",
+			"item": [
+				{
+					"name": "getXML Copy",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LearningJava/CreateUser",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"user2@wizeline.com\",\n    \"password\":\"pass2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/createUser?",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/CreateUsersPOST",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"user2@wizeline.com\",\n    \"password\":\"pass2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/createUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/login?user=user2@wizeline.com&password=pass2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user2@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "pass2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getUserAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getUserAccount?user=user1@wizeline.com&password=Pass1$",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getUserAccount"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user1@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "Pass1$"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getAccounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getAccounts?date=01-09-1989",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccounts"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "01-09-1989"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getXML",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getAccountByUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/account/getAccountByUser?user=user3@wizeline.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"getAccountByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user3@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAccounts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/account/deleteAccounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"deleteAccounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"guest\",\r\n    \"password\": \"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "sayHello",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}

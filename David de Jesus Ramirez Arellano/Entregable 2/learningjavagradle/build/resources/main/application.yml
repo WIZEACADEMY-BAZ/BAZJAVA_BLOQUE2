@@ -1,0 +1,49 @@
+#actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,env,loggers,metrics,mappings #loggers, metrics y mappings agregados al actuator
+  info:
+    env:
+      enabled: true
+#Informacion del proyecto
+info:
+  app:
+    name: LeaningJava API
+  java:
+    version: 1.0
+  type: Spring Boot
+
+jwt:
+  secret: java-baz
+
+consumers:
+  login: '/api/login'
+  createUser: '/api/createUser'
+  createUsers: '/api/createUsers'
+  userAccount: '/api/getUserAccount'
+  accounts: '/api/getAccounts'
+  accountsGroupByType: '/api/getAccountsGroupByType'
+
+spring:
+  h2:
+    console: 
+      enabled:
+        true
+  datasource:
+    url:
+    jdbc:
+      h2:
+        mem:
+          testdb
+  data:
+    mongodb:
+      port: 27017
+  security:
+    white-list:
+      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**
+      
+server:
+  port: 8080
+ 
