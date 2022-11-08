@@ -17,6 +17,12 @@ local.properties
 .recommenders
 .DS_Store
 .idea
+.gradle/
+build/
+HELP.md
+gradle/wrapper/
+gradlew
+gradlew.bat
 
 # External tool builders
 .externalToolBuilders/
