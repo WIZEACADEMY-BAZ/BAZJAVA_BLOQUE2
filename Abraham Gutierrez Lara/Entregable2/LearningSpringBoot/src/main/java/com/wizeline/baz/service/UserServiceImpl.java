@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
 			operationData.put("userId", this.userId);
 			operationData.put("email", this.email);
 			operationData.put("failedPassword", this.failedPassword);
-			operationData.put("time", LocalDate.now());
+			operationData.put("timeStamp", System.currentTimeMillis());
 			return new OperationData("FAILED_LOGIN",  operationData);
 		}
 		
