@@ -16,6 +16,7 @@ local.properties
 .recommenders
 .DS_Store
 .idea
+.gradle
 
 # External tool builders
 .externalToolBuilders/
