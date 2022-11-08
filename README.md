@@ -1,4 +1,4 @@
-# Capstone project | BAZ JAVA Bloque 2
+# Proyecto Final | BAZ JAVA Bloque 2
 
 El repositorio actual tiene como proposito documentar y guardar un historial de entregas 
 y retro-alimentaciones para este Bloque 2 del bootcamp de `Wizeline Academy`.
@@ -11,18 +11,23 @@ La estructura que se tendra que seguir sera la siguiente:
 > <Nombre de Alumno> (directorio)
   > Entregable 1 (Semanas 1 y 2)
     > Curso GIT
-      - Entregable 1
-      - Entregable 2
+      - Evidencia 1
+      - Evidencia 2
       - ...
     > Curso Microservicios
-      - Entregable 1
-      - Entregable 2
+      - Evidencia 1
+      - Evidencia 2
       - ...
-    > ...
+    > Curso RESTApis
+      - Evidencia 1
+      - Evidencia 2
+      - ...
+    > Carpeta <demas cursos>
   > Entregable 2 (Semanas 3 y 4)
     > ...
   >  ...
-  - README.md
+  - README.md. (esta a la altura de la carpeta del Alumno y debe contener una explicación 
+                de como esta compuesto tus entregables)
 > <Nombre de Alumno 2> (directorio)
  > ...
  - README.md
@@ -32,9 +37,11 @@ Cada alumno tendra su propio espacio y dentro de cada directorio, el alumno tend
 
 ## Revisión y Retro-alimentación
 
-Cada alumno debera generar su propia `branch` a partir de la rama `main`, y debera seguir la estructura puesta anteriormenta. Una vez que tenga sus 
-entregables listos, el alumno generara un `Pull Request` taggeando a @VaneDLA indicando que su evidencia ya esta lista para revisar y subir 
-el link de su `PR (Pull Request)` al siguiente formulario. 
+Cada alumno debera generar su propia `branch` a partir de la rama `master`, y debera seguir la estructura señalada. 
+Una vez que tenga sus entregables listos:
+- Se debe generar un `Pull Request` 
+- Etiquetar a @VaneDLA para indicar que su evidencia ya esta lista para revisar
+- Mandar el link de su `PR (Pull Request)` al siguiente (formulario)[]
 
-Un mentor de `Wizeline` evaluara y hara code-review en el `PR` indicando si hay mejoras a realizar o retro-alimentación a realizar y finalmente dara el 
-`approval` para hacerle `merge` a la rama principal.
+Finalmente un mentor de `Wizeline` revisara (`code-review`) en el `PR` indicando si hay mejoras a realizar o retro-alimentación a realizar.
+En caso de no necesitar mejoras se hara el `approval` para hacerle `merge` a la rama principal (`master`).
