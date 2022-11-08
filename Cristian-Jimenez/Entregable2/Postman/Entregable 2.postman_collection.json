@@ -1,0 +1,218 @@
+{
+	"info": {
+		"_postman_id": "7d39bb2f-e2d3-47d3-8937-3427bff20c3f",
+		"name": "Entregable 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "23759333"
+	},
+	"item": [
+		{
+			"name": "LearningJava/getAccounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/api/getAccounts"
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8081/api/login?user=user1@wizeline.com&password=pass1",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user1@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "pass1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:8081/api/deleteAccounts"
+			},
+			"response": []
+		},
+		{
+			"name": "/authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"guest\", \r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8081/authenticate"
+			},
+			"response": []
+		},
+		{
+			"name": "/api/sayHello",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODY3MDU0MzU2LCJleHAiOjE2Njc4NjczNTR9.i5fumnlOPHmFawQtNouogzYmSKLuKE_3QlDPCj7_9agv3Tf_ADQH6g_XSKEZEJkFyMeXQshn_d0yIuP7o7_9_w"
+					}
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8081/api/sayHello"
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/XML",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user1@wizeline.com\",\r\n    \"password\":\"pass1JON\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/jaxb/getXML",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"jaxb",
+						"getXML"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user2@wizeline.com",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "pass",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/getAccountByUser?user=user3@wizeline.co",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/getAccountByUser?user=user3@wizeline.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"getAccountByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user3@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/CreateUser POST",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"user1@wizeline.com\",\n    \"password\":\"pass1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8081/api/createUser"
+			},
+			"response": []
+		}
+	]
+}
