@@ -1,0 +1,28 @@
+server:
+  port: 8081
+consumers:
+  login: '/api/login'
+  createUser: '/api/createUser'
+  createUsers: '/api/createUsers'
+  userAccount: '/api/getUserAccount'
+  editar: '/api/createUser'
+  accounts: '/api/getAccounts'
+  accountsGroupByType: '/api/getAccountsGroupByType'
+jwt:
+  secret: java-baz
+spring:
+  security:
+    white-list:
+      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts
+data:
+  mongodb:
+    port=27017:
+h2:
+  console:
+  enabled: true
+  #datasource: url=jdbc:h2:mem:testdb
+info:
+  app:
+    java:
+      version=1:
+        0:
