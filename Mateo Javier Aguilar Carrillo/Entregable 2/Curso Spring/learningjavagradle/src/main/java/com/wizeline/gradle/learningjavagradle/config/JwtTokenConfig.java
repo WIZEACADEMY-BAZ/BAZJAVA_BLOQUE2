@@ -32,7 +32,7 @@ public class JwtTokenConfig {
 				.setSubject(userDTO.getUser())
 				.setIssuedAt(new Date())
 				.setClaims(claims)
-				.setExpiration(Date.from(ZonedDateTime.now().plusMinutes(5).toInstant()))
+				.setExpiration(Date.from(ZonedDateTime.now().plusMinutes(360).toInstant()))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 

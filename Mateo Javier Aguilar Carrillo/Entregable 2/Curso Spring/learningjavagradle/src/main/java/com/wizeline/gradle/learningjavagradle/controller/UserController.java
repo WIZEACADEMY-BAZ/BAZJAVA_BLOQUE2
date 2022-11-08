@@ -67,7 +67,7 @@ public class UserController {
 		return new ResponseEntity<ResponseDTO>(response, responseHeaders, HttpStatus.OK);
 	}
 
-	@PostMapping("/createUser")
+	@PostMapping("createUser")
 	public  ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO userDTO) {
 		LOGGER.info(msgProcPeticion);
 		ResponseDTO response = new ResponseDTO();
@@ -76,7 +76,7 @@ public class UserController {
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-		return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
+		return ResponseEntity.ok(response);
 	}
 
 	@GetMapping("getAccountByUser")
