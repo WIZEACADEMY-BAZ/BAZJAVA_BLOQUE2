@@ -11,8 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.client.result.UpdateResult;
+import com.wizeline.beans.BankAccountBean;
 import com.wizeline.enums.Country;
 import com.wizeline.model.BankAccountDTO;
 import com.wizeline.repository.BankingAccountRepository;
@@ -44,7 +47,7 @@ public class BankAccountServiceImpl implements BankAccountService{
 	    bankAccountDTO.setAccountBalance(Utils.randomBalance());
 	    bankAccountDTO.setAccountType(Utils.pickRandomAccountType());
 	    bankAccountDTO.setCountry(Utils.getCountry(country));
-	    bankAccountDTO.setAccountActive(isActive);
+	    bankAccountDTO.setAccountActive(true);
 	    bankAccountDTO.setLastUsage(lastUsage);
 	    return bankAccountDTO;
 	}
@@ -81,6 +84,30 @@ public class BankAccountServiceImpl implements BankAccountService{
 	@Override
 	public void updateAccount(BankAccountDTO account) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void putAccount(BankAccountDTO account) {
+		mongoTemplate.save(account);
+		
+	}
+
+	@Override
+	public void postAccount(BankAccountBean account) {
+		mongoTemplate.save(buildBankAccount(account.getUser(), account.isActive(), account.getCountry(), LocalDateTime.now()));
+		
+	}
+
+	@Override
+	public long putAccount(BankAccountBean account) {
+		Query query = new Query();
+		UpdateResult result;
+		query.addCriteria(Criteria.where("user").is(account.getUser()));
+		result =  mongoTemplate.updateMulti(query, Update.update("country", 
+				Utils.getCountry(account.getCountry())), 
+				BankAccountDTO.class);
+		return result.getMatchedCount();
 		
 	}
 

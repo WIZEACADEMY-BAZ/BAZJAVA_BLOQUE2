@@ -10,9 +10,32 @@ public class ActividadDTO {
 	private String key;
 	private Float accessibility;
 	
+	//Contructor default
+	public ActividadDTO() {};
+	//Contructor usando campos
+	public ActividadDTO(String activity, String type, int participants, int price, String link, String key,
+			Float accessibility) {
+		this.activity = activity;
+		this.type = type;
+		this.participants = participants;
+		this.price = price;
+		this.link = link;
+		this.key = key;
+		this.accessibility = accessibility;
+	}
+	
+	//Constructor sobrecargado
+	public ActividadDTO(String activity, String type, int participants) {
+		this.activity = activity;
+		this.type = type;
+		this.participants = participants;
+	}
+	
+	
 	public String getActivity() {
 		return activity;
 	}
+	
 	public void setActivity(String activity) {
 		this.activity = activity;
 	}

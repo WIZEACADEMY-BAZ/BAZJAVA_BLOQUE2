@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.wizeline.enums.AccountType;
 
 @Document
@@ -55,6 +56,7 @@ public class BankAccountDTO {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	@JsonProperty("AccountActive")
 	public boolean isAccountActive() {
 		return accountActive;
 	}

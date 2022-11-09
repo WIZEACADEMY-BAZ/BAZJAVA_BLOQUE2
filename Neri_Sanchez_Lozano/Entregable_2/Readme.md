@@ -26,4 +26,11 @@ Spring security:
             ("/v3/api-docs/**").permitAll()
             ("/health").permitAll()
             ("/info").permitAll()
-            ("/actuator/**").permitAll() 
+            ("/actuator/**").permitAll()
+
+Se agregan cambios según las observaciones realizadas:
+
+- Sobrecarga de contructor - ActividadDTO.class
+- Sobrecarga de método - Utils.java
+- Clase interna - Utils.java
+- Se agregan coleccion Postman y endpoints faltantes.

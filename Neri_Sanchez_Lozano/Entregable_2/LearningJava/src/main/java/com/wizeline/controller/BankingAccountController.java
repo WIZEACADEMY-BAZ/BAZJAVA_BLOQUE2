@@ -11,21 +11,23 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wizeline.beans.BankAccountBean;
 import com.wizeline.model.BankAccountDTO;
 import com.wizeline.service.BankAccountService;
 import com.wizeline.service.BankAccountServiceImpl;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RequestMapping("/api")
 @RestController
@@ -43,8 +45,15 @@ public class BankingAccountController {
 		return new ResponseEntity<>("All accounts deleted", HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasRole('USER')")
-	@GetMapping("/getAccountByUser")
+	//PUT Controller
+	@PutMapping("/putAccount")
+	public ResponseEntity<String> putAccount(@RequestBody BankAccountDTO account){
+		bankAccountService.putAccount(account);
+		return null;
+	}
+	
+
+	@GetMapping(value= "/getAccountByUser")
 	   public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam String user) {
 	       log.info(msgProcPeticion);
 	       Instant inicioDeEjecucion = Instant.now();
@@ -106,14 +115,20 @@ public class BankingAccountController {
 	
 	@PreAuthorize("hasRole('GUEST')")
 	@GetMapping("/sayHello")
-	  public ResponseEntity<String> sayHelloGuest() {
+	public ResponseEntity<String> sayHelloGuest() {
 	     return new ResponseEntity<>("Hola invitado !!", HttpStatus.OK);
 	  }
 
-	@PostMapping("/postAccount")
-	  public ResponseEntity<String> postAccount(@RequestBody BankAccountDTO account) {
+	@PostMapping(value="/postAccount", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> postAccount(@RequestBody BankAccountBean account) {
 		bankAccountService.postAccount(account);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<>("Cuenta creada",HttpStatus.OK);
+	  }
+	
+	@PutMapping(value="/changeAccountCountry", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<String> changeStatusAccount(@RequestBody BankAccountBean account) {
+		long updatedAccounts =bankAccountService.putAccount(account);
+		return new ResponseEntity<>("Cuentas actualizadas".concat(": "+updatedAccounts), HttpStatus.OK);
 	  }
 
 }
