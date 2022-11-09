@@ -1,7 +1,0 @@
-consumers:
-  login: '/api/login'
-  createUser: '/api/createUser'
-  createUsers: '/api/createUsers'
-  userAccount: '/api/getUserAccount'
-  accounts: '/api/getAccounts'
-  accountsGroupByType: '/api/getAccountsGroupByType'
