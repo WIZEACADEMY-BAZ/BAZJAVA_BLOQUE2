@@ -87,7 +87,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/productos/6369799f68f26a5f689f5db6",
+					"raw": "localhost:8080/api/productos/636c18de86f56263c82f79c1",
 					"host": [
 						"localhost"
 					],
@@ -95,7 +95,7 @@
 					"path": [
 						"api",
 						"productos",
-						"6369799f68f26a5f689f5db6"
+						"636c18de86f56263c82f79c1"
 					]
 				}
 			},
@@ -108,7 +108,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "    {\r\n       \r\n        \"nombre\": \"Sony Camara HD Digital 2 AZR\",\r\n        \"precio\": 177.89,\r\n      ,\r\n        \"categoria\": {\r\n            \"id\": \"6369799f68f26a5f689f5db6\",\r\n            \"nombre\": \"ElectrónicoSS\"\r\n        }",
+					"raw": "    {\r\n    \"id\": \"636c0b6186f562612c1e623b\",\r\n    \"nombre\": \"Sony BAZZ\",\r\n    \"precio\": 177.89,\r\n  \r\n    \"categoria\": {\r\n \r\n        \"nombre\": \"Electrónico\"\r\n    }\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,7 +116,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/productos/63693eb5a5590b5d10439abf",
+					"raw": "localhost:8080/api/productos/636c18de86f56263c82f79c1",
 					"host": [
 						"localhost"
 					],
@@ -124,7 +124,7 @@
 					"path": [
 						"api",
 						"productos",
-						"63693eb5a5590b5d10439abf"
+						"636c18de86f56263c82f79c1"
 					]
 				}
 			},
@@ -145,7 +145,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/api/productos/6369780068f26a6554649a1e",
+					"raw": "localhost:8080/api/productos/636c18de86f56263c82f79c1",
 					"host": [
 						"localhost"
 					],
@@ -153,7 +153,7 @@
 					"path": [
 						"api",
 						"productos",
-						"6369780068f26a6554649a1e"
+						"636c18de86f56263c82f79c1"
 					]
 				}
 			},
