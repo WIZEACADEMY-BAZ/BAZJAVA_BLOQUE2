@@ -14,15 +14,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wizeline.gradle.practicajava.client.AccountsJSONClient;
 import com.wizeline.gradle.practicajava.model.BankAccountDTO;
+import com.wizeline.gradle.practicajava.model.Post;
 import com.wizeline.gradle.practicajava.service.BankAccountService;
-
-
+import com.wizeline.gradle.practicajava.utils.Utils;
 
 @RestController
 @RequestMapping("/apiBank")
@@ -34,6 +36,9 @@ public class BankingAccountController {
 	@Autowired
 	BankAccountService bankAccountService;
 
+//	@Autowired
+//	AccountsJSONClient accountsJSONClient;
+	
 	@DeleteMapping("/deleteAccounts")
 	public ResponseEntity<String> deleteAccounts(){
 		bankAccountService.deleteAccounts();
@@ -78,4 +83,22 @@ public class BankingAccountController {
 	  public ResponseEntity<String> sayHelloGuest() {
 	     return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
 	  }
+	  
+//	  @GetMapping("/getExternalUser/{userId}")
+//		 public ResponseEntity<Post> getExternalUser(@PathVariable Long userId) {
+//
+//				 Post postTest = accountsJSONClient.getPostById(userId);
+//				 LOGGER.info("Getting post userId..." +postTest.getUserId());
+//				 LOGGER.info("Getting post body..." +postTest.getBody());
+//				 LOGGER.info("Getting post title..." +postTest.getTitle());
+//				 postTest.setUserId("External user "+ Utils.randomAcountNumber());
+//				 postTest.setBody("No info in accountBalance since it is an external user");
+//				 postTest.setTitle("No info in title since it is an external user");
+//				 LOGGER.info("Setting post userId..." +postTest.getUserId());
+//				 LOGGER.info("Setting post body..." +postTest.getBody());
+//				 LOGGER.info("Setting post title...."+postTest.getTitle());
+//				 HttpHeaders responseHeaders = new HttpHeaders();
+//				 responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+//				 return new ResponseEntity<>(postTest, responseHeaders, HttpStatus.OK);
+//		 }
 }

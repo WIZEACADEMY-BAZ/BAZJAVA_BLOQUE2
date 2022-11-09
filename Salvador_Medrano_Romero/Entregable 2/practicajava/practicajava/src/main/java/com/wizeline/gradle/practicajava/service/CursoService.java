@@ -9,4 +9,5 @@ public interface CursoService {
 	void guardaEstudiantes(List<EstudianteDTO> estudiantes);
 	void borrarEstudiantes();
 	void actualizarEstudiante(EstudianteDTO estudiante);
+	int[] obtenerCalificaciones(String matricula);
 }

@@ -19,8 +19,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.server.ResponseStatusException;
@@ -63,13 +65,21 @@ public class CursoController {
 		return new ResponseEntity<>(estudiantes, responseHeaders, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/obtenerCalificaciones", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<int[]> obtenerCalificaciones(@RequestParam String matricula) {
+		int[] calificaciones = cursoService.obtenerCalificaciones(matricula);
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+		return new ResponseEntity<>(calificaciones, responseHeaders, HttpStatus.OK);
+	}
+
 	@DeleteMapping("/borrarEstudiantes")
 	public ResponseEntity<String> borrarEstudiantes() {
 		cursoService.borrarEstudiantes();
 		return new ResponseEntity<>("Estudiantes eliminados", HttpStatus.OK);
 	}
 
-	@PostMapping("/actualizarEstudiante")
+	@PutMapping("/actualizarEstudiante")
 	public ResponseEntity<String> actualizarEstudiante(@RequestBody EstudianteDTO estudiante) {
 		cursoService.actualizarEstudiante(estudiante);
 		return new ResponseEntity<>("Se actualizo al estudiante", HttpStatus.OK);
@@ -80,8 +90,8 @@ public class CursoController {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
-
-		return restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, entity, String.class).getBody();
+		return restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, entity, String.class)
+				.getBody();
 	}
 
 	@PostMapping("/autenticacion")

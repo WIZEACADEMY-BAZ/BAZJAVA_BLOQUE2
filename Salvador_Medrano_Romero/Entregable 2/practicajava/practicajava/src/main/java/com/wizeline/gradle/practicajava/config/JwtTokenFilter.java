@@ -41,7 +41,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             if (jwtTokenConfig.validateAccessToken(token)) {
                 Claims claims = validateToken(token);
                 setUpSpringAuthentication(claims);
-                filterChain.doFilter(request, response);
+//                filterChain.doFilter(request, response);
             }
         }
         filterChain.doFilter(request, response);
