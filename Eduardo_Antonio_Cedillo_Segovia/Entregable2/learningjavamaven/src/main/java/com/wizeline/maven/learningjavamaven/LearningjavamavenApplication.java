@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -30,9 +31,20 @@ public class LearningjavamavenApplication extends Thread{
 		return new UserServiceImpl();
 	}
 
+	@Bean
+	public RestTemplate restTemplate(){
+		return new RestTemplate();
+	}
+
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LearningjavamavenApplication.class, args);
 
+
+
+
+
+
 	}
+
 }
 
