@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController extends Thread{
 
     @Autowired

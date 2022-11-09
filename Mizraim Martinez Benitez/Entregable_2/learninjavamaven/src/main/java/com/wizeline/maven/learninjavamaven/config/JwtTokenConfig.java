@@ -3,12 +3,13 @@ package com.wizeline.maven.learninjavamaven.config;
 import com.wizeline.maven.learninjavamaven.model.UserDTO;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Configuration;
+
 @Configuration
 public class JwtTokenConfig {
 

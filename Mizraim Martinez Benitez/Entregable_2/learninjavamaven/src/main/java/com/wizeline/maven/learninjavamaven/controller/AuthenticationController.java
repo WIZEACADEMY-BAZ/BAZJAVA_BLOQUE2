@@ -39,7 +39,7 @@ public class AuthenticationController {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         }
         Claims claims = Jwts.claims().setSubject(userDTO.getUser());
-        claims.put("username", userDTO.getUser());
+        claims.put("user", userDTO.getUser());
         String authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));

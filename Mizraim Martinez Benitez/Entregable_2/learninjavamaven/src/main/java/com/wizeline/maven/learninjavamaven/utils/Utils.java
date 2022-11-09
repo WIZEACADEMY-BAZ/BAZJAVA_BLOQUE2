@@ -85,10 +85,27 @@ public class Utils {
         return "";
     }
 
+    public static long randomAcountNumber() {
+        return new Random().nextLong();
+    }
+
     public static boolean validateNullValue(String value){
         if (value != null){
             return true;
         }
         return false;
     }
+
+    public static class Hello{
+        private String helloMessage;
+
+        public String getHelloMessage() {
+            return helloMessage;
+        }
+
+        public void setHelloMessage(String helloMessage) {
+            this.helloMessage = helloMessage;
+        }
+    }
+
 }

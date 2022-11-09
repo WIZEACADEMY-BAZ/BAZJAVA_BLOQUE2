@@ -4,12 +4,17 @@ import com.wizeline.maven.learninjavamaven.enums.Country;
 import com.wizeline.maven.learninjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learninjavamaven.repository.BankingAccountRepository;
 import com.wizeline.maven.learninjavamaven.utils.Utils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -103,9 +108,73 @@ public class BankAccountServiceImpl implements BankAccountService {
     }
 
     @Override
+    public List<BankAccountDTO> encryptedAccounts() {
+        List<BankAccountDTO> accounts = getAccounts();
+
+        byte[] keyBytes = new byte[]{
+                0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+        };
+        byte[] ivBytes = new byte[]{
+                0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+        };
+        Security.addProvider(new BouncyCastleProvider());
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "DES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = null;
+        try {
+            cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+
+            for (int i = 0; i < accounts.size(); i++) {
+                String accountName = accounts.get(i).getAccountName();
+                byte[] arrAccountName = accountName.getBytes();
+                byte [] accountNameCipher = new byte[cipher.getOutputSize(arrAccountName.length)];
+                int ctAccountNameLength = cipher.update(arrAccountName, 0, arrAccountName.length, accountNameCipher, 0);
+                ctAccountNameLength += cipher.doFinal(accountNameCipher, ctAccountNameLength);
+                accounts.get(i).setAccountName(accountNameCipher.toString());
+
+                String accountCountry = accounts.get(i).getCountry();
+                byte[] arrAccountCountry = accountCountry.getBytes();
+                byte[] accountCountryCipher = new byte[cipher.getOutputSize(arrAccountCountry.length)];
+                int ctAccountCountryLength = cipher.update(arrAccountCountry, 0, arrAccountCountry.length, accountCountryCipher, 0);
+                ctAccountNameLength += cipher.doFinal(accountCountryCipher, ctAccountCountryLength);
+                accounts.get(i).setCountry(accountCountryCipher.toString());
+
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (ShortBufferException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+
+        return accounts;
+    }
+
+    @Override
     public BankAccountDTO getAccountDetails(String user, String lastUsage){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate usage = LocalDate.parse(lastUsage, dateTimeFormatter);
+        return buildBankAccount(user, true, Country.MX, usage.atStartOfDay());
+    }
+
+    @Override
+    public BankAccountDTO getAccountDetails(String user, String lastUsage, Country country){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate usage = LocalDate.parse(lastUsage, dateTimeFormatter);
+        Utils.Hello mensaje = new Utils.Hello();
+        LOGGER.info("Mensaje de innerClass " + mensaje.getHelloMessage());
         return buildBankAccount(user, true, Country.MX, usage.atStartOfDay());
     }
 

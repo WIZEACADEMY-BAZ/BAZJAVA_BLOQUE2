@@ -27,7 +27,7 @@ public class SecurityConfig {
     @Autowired private JwtTokenFilter jwtTokenFilter;
 
     @Value("${spring.security.white-list.url}")
-    private String [] whiteList;
+    private String[] whiteList;
 
     /**
      * Configuracion de la seguridad del servicio.
