@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -77,6 +78,28 @@ public class BankAccountBOImpl implements BankAccountBO{
         //y que sera desplegada cuando se haga la llamada a los
         //REST endpoints que la invocan (un ejemplo es el endpoint de  getAccounts)
         return accountDTOList;
+    }
+
+    @Override
+    public BankAccountDTO updateAccount(String accountName, String newAccountName) {
+        //returns only 'name' field
+        Query query = new Query();
+        query.addCriteria(Criteria.where("accountName").is(accountName));
+        //query.fields().include("name");
+
+
+        Update update = new Update();
+        update.set("accountName", newAccountName);
+
+        mongoTemplate.updateFirst(query, update, BankAccountDTO.class);
+
+        //returns everything
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("accountName").is(newAccountName));
+
+        BankAccountDTO cuenta = mongoTemplate.findOne(query, BankAccountDTO.class);
+
+        return cuenta;
     }
 
     @Override

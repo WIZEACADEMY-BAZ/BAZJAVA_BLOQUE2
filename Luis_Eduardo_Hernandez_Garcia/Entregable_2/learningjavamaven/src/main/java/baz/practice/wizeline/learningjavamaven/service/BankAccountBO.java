@@ -12,6 +12,8 @@ public interface BankAccountBO {
 
     void deleteAccounts();
 
+    BankAccountDTO updateAccount(String accountName, String newAccountName);
+
     BankAccountDTO getAccountByName(String name);
 
 

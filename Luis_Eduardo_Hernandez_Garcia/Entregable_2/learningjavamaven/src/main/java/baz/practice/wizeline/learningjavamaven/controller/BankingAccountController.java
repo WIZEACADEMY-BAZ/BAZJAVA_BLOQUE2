@@ -1,6 +1,8 @@
 package baz.practice.wizeline.learningjavamaven.controller;
 
+import baz.practice.wizeline.learningjavamaven.client.AccountsJSONClient;
 import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
+import baz.practice.wizeline.learningjavamaven.model.Post;
 import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBO;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBOImpl;
@@ -8,12 +10,12 @@ import baz.practice.wizeline.learningjavamaven.service.UserBO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -32,8 +34,7 @@ import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static baz.practice.wizeline.learningjavamaven.utils.Utils.isDateFormatValid;
-import static baz.practice.wizeline.learningjavamaven.utils.Utils.isPasswordValid;
+import static baz.practice.wizeline.learningjavamaven.utils.Utils.*;
 
 @RestController
 @RequestMapping("/api")
@@ -46,8 +47,19 @@ public class BankingAccountController {
     BankAccountBO bankAccountService ;
 
     @Autowired
+    AccountsJSONClient accountsJSONClient;
+
+    @Autowired
     UserBO userBO;
 
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Value("${server.port}")
+    private String port;
+
+    @Autowired
+    private KafkaTemplate<Object, Object> template;
 
     @DeleteMapping("/deleteAccounts")
     public ResponseEntity<String> deleteAccounts() {
@@ -152,6 +164,7 @@ public class BankingAccountController {
 
     @GetMapping("/getAccounts")
     public ResponseEntity<List<BankAccountDTO>> getAccounts() {
+        LOGGER.info("The port used is "+ port);
         LOGGER.info("Se inicia la peticion para getAccounts con MongoDB");
         Instant inicioDeEjecucion = Instant.now();
         LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
@@ -278,5 +291,43 @@ public class BankingAccountController {
         LOGGER.info("Tiempo de respuesta: ".concat(total));
 
         return new ResponseEntity<>(accounts, HttpStatus.OK);
+    }
+
+    //The usage of FeignClient for demo purposes
+    @GetMapping("/getExternalUser/{userId}")
+    public ResponseEntity<Post> getExternalUser(@PathVariable Long userId) {
+
+        Post postTest = accountsJSONClient.getPostById(userId);
+        LOGGER.info("Getting post userId..." +postTest.getUserId());
+        LOGGER.info("Getting post body..." +postTest.getBody());
+        LOGGER.info("Getting post title..." +postTest.getTitle());
+        postTest.setUserId("External user "+randomAcountNumber());
+        postTest.setBody("No info in accountBalance since it is an external user");
+        postTest.setTitle("No info in title since it is an external user");
+        LOGGER.info("Setting post userId..." +postTest.getUserId());
+        LOGGER.info("Setting post body..." +postTest.getBody());
+        LOGGER.info("Setting post title...."+postTest.getTitle());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(postTest, responseHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/send/{userId}")
+    public void sendUserAccount(@PathVariable Integer userId) {
+        List<BankAccountDTO> accounts = bankAccountService.getAccounts();
+        BankAccountDTO account = accounts.get(userId);
+        this.template.send("useraccount-topic", account);
+    }
+
+    @PutMapping(path = "/updateAccount/{accountName}/{newAccountName}")
+    public ResponseEntity<BankAccountDTO> updateAccount(@PathVariable String accountName, @PathVariable String newAccountName){
+        BankAccountDTO account = bankAccountService.updateAccount(accountName, newAccountName);
+        return new ResponseEntity<>(account,HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/externalapi")
+    public ResponseEntity<String> apiExternal(){
+        ResponseEntity<String> respuestaExterna = restTemplate.getForEntity("https://pokeapi.co/api/v2/", String.class);
+        return respuestaExterna;
     }
 }

@@ -28,7 +28,9 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.EnableKafka;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -51,6 +53,8 @@ import static baz.practice.wizeline.learningjavamaven.utils.Utils.isDateFormatVa
 import static baz.practice.wizeline.learningjavamaven.utils.Utils.isPasswordValid;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+@EnableFeignClients
+@EnableKafka
 public class LearningjavamavenApplication extends Thread {
 
 	private static String SUCCESS_CODE = "OK000";
@@ -96,7 +100,6 @@ public class LearningjavamavenApplication extends Thread {
 		UserBO userBo = new UserBOImpl();
 		return userBo.createUser(User, password);
 	}
-
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LearningjavamavenApplication.class, args);}
 }
