@@ -3,3 +3,4 @@
 .vscode
 /.idea/
 /Christian Emmanuel Romero Lopez/Entregable 1/Curso Microservicios/Docker_BAZ_Lab/__pycache__/
+.DS_Store
