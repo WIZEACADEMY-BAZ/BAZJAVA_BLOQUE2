@@ -1,12 +1,12 @@
 package com.wizeline.gradle.learningjavagradle.service;
 
-import org.springframework.http.ResponseEntity;
-
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 
 public interface UserService {
 
 	ResponseDTO createUser(String user, String password);
+	
+	ResponseDTO createUser(String user);
 	
 	ResponseDTO updateUser(String user, String newPassword);
 	

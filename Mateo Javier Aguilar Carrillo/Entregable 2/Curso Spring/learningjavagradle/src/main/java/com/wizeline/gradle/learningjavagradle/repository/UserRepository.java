@@ -10,4 +10,6 @@ public interface UserRepository {
 	
 	String login(String user, String password);
 
+	String createUser(String user);
+
 }

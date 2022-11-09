@@ -5,11 +5,9 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +32,7 @@ import com.wizeline.gradle.learningjavagradle.utils.CommonServices;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController{
 
 	@Autowired
 	UserService userService;
@@ -71,7 +69,8 @@ public class UserController {
 	public  ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO userDTO) {
 		LOGGER.info(msgProcPeticion);
 		ResponseDTO response = new ResponseDTO();
-
+		
+		
 		response = createUser(userDTO.getUser(), userDTO.getPassword());
 
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -121,7 +120,12 @@ public class UserController {
 	}
 
 	private ResponseDTO createUser(String user, String password) {
-		return userService.createUser(user, password);
+		if(password != null) {
+			return userService.createUser(user, password);
+		} else {
+			return userService.createUser(user);
+		}
+		
 	}
 
 }

@@ -21,8 +21,25 @@ public class UserServiceImpl implements UserService{
 		LOGGER.info("Inicia procesamiento en capa de negocio");
 		ResponseDTO response = new ResponseDTO();
 		String result = "fail"; 
-		if (Utils.validateNullValue(user) && Utils.validateNullValue(password)) {
+		if (Utils.validateNullValue(user)) {
 			result = userDao.createUser(user, password);
+			response.setCode("OK000");
+			response.setStatus(result);
+		}else {
+			response.setCode("OK000");
+			response.setStatus(result);
+			response.setErrors(new ResponseDTO.ErrorDTO("ER000","Error al crear usuario"));
+		}
+		return response;
+	}
+	
+	@Override
+	public ResponseDTO createUser(String user) {
+		LOGGER.info("Inicia procesamiento en capa de negocio");
+		ResponseDTO response = new ResponseDTO();
+		String result = "fail"; 
+		if (Utils.validateNullValue(user)) {
+			result = userDao.createUser(user);
 			response.setCode("OK000");
 			response.setStatus(result);
 		}else {
@@ -84,6 +101,6 @@ public class UserServiceImpl implements UserService{
 			response.setErrors(new ResponseDTO.ErrorDTO("ER004","Error al borrar usuario"));
 		}
 		return response;
-	}
+	}	
 
 }
