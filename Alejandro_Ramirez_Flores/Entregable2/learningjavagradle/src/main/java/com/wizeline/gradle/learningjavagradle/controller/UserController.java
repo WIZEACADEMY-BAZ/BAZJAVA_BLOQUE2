@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.wizeline.gradle.learningjavagradle.configuration.SecurityConfig;
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.service.UserService;
@@ -34,6 +35,9 @@ public class UserController {
   
   @Autowired
   CommonServices commonServices;
+  
+  @Autowired
+  SecurityConfig securityConfig;
   
   private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
   

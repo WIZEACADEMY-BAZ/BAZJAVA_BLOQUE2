@@ -1,0 +1,12 @@
+Country: Mexico Account Name: Dummy Account 1 Account Type: PLATINUM Account Balance: 1000.0 User: user1@wizeline.com
+Country: Brasil Account Name: Dummy Account 2 Account Type: NOMINA Account Balance: 2000.0 User: user2@wizeline.com
+Country: USA Account Name: Dummy Account 3 Account Type: AHORRO Account Balance: 3000.0 User: user3@wizeline.com
+Country: Argentina Account Name: Dummy Account 4 Account Type: PLATINUM Account Balance: 4000.0 User: user4@wizeline.com
+Country: Francia Account Name: Dummy Account 5 Account Type: NOMINA Account Balance: 5000.0 User: user5@wizeline.com
+Country: Canada Account Name: Dummy Account 6 Account Type: AHORRO Account Balance: 6000.0 User: user6@wizeline.com
+Country: Portugal Account Name: Dummy Account 7 Account Type: PLATINUM Account Balance: 7000.0 User: user7@wizeline.com
+Country: Japon Account Name: Dummy Account 8 Account Type: NOMINA Account Balance: 8000.0 User: user8@wizeline.com
+Country: Mexico Account Name: Dummy Account 9 Account Type: AHORRO Account Balance: 9000.0 User: user9@wizeline.com
+Country: China Account Name: Dummy Account 10 Account Type: PLATINUM Account Balance: 10000.1 User: user10@wizeline.com
+Country: Colombia Account Name: Dummy Account 11 Account Type: NOMINA Account Balance: 11000.2 User: user11@wizeline.com
+Country: Peru Account Name: Dummy Account 12 Account Type: AHORRO Account Balance: 12000.3 User: user12@wizeline.com

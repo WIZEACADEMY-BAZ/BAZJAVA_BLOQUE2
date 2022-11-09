@@ -15,6 +15,7 @@ import com.wizeline.gradle.learningjavagradle.utils.exceptions.ExcepcionGenerica
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,6 +39,7 @@ import static com.wizeline.gradle.learningjavagradle.utils.Utils.isDateFormatVal
 import static com.wizeline.gradle.learningjavagradle.utils.Utils.isPasswordValid;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@EnableFeignClients
 public class LearningjavagradleApplication extends Thread {
 
 	private static final Logger LOGGER = Logger.getLogger(LearningjavagradleApplication.class.getName());
@@ -45,6 +47,7 @@ public class LearningjavagradleApplication extends Thread {
 	private static String responseTextThread = "";
 	private static String textThread = "";
 
+	
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LearningjavagradleApplication.class, args);
 	}
