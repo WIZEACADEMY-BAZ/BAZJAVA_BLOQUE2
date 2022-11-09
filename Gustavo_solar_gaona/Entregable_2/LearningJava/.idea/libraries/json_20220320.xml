@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="json-20220320">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/bootcampWizeline/json-20220320.jar!/" />
+      <root url="jar://$USER_HOME$/bootcampWizeline/bcprov-jdk18on-172.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

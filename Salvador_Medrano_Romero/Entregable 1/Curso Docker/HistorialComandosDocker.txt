@@ -1,0 +1,472 @@
+      0 [sig] sh 460! sigpacket::process: Suppressing signal 18 to win32 process (pid 0)
+
+[3]+  Stopped                 docker run --publish 8080:5000 python-docker
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps
+CONTAINER ID   IMAGE           COMMAND       CREATED         STATUS         PORTS                    NAMES
+41278e196112   python-docker   "flask run"   5 minutes ago   Up 5 minutes   0.0.0.0:8080->5000/tcp   silly_chaplygin
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker stop silly_chaplygin
+silly_chaplygin
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker run -d -p 8080:5000 python-docker
+7221789a57cd4be6eb29479087801604f203e27715e27ee13cc3991bfb404d09
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps
+CONTAINER ID   IMAGE           COMMAND       CREATED          STATUS          PORTS                    NAMES
+7221789a57cd   python-docker   "flask run"   16 seconds ago   Up 16 seconds   0.0.0.0:8080->5000/tcp   happy_johnson
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker stop happy_johnson
+happy_johnson
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps -a
+CONTAINER ID   IMAGE           COMMAND       CREATED              STATUS                         PORTS     NAMES
+7221789a57cd   python-docker   "flask run"   About a minute ago   Exited (137) 6 seconds ago               happy_johnson
+41278e196112   python-docker   "flask run"   9 minutes ago        Exited (137) 3 minutes ago               silly_chaplygin
+fa29e468f87a   python-docker   "flask run"   15 minutes ago       Exited (137) 11 minutes ago              infallible_kapitsa
+c470b1123b63   python-docker   "flask run"   17 minutes ago       Exited (137) 10 minutes ago              wizardly_lederberg
+57f03051a669   e133c757845a    "flask run"   19 minutes ago       Exited (1) 19 minutes ago                nifty_clarke
+8777d2aef147   e133c757845a    "flask run"   19 minutes ago       Exited (1) 19 minutes ago                quizzical_gagarin
+d063c4f3c685   e133c757845a    "flask run"   44 minutes ago       Exited (1) 44 minutes ago                interesting_nobel
+551236dd1123   e133c757845a    "flask run"   57 minutes ago       Exited (1) 57 minutes ago                dreamy_heisenberg
+9abe482224fd   e133c757845a    "flask run"   About an hour ago    Exited (1) About an hour ago             happy_nash
+a4414ca34f77   e133c757845a    "flask run"   About an hour ago    Exited (1) About an hour ago             reverent_golick
+1114a75969cf   e133c757845a    "flask run"   About an hour ago    Exited (1) About an hour ago             friendly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker restar happy_johnson
+docker: 'restar' is not a docker command.
+See 'docker --help'
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker restart happy_johnson
+happy_johnson
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps -a
+CONTAINER ID   IMAGE           COMMAND       CREATED             STATUS                         PORTS                    NAMES
+7221789a57cd   python-docker   "flask run"   2 minutes ago       Up 5 seconds                   0.0.0.0:8080->5000/tcp   happy_johnson
+41278e196112   python-docker   "flask run"   10 minutes ago      Exited (137) 4 minutes ago                              silly_chaplygin
+fa29e468f87a   python-docker   "flask run"   15 minutes ago      Exited (137) 11 minutes ago                             infallible_kapitsa
+c470b1123b63   python-docker   "flask run"   18 minutes ago      Exited (137) 11 minutes ago                             wizardly_lederberg
+57f03051a669   e133c757845a    "flask run"   20 minutes ago      Exited (1) 20 minutes ago                               nifty_clarke
+8777d2aef147   e133c757845a    "flask run"   20 minutes ago      Exited (1) 20 minutes ago                               quizzical_gagarin
+d063c4f3c685   e133c757845a    "flask run"   45 minutes ago      Exited (1) 45 minutes ago                               interesting_nobel
+551236dd1123   e133c757845a    "flask run"   57 minutes ago      Exited (1) 57 minutes ago                               dreamy_heisenberg
+9abe482224fd   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago                            happy_nash
+a4414ca34f77   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago                            reverent_golick
+1114a75969cf   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago                            friendly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps
+CONTAINER ID   IMAGE           COMMAND       CREATED         STATUS         PORTS                    NAMES
+7221789a57cd   python-docker   "flask run"   2 minutes ago   Up 8 seconds   0.0.0.0:8080->5000/tcp   happy_johnson
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker rm happy_johnson silly_chaplygin infallible_kapitsa
+silly_chaplygin
+infallible_kapitsa
+Error response from daemon: You cannot remove a running container 7221789a57cd4be6eb29479087801604f203e27715e27ee13cc3991bfb404d09. Stop the container before attempting removal or force remove
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker stop happy_johnson
+happy_johnson
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker rm happy_johnson silly_chaplygin infallible_kapitsa
+happy_johnson
+Error: No such container: silly_chaplygin
+Error: No such container: infallible_kapitsa
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps -a
+CONTAINER ID   IMAGE           COMMAND       CREATED             STATUS                         PORTS     NAMES
+c470b1123b63   python-docker   "flask run"   24 minutes ago      Exited (137) 17 minutes ago              wizardly_lederberg
+57f03051a669   e133c757845a    "flask run"   26 minutes ago      Exited (1) 26 minutes ago                nifty_clarke
+8777d2aef147   e133c757845a    "flask run"   27 minutes ago      Exited (1) 27 minutes ago                quizzical_gagarin
+d063c4f3c685   e133c757845a    "flask run"   51 minutes ago      Exited (1) 51 minutes ago                interesting_nobel
+551236dd1123   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago             dreamy_heisenberg
+9abe482224fd   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago             happy_nash
+a4414ca34f77   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago             reverent_golick
+1114a75969cf   e133c757845a    "flask run"   About an hour ago   Exited (1) About an hour ago             friendly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker rm wizardly_lederberg nifty_clarke quizzical_gagarin
+wizardly_lederberg
+nifty_clarke
+quizzical_gagarin
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND       CREATED             STATUS                         PORTS     NAMES
+d063c4f3c685   e133c757845a   "flask run"   52 minutes ago      Exited (1) 52 minutes ago                interesting_nobel
+551236dd1123   e133c757845a   "flask run"   About an hour ago   Exited (1) About an hour ago             dreamy_heisenberg
+9abe482224fd   e133c757845a   "flask run"   About an hour ago   Exited (1) About an hour ago             happy_nash
+a4414ca34f77   e133c757845a   "flask run"   About an hour ago   Exited (1) About an hour ago             reverent_golick
+1114a75969cf   e133c757845a   "flask run"   About an hour ago   Exited (1) About an hour ago             friendly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker rm interesting_nobel dreamy_heisenberg happy_nash reverent_golick frindly_pare
+interesting_nobel
+dreamy_heisenberg
+happy_nash
+reverent_golick
+Error: No such container: frindly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker rm friendly_pare
+friendly_pare
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker run --rm -d -p 8080:5000 --name python-server python-docker
+ecf114a263e26fd3de889b5a4a08f648bad371778cf449c7d97cf4e58a30d273
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps
+CONTAINER ID   IMAGE           COMMAND       CREATED         STATUS         PORTS                    NAMES
+ecf114a263e2   python-docker   "flask run"   6 seconds ago   Up 4 seconds   0.0.0.0:8080->5000/tcp   python-server
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker stop python-server
+python-server
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ nano app.py
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ nano requirements.txt
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ nano docker-compose.yml
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker-compose up
+redis Pulling
+213ec9aee27d Already exists
+fb541f77610a Pulling fs layer
+dc2e3041aaa5 Pulling fs layer
+aadae582a31f Pulling fs layer
+996b5def1876 Pulling fs layer
+bed3be2507e6 Pulling fs layer
+bed3be2507e6 Waiting
+aadae582a31f Downloading [>                                                  ]  90.23kB/8.646MB
+fb541f77610a Downloading [=============================>                     ]     758B/1.271kB
+fb541f77610a Downloading [==================================================>]  1.271kB/1.271kB
+fb541f77610a Download complete
+fb541f77610a Extracting [==================================================>]  1.271kB/1.271kB
+fb541f77610a Extracting [==================================================>]  1.271kB/1.271kB
+fb541f77610a Pull complete
+dc2e3041aaa5 Downloading [>                                                  ]  4.863kB/398.4kB
+aadae582a31f Downloading [=>                                                 ]  180.1kB/8.646MB
+dc2e3041aaa5 Downloading [=============================================>     ]  359.8kB/398.4kB
+dc2e3041aaa5 Downloading [==================================================>]  398.4kB/398.4kB
+dc2e3041aaa5 Verifying Checksum
+dc2e3041aaa5 Extracting [====>                                              ]  32.77kB/398.4kB
+aadae582a31f Downloading [===>                                               ]  671.1kB/8.646MB
+dc2e3041aaa5 Extracting [=========================================>         ]  327.7kB/398.4kB
+dc2e3041aaa5 Extracting [==================================================>]  398.4kB/398.4kB
+dc2e3041aaa5 Extracting [==================================================>]  398.4kB/398.4kB
+dc2e3041aaa5 Pull complete
+aadae582a31f Downloading [=======>                                           ]  1.355MB/8.646MB
+aadae582a31f Downloading [========>                                          ]  1.453MB/8.646MB
+aadae582a31f Downloading [============>                                      ]  2.141MB/8.646MB
+aadae582a31f Downloading [================>                                  ]  2.829MB/8.646MB
+aadae582a31f Downloading [=====================>                             ]  3.799MB/8.646MB
+aadae582a31f Downloading [============================>                      ]  4.963MB/8.646MB
+aadae582a31f Downloading [================================>                  ]  5.651MB/8.646MB
+aadae582a31f Downloading [=====================================>             ]  6.531MB/8.646MB
+bed3be2507e6 Downloading [==================================================>]     578B/578B
+bed3be2507e6 Verifying Checksum
+bed3be2507e6 Download complete
+aadae582a31f Downloading [============================================>      ]  7.613MB/8.646MB
+aadae582a31f Downloading [================================================>  ]  8.403MB/8.646MB
+aadae582a31f Downloading [=================================================> ]    8.6MB/8.646MB
+aadae582a31f Verifying Checksum
+aadae582a31f Download complete
+aadae582a31f Extracting [>                                                  ]   98.3kB/8.646MB
+aadae582a31f Extracting [=======================>                           ]   4.03MB/8.646MB
+aadae582a31f Extracting [==============================================>    ]  8.061MB/8.646MB
+aadae582a31f Extracting [==================================================>]  8.646MB/8.646MB
+aadae582a31f Extracting [==================================================>]  8.646MB/8.646MB
+aadae582a31f Pull complete
+996b5def1876 Downloading [==================================================>]     135B/135B
+996b5def1876 Verifying Checksum
+996b5def1876 Extracting [==================================================>]     135B/135B
+996b5def1876 Extracting [==================================================>]     135B/135B
+996b5def1876 Pull complete
+bed3be2507e6 Extracting [==================================================>]     578B/578B
+bed3be2507e6 Extracting [==================================================>]     578B/578B
+bed3be2507e6 Pull complete
+redis Pulled
+#1 [internal] load .dockerignore
+#1 transferring context: 2B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 320B 0.0s done
+#2 DONE 0.1s
+
+#3 resolve image config for docker.io/docker/dockerfile:1
+#3 DONE 15.0s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:9ba7531bd80fb0a858632727cf7a112fbfd19b17e94c4e84ced81e24ef1a0dbc
+#4 CACHED
+
+#5 [internal] load .dockerignore
+#5 DONE 0.0s
+
+#6 [internal] load build definition from Dockerfile
+#6 DONE 0.0s
+
+#7 [internal] load metadata for docker.io/library/python:3.7-alpine
+#7 DONE 1.0s
+
+#8 [1/6] FROM docker.io/library/python:3.7-alpine@sha256:45438a907ad35872739d31a5ae28a72a79c3f6abb43ec0b32688216e1ea1759c
+#8 DONE 0.0s
+
+#9 [internal] load build context
+#9 transferring context: 1.09kB done
+#9 DONE 0.0s
+
+#10 [2/6] WORKDIR /code
+#10 CACHED
+
+#11 [3/6] RUN apk add --no-cache gcc musl-dev linux-headers
+#11 CACHED
+
+#12 [4/6] COPY requirements.txt requirements.txt
+#12 DONE 0.0s
+
+#13 [5/6] RUN pip install -r requirements.txt
+#13 2.120 Collecting flask
+#13 2.373   Downloading Flask-2.2.2-py3-none-any.whl (101 kB)
+#13 2.442      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 101.5/101.5 KB 1.4 MB/s eta 0:00:00
+#13 2.531 Collecting redis
+#13 2.570   Downloading redis-4.3.4-py3-none-any.whl (246 kB)
+#13 2.631      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 246.2/246.2 KB 4.1 MB/s eta 0:00:00
+#13 2.690 Collecting itsdangerous>=2.0
+#13 2.724   Downloading itsdangerous-2.1.2-py3-none-any.whl (15 kB)
+#13 2.798 Collecting Jinja2>=3.0
+#13 2.833   Downloading Jinja2-3.1.2-py3-none-any.whl (133 kB)
+#13 2.867      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 133.1/133.1 KB 4.1 MB/s eta 0:00:00
+#13 3.015 Collecting importlib-metadata>=3.6.0
+#13 3.062   Downloading importlib_metadata-5.0.0-py3-none-any.whl (21 kB)
+#13 3.149 Collecting click>=8.0
+#13 3.183   Downloading click-8.1.3-py3-none-any.whl (96 kB)
+#13 3.208      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 KB 3.9 MB/s eta 0:00:00
+#13 3.290 Collecting Werkzeug>=2.2.2
+#13 3.326   Downloading Werkzeug-2.2.2-py3-none-any.whl (232 kB)
+#13 3.370      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 232.7/232.7 KB 5.6 MB/s eta 0:00:00
+#13 3.449 Collecting packaging>=20.4
+#13 3.484   Downloading packaging-21.3-py3-none-any.whl (40 kB)
+#13 3.492      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 40.8/40.8 KB 6.5 MB/s eta 0:00:00
+#13 3.557 Collecting deprecated>=1.2.3
+#13 3.596   Downloading Deprecated-1.2.13-py2.py3-none-any.whl (9.6 kB)
+#13 3.654 Collecting async-timeout>=4.0.2
+#13 3.707   Downloading async_timeout-4.0.2-py3-none-any.whl (5.8 kB)
+#13 3.787 Collecting typing-extensions
+#13 3.822   Downloading typing_extensions-4.4.0-py3-none-any.whl (26 kB)
+#13 4.053 Collecting wrapt<2,>=1.10
+#13 4.090   Downloading wrapt-1.14.1-cp37-cp37m-musllinux_1_1_x86_64.whl (80 kB)
+#13 4.105      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 80.6/80.6 KB 6.1 MB/s eta 0:00:00
+#13 4.199 Collecting zipp>=0.5
+#13 4.233   Downloading zipp-3.9.0-py3-none-any.whl (5.8 kB)
+#13 4.337 Collecting MarkupSafe>=2.0
+#13 4.380   Downloading MarkupSafe-2.1.1-cp37-cp37m-musllinux_1_1_x86_64.whl (30 kB)
+#13 4.491 Collecting pyparsing!=3.0.5,>=2.0.2
+#13 4.530   Downloading pyparsing-3.0.9-py3-none-any.whl (98 kB)
+#13 4.545      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 98.3/98.3 KB 8.4 MB/s eta 0:00:00
+#13 4.730 Installing collected packages: zipp, wrapt, typing-extensions, pyparsing, MarkupSafe, itsdangerous, Werkzeug, packaging, Jinja2, importlib-metadata, deprecated, async-timeout, redis, click, flask
+#13 5.417 Successfully installed Jinja2-3.1.2 MarkupSafe-2.1.1 Werkzeug-2.2.2 async-timeout-4.0.2 click-8.1.3 deprecated-1.2.13 flask-2.2.2 importlib-metadata-5.0.0 itsdangerous-2.1.2 packaging-21.3 pyparsing-3.0.9 redis-4.3.4 typing-extensions-4.4.0 wrapt-1.14.1 zipp-3.9.0
+#13 5.418 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+#13 5.622 WARNING: You are using pip version 22.0.4; however, version 22.2.2 is available.
+#13 5.622 You should consider upgrading via the '/usr/local/bin/python -m pip install --upgrade pip' command.
+#13 DONE 5.8s
+
+#14 [6/6] COPY . .
+#14 DONE 0.1s
+
+#15 exporting to image
+#15 exporting layers
+#15 exporting layers 0.2s done
+#15 writing image sha256:50209800c975ac8a279524aa1fd52ef44a45c12091d351631ed8f0de5db687ef done
+#15 naming to docker.io/library/cursodocker-web done
+#15 DONE 0.2s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+Network cursodocker_default  Creating
+Network cursodocker_default  Created
+Container cursodocker-redis-1  Creating
+Container cursodocker-web-1  Creating
+Container cursodocker-redis-1  Created
+Container cursodocker-web-1  Created
+Attaching to cursodocker-redis-1, cursodocker-web-1
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:32:22.805 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:32:22.805 # Redis version=7.0.5, bits=64, commit=00000000, modified=0, pid=1, just started
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:32:22.805 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:32:22.805 * monotonic clock: POSIX clock_gettime
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:32:22.806 * Running mode=standalone, port=6379.
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:32:22.806 # Server initialized
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:32:22.806 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:32:22.808 * Ready to accept connections
+cursodocker-web-1    |  * Serving Flask app 'app.py'
+cursodocker-web-1    |  * Debug mode: off
+cursodocker-web-1    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+cursodocker-web-1    |  * Running on all addresses (0.0.0.0)
+cursodocker-web-1    |  * Running on http://127.0.0.1:5000
+cursodocker-web-1    |  * Running on http://172.18.0.3:5000
+cursodocker-web-1    | Press CTRL+C to quit
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:32] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:32] "GET /favicon.ico HTTP/1.1" 404 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:35] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:36] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:37] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:37] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:38] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:38] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:32:39] "GET / HTTP/1.1" 200 -
+Gracefully stopping... (press Ctrl+C again to force)
+Container cursodocker-redis-1  Stopping
+Container cursodocker-web-1  Stopping
+Container cursodocker-redis-1  Stopped
+
+[4]+  Stopped                 docker-compose up
+      0 [sig] sh 694! sigpacket::process: Suppressing signal 18 to win32 process (pid 0)
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ Container cursodocker-web-1  Stopped
+canceled
+do
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ nano docker-compose.yml
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ docker-compose up
+Container cursodocker-redis-1  Recreate
+Container cursodocker-web-1  Recreate
+Container cursodocker-redis-1  Recreated
+Container cursodocker-web-1  Recreated
+Attaching to cursodocker-redis-1, cursodocker-web-1
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:39:01.851 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:39:01.851 # Redis version=7.0.5, bits=64, commit=00000000, modified=0, pid=1, just started
+cursodocker-redis-1  | 1:C 12 Oct 2022 21:39:01.851 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.852 * monotonic clock: POSIX clock_gettime
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.852 * Running mode=standalone, port=6379.
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.852 # Server initialized
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.852 # WARNING overcommit_memory is set to 0! Background save may fail under low memory condition. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * Loading RDB produced by version 7.0.5
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * RDB age 303 seconds
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * RDB memory usage when created 0.85 Mb
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * Done loading RDB, keys loaded: 1, keys expired: 0.
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * DB loaded from disk: 0.000 seconds
+cursodocker-redis-1  | 1:M 12 Oct 2022 21:39:01.853 * Ready to accept connections
+cursodocker-web-1    |  * Serving Flask app 'app.py'
+cursodocker-web-1    |  * Debug mode: on
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+cursodocker-web-1    |  * Running on all addresses (0.0.0.0)
+cursodocker-web-1    |  * Running on http://127.0.0.1:5000
+cursodocker-web-1    |  * Running on http://172.18.0.3:5000
+cursodocker-web-1    | Press CTRL+C to quit
+cursodocker-web-1    |  * Restarting with stat
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    |  * Debugger is active!
+cursodocker-web-1    |  * Debugger PIN: 547-392-027
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:39:47] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 21:39:47] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 22:04:17] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 22:04:24] "GET / HTTP/1.1" 200 -
+cursodocker-web-1    |  * Detected change in '/code/app.py', reloading
+cursodocker-web-1    |  * Restarting with stat
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    | 'FLASK_ENV' is deprecated and will not be used in Flask 2.3. Use 'FLASK_DEBUG' instead.
+cursodocker-web-1    |  * Debugger is active!
+cursodocker-web-1    |  * Debugger PIN: 547-392-027
+cursodocker-web-1    | 172.18.0.1 - - [12/Oct/2022 22:09:16] "GET / HTTP/1.1" 200 -
+Gracefully stopping... (press Ctrl+C again to force)
+Container cursodocker-web-1  Stopping
+Container cursodocker-redis-1  Stopping
+Container cursodocker-redis-1  Stopped
+Container cursodocker-web-1  Stopped
+canceled
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ git status
+On branch Salvador-Medrano-Entregable1
+Your branch is up to date with 'origin/Salvador-Medrano-Entregable1'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        ./
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ git add .
+warning: LF will be replaced by CRLF in Salvador_Medrano_Romero/Entregable 1/Curso Docker/Dockerfile.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in Salvador_Medrano_Romero/Entregable 1/Curso Docker/app.py.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in Salvador_Medrano_Romero/Entregable 1/Curso Docker/docker-compose.yml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in Salvador_Medrano_Romero/Entregable 1/Curso Docker/requirements.txt.
+The file will have its original line endings in your working directory
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ git status
+On branch Salvador-Medrano-Entregable1
+Your branch is up to date with 'origin/Salvador-Medrano-Entregable1'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   Dockerfile
+        new file:   __pycache__/app.cpython-37.pyc
+        new file:   app.py
+        new file:   docker-compose.yml
+        new file:   requirements.txt
+
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ git commit -m "Evidencia practica Docker"
+[Salvador-Medrano-Entregable1 99e5e88] Evidencia practica Docker
+ 5 files changed, 48 insertions(+)
+ create mode 100644 Salvador_Medrano_Romero/Entregable 1/Curso Docker/Dockerfile
+ create mode 100644 Salvador_Medrano_Romero/Entregable 1/Curso Docker/__pycache__/app.cpython-37.pyc
+ create mode 100644 Salvador_Medrano_Romero/Entregable 1/Curso Docker/app.py
+ create mode 100644 Salvador_Medrano_Romero/Entregable 1/Curso Docker/docker-compose.yml
+ create mode 100644 Salvador_Medrano_Romero/Entregable 1/Curso Docker/requirements.txt
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$ git push
+Enumerating objects: 14, done.
+Counting objects: 100% (14/14), done.
+Delta compression using up to 12 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (11/11), 1.88 KiB | 175.00 KiB/s, done.
+Total 11 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:WIZEACADEMY-BAZ/BAZJAVA_BLOQUE2.git
+   63b5fee..99e5e88  Salvador-Medrano-Entregable1 -> Salvador-Medrano-Entregable1
+
+B233177@BAZ1726963LAP MINGW64 ~/Desktop/1.- SuperApp/Wizeline/BAZ_BLOQ2/BAZJAVA_BLOQUE2/Salvador_Medrano_Romero/Entregable 1/Curso Docker (Salvador-Medrano-Entregable1)
+$

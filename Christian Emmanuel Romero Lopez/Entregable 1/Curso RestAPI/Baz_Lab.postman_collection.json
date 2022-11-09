@@ -1,0 +1,176 @@
+{
+	"info": {
+		"_postman_id": "eb4daad5-5407-4abd-8c38-b113f13ce1b4",
+		"name": "Baz_Lab",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19543580"
+	},
+	"item": [
+		{
+			"name": "/users - Listar usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users?page=2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2",
+							"description": "El valor de puede ser 1 o 2 o omitirla para que solo muestre la pagina 1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users - Mostrar cabeceras",
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users - Alta usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{nombre}}\",\r\n    \"job\": \"{{puesto}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/post",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/\"id\" - Modificar usuario",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{nombre2}}\",\r\n    \"job\": \"{{puesto2}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users/113",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"113"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/\"id\" - Eliminar usuario",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users/113",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"113"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/\"id\" - Listar usuario",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/users/{{id_user}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"{{id_user}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/\"id\" - Modificar usuario",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"{{nombre3}}\",\r\n    \"job\": \"{{puesto3}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/users/113",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"users",
+						"113"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

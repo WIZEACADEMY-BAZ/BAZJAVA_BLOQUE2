@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "8a4e708e-a31c-4944-baa4-3250f6af7343",
+		"name": "Curso BAZ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14432859"
+	},
+	"item": [
+		{
+			"name": "GET parameters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/get?json={{json_value}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE parameters",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "body",
+							"value": "{{body}}",
+							"type": "text"
+						},
+						{
+							"key": "body2",
+							"value": "{{body2}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/put?json={{json_value}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"put"
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH parameters",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "1",
+							"value": "{{body}}",
+							"type": "text"
+						},
+						{
+							"key": "2",
+							"value": "{{body2}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/patch?json={{json_value}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"patch"
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE parameters",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "1",
+							"value": "{{body}}",
+							"type": "text"
+						},
+						{
+							"key": "2",
+							"value": "{{body2}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/delete?json={{json_value}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"delete"
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST parameters",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "1",
+							"value": "{{body}}",
+							"type": "text"
+						},
+						{
+							"key": "2",
+							"value": "{{body2}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/post?json={{json_value}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "json",
+							"value": "{{json_value}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "httpbin.org/",
+			"type": "string"
+		},
+		{
+			"key": "json_value",
+			"value": "Esto es un JSON",
+			"type": "string"
+		},
+		{
+			"key": "body",
+			"value": "1234",
+			"type": "string"
+		},
+		{
+			"key": "body2",
+			"value": "5678",
+			"type": "string"
+		}
+	]
+}
