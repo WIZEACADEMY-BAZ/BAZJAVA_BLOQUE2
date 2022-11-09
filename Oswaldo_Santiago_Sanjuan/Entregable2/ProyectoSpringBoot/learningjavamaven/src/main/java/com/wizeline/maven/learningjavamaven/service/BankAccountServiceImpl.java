@@ -2,11 +2,13 @@ package com.wizeline.maven.learningjavamaven.service;
 
 import com.wizeline.maven.learningjavamaven.enums.Country;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
+import com.wizeline.maven.learningjavamaven.model.BankAccountDTOUpdate;
 import com.wizeline.maven.learningjavamaven.repository.BankingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,9 +16,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
+import static java.util.stream.Collectors.counting;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
@@ -29,6 +33,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Autowired
     MongoTemplate mongoTemplate;
+
 
     @Override
     public BankAccountDTO getAccountDetails(String user, String lastUsage) {
@@ -83,12 +88,16 @@ public class BankAccountServiceImpl implements BankAccountService {
                 (user) -> {
                     LOGGER.info("User stored in bankAccountCollection " + user );
                 });
+        Long result = accountDTOList.stream().collect(counting());
+
+        LOGGER.info("Los resultantes son " + result);
         //Esta es la respuesta que se retorna al Controlador
         //y que sera desplegada cuando se haga la llamada a los
         //REST endpoints que la invocan (un ejemplo es el endpoint de  getAccounts)
         return accountDTOList;
     }
 
+    //Trabaja metindo el metoendo un metodo put
     @Override
     public void deleteAccounts() {
         //Deleting all records inside of bankAccountCollection in the mongo db
@@ -105,6 +114,27 @@ public class BankAccountServiceImpl implements BankAccountService {
         return mongoTemplate.find(query, BankAccountDTO.class);
     }
 
+    @Override
+    public Optional<BankAccountDTO> getAccountByAccountNumber(long accountNumber){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("accountNumber").is(accountNumber));
+        BankAccountDTO result = mongoTemplate.findOne(query, BankAccountDTO.class);
+        Optional<BankAccountDTO> opt =  Optional.ofNullable(result);
+        return opt;
+    }
 
+
+
+//PUTAccounts
+     @Override
+    public  BankAccountDTO putCountry(String country) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("country").is("country"));
+        Update update = new Update();
+        update.set("country",country);
+        mongoTemplate.updateFirst(query,update, BankAccountDTO.class);
+        BankAccountDTO result = mongoTemplate.findOne(query, BankAccountDTO.class);
+        return result;
+    }
 
 }

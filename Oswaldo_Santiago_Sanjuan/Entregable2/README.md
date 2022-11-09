@@ -330,13 +330,6 @@ se tiene una anotación en la clase UserController.
 3. @Autowired
 
 ```
-### Uso de por lo menos 1 Optional
-```java
-
-
-
-```
-
 ### Uso de por lo menos 1 tipos de dato genérico
 ```java 
     @GetMapping("/login")
@@ -510,9 +503,222 @@ en la clase UserController Recorremos todas las cuentas y ciframos tanto el nomb
 ### Se agrego una foto de 
 Spring_Initializr.jpg
 
-## Archivo desplegable usando Gradle o Maven
+## Puntos que me faltaron abordar para mi entregable...
+## Uso de un opcional
 
 ``` java
-el proyecto se encuentra desplegado en Maven.
-  
+El uso de un  de un optional se encuentra en la clase public class BankAccountServiceImpl implements BankAccountService del paquete service.
+
+    @Override
+    public Optional<BankAccountDTO> getAccountByAccountNumber(long accountNumber){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("accountNumber").is(accountNumber));
+        BankAccountDTO result = mongoTemplate.findOne(query, BankAccountDTO.class);
+        Optional<BankAccountDTO> opt =  Optional.ofNullable(result);
+        return opt;
+    } 
 ```
+
+### Uso de por lo menos 2 operaciones intermedias y dos tipos de colectores.
+ ``` java
+el la clase BankAccountServiceImpl se encuentra un colector del paquete service 
+
+        Long result = accountDTOList.stream().collect(counting());
+
+en la clase AuthenticationController se encuentra otro collector del paquete controller.
+
+        String authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+```
+
+### Consumo de API publica usando RestTemplate  
+
+en la clase UserController del paquete controller se implementó la API publica usando RestTemplate.
+
+``` java
+    @GetMapping("/ResTemplate")
+    public Object getApi(){
+        String url = "https://pokeapi.co/api/v2/pokemon/ditto";
+        Object forObject = restTemplate.getForObject(url, Object.class);
+        return forObject;
+    }
+
+```
+### Actualización en mongoDB en la clase 
+En la clase BankAccountServiceImpl del paquete service se implementó la actualización
+
+``` java
+      @Override
+    public  BankAccountDTO putCountry(String country) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("country").is("country"));
+        Update update = new Update();
+        update.set("country",country);
+        mongoTemplate.updateFirst(query,update, BankAccountDTO.class);
+        BankAccountDTO result = mongoTemplate.findOne(query, BankAccountDTO.class);
+        return result;
+    }
+
+```
+### Borrado en MongoDB
+
+``` java
+En la clase BankAccountServiceImpl del paquete service se implementó el borrado
+
+    @Override
+    public void deleteAccounts() {
+        //Deleting all records inside of bankAccountCollection in the mongo db
+        bankAccountRepository.deleteAll();
+    }
+
+```
+### Exponer un endpoint que genere un token de autenticación para dos tipos de usuarios (roles)
+
+``` java 
+En la clase AuthenticationController del paquete Controller se espuso el endpoind.
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<?> getAuthenticationToken(@RequestBody UserDTO userDTO) {
+        UserDetails userDetails;
+        try {
+
+            //InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager(); //Lo cree
+
+            userDetails = userDetailsService.loadUserByUsername(userDTO.getUser());
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+        }
+        Claims claims = Jwts.claims().setSubject(userDTO.getUser());
+        claims.put("username", userDTO.getUser());
+        String authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        claims.put("authorities", authorities);
+        claims.put("date", new Date());
+
+        String token = jwtTokenConfig.generateToken(userDTO, claims);
+        return ResponseEntity.ok(token);
+    }
+
+y en la clase SecurityConfig del paquete configuration se muestran los roles.
+
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig {
+    @Autowired
+    private JwtTokenFilter jwtTokenFilter;
+    @Value("${spring.security.white-list.url}")
+    private String[] whiteList;
+    
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers(whiteList).permitAll()
+                .anyRequest().authenticated().and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+        List<UserDetails> userDetailsList = new ArrayList<>();
+        userDetailsList.add(User.withUsername("user").password("password")
+                .roles("USER").build());
+        userDetailsList.add(User.withUsername("admin").password("password")
+                .roles("ADMIN", "USER").build());
+        userDetailsList.add(User.withUsername("guest").password("password")
+                .roles("GUEST").build());
+
+        return new InMemoryUserDetailsManager(userDetailsList);
+    }
+}
+
+```
+
+### 
+
+``` java 
+la sugurizacion se encuentra en la clase SecurityConfig del paquete configuration 
+
+
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class SecurityConfig {
+    @Autowired
+    private JwtTokenFilter jwtTokenFilter;
+    @Value("${spring.security.white-list.url}")
+    private String[] whiteList;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        return httpSecurity.cors().and().csrf().disable()
+                .authorizeRequests().antMatchers(whiteList).permitAll()
+                .anyRequest().authenticated().and()
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .httpBasic(Customizer.withDefaults())
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
+    }
+
+    @Bean
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+        List<UserDetails> userDetailsList = new ArrayList<>();
+        userDetailsList.add(User.withUsername("user").password("password")
+                .roles("USER").build());
+        userDetailsList.add(User.withUsername("admin").password("password")
+                .roles("ADMIN", "USER").build());
+        userDetailsList.add(User.withUsername("guest").password("password")
+                .roles("GUEST").build());
+
+        return new InMemoryUserDetailsManager(userDetailsList);
+    }
+}
+
+```
+
+### Exponer la información del proyecto mediante el endpoint Info de Actuator
+``` java 
+http://localhost:8080/actuator
+```
+
+### Exponer tres endpoints de Actuator (e.g. metrics, mappings, loggers)	
+
+``` java
+En el archivo properties se muestran los siguientes permisos
+
+
+
+# Se habilitan endpoints a exponer en actuator
+management.endpoints.web.exposure.include=health,info,beans,env,mappings,loggers,metrics
+
+management.info.env.enabled=true
+
+# Información del proyecto
+info.app.name=LearningJava API
+info.app.java.version=1.0
+info.app.type=Spring Boot
+
+jwt.secret=java-baz
+
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:testdb
+
+#Let know to Spring that mongodb is running inside
+#a container
+#spring.data.mongodb.host=host.docker.internal
+spring.data.mongodb.port=27017
+
+server.port=8080
+
+# Lista de endpoints accesibles sin seguridad
+spring.security.white-list.url= /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**
+ 
+```
+

@@ -27,14 +27,6 @@ public class SecurityConfig {
     @Value("${spring.security.white-list.url}")
     private String[] whiteList;
 
-    // Inyectar dependencias
-
-    /**
-     * Configuración de la seguridad del servicio.
-     * @param httpSecurity
-     * @return
-     * @throws Exception
-     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.cors().and().csrf().disable()
@@ -46,10 +38,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    /**
-     * Este Bean genera los usuarios que pueden hacer uso del servicio.
-     * @return Regresa y habilita los usuarios asi como su información (user, password, rol).
-     */
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
         List<UserDetails> userDetailsList = new ArrayList<>();

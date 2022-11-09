@@ -18,6 +18,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+//import sun.net.httpserver.ExchangeImpl;
 
 
 import javax.crypto.*;
@@ -44,6 +46,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    //Usando REST Template
+    private final RestTemplate restTemplate;
 
     //Anoatacion del ejeplo para la sobrecarga de metodos
     @Autowired
@@ -52,6 +56,12 @@ public class UserController {
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     @Autowired
     CommonServices commonServices;
+
+    //Creado el contructor REST Template
+    @Autowired
+    public UserController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
     //Consulta del login...
 
 
@@ -108,12 +118,6 @@ public class UserController {
         String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
         LOGGER.info("Tiempo de respuesta: ".concat(total));
         return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
-    }
-
-    //Consultar todas las cuentas y buscarla por nombre utilizando Optional por si no es encontrada
-    @GetMapping("/getAccountByName")
-    public ResponseEntity<?> getAccountByName(){
-        return null;
     }
 
 
@@ -269,17 +273,43 @@ public class UserController {
         }
     }
 
+
     public static Map<String, String> splitQuery(URI uri) {
         Map<String, String> queryPairs = new LinkedHashMap<String, String>();
         String query = uri.getQuery();
         String[] pairs = query.split("&");
         for (String pair : pairs) {
             int idx = pair.indexOf("=");
-            queryPairs.put(URLDecoder.decode(pair.substring(0, idx), StandardCharsets.UTF_8),
-                    URLDecoder.decode(pair.substring(idx + 1), StandardCharsets.UTF_8));
+            queryPairs.put(URLDecoder.decode(pair.substring(0, idx), StandardCharsets.UTF_8), URLDecoder.decode(pair.substring(idx + 1), StandardCharsets.UTF_8));
         }
         return queryPairs;
     }
+
+    private void assertTrue(boolean present) {
+    }
+
+
+    private static Optional<Object> getParameterValueObject(Map<String, String> param, String paramName) {
+        String val = param.get(paramName);
+        if (val != null && val != "") {
+            return Optional.ofNullable(val);
+        }
+        return Optional.ofNullable("NA");
+    }
+
+    //Trabajando con mi PAI de REST Template
+
+
+
+    @GetMapping("/ResTemplate")
+    public Object getApi(){
+        String url = "https://pokeapi.co/api/v2/pokemon/ditto";
+        Object forObject = restTemplate.getForObject(url, Object.class);
+        return forObject;
+    }
+
+
+
 
 
 
