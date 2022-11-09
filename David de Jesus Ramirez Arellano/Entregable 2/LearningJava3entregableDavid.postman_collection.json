@@ -513,6 +513,47 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "prueba deposito datos  genericos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJEYXZpZDIiLCJ1c2VybmFtZSI6IkRhdmlkMiIsImF1dGhvcml0aWVzIjoiUk9MRV9VU1VBUklPIiwiZGF0ZSI6MTY2ODAxMzU0NTY1MSwiZXhwIjoxNjY4MDEzODQ1fQ.DkOiN4dSLQMf5JNCEl1Lj85EPTMKanFuWJi2xh8IDU0-EAg7V13cExsjgKEgXz9dGRCpoCJVjAT5pnGyi8dLsw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/account/deposito?nombre=Dummy Account 5&cantidad=1000",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"account",
+						"deposito"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Dummy Account 5"
+						},
+						{
+							"key": "cantidad",
+							"value": "1000"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
+    
