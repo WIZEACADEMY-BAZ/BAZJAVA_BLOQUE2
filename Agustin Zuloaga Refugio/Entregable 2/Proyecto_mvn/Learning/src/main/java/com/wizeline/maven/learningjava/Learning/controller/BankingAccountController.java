@@ -31,12 +31,13 @@ import com.wizeline.maven.learningjava.Learning.model.BankAccountDTO;
 import com.wizeline.maven.learningjava.Learning.model.ResponseDTO;
 import com.wizeline.maven.learningjava.Learning.service.BankAccountService;
 import com.wizeline.maven.learningjava.Learning.utils.CommonServices;
-
-
+import com.wizeline.maven.learningjava.Learning.client.AccountsJSONClient;
+import com.wizeline.maven.learningjava.Learning.model.Post;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import static com.wizeline.maven.learningjava.Learning.utils.Utils.isDateFormatValid;
 import static com.wizeline.maven.learningjava.Learning.utils.Utils.isPasswordValid;
+import static com.wizeline.maven.learningjava.Learning.utils.Utils.randomAcountNumber;
 
 
 
@@ -58,6 +59,9 @@ public class BankingAccountController {
 
     @Autowired
     CommonServices commonServices;
+
+    @Autowired
+    AccountsJSONClient accountsJSONClient;
 
     @Autowired
     private KafkaTemplate<Object, Object> template;
@@ -189,5 +193,21 @@ public class BankingAccountController {
     private BankAccountDTO getAccountDetails(String user, String lastUsage) {
         return bankAccountService.getAccountDetails(user, lastUsage);
     }
+    @GetMapping("/getExternalUser/{userId}")
+    public ResponseEntity<Post> getExternalUser(@PathVariable Long userId) {
 
+        Post postTest = accountsJSONClient.getPostById(userId);
+        LOGGER.info("Getting post userId..." +postTest.getUserId());
+        LOGGER.info("Getting post body..." +postTest.getBody());
+        LOGGER.info("Getting post title..." +postTest.getTitle());
+        postTest.setUserId("External user "+randomAcountNumber());
+        postTest.setBody("No info in accountBalance since it is an external user");
+        postTest.setTitle("No info in title since it is an external user");
+        LOGGER.info("Setting post userId..." +postTest.getUserId());
+        LOGGER.info("Setting post body..." +postTest.getBody());
+        LOGGER.info("Setting post title...."+postTest.getTitle());
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(postTest, responseHeaders, HttpStatus.OK);
+    }
 }

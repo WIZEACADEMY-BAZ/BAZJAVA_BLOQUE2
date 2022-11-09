@@ -27,12 +27,6 @@ public class JwtTokenConfig {
     @Value("${jwt.secret}")
     private String secret;
 
-    /**
-     * Este método genera el token de autenticación.
-     * @param userDTO Información del usuario autenticado.
-     * @param claims Información adicional del usuario que se agrega al token.
-     * @return Regresa el token de autenticación.
-     */
     public String generateToken(UserDTO userDTO, Claims claims) {
         return Jwts.builder()
                 .setSubject(userDTO.getUser())
@@ -42,11 +36,6 @@ public class JwtTokenConfig {
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
 
-    /**
-     * Validación del token utilizado durante la autenticación.
-     * @param token Token de autenticación.
-     * @return Regresa verdadero o falso dependiendo si es un token válido.
-     */
     public boolean validateAccessToken(String token) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);

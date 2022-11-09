@@ -2,10 +2,7 @@ package com.wizeline.maven.learningjava.Learning.model;
 public class ErrorDTO {
 
     String errorCode;
-    /**
-     * Attribute message: Save error message
-     */
-    String message;
+       String message;
 
 
     public ErrorDTO() {

@@ -53,7 +53,6 @@ public class Utils {
     }
 
     public static AccountType pickRandomAccountType() {
-        // Creando un arreglo a partir de valores ya definidos
         AccountType[] accountTypes = AccountType.values();
         return accountTypes[new Random().nextInt(accountTypes.length)];
     }

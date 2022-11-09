@@ -8,17 +8,11 @@ public interface BankAccountService {
     List<BankAccountDTO> getAccounts();
 
     List<BankAccountDTO> getAccountByUser(String user);
-///put azr
-    //List<BankAccountDTO> putAccountByUser(String user);
 
     void deleteAccounts();
     BankAccountDTO getAccountDetails(String user, String lastUsage);
 
-
-
-
 }
 
 
-/// getAccounts implementar
 

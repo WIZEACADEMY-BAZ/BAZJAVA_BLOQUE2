@@ -45,10 +45,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    /**
-     * Este Bean genera los usuarios que pueden hacer uso del servicio.
-     * @return Regresa y habilita los usuarios asi como su información (user, password, rol).
-     */
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         List<UserDetails> userDetailsList = new ArrayList<>();

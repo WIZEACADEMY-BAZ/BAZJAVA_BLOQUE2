@@ -33,8 +33,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public List<BankAccountDTO> getAccounts() {
-        // Definicion de lista con la informacion de las cuentas existentes.
-        List<BankAccountDTO> accountDTOList = new ArrayList<>();
+       List<BankAccountDTO> accountDTOList = new ArrayList<>();
         BankAccountDTO bankAccountOne = buildBankAccount("user3@wizeline.com", true, Country.MX, LocalDateTime.now().minusDays(7));
         accountDTOList.add(bankAccountOne);
 
@@ -48,7 +47,6 @@ public class BankAccountServiceImpl implements BankAccountService {
         BankAccountDTO bankAccountThree = buildBankAccount("user2@wizeline.com" ,false, Country.US, LocalDateTime.now().minusYears(4));
         accountDTOList.add(bankAccountThree);
 
-        //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
         mongoTemplate.save(bankAccountThree);
 
         mongoTemplate.findAll(BankAccountDTO.class).stream().map(bankAccountDTO -> bankAccountDTO.getUserName()).forEach(
@@ -68,7 +66,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public List<BankAccountDTO> getAccountByUser(String user) {
-        //Buscamos todos aquellos registros de tipo BankAccountDTO
+
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is(user));
         return mongoTemplate.find(query, BankAccountDTO.class);
