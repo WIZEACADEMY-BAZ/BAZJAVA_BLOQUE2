@@ -362,7 +362,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"user\":\"mateo\",\n    \"password\":\"Thene20@\"\n}",
+					"raw": "{\n    \"user\":\"mateo\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -470,6 +470,53 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "CreateUsers",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"user\": \"mateo\",\n        \"password\": \"AAfgiad@2\"\n    },\n    {\n        \"user\": \"alex\",\n        \"password\": \"AAfgiad@3\"\n    },\n    {\n        \"user\": \"juan\",\n        \"password\": \"AAfgiad@5\"\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{UrlBase}}/user/createUsers",
+					"host": [
+						"{{UrlBase}}"
+					],
+					"path": [
+						"user",
+						"createUsers"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -500,7 +547,7 @@
 		},
 		{
 			"key": "token",
-			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2NzkyOTQyNzc4NywiZXhwIjoxNjY3OTUxMDI3fQ.SHlyaocDuOG_OS-e_30gs1Pcj3MvpEAthWYXu-yKKSPWFfqK9Ld_b_Y0rm0a5KANzcEoXSUucao-W2LXxMB21g",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2ODAzMDY4Mzc2NSwiZXhwIjoxNjY4MDUyMjgzfQ.2m9RM8G2pwUzXXtAmyefgyXzsC8BoDjue4eGiyL8n3VPsrqUtR4vMs2xOZKFJ0kea-0QyRlFb9j-uPBZe8PMOA",
 			"type": "string"
 		}
 	]

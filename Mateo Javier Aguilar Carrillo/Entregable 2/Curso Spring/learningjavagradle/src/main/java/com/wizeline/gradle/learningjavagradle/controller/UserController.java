@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,9 +27,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountDTO;
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
+import com.wizeline.gradle.learningjavagradle.repository.UserRepository;
 import com.wizeline.gradle.learningjavagradle.service.BankAccountService;
 import com.wizeline.gradle.learningjavagradle.service.UserService;
 import com.wizeline.gradle.learningjavagradle.utils.CommonServices;
+import com.wizeline.gradle.learningjavagradle.utils.CreaUsuariosThread;
 
 @RestController
 @RequestMapping("/user")
@@ -42,6 +45,9 @@ public class UserController{
 
 	@Autowired
 	BankAccountService bankAccountService;
+	
+	@Autowired
+	UserRepository repository;
 
 	private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 	String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
@@ -66,7 +72,7 @@ public class UserController{
 	}
 
 	@PostMapping("createUser")
-	public  ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO userDTO) {
+	public  ResponseEntity<ResponseDTO> createUser(@RequestBody UserDTO userDTO) {
 		LOGGER.info(msgProcPeticion);
 		ResponseDTO response = new ResponseDTO();
 		
@@ -75,6 +81,21 @@ public class UserController{
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("createUsers")
+	public  ResponseEntity createUsers(@RequestBody List<UserDTO> userDTOList) {
+		LOGGER.info(msgProcPeticion);
+		ResponseDTO response = new ResponseDTO();
+		
+		CreaUsuariosThread usuariosThread = new CreaUsuariosThread(userDTOList, repository);
+		
+		usuariosThread.start();
+		
+		response.setCode("OK000");
+		response.setStatus("success");
+
 		return ResponseEntity.ok(response);
 	}
 
