@@ -2,6 +2,10 @@ package com.wizeline.gradle.learningjavagradle.controller;
 
 import java.util.logging.Logger;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.ShortBufferException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,12 +35,12 @@ public class BankingAccountNominaController {
 	
 	@PreAuthorize("hasRole('USUARIO')")
     @GetMapping(value = "/getUserAccount", produces = "application/json")
-    public ResponseEntity<BankAccountNomina> getUserAccount(@RequestParam String user){
+    public ResponseEntity<BankAccountNomina> getUserAccount(@RequestParam String user) throws ShortBufferException, IllegalBlockSizeException, BadPaddingException{
         return service.obtenerCuenta(user);
     }
 	@PreAuthorize("hasRole('USUARIO')")
     @PostMapping(value ="/createAccountNomina", produces="application/json", consumes="application/json")
-    public  ResponseEntity<?> createAccountNomina(@RequestBody BankAccountNomina request) {
+    public  ResponseEntity<String> createAccountNomina(@RequestBody BankAccountNomina request) {
         return service.createNomina(request);
     }
 	@PreAuthorize("hasRole('USUARIO')")

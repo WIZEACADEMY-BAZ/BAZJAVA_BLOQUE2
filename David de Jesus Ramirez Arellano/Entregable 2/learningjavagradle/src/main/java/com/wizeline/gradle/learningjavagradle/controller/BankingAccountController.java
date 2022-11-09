@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountDTO;
 import com.wizeline.gradle.learningjavagradle.service.BankAccountService;
 
@@ -36,23 +38,30 @@ public class BankingAccountController {
 	        return this.bankAccountService.getAccounts();
 	    }
 
-	    @PreAuthorize("hasRole('ADMIN')")
-	    @GetMapping(value = "getAccountsGroupByType", produces = "application/json")
-	    public Map<String, List<BankAccountDTO>> getAccountsGroupByType(){
-	        List<BankAccountDTO> accounts = this.bankAccountService.getAccounts();
+	    @PreAuthorize("hasRole('USUARIO')")
+	    @GetMapping(value = "/getAccountsGroupByType")
+	    public ResponseEntity<Map<String, List<BankAccountDTO>>> getAccountsGroupByType() throws JsonProcessingException {
+	        Instant inicioDeEjecucion = Instant.now();
+	        List<BankAccountDTO> accounts = bankAccountService.getAccounts();	        
 	        Map<String, List<BankAccountDTO>> groupedAccounts;
+	        /*
+	         * Implementacion de interfaz funcional 
+	         * Implementacion de una lambda asignada a una interfaz funcional
+	         */
 	        Function<BankAccountDTO, String> groupFunction = (account) -> account.getAccountType().toString();
 	        groupedAccounts = accounts.stream().collect(Collectors.groupingBy(groupFunction));
-	        return groupedAccounts;
+	        Instant finalDeEjecucion = Instant.now();
+	        String total = String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos.");
+	        LOGGER.info("Tiempo de respuesta: ".concat(total));
+
+	        return new ResponseEntity<>(groupedAccounts, HttpStatus.OK);
 	    }
 	    
-	    @PreAuthorize("hasRole('USER')")
+	    @PreAuthorize("hasRole('USUARIO')")
 	    @GetMapping("/getAccountByUser")
 	    public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam String user) {
-	        Instant inicioDeEjecucion = Instant.now();
-	        LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
+	        Instant inicioDeEjecucion = Instant.now();	        
 	        List<BankAccountDTO> accounts = bankAccountService.getAccountByUser(user);
-
 	        Instant finalDeEjecucion = Instant.now();
 
 	        LOGGER.info("LearningJava - Cerrando recursos ...");
@@ -74,5 +83,25 @@ public class BankingAccountController {
 	    @GetMapping("/sayHello")
 	    public ResponseEntity<String> sayHelloGuest() {
 	       return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
+	    }
+	    
+	    /*
+	     * Endpoint que utiliza un metodo con genericos
+	     */
+	    @PreAuthorize("hasRole('USUARIO')")
+	    @GetMapping("/deposito")
+	    public ResponseEntity<BankAccountDTO> depositar(@RequestParam String nombre,@RequestParam float cantidad) {
+	    	BankAccountDTO response = null;
+	    	try {
+	    		 response=bankAccountService.getAccountByName(nombre);
+	    		 if(Objects.nonNull(response)) {
+	    			 LOGGER.info("Cantidad antes "+response.getAccountBalance());
+	    			 response.deposito(cantidad);
+	    			 LOGGER.info("Cantidad despues "+response.getAccountBalance());
+	    		 }
+	    	}catch(Exception e) {
+	    		LOGGER.info(e.getMessage());
+	    	}
+	       return new ResponseEntity<>(response, HttpStatus.OK);
 	    }
 }

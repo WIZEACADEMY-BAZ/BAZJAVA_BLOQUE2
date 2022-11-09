@@ -35,6 +35,16 @@ public class BankAccountDTO {
 
     private LocalDateTime lastUsage;
     
+    /*
+     * Metodo que implementa un generico
+     */
+	public <T extends Number> void deposito(T cantidad) {
+		double balance = getAccountBalance();
+		balance += cantidad.doubleValue();
+		setAccountBalance(balance);
+		LOGGER.info("Cantidad depositada $" + cantidad);
+	}
+    
     public long getAccountNumber() {
         return accountNumber;
     }
@@ -102,6 +112,10 @@ public class BankAccountDTO {
     public LocalDateTime getLastUsage() {
         return LocalDateTime.now();
     }
+
+	public void setLastUsage(LocalDateTime lastUsage) {
+		this.lastUsage = lastUsage;
+	}
 
 
 }

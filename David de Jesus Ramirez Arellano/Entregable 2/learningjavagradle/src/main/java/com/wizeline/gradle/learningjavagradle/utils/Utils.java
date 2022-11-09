@@ -6,8 +6,24 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.ShortBufferException;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+
 import com.wizeline.gradle.learningjavagradle.enums.AccountType;
 import com.wizeline.gradle.learningjavagradle.enums.Country;
+import com.wizeline.gradle.learningjavagradle.model.BankAccountNomina;
+
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.Security;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class Utils {
 
@@ -83,5 +99,69 @@ public class Utils {
 		countries.put(Country.MX, "Mexico");
 		countries.put(Country.FR, "France");
 		return countries.get(country);
+	}
+	
+	/*
+	 * 
+	 * METODO DE CIFRADO
+	 * 
+	 */
+	public static BankAccountNomina cifrado(BankAccountNomina cuenta) throws ShortBufferException, IllegalBlockSizeException, BadPaddingException {
+		byte[] keyBytes = new byte[]{
+                0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+        };
+        byte[] ivBytes = new byte[]{
+                0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+        };
+        /*
+         * Definir un proveedor de cifrado
+         */
+        Security.addProvider(new BouncyCastleProvider());
+        /*
+         * Definir llaves de cifrado y algoritmo de cifrado DES
+         */
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "DES");
+        IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);
+        Cipher cipher = null;
+        
+        try {
+            cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
+            cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        }
+        
+        /*
+         * CIFRADO DE PARAMETROS DE LA CLASE
+         */
+        String accountName = cuenta.getAccountName();
+        byte[] arrAccountName = accountName.getBytes();
+        byte [] accountNameCipher = new byte[cipher.getOutputSize(arrAccountName.length)];
+        int ctAccountNameLength = cipher.update(arrAccountName, 0, arrAccountName.length, accountNameCipher, 0);
+        ctAccountNameLength += cipher.doFinal(accountNameCipher, ctAccountNameLength);
+        cuenta.setAccountName(accountNameCipher.toString());
+        
+        String accountRFC = cuenta.getRfc();
+        byte[] arrAccountRFC= accountRFC.getBytes();
+        byte[] accountRFCCipher = new byte[cipher.getOutputSize(arrAccountRFC.length)];
+        int ctAccountRFCLength = cipher.update(arrAccountRFC, 0, arrAccountRFC.length, accountRFCCipher, 0);
+        ctAccountRFCLength += cipher.doFinal(accountRFCCipher, ctAccountRFCLength);
+        cuenta.setRfc(accountRFCCipher.toString());
+        
+        String apellidos = cuenta.getApellidosUser();
+        byte[] arrAccounApellidos= apellidos.getBytes();
+        byte[] accountApellidosCipher = new byte[cipher.getOutputSize(arrAccounApellidos.length)];
+        int ctAccountApellidosLength = cipher.update(arrAccounApellidos, 0, arrAccounApellidos.length, accountApellidosCipher, 0);
+        ctAccountNameLength += cipher.doFinal(accountApellidosCipher, ctAccountApellidosLength);
+        cuenta.setApellidosUser(accountApellidosCipher.toString());
+		return cuenta;		
 	}
 }

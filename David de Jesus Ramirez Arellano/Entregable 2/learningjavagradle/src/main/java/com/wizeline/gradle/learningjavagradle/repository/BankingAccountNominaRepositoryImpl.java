@@ -19,7 +19,7 @@ public class BankingAccountNominaRepositoryImpl implements BankingAccountNominaR
 	public Optional<BankAccountNomina> obtenerCuenta(String user) {
 		  Query query = new Query();
 	      query.addCriteria(Criteria.where("user").is(user));
-        BankAccountNomina cnomina= mt.findOne(query, BankAccountNomina.class);
+        BankAccountNomina cnomina= mt.findOne(query, BankAccountNomina.class, "BankAccountNomina");
         /*
          * Uso de Optional
          */
@@ -30,7 +30,7 @@ public class BankingAccountNominaRepositoryImpl implements BankingAccountNominaR
 	@Override
 	public boolean insertaCuenta(BankAccountNomina request) {
 		try {
-			mt.save(request,BankAccountNomina.class.getName());
+			mt.save(request,"BankAccountNomina");
 			return true;
 		}catch(Exception e) {
 			return false;

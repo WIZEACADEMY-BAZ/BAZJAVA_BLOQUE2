@@ -83,4 +83,10 @@ public class BankAccountServiceImpl implements BankAccountService {
         query.addCriteria(Criteria.where("user").is(user));
         return mongoTemplate.find(query, BankAccountDTO.class);
     }
+    @Override
+    public BankAccountDTO getAccountByName(String id) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("accountName").is(id));
+        return mongoTemplate.findOne(query, BankAccountDTO.class);
+    }
 }
