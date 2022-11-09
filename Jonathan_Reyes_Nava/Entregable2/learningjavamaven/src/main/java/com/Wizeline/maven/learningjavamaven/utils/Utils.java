@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 public class Utils {
         private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$]).{6,8}$";
         private static final Pattern pattern = Pattern.compile(PASSWORD_PATTERN);
-        // Definicion del patron para vvalidar formato de fecha
+        // Definicion del patron para validar formato de fecha
         private static Pattern DATE_PATTERN = Pattern.compile("^\\d{2}-\\d{2}-\\d{4}$");
 
         public static String getString(String value) {

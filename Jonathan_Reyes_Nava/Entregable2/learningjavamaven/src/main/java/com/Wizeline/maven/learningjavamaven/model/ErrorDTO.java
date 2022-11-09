@@ -1,13 +1,8 @@
 package com.Wizeline.maven.learningjavamaven.model;
 
 public class ErrorDTO {
-    /**
-     **Attribute errorCode: Save error code id
-     */
     String errorCode;
-    /**
-     * Attribute message: Save error message
-     */
+
     String message;
 
 

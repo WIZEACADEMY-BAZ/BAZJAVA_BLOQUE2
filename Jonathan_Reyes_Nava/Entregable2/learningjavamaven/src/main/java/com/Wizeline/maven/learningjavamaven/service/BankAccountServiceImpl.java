@@ -1,6 +1,7 @@
 package com.Wizeline.maven.learningjavamaven.service;
 
 import com.Wizeline.maven.learningjavamaven.LearningjavamavenApplication;
+import com.Wizeline.maven.learningjavamaven.enums.AccountType;
 import com.Wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.Wizeline.maven.learningjavamaven.enums.Country;
 import com.Wizeline.maven.learningjavamaven.repository.BankingAccountRepository;
@@ -26,6 +27,17 @@ import static com.Wizeline.maven.learningjavamaven.utils.Utils.randomInt;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
+        private BankAccountDTO buildBankAccount(String user, boolean isActive, String lastUsage) {
+        BankAccountDTO bankAccountDTO = new BankAccountDTO();
+        bankAccountDTO.setAccountNumber(123L);
+        bankAccountDTO.setAccountName("Dummy Account");
+        bankAccountDTO.setUserName(user);
+        bankAccountDTO.setAccountBalance(843.24);
+        bankAccountDTO.setAccountType(AccountType.NOMINA);
+        bankAccountDTO.setCountry("Mexico");
+        bankAccountDTO.setAccountActive(isActive);
+        return bankAccountDTO;
+    }
 
     private static final Logger LOGGER = Logger.getLogger(LearningjavamavenApplication.class.getName());
 
@@ -67,6 +79,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 public void deleteAccounts() {
         bankingAccountRepository.deleteAll();
 }
+
 
 @Override
 public List<BankAccountDTO> getAccountByUser(String user) {

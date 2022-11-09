@@ -1,40 +1,16 @@
 package com.Wizeline.maven.learningjavamaven;
 
-import com.Wizeline.maven.learningjavamaven.config.EndpointBean;
-import com.Wizeline.maven.learningjavamaven.service.BankAccountService;
-import com.Wizeline.maven.learningjavamaven.service.BankAccountServiceImpl;
-import com.Wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.Wizeline.maven.learningjavamaven.model.ResponseDTO;
-import com.Wizeline.maven.learningjavamaven.model.UserDTO;
 import com.Wizeline.maven.learningjavamaven.service.UserService;
 import com.Wizeline.maven.learningjavamaven.service.UserServiceImpl;
 import com.Wizeline.maven.learningjavamaven.utils.exceptions.ExceptionGenerica;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.net.httpserver.HttpServer;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.*;
-import java.util.logging.Logger;
-
-import  java.util.List;
-import java.util.stream.Collectors;
-import java.util.function.Function;
-
-import static com.Wizeline.maven.learningjavamaven.utils.Utils.isDateFormatValid;
-import static com.Wizeline.maven.learningjavamaven.utils.Utils.isPasswordValid;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+
+import java.io.IOException;
+import java.util.logging.Logger;
 
 @SpringBootApplication
 public class LearningjavamavenApplication extends Thread {
@@ -52,16 +28,44 @@ public class LearningjavamavenApplication extends Thread {
 	//	return new UserServiceImpl();
 	//}
 
-	///**
-	 //* Descripcion: Metodo prinicipal del proyecto LearningJava
-	 //* */
+	@Override
+	public void run(){
+		try {
+			crearUsuarios();
+		}
+		catch (Exception e) {
+			LOGGER.severe(e.getMessage());
+			throw new ExceptionGenerica(e.getMessage());   }
+	}
+
+	private void crearUsuarios() {
+		try {
+			String user = "user";
+			String pass = "password";
+			JSONArray jsonArray = new JSONArray(textThread);
+			JSONObject userJson;      ResponseDTO response = null;
+			LOGGER.info("jsonArray.length(): " + jsonArray.length());
+			for(int i = 0; i < jsonArray.length(); i++) {
+				userJson = new JSONObject(jsonArray.get(i).toString());
+				response = createUser(userJson.getString(user), userJson.getString(pass));
+				responseTextThread = new JSONObject(response).toString();
+				LOGGER.info("Usuario " + (i+1) + ": " + responseTextThread);
+				Thread.sleep(1000);
+			}
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	private static ResponseDTO createUser(String User, String password){
+		UserService userBo = new UserServiceImpl();
+		return userBo.createUser(User, password);
+	}
 
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(LearningjavamavenApplication.class, args);
 
 		LOGGER.info("LearningJava - Iniciado servicio REST ...");
 	}
-	//	/** This class implements a simple HTTP server */
 	//	HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 	//	String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
 

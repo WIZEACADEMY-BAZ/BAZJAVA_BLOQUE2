@@ -3,6 +3,8 @@ package com.Wizeline.maven.learningjavamaven.model;
 public class XmlBean {
     private Object data;
 
+
+
     public Object getData() {
         return data;
     }
