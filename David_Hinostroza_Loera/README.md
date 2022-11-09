@@ -41,3 +41,38 @@ Entregable 1
 		-find a films con query selector
 		-update a stores con query selector
 		-insert a customers
+		
+Entregable 2
+
+	Proyecto: entregabledavid
+	Dependencias: build.gradle
+	Coleccion Postman para peticiones
+	
+	src/main/java
+	
+	EntregabledavidApplication
+	
+	com.wizeline.entregabledavid.config;
+	Configuraciones
+	
+	com.wizeline.entregabledavid.controller;
+	Controllers donde se ven los endpoints
+	
+	com.wizeline.entregabledavid.enums;
+	Enums para ayudar a llenar algunos objetos
+	
+	com.wizeline.entregabledavid.model;
+	Objetos a utilizar
+	
+	com.wizeline.entregabledavid.repository;
+	Capa de acceso a datos
+	
+	com.wizeline.entregabledavid.service;
+	Capa de lógica de la aplicación
+	
+	com.wizeline.entregabledavid.utils;
+	Capa con herramientas
+	
+	src/main/resources
+	
+	application.properties

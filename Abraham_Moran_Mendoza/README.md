@@ -37,6 +37,15 @@ De las actividades realizadas en el Bloque 2 del Bootcamp de Wizeline Academy.
         - Evidencia DB MongoDB exportada 
       > Imagenes
         - Evidencia capturas de pantalla operaciones CRUD en datos de MongoDB
+  > Entregable 2
+    > LearningJava1.1
+      - Practica 1 (helloworld)
+    > LearningJava1.2
+      - Practicas semana 3 (proyecto antes de migración a spring)
+    > Learningjavamaven
+      - Proyecto migrado a spring (proyecto que cumple todos los puntos a evaluar)
+    - SpringInitializrConfig
+    - learningjavaapi.json
   - README.md
 ```
 
