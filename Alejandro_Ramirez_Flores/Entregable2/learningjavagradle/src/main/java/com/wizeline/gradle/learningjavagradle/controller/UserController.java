@@ -52,7 +52,7 @@ public class UserController {
       builder.append("&password=" + password);
       URI uri = URI.create(builder.toString());
       userName = userName.getParameters(splitQuery(uri));
-      response = commonServices.login(userName.getUser(), userName.getPassword());
+      response = commonServices.login(userName.getUsers(), userName.getPassword());
 
       HttpHeaders responseHeaders = new HttpHeaders();
       responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
@@ -63,7 +63,7 @@ public class UserController {
 	  public ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO request){
 		  LOGGER.info("LearningJava - Procesando peticion HTTP de tipo POST - Starting...");
 		  ResponseDTO response = new ResponseDTO();
-		  response = userService.createUser(request.getUser(), request.getPassword());
+		  response = userService.createUser(request.getUsers(), request.getPassword());
 		  LOGGER.info("Create user - Completed");
 		  return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
 	  }
@@ -74,7 +74,7 @@ public class UserController {
 	        List<ResponseDTO> responseList = new ArrayList<>();
 
 	        userDTOList.stream().forEach( userDTO -> {
-	                    String user = userDTO.getUser();
+	                    String user = userDTO.getUsers();
 	                    String password = userDTO.getPassword();
 	                    response.set(createUser(user, password));
 	                    responseList.add(response.get());

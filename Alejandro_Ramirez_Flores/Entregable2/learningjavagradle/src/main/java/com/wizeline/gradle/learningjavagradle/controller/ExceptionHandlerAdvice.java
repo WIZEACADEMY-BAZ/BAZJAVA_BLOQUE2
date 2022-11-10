@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2022 Nextiva, Inc. to Present.
- * All rights reserved.
- */
-
 package com.wizeline.gradle.learningjavagradle.controller;
 
 import org.springframework.http.HttpStatus;
@@ -11,9 +6,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-/**
- * Exception handler for exceptions thrown from controllers.
- */
 @ControllerAdvice
 public class ExceptionHandlerAdvice {
 

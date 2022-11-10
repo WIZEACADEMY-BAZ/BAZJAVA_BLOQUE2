@@ -3,11 +3,14 @@ package com.wizeline.gradle.learningjavagradle.model;
 import com.wizeline.gradle.learningjavagradle.enums.AccountType;
 
 import java.time.LocalDateTime;
+import java.util.logging.Logger;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document("bankAccountCollection")
 public class BankAccountDTO {
+	
+	private static final Logger LOGGER = Logger.getLogger(BankAccountDTO.class.getName());
 
     private long accountNumber;
     private String accountName;
@@ -20,8 +23,6 @@ public class BankAccountDTO {
     private LocalDateTime creationDate;
 
     private LocalDateTime lastUsage;
-
-    //private String lastUsage;
 
     public long getAccountNumber() {
         return accountNumber;

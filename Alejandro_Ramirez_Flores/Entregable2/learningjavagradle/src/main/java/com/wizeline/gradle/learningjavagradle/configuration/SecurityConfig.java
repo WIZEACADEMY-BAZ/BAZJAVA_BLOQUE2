@@ -59,6 +59,10 @@ public class SecurityConfig {
                 .roles("ADMIN", "USER").build());
         userDetailsList.add(User.withUsername("guest").password("password")
                 .roles("GUEST").build());
+        userDetailsList.add(User.withUsername("Alex").password("password")
+                .roles("ADMINISTRADOR").build());
+        userDetailsList.add(User.withUsername("Alex1").password("password")
+                .roles("USUARIO").build());
 
         return new InMemoryUserDetailsManager(userDetailsList);
     }

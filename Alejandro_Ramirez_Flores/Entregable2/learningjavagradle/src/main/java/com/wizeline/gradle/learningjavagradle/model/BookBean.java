@@ -52,5 +52,9 @@ import javax.xml.bind.annotation.XmlType;
 		public String getName() {
 			return name;
 		}
+		
+		public String getAuthor() {
+			return author;
+		}
 	}
 

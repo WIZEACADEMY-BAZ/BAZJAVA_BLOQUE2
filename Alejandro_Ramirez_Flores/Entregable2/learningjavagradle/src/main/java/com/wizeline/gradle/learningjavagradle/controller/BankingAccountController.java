@@ -118,6 +118,7 @@ public class BankingAccountController {
 
 	@GetMapping("/getAccounts")
 	public ResponseEntity<List<BankAccountDTO>> getAccounts() {
+		LOGGER.info("The port used is "+ port);
 		Instant inicioDeEjecucion = Instant.now();
 		LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
 

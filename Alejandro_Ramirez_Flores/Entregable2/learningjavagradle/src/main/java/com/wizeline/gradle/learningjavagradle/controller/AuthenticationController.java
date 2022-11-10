@@ -24,10 +24,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-/**
- * Controller to get authentication.
- */
-
 @Tag(name = "Authentication",
         description = "Genera token de autenticación.")
 @RestController
@@ -48,12 +44,33 @@ public class AuthenticationController {
     public ResponseEntity<?> getAuthenticationToken(@RequestBody UserDTO userDTO) {
         UserDetails userDetails;
         try {
-            userDetails = userDetailsService.loadUserByUsername(userDTO.getUser());
+            userDetails = userDetailsService.loadUserByUsername(userDTO.getUsers());
         } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         }
-        Claims claims = Jwts.claims().setSubject(userDTO.getUser());
-        claims.put("username", userDTO.getUser());
+        Claims claims = Jwts.claims().setSubject(userDTO.getUsers());
+        claims.put("username", userDTO.getUsers());
+        String authorities = userDetails.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+        claims.put("authorities", authorities);
+        claims.put("date", new Date());
+
+        String token = jwtTokenConfig.generateToken(userDTO, claims);
+        System.out.println("Token: " + token);
+        return ResponseEntity.ok(token);
+    }
+    
+    @PostMapping("/autenticacion")
+    public ResponseEntity<?> getAuthenticationTokenRolesMios(@RequestBody UserDTO userDTO) {
+        UserDetails userDetails;
+        try {
+            userDetails = userDetailsService.loadUserByUsername(userDTO.getUsers());
+        } catch (UsernameNotFoundException e) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
+        }
+        Claims claims = Jwts.claims().setSubject(userDTO.getUsers());
+        claims.put("username", userDTO.getUsers());
         String authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));

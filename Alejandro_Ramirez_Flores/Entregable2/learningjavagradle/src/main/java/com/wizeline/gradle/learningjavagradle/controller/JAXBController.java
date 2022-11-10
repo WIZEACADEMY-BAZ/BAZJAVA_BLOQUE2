@@ -35,11 +35,9 @@ public class JAXBController {
 		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
 		System.out.println("PRUEBA N1 IMPLEMENTACION ALEX1");
 		try {
-			System.out.println("LO IMPLEMENTO");
 			marshall();
 			response.setData(unmarshall());
 		} catch(JAXBException | IOException e) {
-			System.out.println("NO LO IMPLEMENTO");
 			e.printStackTrace();
 		}
 		return new ResponseEntity<XmlBean>(response, responseHeaders, HttpStatus.OK);
@@ -51,9 +49,7 @@ public class JAXBController {
 		book.setName("Book1");
 		book.setAuthor("Author1");
 		book.setDate(new Date());
-		System.out.println("ANTES JAXBContext");
 		JAXBContext context = JAXBContext.newInstance(BookBean.class);
-		System.out.println("DESPUES JAXBContext");
 		Marshaller mar = context.createMarshaller();
 		mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 		mar.marshal(book, new File("./book.xml"));

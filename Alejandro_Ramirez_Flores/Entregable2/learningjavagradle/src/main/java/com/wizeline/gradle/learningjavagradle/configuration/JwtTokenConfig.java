@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
@@ -19,14 +20,11 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
-/**
- * Class to generate and configure JWT token.
- */
-
 @Component
 public class JwtTokenConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenConfig.class);
+    
 
     @Value("${jwt.secret}")
     private String secret;
@@ -39,7 +37,7 @@ public class JwtTokenConfig {
      */
     public String generateToken(UserDTO userDTO, Claims claims) {
         return Jwts.builder()
-                .setSubject(userDTO.getUser())
+                .setSubject(userDTO.getUsers())
                 .setIssuedAt(new Date())
                 .setClaims(claims)
                 .setExpiration(Date.from(ZonedDateTime.now().plusMinutes(5).toInstant()))

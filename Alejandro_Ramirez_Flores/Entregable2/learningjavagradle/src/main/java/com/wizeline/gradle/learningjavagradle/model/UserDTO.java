@@ -3,24 +3,43 @@ package com.wizeline.gradle.learningjavagradle.model;
 import java.util.Map;
 
 public class UserDTO {
-    private String user;
+    private String users;
     private String password;
+    
+    UserDTO user = new UserDTO();
 
-    public String getUser() {
-        return user;
-    }
 
-    public void setUser(String user){this.user = user;}
+    public UserDTO() {
+		super();
+	}
 
-    public String getPassword(){return password;}
+	public String getUsers() {
+		return users;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
-    public UserDTO getParameters(Map<String, String> userParam){
+
+	public void setUsers(String users) {
+		this.users = users;
+	}
+
+
+
+	public String getPassword() {
+		return password;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public UserDTO getParameters(Map<String, String> userParam){
         UserDTO user = new UserDTO();
-        user.setUser(userParam.get("user"));
+        user.setUsers(userParam.get("user"));
         user.setPassword(userParam.get("password"));
         return user;
     }
