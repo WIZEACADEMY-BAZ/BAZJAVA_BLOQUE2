@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "c598a31e-9219-4014-bfc0-1ed55276f3ff",
+		"name": "Crud endpoins Curso Baz",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Creacion Usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Beaer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3Nzg4Nzg1Nzk2LCJleHAiOjE2Njc3ODkwODV9.TQvFjpeBq-ChM9opbrhaGwpu36dyeZlUsTFfgv1RSGb9AeLPZ7aKXdIaSiW_DB21YsX_BnA2lsPEUfXVsyxdUw",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"user\": \"user1@wizeline.com.ows\",\r\n  \"password\": \"pass1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/createUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticacion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Beaer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3Nzg4OTE4NTQwLCJleHAiOjE2Njc3ODkyMTh9.H-bCsRRlM5MzxyKJDmG5Av2GdLHzTJytErSQGbDfTPzySisJ7znU08tw6W8L46Glb8TyHNlIUslMZ4NPgjYLkw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/login?user=1@wizeline.com&password=pass1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "1@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "pass1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Encritacion",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Beaer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3NzY2MzQ4MTk4LCJleHAiOjE2Njc3NjY2NDh9.SJFvqWKL2wSRviqd4pE9R5RNyMSf0aL648-U0ptnXY1JlowRA_hYPhl_7UoJ2EYk2m3Kzqr_tPyPYbdFyNJQag",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/getEncryptedAccounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getEncryptedAccounts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Beaer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3Nzg4NjgwNzkxLCJleHAiOjE2Njc3ODg5ODB9.efzrNG2JMSkjnMWNTY5hyDweElk-EbHXzdRbFZHFsvrW8NrIFcJKtTDw1q7Q7Wo79IDVWTdHupz9544LNYOPhg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/deleteAccounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"deleteAccounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Beaer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3Nzg4OTg1NDIzLCJleHAiOjE2Njc3ODkyODV9.VQC19KCiWkiQidvCLUcIJJHMa14OMSr_aTG6iD8vmsNXsFJ5wIIy3j3_iElj0hqxbAUtq_k0H1S_CEo3GQpxgA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\r\n  \"user\": \"user1@wizeline.com.ows\",\r\n  \"password\": \"pass1\"\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/UpdateUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"UpdateUser"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
