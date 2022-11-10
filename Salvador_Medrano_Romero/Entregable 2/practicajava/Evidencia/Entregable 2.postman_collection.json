@@ -1,0 +1,475 @@
+{
+	"info": {
+		"_postman_id": "58871982-ce97-462f-876f-da33b6a58486",
+		"name": "Entregable 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16106835"
+	},
+	"item": [
+		{
+			"name": "Entregable2/guardaEstudiantes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDIwODkyOTQ4LCJleHAiOjE2NjgwMjExOTJ9.18ctu6E40LhiNrjoltrU8B4JFQ96DKWWQIUE4ZsHJH96-vWrMd7-B0eYgM1-8Z7PM-yYqwTUfvakMP2aRUSrpw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n\t{\r\n\t\t\"nombre\": \"Adrian\",\r\n\t\t\"apellidoPat\": \"Perez\",\r\n\t\t\"apellidoMat\": \"Luna\",\r\n\t\t\"matricula\": \"APL00001\",\r\n\t\t\"turno\": \"MATUTINO\",\r\n\t\t\"universidad\": \"Tec de Monterrey\",\r\n\t\t\"correo\": \"correodeAdrian\",\r\n\t\t\"semestre\": \"4\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t10,\r\n\t\t\t9,\r\n\t\t\t8,\r\n\t\t\t5\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"Azucena\",\r\n\t\t\"apellidoPat\": \"Montiel\",\r\n\t\t\"apellidoMat\": \"Fierro\",\r\n\t\t\"matricula\": \"AMF00002\",\r\n\t\t\"turno\": \"MATUTINO\",\r\n\t\t\"universidad\": \"Tec de Monterrey\",\r\n\t\t\"correo\": \"azucena@mail.com\",\r\n\t\t\"semestre\": \"5\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t6,\r\n\t\t\t5,\r\n\t\t\t5,\r\n\t\t\t5\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"David\",\r\n\t\t\"apellidoPat\": \"Cortes\",\r\n\t\t\"apellidoMat\": \"Velazquez\",\r\n\t\t\"matricula\": \"DCV00003\",\r\n\t\t\"turno\": \"VESPERTINO\",\r\n\t\t\"universidad\": \"UNAM\",\r\n\t\t\"correo\": \"esuncorreo@lmail.com\",\r\n\t\t\"semestre\": \"1\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t9,\r\n\t\t\t9,\r\n\t\t\t10,\r\n\t\t\t10\r\n\t\t]\r\n\t},\r\n\t{\r\n\t\t\"nombre\": \"Brenda\",\r\n\t\t\"apellidoPat\": \"Bautista\",\r\n\t\t\"apellidoMat\": \"Ortega\",\r\n\t\t\"matricula\": \"BBO00004\",\r\n\t\t\"turno\": \"VESPERTINO\",\r\n\t\t\"universidad\": \"UNAM\",\r\n\t\t\"correo\": \"micorreo\",\r\n\t\t\"semestre\": \"8\",\r\n\t\t\"calificaciones\": [\r\n\t\t\t8,\r\n\t\t\t7,\r\n\t\t\t8,\r\n\t\t\t9\r\n\t\t]\r\n\t}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/guardarEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"guardarEstudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/obtenerEstudiantes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDM1NDQ0NjQ2LCJleHAiOjE2NjgwMzU3NDR9.EZHQrcScHRVM5CeBs8OnzkbrvJjUHmmBoBuYcSKPyZGztWpqwvQk5L2ZQE_dBQ8gQ0d-5XBzqFR43yI2z_Enig",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/obtenerEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"obtenerEstudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/borrarEstudiantes",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/borrarEstudiantes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"borrarEstudiantes"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actualizarEstudiante",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDIwMjY4NDMyLCJleHAiOjE2NjgwMjA1Njh9.QjxafsQCdkgzwuwitSih3P8S8-8v3wBTNLRZ5f-6ZssL8zsILNGMUfzmK5dOBA7PfuIKKc-fGhGyQebEF01fYw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\": \"Brenda\",\r\n\t\"apellidoPat\": \"Bautista\",\r\n\t\"apellidoMat\": \"Huerta\",\r\n\t\"matricula\": \"BBO00004\",\r\n\t\"turno\": \"VESPERTINO\",\r\n\t\"universidad\": \"UNAM\",\r\n\t\"calificaciones\": [\r\n\t\t9,\r\n\t\t6,\r\n\t\t6,\r\n\t\t6\r\n\t],\r\n\t\"fechaCreacion\": \"\",\r\n\t\"correo\": \"micorreo\",\r\n\t\"semestre\": 8,\r\n\t\"semestreCadena\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/actualizarEstudiante",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"actualizarEstudiante"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/autenticacion",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"guest\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/apiCurso/autenticacion",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"autenticacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/consumeRestTemplate",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODY0Njk5Mzg0LCJleHAiOjE2Njc4NjQ5OTl9.M0JoC1A6_oyW2YXXwCdp7_bknO-reDh7IFB8ORIsqQb-PNAwJqdLufhhjAJf_VsvN3ZQo3eo1-LypLowcPdXPQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/consumeRestTemplate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"consumeRestTemplate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/obtenerCalificaciones?matricula=APL00001",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDM3NDUxMDUxLCJleHAiOjE2NjgwMzc3NTF9.i27r8xNbKh4DjYxEF1_vu-9lKUa9uEtgxuH2n4RjPMjDBKHynPTVtnJNGBebPM75IPB1eia4TVuvJ2drtTLDjg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/apiCurso/obtenerCalificaciones?matricula=APL00001",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"apiCurso",
+						"obtenerCalificaciones"
+					],
+					"query": [
+						{
+							"key": "matricula",
+							"value": "APL00001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuator",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMzNjk1ODU0LCJleHAiOjE2NjgwMzM5OTV9.BygdyQFoXzXnDj4Eo7V-hhjyr2tp1HEVQ5xgl5s3qJP7H_ySBdm0DTZ7Sf-igYNXGdcuvGFP_OdMltSGS79Aag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorHealth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMxNDI3MTYzLCJleHAiOjE2NjgwMzE3Mjd9.gXyDV5pQdq4D3WrGed-nkQFbms6lkK1J7jaaXGwyRajXhMtZFIuOD5EprjGIkfizi1Dwlidtr8Y8EBNq0ZiPwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMxNDI3MTYzLCJleHAiOjE2NjgwMzE3Mjd9.gXyDV5pQdq4D3WrGed-nkQFbms6lkK1J7jaaXGwyRajXhMtZFIuOD5EprjGIkfizi1Dwlidtr8Y8EBNq0ZiPwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorBeans",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMxNDI3MTYzLCJleHAiOjE2NjgwMzE3Mjd9.gXyDV5pQdq4D3WrGed-nkQFbms6lkK1J7jaaXGwyRajXhMtZFIuOD5EprjGIkfizi1Dwlidtr8Y8EBNq0ZiPwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/beans",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"beans"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorEnv",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMxNDI3MTYzLCJleHAiOjE2NjgwMzE3Mjd9.gXyDV5pQdq4D3WrGed-nkQFbms6lkK1J7jaaXGwyRajXhMtZFIuOD5EprjGIkfizi1Dwlidtr8Y8EBNq0ZiPwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/env",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"env"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorMetrics",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMzNjk1ODU0LCJleHAiOjE2NjgwMzM5OTV9.BygdyQFoXzXnDj4Eo7V-hhjyr2tp1HEVQ5xgl5s3qJP7H_ySBdm0DTZ7Sf-igYNXGdcuvGFP_OdMltSGS79Aag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/metrics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorLoggers",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMzNjk1ODU0LCJleHAiOjE2NjgwMzM5OTV9.BygdyQFoXzXnDj4Eo7V-hhjyr2tp1HEVQ5xgl5s3qJP7H_ySBdm0DTZ7Sf-igYNXGdcuvGFP_OdMltSGS79Aag",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/loggers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"loggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Entregable2/actuatorMappings",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY4MDMxNDI3MTYzLCJleHAiOjE2NjgwMzE3Mjd9.gXyDV5pQdq4D3WrGed-nkQFbms6lkK1J7jaaXGwyRajXhMtZFIuOD5EprjGIkfizi1Dwlidtr8Y8EBNq0ZiPwQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/actuator/mappings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actuator",
+						"mappings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

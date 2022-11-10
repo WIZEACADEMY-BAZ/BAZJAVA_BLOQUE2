@@ -1,0 +1,676 @@
+{
+	"info": {
+		"_postman_id": "0db14aec-356a-4055-9360-dedf3ad9df2e",
+		"name": "ProyectoJava",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21372416"
+	},
+	"item": [
+		{
+			"name": "createOne",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"date\": \"07-11-2022\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/pokemons/createOne",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"pokemons",
+						"createOne"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllPokemons",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/getAllPokemons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"getAllPokemons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pokemons/borrarTodos",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/borrarTodos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"borrarTodos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createThreePokemons",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/entrenar3Pokemons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"entrenar3Pokemons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "batalla",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\" : \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/batalla",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"batalla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllTypes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/types/getAllTypes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"types",
+						"getAllTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteAllTypes",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/types/deleteAllTypes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"types",
+						"deleteAllTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "initTypes",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/types/init",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"types",
+						"init"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "registroEntrenador",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"{{entrenador}}\",\n  \"password\": \"{{password}}\",\n  \"claveDeSeguridad\": \"023\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/registro",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"registro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Entrenador",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/consultar?name={{entrenador}}&password={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"consultar"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{entrenador}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Equipo",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n},\n{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charizard\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Turttle\",\n  \"sonido\": \"Turttle\",\n  \"tipo1\": \"Normal\",\n  \"date\": \"12-12-2022\"\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/crearEquipo?nombre={{entrenador}}&password={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"crearEquipo"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "{{entrenador}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retirarse",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/retirarse?nombre={{entrenador}}&claveDeSeguridad={{claveDeSeguridad}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"retirarse"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "{{entrenador}}"
+						},
+						{
+							"key": "claveDeSeguridad",
+							"value": "{{claveDeSeguridad}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API EXTERNA",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/externa/api?url={{url}}/{{pokemon}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"externa",
+						"api"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "{{url}}/{{pokemon}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "total-by-type",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/pokemons/total-by-type?type={{tipo}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"pokemons",
+						"total-by-type"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{tipo}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultacifrada",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/consultacifrada",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"consultacifrada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"guest\",\n  \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/login/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"login",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CrearEquipoAuth",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n[{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charmander\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Wartortle\",\n  \"sonido\": \"Wartortle\",\n  \"tipo1\": \"Agua\",\n  \"date\": \"12-12-2022\"\n},\n{\n  \"nombre\": \"Bulbasaur\",\n  \"sonido\": \"Saaur\",\n  \"tipo1\": \"Planta\",\n  \"tipo2\": \"Veneno\",\n  \"date\": \"11-11-2022\"\n},\n{\n  \"nombre\": \"Charizard\",\n  \"sonido\": \"Chaar\",\n  \"tipo1\": \"Fuego\",\n  \"tipo2\": \"Volador\",\n  \"date\": \"10-11-2022\"\n},\n{\n  \"nombre\": \"Turttle\",\n  \"sonido\": \"Turttle\",\n  \"tipo1\": \"Normal\",\n  \"date\": \"12-12-2022\"\n}\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:{{port}}/entrenador/crearEquipo?nombre={{entrenador}}&password={{password}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"entrenador",
+						"crearEquipo"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "{{entrenador}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/info",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"info"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Metrics",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/metrics",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"metrics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Loggers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/loggers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"loggers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actuator Mappings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:{{port}}/actuactorendpoints/mappings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{port}}",
+					"path": [
+						"actuactorendpoints",
+						"mappings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

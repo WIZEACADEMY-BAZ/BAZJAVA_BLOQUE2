@@ -1,0 +1,17 @@
+
+y
+java:S3008'"WRename this field "DATE_PATTERN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(×¾Š°ÿÿÿÿÿ8˜ÏøÂ0
+W
+java:S1118	":Add a private constructor to hide the implicit public one.(¼Øûì8“üÕÀ0
+c
+java:S1126"AReplace this if-then-else statement by a single return statement.(ÎÏªÊûÿÿÿÿ8‡ıøÕÀ0
+^
+java:S6353#"<Use concise character class syntax '\\d' instead of '[0-9]'.(ôÆëĞÿÿÿÿÿ8Ø«ĞøÂ0
+@
+java:S21197"Save and re-use this "Random".(ø˜ÃÖüÿÿÿÿ8’æ©øÂ0
+;
+java:S2119;"Save and re-use this "Random".(ßíú8—æ©øÂ0
+;
+java:S2119E"Save and re-use this "Random".(ÂŞ²8æ©øÂ0
+;
+java:S2119I"Save and re-use this "Random".(ØŒùË8 æ©øÂ0
