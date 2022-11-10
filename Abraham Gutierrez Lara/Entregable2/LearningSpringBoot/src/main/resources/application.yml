@@ -1,0 +1,15 @@
+# Se habilitan endpoints a exponer en actuator
+management.endpoints.web.exposure.include: health,info,beans,env
+management.info.env.enabled: true
+
+# Información del proyecto
+info.app.name: BankAPI
+info.app.java.version: 1.0
+info.app.type: Spring Boot
+
+server.servlet.context-path: /wizeline/baz/bank-api/v1
+spring.data.mongodb.uri: mongodb://localhost:27017/BankAPI
+
+jwt.secret: java-baz
+
+spring.security.white-list.url: /user/login, /user/banker, /swagger-ui/**, /v3/api-docs/**, /dummy/postalcode/**

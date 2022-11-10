@@ -1,0 +1,12 @@
+package com.wizeline.baz.utils;
+
+public interface StatusCodes {
+	String SUCESS = "0";
+	String FAILED = "-1";
+	
+	String USER_DOESNT_EXIST = "USER_DOESNT_EXIST";
+	String BANK_ACCOUNT_DOESNT_EXIST = "BANK_ACCOUNT_DOESNT_EXIST";
+	String EMAIL_EXIST = "EMAIL_EXIST";
+	String POSTAL_CODE_DOESNT_EXIST = "POSTAL_CODE_DOESNT_EXIST";
+	String INVALID_REQUES_INPUT = "INVALID_REQUES_INPUT";
+}
