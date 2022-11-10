@@ -38,9 +38,9 @@ import java.util.stream.Collectors;
 import static com.wizeline.gradle.learningjavagradle.utils.Utils.isDateFormatValid;
 import static com.wizeline.gradle.learningjavagradle.utils.Utils.isPasswordValid;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 @EnableFeignClients
-public class LearningjavagradleApplication extends Thread {
+public class LearningjavagradleApplication{
 
 	private static final Logger LOGGER = Logger.getLogger(LearningjavagradleApplication.class.getName());
 	private static final String SUCCESS_CODE = "OK000";
