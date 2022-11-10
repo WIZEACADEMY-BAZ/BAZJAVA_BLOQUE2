@@ -1,0 +1,623 @@
+{
+	"info": {
+		"_postman_id": "e61a355b-58d1-4919-a8b9-40b7073c4655",
+		"name": "LearningJava",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19543580"
+	},
+	"item": [
+		{
+			"name": "SpringBoot",
+			"item": [
+				{
+					"name": "LJM/createUser",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJHVUVTVCIsInVzZXJuYW1lIjoiR1VFU1QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODQ5OTE0MTA5LCJleHAiOjE2Njc4NTAyMTR9.osx45CiY3XQk1dCoIBNx_n3az3uwtE5M_wu6rpuByODbwVcimtt3gntQFSNKYTWRM0uiGseplHOALqyrh28oYw",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":\"prueba12@mail.com.mx\",\r\n    \"password\":\"R0m3r0$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/createUser",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"createUser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/login?user=user2@wizeline.com&password=pass2",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"login"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "user2@wizeline.com"
+								},
+								{
+									"key": "password",
+									"value": "pass2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/getXML",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/jaxb/getXML",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"jaxb",
+								"getXML"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/createUsers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[{\r\n  \"user\": \"user9@wizeline.com\",\r\n  \"password\": \"pass8\"\r\n},\r\n  {\r\n    \"user\": \"user9@wizeline.com\",\r\n    \"password\": \"pass9\"\r\n  }]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/createUsers",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"createUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/getUserAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/getUserAccount?user=user7@wizeline.com&password=R0m3r0$&date=25-10-2022",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"getUserAccount"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "user7@wizeline.com"
+								},
+								{
+									"key": "password",
+									"value": "R0m3r0$"
+								},
+								{
+									"key": "date",
+									"value": "25-10-2022"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/getAccounts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/getAccounts?date=01-09-1989",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"getAccounts"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "01-09-1989"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/getAccountByUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJVU0VSIiwidXNlcm5hbWUiOiJVU0VSIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODU3OTU4MDM2LCJleHAiOjE2Njc4NTgyNTh9.gsc4jubCoJAqmUvgm1q-H1TOKe-YeCiIOMOIO5oliCijUIQyWmIsJllPf_nd5R2m0yMKDOmN2QGK95bEWNAbsA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8081/api/getAccountByUser?user=user3@wizeline.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"getAccountByUser"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "user3@wizeline.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/deleteAccounts",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/deleteAccounts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"deleteAccounts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/authenticate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3ODQzNjU0MzAwLCJleHAiOjE2Njc4NDM5NTR9.eU7cQg1YB8BOlGPPv6kCYeDifKT0w1SeTeSQR9lGR_zVZzJnuNQW0JOYn9JBQHLEVYLdLVZ2eXIw4ARsOvFfeA",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"USER\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/authenticate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/actuator",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/actuator",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"actuator"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/actuator/loggers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/actuator/loggers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"actuator",
+								"loggers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/actuator/metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/actuator/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"actuator",
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LJM/actuator/mappings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/actuator/mappings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"actuator",
+								"mappings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LearningJava/CreateUser POST",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\":\"user1@wizeline.com\",\n    \"password\":\"pass1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/createUser?password=R0m3r0$&user=user7@wizeline.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": "R0m3r0$"
+						},
+						{
+							"key": "user",
+							"value": "user7@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Login",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/login?user=user7@wizeline.com&password=R0m3r0$",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user7@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "R0m3r0$"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Login - GET",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/xml",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/login?user=user1@wizeline.com&password=pass1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user1@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "pass1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getUserAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getUserAccount?user=user7@wizeline.com&password=R0m3r0$&date=25-10-2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getUserAccount"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user7@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "R0m3r0$"
+						},
+						{
+							"key": "date",
+							"value": "25-10-2022"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getAccounts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getAccounts?date=01-09-1989",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccounts"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "01-09-1989"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/createUsers",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"user\": \"user9@wizeline.com\",\r\n  \"password\": \"pass8\"\r\n},\r\n  {\r\n    \"user\": \"user9@wizeline.com\",\r\n    \"password\": \"pass9\"\r\n  }]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/createUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getAccountByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/api/getAccountsGroupByType?name=Dummy Account 9",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"getAccountsGroupByType"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Dummy Account 9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getAccountsByUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/getAccountsByUser?user=user9@wizeline.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccountsByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user9@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
