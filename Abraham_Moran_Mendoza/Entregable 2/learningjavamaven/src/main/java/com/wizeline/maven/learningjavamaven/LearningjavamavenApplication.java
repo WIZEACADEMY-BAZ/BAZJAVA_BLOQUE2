@@ -16,10 +16,14 @@ import com.wizeline.maven.learningjavamaven.utils.exceptions.ExcepcionGenerica;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
@@ -41,7 +45,11 @@ import java.util.stream.Collectors;
 import static com.wizeline.maven.learningjavamaven.constants.MessageConstants.*;
 import static com.wizeline.maven.learningjavamaven.constants.Constants.*;
 
+@EnableBatchProcessing
+@EnableScheduling
 @SpringBootApplication
+@EnableFeignClients
+@EnableKafka
 public class LearningjavamavenApplication extends Thread {
 
 	private static final Logger LOGGER = Logger.getLogger(LearningjavamavenApplication.class.getName());

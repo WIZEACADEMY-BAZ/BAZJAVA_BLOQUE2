@@ -33,4 +33,5 @@ public class Constants {
 
   public static final String JSON_TODOS_API_URL = "https://jsonplaceholder.typicode.com/users/?/todos";
   public static final String JSON_POSTS_API_URL = "https://jsonplaceholder.typicode.com/users/?/posts";
+  public static final String JSON_ALL_POSTS_API_URL = "https://jsonplaceholder.typicode.com/posts";
 }

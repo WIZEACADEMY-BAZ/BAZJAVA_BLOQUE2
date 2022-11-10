@@ -11,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.constants.MessageConstants.*;
@@ -50,12 +53,36 @@ public class UserController {
   }
 
   // Revisión: Consumo de API pública usando RestTemplate
-  @PreAuthorize("hasAnyRole('USER','GUEST','ADMIN')")
+  @PreAuthorize("hasRole('USER')")
   @GetMapping(value = "/users/{userId}/posts", produces = CONTENT_TYPE_JSON)
   public ResponseEntity<List<PostDTO>> getGetUserPosts(@PathVariable("userId") String userId){
     LOGGER.info( PROCESSING_GET_METHOD);
     List<PostDTO> postDTOS = userService.getUserPosts(userId);
     return new ResponseEntity<List<PostDTO>>(postDTOS, HttpStatus.OK);
+  }
+
+  // Revisión: Consumo de API pública usando RestTemplate
+  @PreAuthorize("hasRole('USER')")
+  @GetMapping(value = "/users/{userId}/postsIterator", produces = CONTENT_TYPE_JSON)
+  public ResponseEntity<List<PostDTO>> getUserPostsIterator(
+      @PathVariable("userId")
+      String userId){
+    LOGGER.info( PROCESSING_GET_METHOD);
+    List<PostDTO> postDTOS = userService.getUserPostsIterator(userId);
+    return new ResponseEntity<List<PostDTO>>(postDTOS, HttpStatus.OK);
+  }
+
+  //Revisión: Patron de diseño Builder
+  @PostMapping(value = "/users/{userId}/post", produces = CONTENT_TYPE_JSON)
+  public ResponseEntity<List<PostDTO>> createUserPostsWithAttatchments(
+      @PathVariable("userId")
+      String userId){
+    LOGGER.info( PROCESSING_POST_METHOD);
+    List<PostDTO> postDTOList = new ArrayList<>();
+    postDTOList.add(userService.createUserPostWithImage(userId));
+    postDTOList.add(userService.createUserPostWithDocument(userId));
+    postDTOList.add(userService.createUserPostWithImageAndDocument(userId));
+    return new ResponseEntity<>(postDTOList, HttpStatus.OK);
   }
 
   // Revisión: Segurizar dos endpoints con acceso basado en roles protegidos con el token generado
