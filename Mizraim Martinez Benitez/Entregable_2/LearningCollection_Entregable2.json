@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "3f55b95d-b237-4ab2-9b78-f0964d38eb1d",
+		"name": "LearningJava",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/login?user=xxx&password=yyyyy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "xxx"
+						},
+						{
+							"key": "password",
+							"value": "yyyyy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/createUser?user=xxx&password=yyyyy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "xxx"
+						},
+						{
+							"key": "password",
+							"value": "yyyyy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserAccount",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getUserAccount?user=xxx&password=yyyyy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getUserAccount"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "xxx"
+						},
+						{
+							"key": "password",
+							"value": "yyyyy"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear usuarios con hilos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"user\": \"user1@wizeline.com\",\r\n  \"password\": \"pass1\"\r\n},\r\n  {\r\n    \"user\": \"user2@wizeline.com\",\r\n    \"password\": \"pass2\"\r\n  }]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/createUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear usuarios con hilos y anotaciones",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"user\": \"user1@wizeline.com\",\r\n  \"password\": \"pass1\"\r\n},\r\n  {\r\n    \"user\": \"user2@wizeline.com\",\r\n    \"password\": \"pass2\"\r\n  }]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/createUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener cuenta por nombre Optional",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"country\": \"France\",\r\n        \"accountActive\": false,\r\n        \"accountName\": \"Dummy Account 4\",\r\n        \"accountType\": \"NOMINA\",\r\n        \"lastUsage\": \"2022-10-24T21:24:49.969182\",\r\n        \"accountNumber\": -2960804615309273939,\r\n        \"accountBalance\": 5941.990576892239,\r\n        \"creationDate\": \"2022-08-24T21:24:49.968520\",\r\n        \"user\": \"user1@wizeline.com\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/getAccountByName?name=Dummy Account 4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccountByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Dummy Account 4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar todas las cuentas y filtrarlas por usuario Genericos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/getAccountsByUser?user=user3@wizeline.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccountsByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user3@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser 8080 PostController",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user2@wizeline.com\",\r\n    \"password\":\"pass2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/createUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login 8080 GetController",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/login?user=user2@wizeline.com&password=pass2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user2@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "pass2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetXML 8080 Controller",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jaxb/getXML",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jaxb",
+						"getXML"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Autenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"guest\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SayHello",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3OTQwMzk4Njg1LCJleHAiOjE2Njc5NDA2OTh9.GKLiBM-bRZm5z9KlC1v_WxVI9VKCwlqpQBbnB2GFvsSFfi5U6yA7j9fbkA4DY9hm9HlnjGUy14iYxO2izMIgAQ",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/sayHello",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sayHello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetExternalUser",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3OTQwMzk4Njg1LCJleHAiOjE2Njc5NDA2OTh9.GKLiBM-bRZm5z9KlC1v_WxVI9VKCwlqpQBbnB2GFvsSFfi5U6yA7j9fbkA4DY9hm9HlnjGUy14iYxO2izMIgAQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getExternalUser/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getExternalUser",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Mapping",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/updateBankAccount/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"updateBankAccount",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Accounts",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/deleteAccounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"deleteAccounts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
