@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 
 //@Component
 public class CreationalPatters {
-/*
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CreationalPatters.class);
 
     @Bean
@@ -92,7 +92,5 @@ public class CreationalPatters {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-    }*/
+    }
 }
