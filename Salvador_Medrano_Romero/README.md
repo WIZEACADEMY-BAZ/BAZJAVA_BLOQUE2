@@ -19,5 +19,10 @@ Estructura y contenido correspondiente a los entregables de las semanas 1 y 2
       - Screenshot variables de ambiente
     > Curso Serverless
       - Screenshots lambda y cloudwatch
+  
+   > Entregable 2
+    > La carpeta Evidencia contiene el SS de Spring initializer y la colección de postman
+    > La carpeta practicaJava contiene el código trabajado 
+    
   - README.md
 ```
