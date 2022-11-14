@@ -1,5 +1,14 @@
 package com.wizeline.maven.learningjavamaven.service;
 
+import com.wizeline.maven.learningjavamaven.Iterator.Iterator;
+import com.wizeline.maven.learningjavamaven.Iterator.PostDTOCollection;
+import com.wizeline.maven.learningjavamaven.Iterator.PostDTOCollectionImpl;
+import com.wizeline.maven.learningjavamaven.builder.PostDirector;
+import com.wizeline.maven.learningjavamaven.builder.builders.PostBuilder;
+import com.wizeline.maven.learningjavamaven.builder.builders.PostWithDocumentAndImageBuilder;
+import com.wizeline.maven.learningjavamaven.builder.builders.PostWithDocumentBuilder;
+import com.wizeline.maven.learningjavamaven.builder.builders.PostWithImageBuilder;
+import com.wizeline.maven.learningjavamaven.configuration.RestTemplateClient;
 import com.wizeline.maven.learningjavamaven.model.*;
 import com.wizeline.maven.learningjavamaven.repository.PostRepository;
 import com.wizeline.maven.learningjavamaven.repository.UserRepository;
@@ -12,6 +21,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +42,12 @@ public class UserServiceImpl implements UserService {
 
   @Autowired
   PostRepository postRepository;
+
+  @Autowired
+  PostDirector postDirector;
+
+  @Autowired
+  RestTemplateClient restTemplateClient;
 
   private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
@@ -76,15 +92,11 @@ public class UserServiceImpl implements UserService {
     //Buscamos todos aquellos registros de tipo UserDTO
     //que cumplen con la criteria de que el userName  y password hagan match
     //con la variable user
-    System.out.println("Paso aqui");
-    System.out.println(user);
-    System.out.println(password);
     Query query = new Query();
     query.addCriteria(Criteria.where("user").is(user).and("password").is(password));
     UserDTO userDTO = mongoTemplate.findOne(query, UserDTO.class);
     System.out.println(userDTO);
     ResponseDTO response = new ResponseDTO();
-    System.out.println("Paso aqui");
     if(userDTO != null){
       response.setCode(SUCCESS_CODE);
       response.setStatus(SUCCESS_STATUS);
@@ -119,9 +131,8 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<TodoDTO> getUserTodos(String userId){
     String url = JSON_TODOS_API_URL.replace("?", userId);
-    RestTemplate restTemplate = new RestTemplate();
     // Revisión: Uso de por lo menos un arreglo
-    return Arrays.asList(restTemplate.getForObject(url, TodoDTO[].class));
+    return Arrays.asList(restTemplateClient.restTemplate().getForObject(url, TodoDTO[].class));
   }
 
   @Override
@@ -136,6 +147,65 @@ public class UserServiceImpl implements UserService {
   public List<PostDTO> getUserPosts(String userId){
     // Revisión: Uso de por lo menos una lista
     return postRepository.getUserPosts(userId);
+  }
+
+  @Override
+  public List<PostDTO> getUserPostsIterator(String userId){
+    List<PostDTO> postDTOList = new ArrayList<>();
+    PostDTOCollection posts = new PostDTOCollectionImpl();
+    for(PostDTO postDTO: postRepository.getAllPosts()){
+      posts.addPost(postDTO);
+    }
+    PostDTOCollection postDTOs = posts;
+
+    Iterator baseIterator = postDTOs.iterator(userId);
+    while(baseIterator.hasNext()){
+      PostDTO postDTO = baseIterator.next();
+      System.out.println(postDTO.toString());
+      postDTOList.add(postDTO);
+    }
+    System.out.println("**********");
+
+    return postDTOList;
+  }
+
+  @Override
+  public PostDTO createUserPostWithImage(String userId){
+    System.out.println("Creando post con imagen");
+    PostBuilder postBuilder = new PostWithImageBuilder();
+    postBuilder.addId(String.valueOf(Utils.randomAcountNumber()));
+    postBuilder.addUserId(userId);
+    postBuilder.addTitle("Evidencia de initializr");
+    postBuilder.addBody("Se adjunta imagen");
+    postDirector.setPostBuilder(postBuilder);
+    postDirector.buildPost();
+    return postDirector.getFinishedPost();
+  }
+
+  @Override
+  public PostDTO createUserPostWithDocument(String userId){
+    System.out.println("Creando post con documento");
+    PostBuilder postBuilder = new PostWithDocumentBuilder();
+    postBuilder.addId(String.valueOf(Utils.randomAcountNumber()));
+    postBuilder.addUserId(userId);
+    postBuilder.addTitle("Evidencia de examen");
+    postBuilder.addBody("Se adjunta el pdf del examen generado");
+    postDirector.setPostBuilder(postBuilder);
+    postDirector.buildPost();
+    return postDirector.getFinishedPost();
+  }
+
+  @Override
+  public PostDTO createUserPostWithImageAndDocument(String userId){
+    System.out.println("Creando post con imagen y documento");
+    PostBuilder postBuilder = new PostWithDocumentAndImageBuilder();
+    postBuilder.addId(String.valueOf(Utils.randomAcountNumber()));
+    postBuilder.addUserId(userId);
+    postBuilder.addTitle("Evidencia del código");
+    postBuilder.addBody("Se adjuntan documento e imagen del código");
+    postDirector.setPostBuilder(postBuilder);
+    postDirector.buildPost();
+    return postDirector.getFinishedPost();
   }
 
   // Revisión: Clase interna dentro de al menos una clase
