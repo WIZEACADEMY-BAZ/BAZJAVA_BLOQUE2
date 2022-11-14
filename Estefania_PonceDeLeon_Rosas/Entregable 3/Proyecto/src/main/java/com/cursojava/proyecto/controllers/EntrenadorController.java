@@ -30,7 +30,6 @@ public class EntrenadorController {
     private static final Logger LOGGER = Logger.getLogger(EntrenadorController.class.getName());
     @Autowired
     private EntrenadorService entrenadorService;
-
     @Autowired
     EntrenadorJSONClient entrenadorJSONClient;
 
@@ -44,16 +43,16 @@ public class EntrenadorController {
                 .addLimit(limit)
                 .build();
     }
-    //@PreAuthorize("hasRole('GUEST')")
+
     @PostMapping(value = "registro")
     ResponseEntity<?> registrarDatos(@RequestBody EntrenadorDTO entrenador){
-      //  if (bucket.tryConsume(1)) {
+       if (bucket.tryConsume(1)) {
         this.entrenadorService.registrarDatos(entrenador);
         return ResponseEntity.status(HttpStatus.CREATED).build();
-       // }
-       // return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        }
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
-   // @PreAuthorize("hasRole('TRAINER')")
+
     @GetMapping(value = "consultar",produces = "application/json")
     EntrenadorDTO consultarInformacion(@RequestParam String name, String password){
         EntrenadorDTO entrenador =new EntrenadorDTO();
@@ -73,7 +72,6 @@ public class EntrenadorController {
         return new ResponseDTO();
     }
 
-    //@PreAuthorize("hasRole('LEADER')")
     @DeleteMapping(value = "retirarse")
     public ResponseDTO retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad){
         this.entrenadorService.retirarse(nombre, claveDeSeguridad);

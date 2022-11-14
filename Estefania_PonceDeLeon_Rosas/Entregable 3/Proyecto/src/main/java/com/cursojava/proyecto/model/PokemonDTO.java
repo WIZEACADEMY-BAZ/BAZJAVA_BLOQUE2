@@ -1,5 +1,4 @@
 package com.cursojava.proyecto.model;
-
 import com.cursojava.proyecto.utils.herencia.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 

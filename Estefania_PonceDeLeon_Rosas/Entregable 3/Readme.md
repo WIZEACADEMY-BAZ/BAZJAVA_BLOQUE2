@@ -18,3 +18,5 @@ Los puntos que se abarcaron completamente son los siguientes:
 ## Implementación de un patrón de diseño de creación
 ## Implementación de un patrón de diseño de comportamiento
 ## Implementación del patrón de diseño "Throttling"
+![Patterns_01](/Estefania_PonceDeLeon_Rosas/Entregable%203/Evidencias/Patterns_001.png)
+![Patterns_02](/Estefania_PonceDeLeon_Rosas/Entregable%203/Evidencias/Patterns_002.png)
