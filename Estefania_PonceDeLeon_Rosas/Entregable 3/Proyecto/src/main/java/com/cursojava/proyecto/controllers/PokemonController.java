@@ -74,16 +74,16 @@ public class PokemonController {
         Batalla<PokemonDTO, PokemonDTO> gimnacio = (x, y) -> {
             if (random.nextBoolean()) {
                 if (random.nextBoolean() && util.isNotNullValue(Optional.ofNullable(x.getTipo2().getNombre()))) {
-                    LOGGER.info(x.getMovimientos()[1].accion(x.getNombre()));
+                  //  LOGGER.info(x.getMovimientos().get().accion(x.getNombre()));
                 } else {
-                    LOGGER.info(x.getMovimientos()[0].accion(x.getNombre()));
+                  //  LOGGER.info(x.getMovimientos()[0].accion(x.getNombre()));
                 }
                 return x;
             } else {
                 if (random.nextBoolean() && util.isNotNullValue(Optional.ofNullable(y.getTipo2().getNombre()))) {
-                    LOGGER.info(y.getMovimientos()[1].accion(y.getNombre()));
+                   // LOGGER.info(y.getMovimientos()[1].accion(y.getNombre()));
                 } else {
-                    LOGGER.info(y.getMovimientos()[0].accion(y.getNombre()));
+                   // LOGGER.info(y.getMovimientos()[0].accion(y.getNombre()));
                 }
                 return y;
             }

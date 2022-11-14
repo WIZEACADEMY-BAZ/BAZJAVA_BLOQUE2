@@ -7,14 +7,20 @@ import com.cursojava.proyecto.model.Post;
 import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.services.EntrenadorService;
 import com.cursojava.proyecto.utils.Utils;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.kafka.core.KafkaTemplate;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -28,13 +34,26 @@ public class EntrenadorController {
     @Autowired
     EntrenadorJSONClient entrenadorJSONClient;
 
-    @PreAuthorize("hasRole('GUEST')")
-    @PostMapping(value = "registro")
-    ResponseDTO registrarDatos(@RequestBody EntrenadorDTO entrenador){
-        this.entrenadorService.registrarDatos(entrenador);
-        return new ResponseDTO();
+    @Autowired
+    private KafkaTemplate<Object, Object> template;
+    private final Bucket bucket;
+    public EntrenadorController(){
+        Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(5, refill);
+        this.bucket = Bucket.builder()
+                .addLimit(limit)
+                .build();
     }
-    @PreAuthorize("hasRole('TRAINER')")
+    //@PreAuthorize("hasRole('GUEST')")
+    @PostMapping(value = "registro")
+    ResponseEntity<?> registrarDatos(@RequestBody EntrenadorDTO entrenador){
+      //  if (bucket.tryConsume(1)) {
+        this.entrenadorService.registrarDatos(entrenador);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+       // }
+       // return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+    }
+   // @PreAuthorize("hasRole('TRAINER')")
     @GetMapping(value = "consultar",produces = "application/json")
     EntrenadorDTO consultarInformacion(@RequestParam String name, String password){
         EntrenadorDTO entrenador =new EntrenadorDTO();
@@ -54,7 +73,7 @@ public class EntrenadorController {
         return new ResponseDTO();
     }
 
-    @PreAuthorize("hasRole('LEADER')")
+    //@PreAuthorize("hasRole('LEADER')")
     @DeleteMapping(value = "retirarse")
     public ResponseDTO retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad){
         this.entrenadorService.retirarse(nombre, claveDeSeguridad);
@@ -83,5 +102,12 @@ public class EntrenadorController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity<>(postTest, responseHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/send/{name}")
+    public void sendUserAccount(@PathVariable String name) {
+        EntrenadorDTO  trainer = entrenadorService.consultarPrimeroPorNombre(new EntrenadorDTO(name));
+        System.out.println("TRAINER: "+trainer.getNombre());
+        this.template.send("useraccount-topic", trainer);
     }
 }

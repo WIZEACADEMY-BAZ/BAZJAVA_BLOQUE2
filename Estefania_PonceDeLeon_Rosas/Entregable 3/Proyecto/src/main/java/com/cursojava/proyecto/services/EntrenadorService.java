@@ -12,5 +12,5 @@ public interface EntrenadorService {
     void registrarEquipo(EntrenadorDTO entrenador, PokemonDTO[] equipo);
     void retirarse(String nombre, String password);
     List<EntrenadorDTO> getEncryptedTrainers();
-
+    EntrenadorDTO consultarPrimeroPorNombre(EntrenadorDTO entrenador);
 }

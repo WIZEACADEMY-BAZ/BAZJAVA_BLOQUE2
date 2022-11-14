@@ -9,6 +9,8 @@ public interface EntrenadorRepository extends MongoRepository<EntrenadorDTO, Lon
 
     EntrenadorDTO findEntrenadorDTOByNombreAndPassword (String nombre, String password);
     EntrenadorDTO findFirstByNombreAndPassword(String nombre, String password);
+
+    EntrenadorDTO findFirstByNombre (String nombre);
     void deleteEntrenadorDTOByNombreAndClaveDeSeguridad(String nombre, String claveDeSeguridad);
 
 }

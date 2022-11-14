@@ -4,7 +4,9 @@ import com.cursojava.proyecto.utils.herencia.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 @Document("pokemonDTO")
@@ -16,7 +18,7 @@ public class PokemonDTO {
 
     private TipoDTO tipo1;
 
-    private Movimiento[] movimientos = new Movimiento[2];
+    private List<Movimiento> movimientos;
 
     private TipoDTO tipo2;
 
@@ -32,11 +34,13 @@ public class PokemonDTO {
 
     public PokemonDTO(String nombre, String tipo1){
         this.nombre=nombre;
+        this.movimientos=new ArrayList<>();
         this.setTipo1(new TipoDTO(tipo1));
     }
 
     public PokemonDTO(String nombre, String tipo1, String tipo2){
         this.nombre=nombre;
+        this.movimientos=new ArrayList<>();
         this.setTipo1(new TipoDTO(tipo1));
         if(tipo2!=null){
             this.setTipo2(new TipoDTO(tipo2));
@@ -61,17 +65,18 @@ public class PokemonDTO {
 
     public TipoDTO getTipo1() { return tipo1; }
 
-    public void setTipo1(TipoDTO tipo1) { this.tipo1 = tipo1; agregarMovimientos(0,tipo1.getNombre());}
+    public void setTipo1(TipoDTO tipo1) { this.tipo1 = tipo1;}
 
-    public TipoDTO getTipo2() { return tipo2; }
+    public TipoDTO getTipo2() { return this.tipo2; }
 
-    public void setTipo2(TipoDTO tipo2) { this.tipo2 = tipo2; if(tipo2.getNombre()!=null) agregarMovimientos(1,tipo2.getNombre());}
+    public void setTipo2(TipoDTO tipo2) { this.tipo2 = tipo2;
+    }
 
-    public Movimiento[] getMovimientos() {
+    public List<Movimiento> getMovimientos() {
         return movimientos;
     }
 
-    public void setMovimientos(Movimiento[] movimientos) {
+    public void setMovimientos(List<Movimiento> movimientos) {
         this.movimientos = movimientos;
     }
 
@@ -99,31 +104,31 @@ public class PokemonDTO {
         this.status = status;
     }
 
-    private void agregarMovimientos(int i, String tipo){
+    private void agregarMovimientos(String tipo){
         switch (tipo){
             case "Planta":
-                this.movimientos[i]= new Planta();
+                this.movimientos.add(new Planta());
                 break;
             case "Agua":
-                this.movimientos[i]= new Agua();
+                this.movimientos.add(new Agua());
                 break;
             case "Fuego":
-                this.movimientos[i]= new Fuego();
+                this.movimientos.add(new Fuego());
                 break;
             case "Normal":
-                this.movimientos[i]= new Normal();
+                this.movimientos.add(new Normal());
                 break;
             case "Volador":
-                this.movimientos[i] = new Volador();
+                this.movimientos.add(new Volador());
                 break;
             case "Veneno":
-                this.movimientos[i] =new Veneno();
+                this.movimientos.add(new Veneno());
                 break;
             case "Tierra":
-                this.movimientos[i] =new Tierra();
+                this.movimientos.add(new Tierra());
                 break;
             case "Electrico":
-                this.movimientos[i] =new Electrico();
+                this.movimientos.add(new Electrico());
                 break;
         }
     }

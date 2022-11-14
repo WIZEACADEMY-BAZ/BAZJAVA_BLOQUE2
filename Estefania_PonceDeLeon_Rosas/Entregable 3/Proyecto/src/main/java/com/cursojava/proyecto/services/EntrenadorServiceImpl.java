@@ -119,7 +119,7 @@ public class EntrenadorServiceImpl implements EntrenadorService{
                         ctTipo1Length += cipher.doFinal(tipo1Cipher, ctTipo1Length);
                         equipo[j].getTipo1().setNombre(tipo1Cipher.toString());
 
-                        Movimiento[] movimientosGen=equipo[j].getMovimientos();
+                        /*Movimiento[] movimientosGen=equipo[j].getMovimientos();
                         for(int k=0 ; k<movimientosGen.length; k++){
                             if (movimientosGen[k]!=null){
                                 List<String> movimientos= movimientosGen[k].getMovimientos();
@@ -132,7 +132,7 @@ public class EntrenadorServiceImpl implements EntrenadorService{
                                     movimientos.set(l,movimientoCipher.toString());
                                 }
                             }
-                        }
+                        }*/
                     }
                 }
 
@@ -155,6 +155,11 @@ public class EntrenadorServiceImpl implements EntrenadorService{
             throw new RuntimeException(e);
         }
         return entrenadores;
+    }
+
+    @Override
+    public EntrenadorDTO consultarPrimeroPorNombre(EntrenadorDTO entrenador) {
+        return this.entrenadorRepository.findFirstByNombre(entrenador.getNombre());
     }
 
 
