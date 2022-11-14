@@ -6,20 +6,22 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wizeline.baz.model.OperationData;
 
-public class RegisterOperationThread<T extends BuildOperationData> extends Thread {
+public class RegisterOperationThread extends Thread {
 	
 	private static final Logger LOGGER = Logger.getLogger(RegisterOperationThread.class.getName());
 	
 	private ObjectMapper jsonMapper = new ObjectMapper();
-	private OperationData operationData;
+	private final OperationData operationData;
+	private final String topic;
 	
-	public RegisterOperationThread(T buildOperationData) {
-		this.operationData = buildOperationData.operationData();
+	public RegisterOperationThread(OperationData operationData, String topic) {
+		this.operationData = operationData;
+		this.topic = topic;
 	}
 	
 	@Override
 	public void run() {
-		LOGGER.info("Sendig operation data...");
+		LOGGER.info("Sendig operation data to topic " + topic);
 		try {
 			LOGGER.info(jsonMapper.writeValueAsString(operationData));
 		} catch (JsonProcessingException e) {

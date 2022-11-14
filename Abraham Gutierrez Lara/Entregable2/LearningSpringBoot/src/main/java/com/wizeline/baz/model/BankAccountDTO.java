@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.wizeline.baz.enums.AccountType;
+import com.wizeline.baz.enums.BankAccountType;
 import com.wizeline.baz.enums.Country;
 
 /**
@@ -19,11 +19,12 @@ public class BankAccountDTO {
 	private String userId;
     private String accountAlias;    
     private double accountBalance;
-    private AccountType accountType;
+    private BankAccountType accountType;
     private Country country;
     private boolean active;
     private LocalDateTime creationDate;
     private LocalDateTime lastUsage;
+    private DebitCard card;
     
 	public long getAccountNumber() {
 		return accountNumber;
@@ -49,10 +50,10 @@ public class BankAccountDTO {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public AccountType getAccountType() {
+	public BankAccountType getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(AccountType accountType) {
+	public void setAccountType(BankAccountType accountType) {
 		this.accountType = accountType;
 	}
 	public Country getCountry() {
@@ -79,4 +80,11 @@ public class BankAccountDTO {
 	public void setLastUsage(LocalDateTime lastUsage) {
 		this.lastUsage = lastUsage;
 	}
+	public DebitCard getCard() {
+		return card;
+	}
+	public void setCard(DebitCard card) {
+		this.card = card;
+	}
+	
 }

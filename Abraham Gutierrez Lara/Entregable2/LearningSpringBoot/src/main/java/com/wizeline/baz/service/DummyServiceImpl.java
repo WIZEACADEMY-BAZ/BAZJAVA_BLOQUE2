@@ -31,8 +31,11 @@ public class DummyServiceImpl implements DummyService {
 		Optional<PostalCodeInfo> postalCodeInfoOpt = dummyDao.getPostalCodeInfo(postalCode, countryAbbreviation);
 		if(!postalCodeInfoOpt.isPresent()) {
 			ErrorDTO error = new ErrorDTO(StatusCodes.POSTAL_CODE_DOESNT_EXIST, "PostalCode -> " + postalCode);
-			BaseResponseDTO response = new BaseResponseDTO(ResponseStatus.FAILED, StatusCodes.FAILED, error);
-			return new ResponseEntity<BaseResponseDTO>(response, HttpStatus.NOT_FOUND);
+			return new ResponseEntity<BaseResponseDTO>(BaseResponseDTO.builder()
+															.status(ResponseStatus.FAILED)
+															.code(StatusCodes.FAILED)
+															.errors(error).build(),
+														HttpStatus.NOT_FOUND);
 		}
 		PostalCodeResponse response = new PostalCodeResponse();
 		response.setPostalCodeInfo(postalCodeInfoOpt.get());
