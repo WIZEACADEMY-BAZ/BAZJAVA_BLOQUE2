@@ -1,0 +1,191 @@
+{
+	"info": {
+		"_postman_id": "dee10148-790f-43f5-8a54-b1c8ead21785",
+		"name": "LAB",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20706331"
+	},
+	"item": [
+		{
+			"name": "dato",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/post?editUser=30",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "editUser",
+							"value": "30"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/put?updateUser=58",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"put"
+					],
+					"query": [
+						{
+							"key": "updateUser",
+							"value": "58"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "variables",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/get?user=20",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "20"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "variables_2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/delete?X-Amzn-Trace-Id=\"Root=1-6346f29f-68c869d76f18bb415d32f3fa\"",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"delete"
+					],
+					"query": [
+						{
+							"key": "X-Amzn-Trace-Id",
+							"value": "\"Root=1-6346f29f-68c869d76f18bb415d32f3fa\""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "prueas_postman",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/patch?ModificationsUser=33",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"patch"
+					],
+					"query": [
+						{
+							"key": "ModificationsUser",
+							"value": "33"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://wrchwzrqmb.execute-api.us-east-1.amazonaws.com/prod/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{stage}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{stage}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "httpbin.org/",
+			"type": "string"
+		},
+		{
+			"key": "json_value",
+			"value": "this is a json text value",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "http://httpbin.org",
+			"type": "string"
+		},
+		{
+			"key": "host",
+			"value": "https://wrchwzrqmb.execute-api.us-east-1.amazonaws.com",
+			"type": "string"
+		},
+		{
+			"key": "stage",
+			"value": "prod",
+			"type": "string"
+		}
+	]
+}

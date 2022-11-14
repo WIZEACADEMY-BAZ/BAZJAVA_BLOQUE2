@@ -1,0 +1,4 @@
+gus, 123
+user1@wizeline.com, pass1
+user2@wizeline.com, pass2
+user3@wizeline.com, pass3

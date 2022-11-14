@@ -19,3 +19,15 @@ Directorio entregas de Irvin Oswaldo Cabrera Ibañez
         > Capturas find, update, insert
         > dumps de las colecciones
 ```
+
+```
+> Entregable 2
+    > Generacion Proyecto (Imagen)
+    > Proyecto
+        > El proyecto ocupa la versión de JAVA 11
+        > Es desarrollado con la estructura de maven para la descarga
+        de dependencias y dar el alta de la aplicación
+        > El proyecto esta conformado por lo visto en las semanas y se
+        agrego un flujo para el control de los usuariosº
+    > Colección de postman de las peticiones
+```

@@ -17,6 +17,12 @@ A continuación se describe la estructura de las carpetas y evidencias, incluyen
     > Curso MongoDB
         - Screenshots de evidencias y export de la BD
 
+
+## Entregable 2
+
+    > Curso Spring
+        - Proyecto Java 11 con Gradle y screenshot de creacion de proyecto
+
 ## Instrucciones para Docker
 
 ### 1. Descargar los archivos y colocarlos en una carpeta </br>

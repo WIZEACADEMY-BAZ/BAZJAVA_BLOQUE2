@@ -1,0 +1,449 @@
+{
+	"info": {
+		"_postman_id": "f78348ab-64e6-45a6-a57d-18a00f909d6f",
+		"name": "Colleccion entregable 2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "LearningJava/CreateUser POST",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXIiOiJndWVzdCIsImF1dGhvcml0aWVzIjoiUk9MRV9HVUVTVCIsImRhdGUiOjE2Njc1ODc3ODc1MDksImV4cCI6MTY2NzU4ODA4N30.tGf5WzAvI5jz2qYJFVXZEa9Vd12AdS9Mj_VXNkt-NPIrsemRb9LNAYrNP-T3xjR-rBtVtIQmSEQZ69tIZgRZ4g",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"david11@wizeline.com\",\r\n    \"password\":\"Dav1d@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/createUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUser"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/Login GET",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXIiOiJndWVzdCIsImF1dGhvcml0aWVzIjoiUk9MRV9HVUVTVCIsImRhdGUiOjE2Njc1OTAzMDg5MjksImV4cCI6MTY2NzU5MDYwOH0.xLGxqWil1dYsRg4Hhrpzl6fs0Gx2fngGpruoBUVAn8W2sNCGzwTyMEKNrgtG1y82mIKbDJR0KrHv4dW9HdQSLg",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/login?user=david11@wizeline.com&password=Dav1d@",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "david11@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "Dav1d@"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/createUsers POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXIiOiJndWVzdCIsImF1dGhvcml0aWVzIjoiUk9MRV9HVUVTVCIsImRhdGUiOjE2Njc1ODgwNjIxMjksImV4cCI6MTY2NzU4ODM2Mn0.j1GhHY0hJuSk5NW1U-yocvLe3rZDt1Thg1A0nMrKCKFx8xPqaDug1Tx8FkWJOYaN1XeHq-89KQAknaIx6YNFJw",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n  \"user\": \"user1@wizeline.com\",\r\n  \"password\": \"pass1\"\r\n},\r\n  {\r\n    \"user\": \"user2@wizeline.com\",\r\n    \"password\": \"pass2\"\r\n  },\r\n  {\r\n  \"user\": \"user1@wizeline.com\",\r\n  \"password\": \"pass1\"\r\n},\r\n  {\r\n    \"user\": \"user2@wizeline.com\",\r\n    \"password\": \"pass2\"\r\n  }]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/createUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"createUsers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getUserAccount GET",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3NTg1ODcwODMwLCJleHAiOjE2Njc1ODY3NzB9.DT3lVl0i_UI3BsRjlSQWa585EUa47CNIrKQsJHiMkzY6oPs6tdFhcORouSUpvPD0UOdVFCPkqFjCc7mpdr8gLQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlciI6InVzZXIiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImRhdGUiOjE2Njc1ODA3MzY3MDQsImV4cCI6MTY2NzU4MTAzNn0.bhjQaMwWJ4WzwhSdtwCpyw11kjNrvdxRT4wrZ9J5UZRsueaG_iZVYMDk3R29LO4C_J0MeXeOZE8hGMVGgSnXKw",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/getUserAccount?user=david@wizeline.com&password=Dav1d@&date=12-03-2022#&date=12-03-2022",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getUserAccount"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "david@wizeline.com"
+						},
+						{
+							"key": "password",
+							"value": "Dav1d@"
+						},
+						{
+							"key": "date",
+							"value": "12-03-2022"
+						}
+					],
+					"hash": "&date=12-03-2022"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LearningJava/getAccounts GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getAccounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccounts"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "01-09-1989",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/getAccountsByUser GET",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlciI6InVzZXIiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImRhdGUiOjE2Njc4NDgyNjg0NDgsImV4cCI6MTY2Nzg0ODU2OH0.ykdr5dYUFD3wTpbsbvaSofo02x7Kwz489njMerAm4WWLj_kod4iimc64se3fNeG7GQ0D2OB3uhtP425Ar4sw2w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY3NTg2OTMyOTIyLCJleHAiOjE2Njc1ODc4MzJ9.wt9mG_M-KMmMqb-M7Mvbt-jifCfLPd2XsmjkQcoZSnqMF1nzPYJsORU5JFRKjuCFcuFssLqljNa4yX4qUH8ucw",
+						"type": "default",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/getAccountsByUser?user=user4@wizeline.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccountsByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user4@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/getAccountsGroupByType GET",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXIiOiJhZG1pbiIsImF1dGhvcml0aWVzIjoiUk9MRV9BRE1JTixST0xFX1VTRVIiLCJkYXRlIjoxNjY3ODQyNzk5NjMyLCJleHAiOjE2Njc4NDMwOTl9.KtXt9KeSvqClbnI_LNFNmQ-kl8KSDuIDiFbbCkVe10o_6wDf4O6Tr2sUW7wzJF5720dHrMfmMXyziW0y88OYdg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/getAccountsGroupByType",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getAccountsGroupByType"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/deleteAccounts DELETE",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXIiOiJndWVzdCIsImF1dGhvcml0aWVzIjoiUk9MRV9HVUVTVCIsImRhdGUiOjE2Njc4NDI2NDcxNTIsImV4cCI6MTY2Nzg0Mjk0N30.jUZXfAQTdSsmbaISrMBWp8cS8pLdH_SOppg1MQptzGQzWw0agwTH9oe4bEHfrlhr8_tC_aDdgM414Hc920ZtSQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/deleteAccounts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"deleteAccounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/putAccountByUser PUT",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlciI6InVzZXIiLCJhdXRob3JpdGllcyI6IlJPTEVfVVNFUiIsImRhdGUiOjE2Njc4NDk2ODA2MDMsImV4cCI6MTY2Nzg0OTk4MH0.GtZQevSYBVDXDoKa_uMCFCDoxwsJFFK5YXDw3zpoVhy3M_ithLYmeDuByvFWBYaSTXG7QjBe1S77MN8ZnEVQMg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/putAccountByUser?user=user4@wizeline.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"putAccountByUser"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "user4@wizeline.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/authenticate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user\":\"user\",\r\n    \"password\":\"password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/sayHello",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJndWVzdCIsInVzZXJuYW1lIjoiZ3Vlc3QiLCJhdXRob3JpdGllcyI6IlJPTEVfR1VFU1QiLCJkYXRlIjoxNjY3NTg2ODc3NjQ5LCJleHAiOjE2Njc1ODc3Nzd9.c5CHDGD16vodMnWDd49ghLIQXL86pWmSQ_ArJ-c2ztsnk7jyywlP4yZ3wzr-gnp_X_q4UaSrBTSgguZ6fjDONw",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/api/sayHello",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"sayHello"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/getRestAPI GET",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/getRestAPI",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getRestAPI"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
