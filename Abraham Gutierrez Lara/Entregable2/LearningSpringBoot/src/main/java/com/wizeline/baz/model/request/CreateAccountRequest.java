@@ -6,6 +6,12 @@ public class CreateAccountRequest {
 	private String userId;
 	private BankAccountType accountType;
 	
+	public CreateAccountRequest() {}
+	public CreateAccountRequest(String userId, BankAccountType accountType) {
+		this.userId = userId;
+		this.accountType = accountType;
+	}
+	
 	public String getUserId() {
 		return userId;
 	}

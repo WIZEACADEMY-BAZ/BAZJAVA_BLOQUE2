@@ -13,3 +13,5 @@ spring.data.mongodb.uri: mongodb://localhost:27017/BankAPI
 jwt.secret: java-baz
 
 spring.security.white-list.url: /user/login, /user/banker, /swagger-ui/**, /v3/api-docs/**, /dummy/postalcode/**
+
+spring.batch.job.enabled: false
