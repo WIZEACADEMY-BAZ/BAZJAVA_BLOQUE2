@@ -75,6 +75,7 @@ public class LearningjavamavenApplication extends Thread {
 
 		// Consultar información de cuenta de un usuario
 		server.createContext("/api/getUserAccount", (exchange -> getAccount(exchange)));
+
 		// Se puede remplazar la lambda por la siguiente forma
 		//server.createContext("/api/getUserAccount", (LearningjavamavenApplication::getAccount));
 

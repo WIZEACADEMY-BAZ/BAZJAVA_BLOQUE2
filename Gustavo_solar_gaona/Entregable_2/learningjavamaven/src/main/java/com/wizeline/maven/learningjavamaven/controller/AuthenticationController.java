@@ -20,8 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
-@Tag(name = "Authentication",
-    description = "Genera token de autenticación.")
+@Tag(name = "Authentication", description = "Genera token de autenticación.")
 @RestController
 public class AuthenticationController {
   @Autowired

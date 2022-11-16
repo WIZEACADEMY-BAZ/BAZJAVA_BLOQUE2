@@ -5,12 +5,16 @@ import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
 import com.wizeline.maven.learningjavamaven.model.TodoDTO;
 import com.wizeline.maven.learningjavamaven.model.UserDTO;
 import com.wizeline.maven.learningjavamaven.service.UserService;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -29,7 +33,7 @@ public class UserController {
 
   @GetMapping(value = "/login", produces = CONTENT_TYPE_JSON)
   public ResponseEntity<ResponseDTO> login(@RequestParam String user, String password){
-    LOGGER.info( PROCESSING_GET_METHOD);
+    LOGGER.info( PROCESSING_GET_METHOD );
     ResponseDTO response = new ResponseDTO();
     //response = userService.login(user, password);
     //El método login es reemplazado por userMongo el cual aplica la conexión
@@ -56,9 +60,7 @@ public class UserController {
 
   @PreAuthorize("hasRole('USER')")
   @GetMapping(value = "/users/{userId}/filteredTodos", produces = CONTENT_TYPE_JSON)
-  public ResponseEntity<List<TodoDTO>> getGetUserTodos(
-      @PathVariable("userId") String userId
-      ,@RequestParam("status") boolean status ){
+  public ResponseEntity<List<TodoDTO>> getGetUserTodos(@PathVariable("userId") String userId, @RequestParam("status") boolean status ){
     LOGGER.info( PROCESSING_GET_METHOD);
     List<TodoDTO> todoDTOS = userService.getUserTodos(userId,status);
     return new ResponseEntity<List<TodoDTO>>(todoDTOS, HttpStatus.OK);
@@ -75,6 +77,28 @@ public class UserController {
     return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
   }
 
+  // patrones de diseño
+  private final Bucket bucket;
+
+  public UserController() {
+    Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+    Bandwidth limit = Bandwidth.classic(5, refill);
+    this.bucket = Bucket.builder()
+            .addLimit(limit)
+            .build();
+  }
+
+  @GetMapping("/users")
+  public ResponseEntity<String> getUsers() {
+    if (bucket.tryConsume(1)) {
+      //Aqui va la logica para obtener la informacion
+      //Se regresa la respuesta normalmente
+      return ResponseEntity.ok("It's ok");
+    }
+
+    //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
+    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+  }
 
 
 }
