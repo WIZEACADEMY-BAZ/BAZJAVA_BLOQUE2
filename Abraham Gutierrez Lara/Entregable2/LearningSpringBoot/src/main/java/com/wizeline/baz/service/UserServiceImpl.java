@@ -69,10 +69,7 @@ public class UserServiceImpl implements UserService {
 		}
 		UserDTO user = userOpt.get();
 		String encryptedPassword = desCipher.encrypt(request.getNewPassword());
-		boolean passwordUpdated = userRepository.updateUserPassword(user.getId(), encryptedPassword);
-		if(!passwordUpdated) {
-			throw new UserNotFoundException(user.getId());
-		}
+		userRepository.updateUserPassword(user.getId(), encryptedPassword);
 		BaseResponseDTO response = BaseResponseDTO.builder().build();
 		response.makeSuccess();
 		return ResponseEntity.ok(response);

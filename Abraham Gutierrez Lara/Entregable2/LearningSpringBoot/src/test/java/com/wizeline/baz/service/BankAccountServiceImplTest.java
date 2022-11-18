@@ -10,6 +10,8 @@ import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -25,9 +27,14 @@ import org.springframework.http.ResponseEntity;
 
 import com.wizeline.baz.enums.BankAccountType;
 import com.wizeline.baz.exceptions.UserNotFoundException;
+import com.wizeline.baz.model.BankAccountDTO;
 import com.wizeline.baz.model.request.CreateAccountRequest;
+import com.wizeline.baz.model.response.BankAccountDetailsResponse;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.model.response.CreateBankAccountResponseDTO;
+import com.wizeline.baz.model.response.GetAccountsResponse;
+import com.wizeline.baz.repository.BankAccountFactory;
+import com.wizeline.baz.repository.BankAccountFactoryImp;
 import com.wizeline.baz.repository.BankAccountRepository;
 import com.wizeline.baz.repository.UserRepository;
 
@@ -40,6 +47,7 @@ class BankAccountServiceImplTest {
 	private UserRepository userRepository;
 	@InjectMocks
 	private BankAccountServiceImpl service;
+	private BankAccountFactory bankAccountFactory = BankAccountFactoryImp.getInstance();
 	
 	@Test
 	void createAccount_NoFoundUser() {
@@ -82,7 +90,7 @@ class BankAccountServiceImplTest {
 	}
 	
 	@Test
-	void getAccountDetails() {
+	void getNotFoundAccountDetails() {
 		when(bankAccountRepository.findById(anyLong())).thenReturn(Optional.empty());
 		ResponseEntity<BaseResponseDTO> responseEntity = service.getAccountDetails(System.currentTimeMillis());	
 		assertNotNull(responseEntity);
@@ -91,7 +99,40 @@ class BankAccountServiceImplTest {
 		assertInstanceOf(BaseResponseDTO.class, responseEntity.getBody());
 		BaseResponseDTO response = (BaseResponseDTO) responseEntity.getBody();
 		assertNotNull(response.getErrors());
-		
+	}
+	
+	@Test
+	void getAccountDetails() {
+		String userId = UUID.randomUUID().toString();
+		BankAccountDTO bankAccount = bankAccountFactory.createBankAccount(userId, BankAccountType.NOMINA);
+		when(bankAccountRepository.findById(anyLong())).thenReturn(Optional.of(bankAccount));
+		ResponseEntity<BaseResponseDTO> responseEntity = service.getAccountDetails(System.currentTimeMillis());	
+		assertNotNull(responseEntity);
+		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+		assertNotNull(responseEntity.getBody());
+		assertInstanceOf(BankAccountDetailsResponse.class, responseEntity.getBody());
+		BankAccountDetailsResponse response = (BankAccountDetailsResponse) responseEntity.getBody();
+		assertEquals(bankAccount.getAccountNumber(), response.getAccountNumber());
+		assertEquals(bankAccount.getAccountAlias(), response.getAccountAlias());
+		assertEquals(bankAccount.getAccountType(), response.getAccountType());
+	}
+	
+	@Test
+	void getAccounts() {
+		List<BankAccountDTO> bankAccounts = Arrays.asList(
+				bankAccountFactory.createBankAccount("userId", BankAccountType.NOMINA),
+				bankAccountFactory.createBankAccount("userId2", BankAccountType.AHORRO),
+				bankAccountFactory.createBankAccount("userId3", BankAccountType.KID),
+				bankAccountFactory.createBankAccount("userId4", BankAccountType.PLATINUM));
+		when(bankAccountRepository.findAll()).thenReturn(bankAccounts);
+		ResponseEntity<BaseResponseDTO> responseEntity = service.getAccounts();	
+		assertNotNull(responseEntity);
+		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+		assertNotNull(responseEntity.getBody());
+		assertInstanceOf(GetAccountsResponse.class, responseEntity.getBody());
+		GetAccountsResponse response = (GetAccountsResponse) responseEntity.getBody();
+		assertNotNull(response.getBankAccounts());
+		assertEquals(bankAccounts.size(), response.getBankAccounts().size());
 	}
 	
 	@Test

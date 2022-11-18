@@ -148,10 +148,6 @@
 						<goals>
 							<goal>report</goal>
 						</goals>
-						<configuration>
-							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-						</configuration>
 					</execution>
 					<execution>
 						<id>jacoco-check</id>
