@@ -19,8 +19,20 @@ public class EntrenadorDTO {
     public EntrenadorDTO(String nombre){
         this.nombre=nombre;
     }
-    public EntrenadorDTO(String nombre, String Rango){
+    public EntrenadorDTO(String nombre, String password){
         this.nombre=nombre;
+        this.password=password;
+    }
+    public EntrenadorDTO(String nombre, String password, String claveDeSeguridad){
+        this.nombre=nombre;
+        this.password=password;
+        this.claveDeSeguridad=claveDeSeguridad;
+    }
+
+    public EntrenadorDTO(String nombre, String password, String claveDeSeguridad, String rango){
+        this.nombre=nombre;
+        this.password=password;
+        this.claveDeSeguridad=claveDeSeguridad;
         this.rango=rango;
     }
 

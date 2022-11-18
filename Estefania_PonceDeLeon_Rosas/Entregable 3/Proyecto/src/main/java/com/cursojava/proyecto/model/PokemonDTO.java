@@ -35,6 +35,9 @@ public class PokemonDTO {
         this.nombre=nombre;
         this.movimientos=new ArrayList<>();
         this.setTipo1(new TipoDTO(tipo1));
+        this.tipo2=new TipoDTO();
+        agregarMovimientos(tipo1);
+
     }
 
     public PokemonDTO(String nombre, String tipo1, String tipo2){

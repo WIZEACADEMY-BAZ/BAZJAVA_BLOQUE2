@@ -6,6 +6,10 @@ public class Post {
     private String title;
     private String body;
 
+    public Post(){}
+    public Post(Long id){
+        this.id=id;
+    }
     public String getUserId() {
         return userId;
     }

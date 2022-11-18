@@ -1,8 +1,11 @@
 package com.cursojava.proyecto.model;
 
+import org.springframework.http.HttpStatus;
+
 public class ResponseDTO {
     private String status;
     private String code;
+    private HttpStatus httpStatus;
     private ErrorDTO errors;
 
 
@@ -16,29 +19,19 @@ public class ResponseDTO {
         this.status=status;
     }
 
-    public String getStatus() {
-        return status;
+
+    public ResponseDTO(String status, HttpStatus httpStatus){
+        this.status=status;
+        this.httpStatus=httpStatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public ErrorDTO getErrors() {
-        return errors;
-    }
 
     public void setErrors(ErrorDTO errors) {
         this.errors = errors;
     }
 
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
+    }
 
 }

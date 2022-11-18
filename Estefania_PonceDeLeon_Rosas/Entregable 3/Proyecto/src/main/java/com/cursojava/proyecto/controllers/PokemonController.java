@@ -4,6 +4,7 @@ import com.cursojava.proyecto.model.ErrorDTO;
 import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.ResponseDTO;
+import com.cursojava.proyecto.repository.PokemonRepository;
 import com.cursojava.proyecto.services.PokemonService;
 import com.cursojava.proyecto.utils.Utils;
 import com.cursojava.proyecto.utils.funcional.Batalla;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("pokemons")
@@ -24,20 +26,23 @@ public class PokemonController {
     private static final Logger LOGGER = Logger.getLogger(PokemonController.class.getName());
     @Autowired
     PokemonService pokemonService;
+
+    @Autowired
+    PokemonRepository pokemonRepository;
+
     @PostMapping(value = "createOne")
-    public ResponseEntity<ResponseDTO> createOne(@RequestBody PokemonDTO pokemon) {
-        ResponseDTO response = this.pokemonService.createPokemon(pokemon);
-        return new ResponseEntity<ResponseDTO>(response, HttpStatus.CREATED);
+    public ResponseEntity<String> createOne(@RequestBody PokemonDTO pokemonDTO) {
+        this.pokemonRepository.save(pokemonDTO);
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 
     @GetMapping(value = "getAllPokemons")
-    List<PokemonDTO> getAllPokemons(){
-        return this.pokemonService.getAllPokemons();
+    List<PokemonDTO> getAllPokemons() {
+        return this.pokemonRepository.findAll();
     }
-    @PostMapping(value = "entrenar3Pokemons")
-    public ResponseEntity<ResponseDTO> entrenarTresPokemon(@RequestBody PokemonDTO[] pokemons) {
 
-        ResponseDTO response = new ResponseDTO();
+    @PostMapping(value = "entrenar3Pokemons")
+    public ResponseEntity<?> entrenarTresPokemon(@RequestBody PokemonDTO[] pokemons) {
         EntrenarPokemons thread1;
         EntrenarPokemons thread2;
         EntrenarPokemons thread3;
@@ -56,15 +61,14 @@ public class PokemonController {
             thread2.join();
             thread3.join();
         } catch (InterruptedException e) {
-            response.setErrors(new ErrorDTO("ER001", "Error al esperar cierre de Threads"));
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>("Error al esperar cierre de Threads", HttpStatus.OK);
         }
 
 
-        LOGGER.info(thread1.getPokemon().getNombre() + " tiene el status de "+thread1.getPokemon().getStatus());
-        LOGGER.info(thread2.getPokemon().getNombre() + " tiene el status de "+thread2.getPokemon().getStatus());
-        LOGGER.info(thread3.getPokemon().getNombre() + " tiene el status de "+thread3.getPokemon().getStatus());
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        LOGGER.info(thread1.getPokemon().getNombre() + " tiene el status de " + thread1.getPokemon().getStatus());
+        LOGGER.info(thread2.getPokemon().getNombre() + " tiene el status de " + thread2.getPokemon().getStatus());
+        LOGGER.info(thread3.getPokemon().getNombre() + " tiene el status de " + thread3.getPokemon().getStatus());
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     @PostMapping(value = "batalla")
@@ -74,16 +78,17 @@ public class PokemonController {
         Batalla<PokemonDTO, PokemonDTO> gimnacio = (x, y) -> {
             if (random.nextBoolean()) {
                 if (random.nextBoolean() && util.isNotNullValue(Optional.ofNullable(x.getTipo2().getNombre()))) {
-                  //  LOGGER.info(x.getMovimientos().get().accion(x.getNombre()));
+                    LOGGER.info(x.getMovimientos().get(1).accion(x.getNombre()));
                 } else {
-                  //  LOGGER.info(x.getMovimientos()[0].accion(x.getNombre()));
+                    LOGGER.info(x.getMovimientos().get(0).accion(x.getNombre()));
+
                 }
                 return x;
             } else {
                 if (random.nextBoolean() && util.isNotNullValue(Optional.ofNullable(y.getTipo2().getNombre()))) {
-                   // LOGGER.info(y.getMovimientos()[1].accion(y.getNombre()));
+                    LOGGER.info(y.getMovimientos().get(1).accion(y.getNombre()));
                 } else {
-                   // LOGGER.info(y.getMovimientos()[0].accion(y.getNombre()));
+                    LOGGER.info(y.getMovimientos().get(0).accion(y.getNombre()));
                 }
                 return y;
             }
@@ -92,9 +97,9 @@ public class PokemonController {
     }
 
     @DeleteMapping(value = "borrarTodos")
-    public ResponseDTO borrarTodos(){
-        this.pokemonService.deleteAll();
-        return new ResponseDTO();
+    public ResponseEntity<?> borrarTodos() {
+        this.pokemonRepository.deleteAll();
+        return new ResponseEntity<>("Sucess", HttpStatus.OK);
     }
 
     @GetMapping(value = "externa/api", produces = "application/json")
@@ -103,8 +108,12 @@ public class PokemonController {
     }
 
     @GetMapping(value = "total-by-type", produces = "application/json")
-    public ResponseDTO getTotalByType(@RequestParam String type){
-        return this.pokemonService.getTotalByType(type);
+    public ResponseDTO getTotalByType(@RequestParam String type) {
+        List<PokemonDTO> pokemons = pokemonRepository.findAll();
+        Long totalTypes = pokemons.stream().filter(pokemonDTO -> pokemonDTO.getTipo1().getNombre().equals(type))
+                .distinct()
+                .collect(Collectors.toList()).stream().collect(Collectors.counting());
+        return new ResponseDTO(totalTypes + " en total de pokemons tipo " + type, HttpStatus.OK);
     }
 
 

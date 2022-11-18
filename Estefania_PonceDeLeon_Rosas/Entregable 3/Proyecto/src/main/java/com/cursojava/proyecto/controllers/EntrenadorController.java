@@ -5,7 +5,7 @@ import com.cursojava.proyecto.model.EntrenadorDTO;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.Post;
 import com.cursojava.proyecto.model.ResponseDTO;
-import com.cursojava.proyecto.services.EntrenadorService;
+import com.cursojava.proyecto.repository.EntrenadorRepository;
 import com.cursojava.proyecto.utils.Utils;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -15,12 +15,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
-//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
-import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
 @RestController
@@ -29,14 +26,16 @@ public class EntrenadorController {
 
     private static final Logger LOGGER = Logger.getLogger(EntrenadorController.class.getName());
     @Autowired
-    private EntrenadorService entrenadorService;
-    @Autowired
     EntrenadorJSONClient entrenadorJSONClient;
+
+    @Autowired
+    private EntrenadorRepository entrenadorRepository;
 
     @Autowired
     private KafkaTemplate<Object, Object> template;
     private final Bucket bucket;
-    public EntrenadorController(){
+
+    public EntrenadorController() {
         Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
         Bandwidth limit = Bandwidth.classic(5, refill);
         this.bucket = Bucket.builder()
@@ -45,42 +44,44 @@ public class EntrenadorController {
     }
 
     @PostMapping(value = "registro")
-    ResponseEntity<?> registrarDatos(@RequestBody EntrenadorDTO entrenador){
-       if (bucket.tryConsume(1)) {
-        this.entrenadorService.registrarDatos(entrenador);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    ResponseEntity<?> registrarDatos(@RequestBody EntrenadorDTO entrenador) {
+        if (bucket.tryConsume(1)) {
+            entrenador = this.entrenadorRepository.save(entrenador);
+            if (entrenador == null) {
+                return new ResponseEntity<>("Fallo al instanciar", HttpStatus.FAILED_DEPENDENCY);
+            }
+            return new ResponseEntity<>("Success", HttpStatus.CREATED);
         }
-        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+        return new ResponseEntity<>("Demasiadas peticiones", HttpStatus.TOO_MANY_REQUESTS);
     }
 
-    @GetMapping(value = "consultar",produces = "application/json")
-    EntrenadorDTO consultarInformacion(@RequestParam String name, String password){
-        EntrenadorDTO entrenador =new EntrenadorDTO();
-        entrenador.setNombre(name);
-        entrenador.setPassword(password);
-        return this.entrenadorService.consultarInformacion(entrenador);
+    @GetMapping(value = "consultar", produces = "application/json")
+    EntrenadorDTO consultarInformacion(@RequestParam String name, String password) {
+        EntrenadorDTO entrenador = this.entrenadorRepository.findFirstByNombreAndPassword(name, password);
+        return entrenador;
     }
 
     @PutMapping(value = "crearEquipo")
-    public ResponseDTO crearEquipo(@RequestBody PokemonDTO[] pokemons,
-        @RequestParam String nombre, @RequestParam String password){
-        EntrenadorDTO entrenador =new EntrenadorDTO();
-        entrenador.setNombre(nombre);
-        entrenador.setPassword(password);
-        entrenador=this.entrenadorService.consultarInformacion(entrenador);
-        this.entrenadorService.registrarEquipo(entrenador,pokemons);
-        return new ResponseDTO();
+    public ResponseEntity<?> crearEquipo(@RequestBody PokemonDTO[] pokemons, @RequestParam String nombre, @RequestParam String password) {
+
+        EntrenadorDTO entrenador = consultarInformacion(nombre, password);
+
+        if (entrenador == null) {
+            return new ResponseEntity<>("El entrenador no existe en nuestra BD", HttpStatus.FORBIDDEN);
+        } else {
+            entrenador.setEquipo(pokemons);
+            EntrenadorDTO result = this.entrenadorRepository.save(entrenador);
+            if (result == null) {
+                return new ResponseEntity<>("Error al actualizar los datos", HttpStatus.FAILED_DEPENDENCY);
+            }
+        }
+        return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 
     @DeleteMapping(value = "retirarse")
-    public ResponseDTO retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad){
-        this.entrenadorService.retirarse(nombre, claveDeSeguridad);
+    public ResponseDTO retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad) {
+        this.entrenadorRepository.deleteEntrenadorDTOByNombreAndClaveDeSeguridad(nombre, claveDeSeguridad);
         return new ResponseDTO();
-    }
-
-    @GetMapping(value = "consultacifrada",produces = "application/json")
-    Collection<EntrenadorDTO> consultaCifrada(){
-        return this.entrenadorService.getEncryptedTrainers();
     }
 
     //The usage of FeignClient for demo purposes
@@ -88,24 +89,25 @@ public class EntrenadorController {
     public ResponseEntity<Post> getExternalUser(@PathVariable Long userId) {
 
         Post postTest = entrenadorJSONClient.getPostById(userId);
-        LOGGER.info("Getting post userId..." +postTest.getUserId());
-        LOGGER.info("Getting post body..." +postTest.getBody());
-        LOGGER.info("Getting post title..." +postTest.getTitle());
-        postTest.setUserId("External user "+Utils.randomAcountNumber());
+        LOGGER.info("Getting post userId..." + postTest.getUserId());
+        LOGGER.info("Getting post body..." + postTest.getBody());
+        LOGGER.info("Getting post title..." + postTest.getTitle());
+        postTest.setUserId("External user " + Utils.randomAcountNumber());
         postTest.setBody("No info in accountBalance since it is an external user");
         postTest.setTitle("No info in title since it is an external user");
-        LOGGER.info("Setting post userId..." +postTest.getUserId());
-        LOGGER.info("Setting post body..." +postTest.getBody());
-        LOGGER.info("Setting post title...."+postTest.getTitle());
+        LOGGER.info("Setting post userId..." + postTest.getUserId());
+        LOGGER.info("Setting post body..." + postTest.getBody());
+        LOGGER.info("Setting post title...." + postTest.getTitle());
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity<>(postTest, responseHeaders, HttpStatus.OK);
     }
 
+    //The usage of Kafka for demo purposes
     @PostMapping(path = "/send/{name}")
     public void sendUserAccount(@PathVariable String name) {
-        EntrenadorDTO  trainer = entrenadorService.consultarPrimeroPorNombre(new EntrenadorDTO(name));
-        System.out.println("TRAINER: "+trainer.getNombre());
+        EntrenadorDTO trainer = entrenadorRepository.findFirstByNombre(name);
+        System.out.println("TRAINER: " + trainer.getNombre());
         this.template.send("useraccount-topic", trainer);
     }
 }

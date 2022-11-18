@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 public class Utils <T>{
 
     public boolean isNotNullValue(Optional<T> value) {
+        System.out.println(value);
         return (value != Optional.empty());
     }
 
