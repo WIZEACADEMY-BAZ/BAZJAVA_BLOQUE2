@@ -1,0 +1,26 @@
+consumers:
+  login: '/api/login'
+  createUser: '/api/createUser'
+  createUsers: '/api/createUsers'
+  userAccount: '/api/getUserAccount'
+  accounts: '/api/getAccounts'
+  accountsGroupByType: '/api/getAccountsGroupByType'
+jwt:
+  secret: 'java-baz'
+
+spring:
+  security:
+    white-list:
+      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts,/actuator/**, /batch/**, /api/factory
+  batch:
+    job:
+      enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,env,mappings,loggers,metrics
+
+server:
+  port: 8080
