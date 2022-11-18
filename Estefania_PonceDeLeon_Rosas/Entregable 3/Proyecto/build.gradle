@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id 'jacoco'
 }
 
 group = 'com.cursojava'
@@ -36,6 +37,9 @@ dependencies {
 	implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-core', version: '7.6.0'
 	implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '2.9.2'
 
+	implementation group: 'org.jacoco', name: 'jacoco-maven-plugin', version: '0.8.8'
+	implementation group: 'org.apache.maven.reporting', name: 'maven-reporting-api', version: '4.0.0-M2'
+
 	testImplementation group: 'com.h2database', name: 'h2', version: '2.1.214'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.batch:spring-batch-test'
@@ -45,6 +49,26 @@ dependencies {
 	testImplementation group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '3.5.2'
 
 
+}
+
+test {
+	finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+	dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+	toolVersion = "0.8.8"
+	reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+	}
 }
 
 tasks.named('test') {
