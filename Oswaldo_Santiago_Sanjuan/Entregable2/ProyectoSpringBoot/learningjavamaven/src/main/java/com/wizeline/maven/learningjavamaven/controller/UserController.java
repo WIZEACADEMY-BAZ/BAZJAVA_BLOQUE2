@@ -10,6 +10,9 @@ import com.wizeline.maven.learningjavamaven.service.UserService;
 import com.wizeline.maven.learningjavamaven.utils.CommonServices;
 
 //import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -62,6 +65,8 @@ public class UserController {
     public UserController(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
+
     //Consulta del login...
 
 
@@ -298,17 +303,12 @@ public class UserController {
     }
 
     //Trabajando con mi PAI de REST Template
-
-
-
     @GetMapping("/ResTemplate")
     public Object getApi(){
         String url = "https://pokeapi.co/api/v2/pokemon/ditto";
         Object forObject = restTemplate.getForObject(url, Object.class);
         return forObject;
     }
-
-
 
 
 

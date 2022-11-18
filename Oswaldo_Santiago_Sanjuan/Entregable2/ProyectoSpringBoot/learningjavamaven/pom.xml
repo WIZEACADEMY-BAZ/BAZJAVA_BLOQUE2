@@ -31,7 +31,6 @@
 
 
 
-
 	<dependencies>
 
 		<dependency>
@@ -108,6 +107,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -195,6 +195,13 @@
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
 			<version>20220320</version>
+		</dependency>
+
+		<!--Patron de diseño  Bucket4j -->
+		<dependency>
+			<groupId>com.github.vladimir-bukhtoyarov</groupId>
+			<artifactId>bucket4j-core</artifactId>
+			<version>7.6.0</version>
 		</dependency>
 
 

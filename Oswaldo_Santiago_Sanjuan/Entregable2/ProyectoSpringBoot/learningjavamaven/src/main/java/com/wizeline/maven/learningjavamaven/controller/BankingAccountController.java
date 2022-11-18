@@ -5,7 +5,9 @@ import com.wizeline.maven.learningjavamaven.client.AccountsJSONClient;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.model.Post;
 import com.wizeline.maven.learningjavamaven.service.BankAccountService;
-import com.wizeline.maven.learningjavamaven.service.BankAccountServiceImpl;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +27,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.utils.Utils.randomAcountNumber;
-//@Value("${server.port}")
-//private String port;
+
 
 @RequestMapping("/api")
 @RestController
@@ -45,8 +46,14 @@ public class BankingAccountController {
     @Autowired
     private KafkaTemplate<Object, Object> template;
 
+    @Value("${server.port}")
+    private String port;
+
+
+
     @GetMapping("/getAccounts")
     public ResponseEntity<List<BankAccountDTO>> getAccounts() {
+        LOGGER.info("The port used is "+ port);
         //LOGGER.info("The port used is "+ port);
         LOGGER.info("Iniciando ");
         Instant inicioDeEjecucion = Instant.now();
@@ -59,6 +66,31 @@ public class BankingAccountController {
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
+    }
+
+    //Voy a tratar de implementar  el patron de diseño Factory
+    @GetMapping("/Factory")
+    public ResponseEntity<List<BankAccountDTO>> Factory(){
+        LOGGER.info("Entrando a plaicar mi patron Responsabiliti ");
+
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+    }
+
+
+
+
+    // Construinedo mi patron de diseño
+    @GetMapping("/Responsibility")
+    public ResponseEntity<List<BankAccountDTO>> Responsibility(){
+        LOGGER.info("Entrando a plaicar mi patron Responsabiliti ");
+
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
     }
 
 
@@ -156,5 +188,39 @@ public class BankingAccountController {
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity(responseHeaders, HttpStatus.OK);
     }
+
+//
+
+    @RestController
+    @RequestMapping("/api")
+    public class UserController {
+
+        private final Bucket bucket;
+
+        public UserController() {
+            Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+            Bandwidth limit = Bandwidth.classic(5, refill);
+            this.bucket = Bucket.builder()
+                    .addLimit(limit)
+                    .build();
+        }
+    }
+
+
+    @GetMapping("/users")
+    public ResponseEntity<String> getUsers() {
+        Bucket bucket = null;
+        if (bucket.tryConsume(1)) {
+            //Aqui va la logica para obtener la informacion
+            //Se regresa la respuesta normalmente
+            return ResponseEntity.ok("It's ok");
+        }
+
+        //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
+    }
+
+
+
 
 }

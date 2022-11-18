@@ -29,10 +29,7 @@ public class BankAccountJob {
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
-    /**
-     * Crea el job y específica steps y listener.
-     * @return bankAccountsBackupJob
-     */
+
     @Bean
     public Job bankAccountsBackupJob() {
         return jobBuilderFactory.get("bankAccountsBackupJob")
@@ -42,11 +39,7 @@ public class BankAccountJob {
 
     }
 
-    /**
-     * Se define el step y los procesos para leer, procesar y escribir.
-     * @param stepBuilderFactory
-     * @return bankAccountsBackupStep
-     */
+
     @Bean
     public Step bankAccountsBackupStep(StepBuilderFactory stepBuilderFactory) {
         return stepBuilderFactory.get("bankAccountsBackupStep")
@@ -55,10 +48,7 @@ public class BankAccountJob {
     }
 
 
-    /**
-     * Define un itemReader para leer un archivo csv y mapear el contenido usando BankAccountDTO.
-     * @return
-     */
+
     @Bean
     public FlatFileItemReader<BankAccountDTO> bankAccountsReader() {
         return new FlatFileItemReaderBuilder<BankAccountDTO>()
@@ -68,10 +58,7 @@ public class BankAccountJob {
                 .targetType(BankAccountDTO.class).build();
     }
 
-    /**
-     * Define un itemWriter para escribir en un archivo txt.
-     * @return
-     */
+
     @Bean
     public FlatFileItemWriter<String> bankAccountsWriter() {
         return new FlatFileItemWriterBuilder<String>()

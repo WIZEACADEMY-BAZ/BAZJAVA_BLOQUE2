@@ -1,2 +1,16 @@
-package com.wizeline.maven.learningjavamaven.model;public class Nominating {
+package com.wizeline.maven.learningjavamaven.model;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class Nominating implements accounts{
+
+    @Override
+    public void  getAccountNumber(){
+        System.out.println("Entoy en nomina");
+
+    }
+
+
+
 }

@@ -15,3 +15,12 @@ spring:
   batch:
     job:
       enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,env,mappings,loggers,metrics
+
+server:
+  port: 8080

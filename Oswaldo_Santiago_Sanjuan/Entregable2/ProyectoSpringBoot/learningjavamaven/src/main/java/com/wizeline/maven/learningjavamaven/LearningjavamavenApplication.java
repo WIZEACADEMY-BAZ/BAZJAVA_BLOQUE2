@@ -1,8 +1,6 @@
 package com.wizeline.maven.learningjavamaven;
 
 import com.wizeline.maven.learningjavamaven.configuration.EndpointBean;
-import com.wizeline.maven.learningjavamaven.controller.BankingAccountController;
-import com.wizeline.maven.learningjavamaven.service.BankAccountService;
 import com.wizeline.maven.learningjavamaven.service.UserService;
 import com.wizeline.maven.learningjavamaven.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
