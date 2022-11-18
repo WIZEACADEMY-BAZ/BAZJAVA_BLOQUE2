@@ -31,3 +31,12 @@ Directorio entregas de Irvin Oswaldo Cabrera Ibañez
         agrego un flujo para el control de los usuariosº
     > Colección de postman de las peticiones
 ```
+
+```
+> Entregable 2
+    > Proyecto
+        > Se agrega el ejecutable con Dockerfile
+        > Se agregan patrones de diseño
+        > Se agregan pruebas unitarias
+    > Para pruebas se ocupa la misma colección del entregable 1
+```
