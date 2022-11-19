@@ -5,7 +5,7 @@ import java.util.Map;
 public class UserDTO {
 
     private String user;
-
+    private String token;
     private String password;
 
     public String getUser() {
@@ -24,7 +24,16 @@ public class UserDTO {
         this.password = password;
     }
 
-    public UserDTO getParameters(Map<String, String> userParam) {
+    
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public UserDTO getParameters(Map<String, String> userParam) {
         UserDTO user = new UserDTO();
         user.setUser(userParam.get("user"));
         user.setPassword(userParam.get("password"));

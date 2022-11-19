@@ -143,9 +143,9 @@ import java.util.stream.Collectors;
     }
 
     @PreAuthorize("hasRole('GUEST')")
-    @GetMapping("/sayHello")
+    @GetMapping("/dosomething")
     public ResponseEntity<String> sayHelloGuest() {
-        return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
+        return new ResponseEntity<>("Hola mundo!!", HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAccounts")

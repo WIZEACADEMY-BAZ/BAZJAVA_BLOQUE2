@@ -1,33 +1,47 @@
 package com.superapp.springboot.learningjava.model;
 
+import org.springframework.data.annotation.Id;
+
 import com.superapp.springboot.learningjava.enums.Puesto;
 
 public class EmpleadoBean {
 
-	private long empleado_id;
+	@Id
+	private String id;
+	private long matricula;
 	private String nombre;
 	private Puesto puesto;
 	protected boolean estatus;
+	private CentroCostos centro_costos;
 	
 	public EmpleadoBean() {
 		super();
 	}
 
 	//Sobrecarga - constructor
-	public EmpleadoBean(long empleado_id, String nombre, Puesto puesto) {
+	public EmpleadoBean(long matricula, String nombre, Puesto puesto) {
 		super();
-		this.empleado_id = empleado_id;
+		this.matricula = matricula;
 		this.nombre = nombre;
 		this.puesto = puesto;
 		this.estatus = false;
 	}
 
-	public long getEmpleado_id() {
-		return empleado_id;
+	public long getMatricula() {
+		return matricula;
 	}
 
-	public void setEmpleado_id(long empleado_id) {
-		this.empleado_id = empleado_id;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setMatricula(long matricula) {
+		this.matricula = matricula;
 	}
 
 	public String getNombre() {
@@ -46,11 +60,41 @@ public class EmpleadoBean {
 		this.puesto = puesto;
 	}
 	
+	public CentroCostos getCentro_costos() {
+		return centro_costos;
+	}
+
+	public void setCentro_costos(CentroCostos centro_costos) {
+		this.centro_costos = centro_costos;
+	}
+
 	//Sobrecarga - método
 	public void cambiarEstatus(boolean estatus) {
 		if(estatus == true)
 			this.estatus = false;
 		else
 			this.estatus = true;
+	}
+	
+	class CentroCostos {
+		private int id;
+		private String descripcion;
+		
+		public int getId() {
+			return id;
+		}
+		
+		public void setId(int id) {
+			this.id = id;
+		}
+		
+		public String getDescripcion() {
+			return descripcion;
+		}
+		
+		public void setDescripcion(String descripcion) {
+			this.descripcion = descripcion;
+		}
+		
 	}
 }
