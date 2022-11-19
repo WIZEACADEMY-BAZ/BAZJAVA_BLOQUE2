@@ -1,7 +1,7 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
-import com.wizeline.maven.learningjavamaven.service.BankAccountService;
+import com.wizeline.maven.learningjavamaven.service.BankAccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.*;
 class BankingAccountControllerTest {
 
     @Mock
-    private BankAccountService bankAccountService;
+    private BankAccountServiceImpl bankAccountService;
 
     @Mock
     private BankAccountDTO bankAccountDTO;

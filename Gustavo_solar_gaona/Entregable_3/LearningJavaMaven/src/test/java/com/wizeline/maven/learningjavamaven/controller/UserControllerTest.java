@@ -5,6 +5,7 @@ import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
 import com.wizeline.maven.learningjavamaven.model.TodoDTO;
 import com.wizeline.maven.learningjavamaven.model.UserDTO;
 import com.wizeline.maven.learningjavamaven.service.UserService;
+import io.github.bucket4j.Bucket;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class UserControllerTest {
+
+    @Mock
+    private Bucket bucket;
 
     @Mock
     private UserService userService;
@@ -107,5 +111,17 @@ class UserControllerTest {
                 () -> assertEquals(userController.createUser(userDTO).getStatusCode().value(), HttpStatus.OK.value(), "Estatus distinto a 200")
         );
     }
+
+    @Test
+    void getUsersTest(){
+        System.out.println("@Test => getUsersTest()");
+        String response = "It's ok";
+        when(bucket.tryConsume(1)).thenReturn(Boolean.TRUE);
+        assertAll(
+                () -> assertEquals(userController.getUsers().getBody(), response),
+                () -> assertEquals(userController.getUsers().getStatusCodeValue(), HttpStatus.OK.value(), "Estatus distinto a 200")
+        );
+    }
+
 
 }
