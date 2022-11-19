@@ -14,6 +14,8 @@ configurations {
 	}
 }
 
+apply plugin: 'jacoco'
+
 repositories {
 	mavenCentral()
 }
@@ -47,4 +49,23 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+test {
+    useJUnitPlatform()
+    dependsOn 'cleanTest'
+    testLogging{
+        events "skipped", "passed", "failed"
+    }
+    finalizedBy 'jacocoTestReport'
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    //finalizedBy 'sonarqube'
+    reports{
+        xml.required = true
+    }
 }

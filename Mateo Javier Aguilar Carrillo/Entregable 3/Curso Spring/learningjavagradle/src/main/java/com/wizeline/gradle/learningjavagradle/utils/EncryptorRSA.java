@@ -74,15 +74,15 @@ public class EncryptorRSA {
 		return Base64.encodeBase64String(encriptado);
 	}
 	
-	public String decrypt(byte[] data) 
+	public String decrypt(String encryptedText) 
 			throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException  {
+		byte[] data = Base64.decodeBase64(encryptedText);
 		Cipher cipher = Cipher.getInstance(Constants.ALGORITHM_RSA);
 		cipher.init(Cipher.DECRYPT_MODE, privateKey);
 		
 		byte[] bytesDesencriptados = cipher.doFinal(data);
 		return new String(bytesDesencriptados).trim();
 	}
-
 
 	private static byte[] decodeKey(byte[] keyBytes) {
 		String pem = new String(keyBytes, StandardCharsets.ISO_8859_1);

@@ -26,6 +26,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import com.wizeline.gradle.learningjavagradle.model.RandomPassword;
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
+import com.wizeline.gradle.learningjavagradle.singleton.RestTemplateConfig;
 import com.wizeline.gradle.learningjavagradle.utils.EncryptorRSA;
 import com.wizeline.gradle.learningjavagradle.utils.exceptions.ExcepcionGenerica;
 
@@ -57,19 +58,7 @@ public class UserRepositoryImpl implements UserRepository{
 
 	@Override
 	public String createUser(String user) {
-		RandomPassword password = new RandomPassword();
-
-		try {
-			ResponseEntity<String> entity = restTemplate.exchange("https://www.passwordrandom.com/query?command=password", HttpMethod.GET, null, String.class);
-			if(entity.hasBody()) {
-				LOGGER.info("Contraseña generada: " + entity.getBody());
-				password = mapper.readValue(entity.getBody(), RandomPassword.class);
-			}
-
-		} catch (RestClientException | JsonProcessingException e) {
-			LOGGER.info("Ocurrió un error al consultar el API: " + e.getMessage());
-		}
-
+		RandomPassword password = RestTemplateConfig.getInstance().getRandomPassword();
 		String passwordEncriptada = "";
 
 		try {
