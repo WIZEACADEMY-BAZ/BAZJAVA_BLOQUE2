@@ -1,10 +1,10 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
-import com.wizeline.maven.learningjavamaven.absctractfactory.AccountHolder;
-import com.wizeline.maven.learningjavamaven.absctractfactory.factories.AccountHolderFactory;
-import com.wizeline.maven.learningjavamaven.absctractfactory.factories.AztecaFactory;
-import com.wizeline.maven.learningjavamaven.absctractfactory.factories.BBVAFactory;
-import com.wizeline.maven.learningjavamaven.absctractfactory.factories.BanorteFactory;
+import com.wizeline.maven.learningjavamaven.paterns.creational.abstractfactory.AccountHolder;
+import com.wizeline.maven.learningjavamaven.paterns.creational.abstractfactory.factories.AccountHolderFactory;
+import com.wizeline.maven.learningjavamaven.paterns.creational.abstractfactory.factories.AztecaFactory;
+import com.wizeline.maven.learningjavamaven.paterns.creational.abstractfactory.factories.BBVAFactory;
+import com.wizeline.maven.learningjavamaven.paterns.creational.abstractfactory.factories.BanorteFactory;
 import com.wizeline.maven.learningjavamaven.client.AccountsJSONClient;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.model.PostDTO;
@@ -95,6 +95,7 @@ public class BankingAccountController {
     return new ResponseEntity<>(bankAccountDTO, responseHeaders, HttpStatus.OK);
   }
 
+  // Revisión: Implementación de un patrón de diseño de creación
   // Revisión: Escritura en MongoDB
   @PostMapping("/createAccount/{type}")
   public ResponseEntity<BankAccountDTO> createAccount(

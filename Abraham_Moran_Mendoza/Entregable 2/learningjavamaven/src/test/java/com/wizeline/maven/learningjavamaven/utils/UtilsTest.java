@@ -1,54 +1,73 @@
 package com.wizeline.maven.learningjavamaven.utils;
 
+import com.wizeline.maven.learningjavamaven.enums.Country;
+import joptsimple.internal.Strings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilsTest {
 
-  private Utils utils;
-
   @BeforeEach
   void init(){
-    utils = new Utils();
-
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
-  void randomAcountNumber() {
-
+  void randomAcountNumberTest() {
+    assertNotNull(Utils.randomAcountNumber());
   }
 
   @Test
-  void randomBalance() {
+  void randomBalanceTest() {
+    assertNotNull(Utils.pickRandomAccountType());
   }
 
   @Test
-  void pickRandomAccountType() {
+  void pickRandomAccountTypeTest() {
+    assertNotNull(Utils.pickRandomAccountType());
   }
 
   @Test
-  void randomInt() {
+  void randomIntTest() {
+    assertNotNull(Utils.randomInt());
   }
 
   @Test
-  void getCountry() {
+  void getCountryTest() {
+    Country countryMock = Country.MX;
+    assertNotNull(Utils.getCountry(countryMock));
   }
 
   @Test
-  void isPasswordValid() {
+  void isPasswordValidTest() {
+    String password = "Pass@1";
+    String invalidPass = "Pass";
+    assertAll( () -> assertTrue(Utils.isPasswordValid(password))
+        , () -> assertFalse(Utils.isPasswordValid(invalidPass)) );
   }
 
   @Test
-  void isDateFormatValid() {
+  void isDateFormatValidTest() {
+    String date = "12-10-2022";
+    String invalidDate = "222-222-2022";
+    assertAll( () -> assertTrue(Utils.isDateFormatValid(date))
+        , () -> assertFalse(Utils.isDateFormatValid(invalidDate)) );
   }
 
   @Test
-  void getString() {
+  void getStringTest() {
+    String value = "testString";
+    assertAll( () -> assertEquals(Utils.getString(value),value)
+        , () -> assertEquals(Utils.getString(null),Strings.EMPTY) );
   }
 
   @Test
   void validateNullValue() {
+    String value = "testSTring";
+    assertAll( () -> assertTrue(Utils.validateNullValue(value))
+        , () -> assertFalse(Utils.validateNullValue(null)) );
   }
 }

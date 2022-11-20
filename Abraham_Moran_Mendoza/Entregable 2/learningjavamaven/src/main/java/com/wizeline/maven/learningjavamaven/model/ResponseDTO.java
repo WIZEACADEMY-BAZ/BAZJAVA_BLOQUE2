@@ -5,10 +5,6 @@ public class ResponseDTO {
   private String code;
   private ErrorDTO errors = new ErrorDTO();
 
-  public String getStatus() {
-    return status;
-  }
-
   public void setStatus(String status) {
     this.status = status;
   }
@@ -19,10 +15,6 @@ public class ResponseDTO {
 
   public void setCode(String code) {
     this.code = code;
-  }
-
-  public ErrorDTO getErrors() {
-    return errors;
   }
 
   public void setErrors(ErrorDTO errors) {

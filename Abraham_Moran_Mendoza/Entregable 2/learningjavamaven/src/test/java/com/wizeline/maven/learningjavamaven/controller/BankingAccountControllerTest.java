@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 class BankingAccountControllerTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   BankAccountService bankAccountServiceMock;
   @Mock
@@ -29,6 +30,7 @@ class BankingAccountControllerTest {
   @Mock
   PostDTO postDTOMock;
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   private BankingAccountController bankingAccountController;
 
@@ -42,6 +44,7 @@ class BankingAccountControllerTest {
     Integer userId = 1;
   }
 
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void getAccountByUser() {
     String user = "user";
@@ -51,6 +54,7 @@ class BankingAccountControllerTest {
     assertNotNull(bankingAccountController.getAccountByUser(user));
   }
 
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void createAccount() {
     when(bankAccountServiceMock.createAccount(bankAccountDTOMock)).thenReturn(bankAccountDTOMock);
@@ -75,6 +79,7 @@ class BankingAccountControllerTest {
     assertNotNull(bankingAccountController.createAccount(trype,bankAccountDTOMock));
   }
 
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void changeAccountCountry() {
     long accountNumber = 1;
@@ -86,6 +91,7 @@ class BankingAccountControllerTest {
     assertNotNull(bankingAccountController.changeAccountCountry(accountNumber,country));
   }
 
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void deleteAccounts() {
     doNothing().when(bankAccountServiceMock).deleteAccounts();

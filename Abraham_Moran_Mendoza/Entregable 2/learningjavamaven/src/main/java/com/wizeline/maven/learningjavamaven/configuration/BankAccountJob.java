@@ -1,6 +1,6 @@
 package com.wizeline.maven.learningjavamaven.configuration;
 
-import com.wizeline.maven.learningjava.batch.BankAccountItemProcessor;
+import com.wizeline.maven.learningjavamaven.batch.BankAccountItemProcessor;
 import com.wizeline.maven.learningjavamaven.batch.BatchJobCompletionListener;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import org.springframework.batch.core.Job;
@@ -57,6 +57,7 @@ public class BankAccountJob {
    * Define un itemReader para leer un archivo csv y mapear el contenido usando BankAccountDTO.
    * @return
    */
+  // Revisión: Implementación de un Job con Spring Batch usando un Reader, un Processor y un Writer
   @Bean
   public FlatFileItemReader<BankAccountDTO> bankAccountsReader() {
     return new FlatFileItemReaderBuilder<BankAccountDTO>()
@@ -70,6 +71,7 @@ public class BankAccountJob {
    * Define un itemWriter para escribir en un archivo txt.
    * @return
    */
+  // Revisión: Implementación de un Job con Spring Batch usando un Reader, un Processor y un Writer
   @Bean
   public FlatFileItemWriter<String> bankAccountsWriter() {
     return new FlatFileItemWriterBuilder<String>()

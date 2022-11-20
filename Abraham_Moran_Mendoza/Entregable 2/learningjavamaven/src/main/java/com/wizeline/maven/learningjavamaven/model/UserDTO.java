@@ -31,12 +31,4 @@ public class UserDTO {
   public void setPassword(String password) {
     this.password = password;
   }
-
-
-  public UserDTO getParameters(Map<String, String> userParam) {
-    UserDTO user = new UserDTO();
-    user.setUser(userParam.get("user"));
-    user.setPassword(userParam.get("password"));
-    return user;
-  }
 }

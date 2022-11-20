@@ -14,9 +14,11 @@ import static org.mockito.Mockito.*;
 
 class PostRepositoryImplTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   RestTemplate restTemlateMock = mock(RestTemplate.class);
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   private PostRepositoryImpl postRepository;
 

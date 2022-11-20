@@ -1,34 +1,30 @@
 package com.wizeline.maven.learningjavamaven.service;
 
-import com.wizeline.maven.learningjavamaven.Iterator.Iterator;
-import com.wizeline.maven.learningjavamaven.Iterator.PostDTOCollection;
-import com.wizeline.maven.learningjavamaven.Iterator.PostDTOCollectionImpl;
-import com.wizeline.maven.learningjavamaven.builder.PostDirector;
-import com.wizeline.maven.learningjavamaven.builder.builders.PostBuilder;
-import com.wizeline.maven.learningjavamaven.builder.builders.PostWithDocumentAndImageBuilder;
-import com.wizeline.maven.learningjavamaven.builder.builders.PostWithDocumentBuilder;
-import com.wizeline.maven.learningjavamaven.builder.builders.PostWithImageBuilder;
+import com.wizeline.maven.learningjavamaven.paterns.behavioral.Iterator.Iterator;
+import com.wizeline.maven.learningjavamaven.paterns.behavioral.Iterator.PostDTOCollection;
+import com.wizeline.maven.learningjavamaven.paterns.behavioral.Iterator.PostDTOCollectionImpl;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.PostDirector;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.builders.PostBuilder;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.builders.PostWithDocumentAndImageBuilder;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.builders.PostWithDocumentBuilder;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.builders.PostWithImageBuilder;
 import com.wizeline.maven.learningjavamaven.configuration.RestTemplateClient;
 import com.wizeline.maven.learningjavamaven.model.*;
 import com.wizeline.maven.learningjavamaven.repository.PostRepository;
 import com.wizeline.maven.learningjavamaven.repository.UserRepository;
-import com.wizeline.maven.learningjavamaven.repository.UserRepositoryImpl;
 import com.wizeline.maven.learningjavamaven.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static com.wizeline.maven.learningjavamaven.constants.MessageConstants.*;
 import static com.wizeline.maven.learningjavamaven.constants.Constants.*;
 
 @Service
@@ -94,6 +90,7 @@ public class UserServiceImpl implements UserService {
     //con la variable user
     Query query = new Query();
     query.addCriteria(Criteria.where("user").is(user).and("password").is(password));
+    System.out.println(mongoTemplate);
     UserDTO userDTO = mongoTemplate.findOne(query, UserDTO.class);
     System.out.println(userDTO);
     ResponseDTO response = new ResponseDTO();
@@ -169,6 +166,7 @@ public class UserServiceImpl implements UserService {
     return postDTOList;
   }
 
+  // Revisión: Implementación de un patrón de diseño de creación
   @Override
   public PostDTO createUserPostWithImage(String userId){
     System.out.println("Creando post con imagen");
@@ -182,6 +180,7 @@ public class UserServiceImpl implements UserService {
     return postDirector.getFinishedPost();
   }
 
+  // Revisión: Implementación de un patrón de diseño de creación
   @Override
   public PostDTO createUserPostWithDocument(String userId){
     System.out.println("Creando post con documento");
@@ -195,6 +194,7 @@ public class UserServiceImpl implements UserService {
     return postDirector.getFinishedPost();
   }
 
+  // Revisión: Implementación de un patrón de diseño de creación
   @Override
   public PostDTO createUserPostWithImageAndDocument(String userId){
     System.out.println("Creando post con imagen y documento");

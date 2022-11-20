@@ -12,19 +12,28 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 class BankAccountServiceImplTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   BankAccountDTO bankAccountDTOMock;
   @Mock
   MongoTemplate mongoTemplateMock;
   @Mock
   BankingAccountRepository bankingAccountRepositoryMock;
+  @Mock
+  List<BankAccountDTO> bankAccountDTOListMock;
+  @Mock
+  Stream<BankAccountDTO> bankAccountDTOStreamMock;
+  @Mock
+  Stream<String> bankAccountNameStreamMock;
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   BankAccountServiceImpl bankAccountService;
 
@@ -49,7 +58,12 @@ class BankAccountServiceImplTest {
   //
   @Test
   void getAccountsTest() {
+    List<String> stringList = new ArrayList<>();
+    stringList.add("Abraham");
     when((mongoTemplateMock.save(any(BankAccountDTO.class)))).thenReturn(bankAccountDTOMock);
+    when(mongoTemplateMock.findAll(eq(BankAccountDTO.class))).thenReturn(bankAccountDTOListMock);
+    when(bankAccountDTOListMock.stream()).thenReturn(bankAccountDTOStreamMock);
+    when(bankAccountDTOStreamMock.map(bankAccountDTO -> bankAccountDTO.getUserName())).thenReturn(stringList.stream());
 
     assertNotNull(bankAccountService.getAccounts());
   }
@@ -70,10 +84,8 @@ class BankAccountServiceImplTest {
   //
   @Test
   void deleteAccountsTest() {
-    String userId = "1";
     doNothing().when(bankingAccountRepositoryMock).deleteAll();
-    //verify(bankingAccountRepositoryMock).deleteAll(); cómo lo verifico si forzosamente tengo que evitar el borrado?
-    assertNotNull(userId);
+    bankAccountService.deleteAccounts();
   }
 
   //
@@ -93,6 +105,7 @@ class BankAccountServiceImplTest {
   //
   // changeCountry
   //
+  // Revisión: Pruebas para Happy Path
   @Test
   void changeCountryTest() {
     long accountNumber = 1;
@@ -104,13 +117,13 @@ class BankAccountServiceImplTest {
     assertNotNull(bankAccountService.changeCountry(accountNumber,country));
   }
 
+  // Revisión: Pruebas para cada Edge Case
   @Test
   void changeCountryNullTest() {
     long accountNumber = 1;
     String country = "MX";
 
-    when(mongoTemplateMock.findOne(any(Query.class), eq(BankAccountDTO.class))).thenReturn(bankAccountDTOMock);
-    when(bankingAccountRepositoryMock.save(bankAccountDTOMock)).thenReturn(null);
+    when(mongoTemplateMock.findOne(any(Query.class), eq(BankAccountDTO.class))).thenReturn(null);
 
     assertNotNull(bankAccountService.changeCountry(accountNumber,country));
   }

@@ -1,10 +1,9 @@
 package com.wizeline.maven.learningjavamaven.Iterator;
 
 import com.wizeline.maven.learningjavamaven.model.PostDTO;
-import com.wizeline.maven.learningjavamaven.repository.PostRepositoryImpl;
+import com.wizeline.maven.learningjavamaven.paterns.behavioral.Iterator.IteratorImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
@@ -16,9 +15,11 @@ import static org.mockito.Mockito.*;
 
 class IteratorImplTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   PostDTO postDTOMock;
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @BeforeEach
   void init(){
     MockitoAnnotations.openMocks(this);
@@ -27,6 +28,7 @@ class IteratorImplTest {
   //
   // hasNext
   //
+  // Revisión: Pruebas para Happy Path
   @Test
   void hasNextUserIdEqualsTest() {
     String userId = "1";
@@ -40,6 +42,7 @@ class IteratorImplTest {
     assertEquals(iterator.hasNext(),true);
   }
 
+  //Revisión: Pruebas para cada Edge Case
   @Test
   void hasNextUserIdNotEqualsTest() {
     String userId = "1";

@@ -1,4 +1,4 @@
-package com.wizeline.maven.learningjava.batch;
+package com.wizeline.maven.learningjavamaven.batch;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,6 +6,7 @@ import org.springframework.batch.item.ItemProcessor;
 
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 
+// Revisión: Implementación de un Job con Spring Batch usando un Reader, un Processor y un Writer
 public class BankAccountItemProcessor implements ItemProcessor<BankAccountDTO, String> {
 
   private static final Logger LOGGER =

@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 class UserControllerTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   UserService userServiceMock;
   @Mock
@@ -31,8 +32,7 @@ class UserControllerTest {
   @Mock
   UserDTO userDTOMock;
 
-
-
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   private UserController userController;
 
@@ -82,6 +82,7 @@ class UserControllerTest {
   //
   // getUserPostsIterator
   //
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void getUserPostsIteratorTest() {
     String userId = "1";
@@ -119,6 +120,7 @@ class UserControllerTest {
     assertNotNull(userController.getGetUserTodos(userId,status));
   }
 
+  // Revisión: Prueba unitaria de cada operación CRUD
   @Test
   void createUserTest() {
     when(userServiceMock.createUserMongo(userDTOMock)).thenReturn(responseDTOMock);

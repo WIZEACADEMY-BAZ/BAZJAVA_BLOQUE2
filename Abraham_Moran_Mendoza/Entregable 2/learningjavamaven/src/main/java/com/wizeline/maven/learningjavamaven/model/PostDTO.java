@@ -1,6 +1,6 @@
 package com.wizeline.maven.learningjavamaven.model;
 
-import com.wizeline.maven.learningjavamaven.builder.attachments.Attachment;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.attachments.Attachment;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,10 +13,6 @@ import java.util.List;
   private String body;
   private Date postDate;
   public List<Attachment> attachments = new ArrayList<>();
-
-  public String getId() {
-    return id;
-  }
 
   public void setId(String id) {
     this.id = id;
@@ -44,10 +40,6 @@ import java.util.List;
 
   public void setBody(String body) {
     this.body = body;
-  }
-
-  public Date getPostDate() {
-    return postDate;
   }
 
   public void setPostDate(Date postDate) {

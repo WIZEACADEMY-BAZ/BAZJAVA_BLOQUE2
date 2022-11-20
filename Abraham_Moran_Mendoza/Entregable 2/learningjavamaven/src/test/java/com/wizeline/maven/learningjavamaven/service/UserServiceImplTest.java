@@ -1,8 +1,8 @@
 package com.wizeline.maven.learningjavamaven.service;
 
-import com.wizeline.maven.learningjavamaven.Iterator.PostDTOCollection;
-import com.wizeline.maven.learningjavamaven.builder.PostDirector;
-import com.wizeline.maven.learningjavamaven.builder.builders.PostBuilder;
+import com.wizeline.maven.learningjavamaven.paterns.behavioral.Iterator.PostDTOCollection;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.PostDirector;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.builders.PostBuilder;
 import com.wizeline.maven.learningjavamaven.configuration.RestTemplateClient;
 import com.wizeline.maven.learningjavamaven.model.PostDTO;
 import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
@@ -28,6 +28,7 @@ import static com.wizeline.maven.learningjavamaven.constants.Constants.*;
 
 class UserServiceImplTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   UserDTO userDTOMock;
   @Mock
@@ -49,6 +50,7 @@ class UserServiceImplTest {
   @Mock
   PostDirector postDirectorMock;
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   UserServiceImpl userService;
 

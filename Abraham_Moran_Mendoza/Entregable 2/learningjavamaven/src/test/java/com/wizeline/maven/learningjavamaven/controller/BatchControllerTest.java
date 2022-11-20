@@ -20,6 +20,7 @@ import static org.mockito.Mockito.*;
 
 class BatchControllerTest {
 
+  // Revisión: Uso de Mockito en cada prueba
   @Mock
   JobLauncher jobLauncherMock;
   @Mock
@@ -31,6 +32,7 @@ class BatchControllerTest {
   @Mock
   JobExecution jobExecutionMock;
 
+  // Revisión: Prueba unitaria de cada endpoint de la API
   @InjectMocks
   private BatchController batchController;
 

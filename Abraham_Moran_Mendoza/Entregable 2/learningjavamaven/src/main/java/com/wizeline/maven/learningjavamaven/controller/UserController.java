@@ -60,6 +60,7 @@ public class UserController {
   @GetMapping(value = "/users/{userId}/todos", produces = CONTENT_TYPE_JSON)
   public ResponseEntity<List<TodoDTO>> getGetUserTodos(@PathVariable("userId") String userId){
     List<TodoDTO> todoDTOS = new ArrayList<>();
+    // Revisión: Implementación del patrón de diseño "Throttling"
     if(bucket.tryConsume(1)){
       LOGGER.info( PROCESSING_GET_METHOD);
       todoDTOS = userService.getUserTodos(userId);

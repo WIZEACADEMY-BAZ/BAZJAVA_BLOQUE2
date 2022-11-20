@@ -37,10 +37,6 @@ public class TodoDTO {
     return id;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
   public Integer getUserId() {
     return userId;
   }
@@ -53,23 +49,7 @@ public class TodoDTO {
     return title;
   }
 
-  public void setTitle(String title) {
-    this.title = title;
-  }
-
   public Boolean getCompleted() {
     return completed;
-  }
-
-  public void setCompleted(Boolean completed) {
-    this.completed = completed;
-  }
-
-  public String getUserName() {
-    return userName;
-  }
-
-  public void setUserName(String userName) {
-    this.userName = userName;
   }
 }

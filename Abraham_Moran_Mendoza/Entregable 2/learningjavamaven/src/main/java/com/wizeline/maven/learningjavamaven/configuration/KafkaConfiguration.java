@@ -45,6 +45,7 @@ public class KafkaConfiguration {
   }
 
   // String Deserializer
+  // Revisión: Creación de un consumidor de Kafka
   @Bean
   public ConsumerFactory<Object, Object> consumerFactory() {
     Map<String, Object> config = new HashMap<>();
