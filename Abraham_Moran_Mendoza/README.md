@@ -44,6 +44,8 @@ De las actividades realizadas en el Bloque 2 del Bootcamp de Wizeline Academy.
       - Practicas semana 3 (proyecto antes de migración a spring)
     > Learningjavamaven
       - Proyecto migrado a spring (proyecto que cumple todos los puntos a evaluar)
+      - Pruebas unitarias de los métodos realizados
+      - Migración de métodos exchange a controladores
     - SpringInitializrConfig
     - learningjavaapi.json
   - README.md
