@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.service</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.service;
+
+import com.wizeline.learningjavamaven.model.ResponseDTO;
+import com.wizeline.learningjavamaven.model.UserDTO;
+import com.wizeline.learningjavamaven.model.UserDateDTO;
+import com.wizeline.learningjavamaven.patron.Iterator.Iterator;
+import com.wizeline.learningjavamaven.patron.Iterator.UserDateDTOCollection;
+import com.wizeline.learningjavamaven.patron.Iterator.UserDateDTOCollectionImpl;
+import com.wizeline.learningjavamaven.repository.UserRepository;
+import com.wizeline.learningjavamaven.utils.Utils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+@Service
+<span class="fc" id="L23">public class UserServiceImpl implements UserService {</span>
+
+<span class="fc" id="L25">  private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());</span>
+
+  private static final String ERROR_CODE_1 = &quot;ER001&quot;;
+  private static final String ERROR_CODE_2 = &quot;ER002&quot;;
+  private static final String CODE = &quot;OK000&quot;;
+  private static final String SUCCESS = &quot;success&quot;;
+  private static final String FAIL = &quot;fail&quot;;
+
+  @Autowired
+  UserRepository userRepository;
+
+  @Autowired
+  MongoTemplate mongoTemplate;
+
+  @Override
+  public ResponseDTO createUser(String username, String password) {
+<span class="fc" id="L41">    LOGGER.info(&quot;Inicia procesamiento en capa de negocio&quot;);</span>
+<span class="fc" id="L42">    ResponseDTO response = new ResponseDTO();</span>
+<span class="fc bfc" id="L43" title="All 4 branches covered.">    if (Utils.validateNullValue(username) &amp;&amp; Utils.validateNullValue(password)) {</span>
+<span class="fc" id="L44">      UserDTO userExist = getUser(username);</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">      if (userExist != null) {</span>
+<span class="fc" id="L46">        response.setStatus(FAIL);</span>
+<span class="fc" id="L47">        response.setCode(CODE);</span>
+<span class="fc" id="L48">        response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_2, &quot;Usuario existente&quot;));</span>
+      } else {
+<span class="fc" id="L50">        UserDTO userDTO = new UserDTO();</span>
+<span class="fc" id="L51">        userDTO.setUsername(username);</span>
+<span class="fc" id="L52">        userDTO.setPassword(password);</span>
+<span class="fc" id="L53">        mongoTemplate.save(userDTO);</span>
+<span class="fc" id="L54">        response.setCode(CODE);</span>
+<span class="fc" id="L55">        response.setStatus(SUCCESS);</span>
+      }
+<span class="fc" id="L57">    } else {</span>
+<span class="fc" id="L58">      response.setCode(CODE);</span>
+<span class="fc" id="L59">      response.setStatus(FAIL);</span>
+<span class="fc" id="L60">      response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_1, &quot;Error al crear usuario&quot;));</span>
+    }
+<span class="fc" id="L62">    return response;</span>
+  }
+
+  @Override
+  public ResponseDTO login(String username, String password) {
+<span class="fc" id="L67">    LOGGER.info(&quot;Inicia procesamiento en capa de negocio&quot;);</span>
+<span class="fc" id="L68">    ResponseDTO response = new ResponseDTO();</span>
+<span class="fc" id="L69">    UserDTO userDTO = null;</span>
+<span class="fc bfc" id="L70" title="All 4 branches covered.">    if (Utils.validateNullValue(username) &amp;&amp; Utils.validateNullValue(password)) {</span>
+<span class="fc" id="L71">      userDTO = getUserAndPassword(username, password);</span>
+    }
+<span class="fc bfc" id="L73" title="All 2 branches covered.">    if (userDTO != null) {</span>
+<span class="fc" id="L74">      response.setCode(CODE);</span>
+<span class="fc" id="L75">      response.setStatus(SUCCESS);</span>
+    } else {
+<span class="fc" id="L77">      response.setCode(ERROR_CODE_1);</span>
+<span class="fc" id="L78">      response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_1, &quot;nulo&quot;));</span>
+<span class="fc" id="L79">      response.setStatus(FAIL);</span>
+    }
+<span class="fc" id="L81">    return response;</span>
+  }
+
+  @Override
+  public ResponseDTO updateUser(String username, String password) {
+<span class="fc" id="L86">    ResponseDTO response = new ResponseDTO();</span>
+<span class="fc" id="L87">    UserDTO userDTO = getUser(username);</span>
+<span class="fc bfc" id="L88" title="All 2 branches covered.">    if (userDTO != null) {</span>
+<span class="fc" id="L89">      userDTO.setPassword(password);</span>
+<span class="fc" id="L90">      mongoTemplate.save(userDTO);</span>
+<span class="fc" id="L91">      response.setCode(CODE);</span>
+<span class="fc" id="L92">      response.setStatus(SUCCESS);</span>
+    } else {
+<span class="fc" id="L94">      response.setCode(ERROR_CODE_1);</span>
+<span class="fc" id="L95">      response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_1, &quot;No existe el usuario&quot;));</span>
+<span class="fc" id="L96">      response.setStatus(FAIL);</span>
+    }
+<span class="fc" id="L98">    return response;</span>
+  }
+
+  @Override
+  public ResponseDTO deleteUser(String username) {
+<span class="fc" id="L103">    ResponseDTO response = new ResponseDTO();</span>
+<span class="fc" id="L104">    UserDTO userDTO = getUser(username);</span>
+<span class="fc bfc" id="L105" title="All 2 branches covered.">    if (userDTO != null) {</span>
+<span class="fc" id="L106">      Optional&lt;UserDTO&gt; result = userRepository.findById(userDTO.getId());</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">      if (result.isPresent()) {</span>
+<span class="fc" id="L108">        userRepository.delete(result.get());</span>
+<span class="fc" id="L109">        response.setCode(CODE);</span>
+<span class="fc" id="L110">        response.setStatus(SUCCESS);</span>
+      } else {
+<span class="fc" id="L112">        response.setCode(ERROR_CODE_1);</span>
+<span class="fc" id="L113">        response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_1, &quot;No existe el usuario&quot;));</span>
+<span class="fc" id="L114">        response.setStatus(FAIL);</span>
+      }
+<span class="fc" id="L116">    } else {</span>
+<span class="fc" id="L117">      response.setCode(ERROR_CODE_1);</span>
+<span class="fc" id="L118">      response.setErrors(new ResponseDTO.ErrorDTO(ERROR_CODE_1, &quot;No existe el usuario&quot;));</span>
+<span class="fc" id="L119">      response.setStatus(FAIL);</span>
+    }
+<span class="fc" id="L121">    return response;</span>
+  }
+
+  public UserDTO getUser(String username) {
+<span class="fc" id="L125">    Query query = new Query();</span>
+<span class="fc" id="L126">    query.addCriteria(Criteria.where(&quot;username&quot;).is(username));</span>
+<span class="fc" id="L127">    return mongoTemplate.findOne(query, UserDTO.class);</span>
+  }
+
+  private UserDTO getUserAndPassword(String username, String password) {
+<span class="fc" id="L131">    Query query = new Query();</span>
+<span class="fc" id="L132">    query.addCriteria(Criteria.where(&quot;username&quot;).is(username));</span>
+<span class="fc" id="L133">    query.addCriteria(Criteria.where(&quot;password&quot;).is(password));</span>
+<span class="fc" id="L134">    return mongoTemplate.findOne(query, UserDTO.class);</span>
+  }
+
+  @Override
+  public List&lt;UserDateDTO&gt; getUserDateIterator(String userId){
+<span class="fc" id="L139">    List&lt;UserDateDTO&gt; userDateDTOList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L140">    UserDateDTOCollection users = fechasUsuarios();</span>
+
+<span class="fc" id="L142">    Iterator baseIterator = users.iterator(userId);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">    while(baseIterator.hasNext()){</span>
+<span class="fc" id="L144">      UserDateDTO userDateDTO = baseIterator.next();</span>
+<span class="fc" id="L145">      System.out.println(userDateDTO.toString());</span>
+<span class="fc" id="L146">      userDateDTOList.add(userDateDTO);</span>
+<span class="fc" id="L147">    }</span>
+<span class="fc" id="L148">    System.out.println(&quot;**********&quot;);</span>
+
+<span class="fc" id="L150">    return userDateDTOList;</span>
+  }
+
+  private static UserDateDTOCollection fechasUsuarios() {
+<span class="fc" id="L154">    UserDateDTOCollection userDateDTOCollection = new UserDateDTOCollectionImpl();</span>
+<span class="fc" id="L155">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;1&quot;, &quot;12&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L156">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;2&quot;, &quot;18&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L157">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;3&quot;, &quot;22&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L158">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;4&quot;, &quot;19&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L159">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;5&quot;, &quot;35&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L160">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;6&quot;, &quot;29&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L161">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;7&quot;, &quot;32&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L162">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;8&quot;, &quot;40&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L163">    userDateDTOCollection.addUserDate(new UserDateDTO(&quot;9&quot;, &quot;25&quot;, &quot;10-01-1990&quot;));</span>
+<span class="fc" id="L164">    return userDateDTOCollection;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

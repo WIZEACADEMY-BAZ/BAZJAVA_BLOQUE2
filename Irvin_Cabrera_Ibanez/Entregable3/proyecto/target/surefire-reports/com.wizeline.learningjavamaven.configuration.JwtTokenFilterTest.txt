@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.wizeline.learningjavamaven.configuration.JwtTokenFilterTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.194 s - in com.wizeline.learningjavamaven.configuration.JwtTokenFilterTest

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsultaUsuarioServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.service</a> &gt; <span class="el_source">ConsultaUsuarioServiceImpl.java</span></div><h1>ConsultaUsuarioServiceImpl.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.service;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wizeline.learningjavamaven.model.detalle.UserDescription;
+import com.wizeline.learningjavamaven.utils.exceptions.ExcepcionUnica;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.Instant;
+import java.util.*;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L20">public class ConsultaUsuarioServiceImpl implements ConsultaUsuarioService {</span>
+
+<span class="fc" id="L22">  RestTemplate restTemplate = new RestTemplate();</span>
+
+  public List&lt;UserDescription&gt; consultaSuccess() {
+<span class="fc" id="L25">    ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L26">    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="fc" id="L27">    mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);</span>
+    try {
+<span class="fc" id="L29">      return mapper.readValue(peticion(), new TypeReference&lt;List&lt;UserDescription&gt;&gt;() {</span>
+      });
+<span class="fc" id="L31">    } catch (JsonProcessingException e) {</span>
+<span class="fc" id="L32">      throw new ExcepcionUnica(403, Collections.singletonList(e.getMessage()), HttpStatus.CONFLICT);</span>
+    }
+  }
+
+  public List&lt;UserDescription&gt; consultaError() {
+<span class="fc" id="L37">    ObjectMapper mapper = new ObjectMapper();</span>
+<span class="fc" id="L38">    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);</span>
+<span class="fc" id="L39">    mapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);</span>
+<span class="fc" id="L40">    mapper.setTimeZone(TimeZone.getTimeZone(&quot;Mexico/General&quot;));</span>
+    try {
+<span class="fc" id="L42">      return mapper.readValue(peticion(), new TypeReference&lt;List&lt;UserDescription&gt;&gt;() {</span>
+      });
+<span class="fc" id="L44">    } catch (JsonProcessingException e) {</span>
+<span class="fc" id="L45">      throw new ExcepcionUnica(403, Collections.singletonList(&quot;Error desencriptado&quot;), HttpStatus.CONFLICT);</span>
+    }
+  }
+
+  private String peticion() {
+<span class="fc" id="L50">    ResponseEntity&lt;String&gt; response = restTemplate.exchange(&quot;https://jsonplaceholder.typicode.com/users&quot;, HttpMethod.GET, null, String.class);</span>
+<span class="fc" id="L51">    return response.getBody();</span>
+  }
+
+  public List&lt;UserDescription&gt; filtrado() {
+<span class="fc" id="L55">    List&lt;UserDescription&gt; userList = consultaSuccess();</span>
+<span class="fc" id="L56">    ValidarCodigoSimple validarCodigoSimple = new ValidarCodigoSimple();</span>
+<span class="fc" id="L57">    return userList.stream().map(user -&gt; {</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">      if (validarCodigoSimple.validarCodigo(user.getAddress())) {</span>
+<span class="fc" id="L59">        List&lt;String&gt; randomEnvio = Arrays.asList(&quot;SMS&quot;, &quot;EMAIL&quot;, &quot;PUSH&quot;, &quot;WHATS&quot;);</span>
+<span class="fc" id="L60">        Instant inicioDeEjecucion = Instant.now();</span>
+<span class="fc" id="L61">        NotificacionThread notificacionThread = new NotificacionThread(user, inicioDeEjecucion, getRandomElement(randomEnvio));</span>
+<span class="fc" id="L62">        notificacionThread.start();</span>
+<span class="fc" id="L63">        return user;</span>
+      }
+<span class="fc" id="L65">      return null;</span>
+<span class="fc" id="L66">    }).filter(Objects::nonNull).collect(Collectors.toList());</span>
+  }
+
+  private String getRandomElement(List&lt;String&gt; list) {
+<span class="fc" id="L70">    Random rand = new Random();</span>
+<span class="fc" id="L71">    return list.get(rand.nextInt(list.size()));</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

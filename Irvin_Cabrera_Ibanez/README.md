@@ -33,10 +33,11 @@ Directorio entregas de Irvin Oswaldo Cabrera Ibañez
 ```
 
 ```
-> Entregable 2
+> Entregable 3
     > Proyecto
         > Se agrega el ejecutable con Dockerfile
         > Se agregan patrones de diseño
         > Se agregan pruebas unitarias
+        > Se agrega imagen de pruebas con coverage
     > Para pruebas se ocupa la misma colección del entregable 1
 ```
