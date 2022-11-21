@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,9 +46,6 @@ public class UserController{
 
 	@Autowired
 	BankAccountService bankAccountService;
-	
-	@Autowired
-	UserRepository repository;
 
 	private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 	String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
@@ -88,6 +86,7 @@ public class UserController{
 	public  ResponseEntity createUsers(@RequestBody List<UserDTO> userDTOList) {
 		LOGGER.info(msgProcPeticion);
 		ResponseDTO response = new ResponseDTO();
+		UserRepositoryImpl repository = new UserRepositoryImpl();
 		
 		CreaUsuariosThread usuariosThread = new CreaUsuariosThread(userDTOList, repository);
 		
