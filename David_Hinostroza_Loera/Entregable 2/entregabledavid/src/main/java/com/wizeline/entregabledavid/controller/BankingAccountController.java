@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,10 +35,14 @@ public class BankingAccountController {
     @Autowired
     CommonServices commonServices;
 
+    @Autowired
+    private KafkaTemplate<Object, Object> template;
+
+
     private static final Logger LOGGER = Logger.getLogger(BankingAccountController.class.getName());
     String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
 
-    @GetMapping("/getUserAccount")
+    /*@GetMapping("/getUserAccount")
     public ResponseEntity<?> getUserAccount(@RequestParam String user, @RequestParam String password, @RequestParam String date) {
         LOGGER.info(msgProcPeticion);
         Instant inicioDeEjecucion = Instant.now();
@@ -73,7 +78,7 @@ public class BankingAccountController {
         String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
         LOGGER.info("Tiempo de respuesta: ".concat(total));
         return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
-    }
+    }*/
 
     @GetMapping("/getAccounts")
     public ResponseEntity<List<BankAccountDTO>> getAccounts() {
@@ -94,7 +99,7 @@ public class BankingAccountController {
 
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/getAccountsByUser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BankAccountDTO>> getAccountsByUser(@RequestParam String user) {
         LOGGER.info(msgProcPeticion);
@@ -113,7 +118,7 @@ public class BankingAccountController {
         return  new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+   /* @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/getAccountsGroupByType")
     public ResponseEntity<Map<String, List<BankAccountDTO>>> getAccountsGroupByType() throws JsonProcessingException {
 
@@ -134,7 +139,7 @@ public class BankingAccountController {
         LOGGER.info("Tiempo de respuesta: ".concat(total));
 
         return new ResponseEntity<>(groupedAccounts, HttpStatus.OK);
-    }
+    }*/
 
     @DeleteMapping("/deleteAccounts")
     public ResponseEntity<String> deleteAccounts() {
@@ -142,13 +147,13 @@ public class BankingAccountController {
         return new ResponseEntity<>("All accounts deleted", HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('GUEST')")
+    //@PreAuthorize("hasRole('GUEST')")
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHelloGuest() {
         return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    //@PreAuthorize("hasRole('USER')")
     @PutMapping(value = "/putAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> putAccountByUser(@RequestParam String user) {
         LOGGER.info(msgProcPeticion);
@@ -174,5 +179,12 @@ public class BankingAccountController {
 
     private BankAccountDTO getAccountDetails(String user, String lastUsage) {
         return bankAccountService.getAccountDetails(user, lastUsage);
+    }
+
+    @PostMapping(path = "/send/{userId}")
+    public void sendUserAccount(@PathVariable Integer userId) {
+        List<BankAccountDTO> accounts = bankAccountService.getAccounts();
+        BankAccountDTO account = accounts.get(userId);
+        this.template.send("useraccount-topic", account);
     }
 }
