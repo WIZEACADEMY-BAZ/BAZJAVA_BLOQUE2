@@ -6,6 +6,9 @@ import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
 import baz.practice.wizeline.learningjavamaven.model.UserDTO;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBO;
 import baz.practice.wizeline.learningjavamaven.service.UserBO;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,7 @@ import static baz.practice.wizeline.learningjavamaven.utils.Utils.isDateFormatVa
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
@@ -29,10 +33,20 @@ public class UserController {
     @Autowired
     UserBO userBO;
 
+    private final Bucket bucket;
+
 
 private static String SUCCESS_CODE = "OK000";
 
     public static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+
+    public UserController() {
+        Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(5, refill);
+        this.bucket = Bucket.builder()
+                .addLimit(limit)
+                .build();
+    }
 
     //Para Login Sencillo
     @GetMapping(value = "/login", produces = "application/json")
@@ -81,16 +95,19 @@ private static String SUCCESS_CODE = "OK000";
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
-    public static Map<String, String> splitQuery(URI uri) {
-        Map<String, String> queryPairs = new LinkedHashMap<>();
-        String query = uri.getQuery();
-        String[] pairs = query.split("&");
-        for (String pair : pairs) {
-            int idx = pair.indexOf("=");
-            queryPairs.put(URLDecoder.decode(pair.substring(0, idx), StandardCharsets.UTF_8),
-                    URLDecoder.decode(pair.substring(idx + 1), StandardCharsets.UTF_8));
+    //IMPLEMENTANDO DISEÑO THROTTLING
+    @GetMapping("/logintThro")
+    public ResponseEntity<String> getUsers(@RequestParam String user, String password) {
+        if (bucket.tryConsume(1)) {
+            LOGGER.info("LearningJava - Procesando Peticion HTTP de tipo GET Login normal THROTTLING - Starting...");
+            ResponseDTO response =  new ResponseDTO();
+            response = userBO.login(user, password);
+            LOGGER.info("Login - Completed");
+            return ResponseEntity.ok("It's ok");
         }
-        return queryPairs;
+
+        //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 
     private ResponseDTO createUser(String user, String password) {

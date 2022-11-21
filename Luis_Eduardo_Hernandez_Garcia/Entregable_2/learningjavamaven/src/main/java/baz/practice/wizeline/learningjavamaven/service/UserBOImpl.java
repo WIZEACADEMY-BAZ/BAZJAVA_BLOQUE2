@@ -64,4 +64,10 @@ public class UserBOImpl implements UserBO{
         }
         return response;
     }
+
+    @Override
+    public ResponseDTO getUsers() {
+
+        return null;
+    }
 }

@@ -1,13 +1,19 @@
 package baz.practice.wizeline.learningjavamaven.controller;
 
 import baz.practice.wizeline.learningjavamaven.client.AccountsJSONClient;
+import baz.practice.wizeline.learningjavamaven.enums.AccountType;
+import baz.practice.wizeline.learningjavamaven.factory.Cuenta;
 import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
 import baz.practice.wizeline.learningjavamaven.model.Post;
 import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
+import baz.practice.wizeline.learningjavamaven.observer.LogErrorSuscriber;
+import baz.practice.wizeline.learningjavamaven.observer.LogPubliser;
+import baz.practice.wizeline.learningjavamaven.observer.LoginfoSuscriber;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBO;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBOImpl;
 import baz.practice.wizeline.learningjavamaven.service.UserBO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,7 +59,8 @@ public class BankingAccountController {
     UserBO userBO;
 
     @Autowired
-    private RestTemplate restTemplate;
+    private KafkaProducer producer;
+
 
     @Value("${server.port}")
     private String port;
@@ -64,6 +71,14 @@ public class BankingAccountController {
     @DeleteMapping("/deleteAccounts")
     public ResponseEntity<String> deleteAccounts() {
         bankAccountService.deleteAccounts();
+        LoginfoSuscriber loginfoSuscriber = new LoginfoSuscriber();
+        LogErrorSuscriber logErrorSuscriber = new LogErrorSuscriber();
+        LogPubliser logPubliser = new LogPubliser();
+
+        logPubliser.attach((loginfoSuscriber));
+        logPubliser.attach(logErrorSuscriber);
+
+        logPubliser.log("getInformation()");
         return new ResponseEntity<>("All accounts deleted", HttpStatus.OK);
     }
 
@@ -112,7 +127,7 @@ public class BankingAccountController {
                 String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" segundos."));
                 LOGGER.info("Tiempo de respuesta: ".concat(total));
                 responseText = "Password Incorrecto";
-                return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+                return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.FORBIDDEN);
             }
         } else {
             responseText = "Formato de Fecha Incorrecto";
@@ -327,6 +342,7 @@ public class BankingAccountController {
 
     @GetMapping(path = "/externalapi")
     public ResponseEntity<String> apiExternal(){
+        RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> respuestaExterna = restTemplate.getForEntity("https://pokeapi.co/api/v2/", String.class);
         return respuestaExterna;
     }

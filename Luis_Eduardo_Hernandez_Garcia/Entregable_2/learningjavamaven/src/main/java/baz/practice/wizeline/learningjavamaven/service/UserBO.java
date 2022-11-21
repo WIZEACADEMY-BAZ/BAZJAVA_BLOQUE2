@@ -9,4 +9,6 @@ public interface UserBO {
 
     ResponseDTO login(String user, String password);
 
+    ResponseDTO getUsers();
+
 }

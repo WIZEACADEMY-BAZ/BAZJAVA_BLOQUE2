@@ -5,3 +5,8 @@ consumers:
   userAccount: '/api/getUserAccount'
   accounts: '/api/getAccounts'
   accountsGroupByType: '/api/getAccountsGroupByType'
+
+  spring:
+    batch:
+      job:
+        enabled=false:
