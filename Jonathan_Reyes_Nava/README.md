@@ -88,3 +88,92 @@ BAZJAVA_BLOQUE2/Jonathan_Reyes_Nava
 
 
 
+ >Entregable 3 (Semana 5 y 6)
+
+>com.Wizeline.maven.learningjavamaven
+
+           >batch
+                 *BankAccountItemProcessor
+                 *BankAccountJob
+                 *BatchJobCompletionListener
+                 *UserJob
+                 *UserProcessor
+                 *UserReader
+                 *UserWriter
+
+           >client
+                 *AccountsJSONClient
+
+           >config
+                 *BatchConfiguration
+                 * EndpointBean
+                 * JwtTokenConfig
+                 * JwtTokenFilter
+                 *KafkaConfiguration
+                 * OpenAPIConfiguration
+                 * SecurityConfig
+
+
+            >consumer
+                 *KafkaConsumer
+
+            >controller
+                 *AuthenticationController
+                 *BankingAccountController
+                 *BatchController
+                 *ControllerThrttlin
+                 *ExceptionHandlerAdvice
+                 *JAXBController
+                 *UserController
+
+            >enums
+                 *AccountType
+                 *Country
+
+            >model
+                 *BankAccountDTO
+                 *BookBean
+                 *ErrorDTO
+                 *Post
+                 *ResponseDTO
+                 *UserDTO
+                 *XmlBean
+
+             >PatronesDiseno
+                  >Iterator
+                       *Channel
+                       *ChannelCollection
+                       *ChanelCollectionImpl
+                       *Client
+                       *Iterator
+                       *IteratorImpl
+
+                   >Singleton
+                       *Cliente
+                       *DatabaseConfig
+
+
+             >repository
+                 *BankingAccountRepository
+                 *UserDAO
+                 *UserDAOImpl
+
+             >service
+                 *BankAccountService
+                 *BankAccountServiceImpl
+                 *UserService
+                 *UserServiceImpl
+
+             >utils
+                >exceptions
+                    *ExceptionGenerica
+                >CommonServices
+                >Utils
+
+
+             >LearningjavamavenApplication
+
+
+
+
+
