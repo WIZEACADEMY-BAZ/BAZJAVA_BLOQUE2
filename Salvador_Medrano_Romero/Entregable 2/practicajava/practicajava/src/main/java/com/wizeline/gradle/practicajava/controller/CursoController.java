@@ -1,5 +1,6 @@
 package com.wizeline.gradle.practicajava.controller;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -12,12 +13,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,9 @@ import com.wizeline.gradle.practicajava.model.EstudianteDTO;
 import com.wizeline.gradle.practicajava.model.UserDTO;
 import com.wizeline.gradle.practicajava.service.CursoService;
 
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -51,6 +57,25 @@ public class CursoController {
 	@Autowired
 	RestTemplate restTemplate;
 
+	private final Bucket bucket;
+
+	@Autowired
+	private KafkaTemplate<Object, Object> template;
+
+	@PostMapping(path = "/send/{matricula}")
+	public void sendUserAccount(@PathVariable Integer matricula) {
+		List<EstudianteDTO> estudiantes = cursoService.obtieneEstudiantes();
+		System.out.println("Se obtuvieron: " + estudiantes.size());
+		EstudianteDTO estudiante = estudiantes.get(matricula);
+		this.template.send("estudiante-topic", estudiante);
+	}
+
+	public CursoController() {
+		Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+		Bandwidth limit = Bandwidth.classic(5, refill);
+		this.bucket = Bucket.builder().addLimit(limit).build();
+	}
+
 	@PostMapping("/guardarEstudiantes")
 	public ResponseEntity<String> guardarEstudiantes(@RequestBody List<EstudianteDTO> estudiantes) {
 		cursoService.guardaEstudiantes(estudiantes);
@@ -59,10 +84,13 @@ public class CursoController {
 
 	@GetMapping(value = "/obtenerEstudiantes", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<EstudianteDTO>> obtenerEstudiantes() {
-		List<EstudianteDTO> estudiantes = cursoService.obtieneEstudiantes();
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-		return new ResponseEntity<>(estudiantes, responseHeaders, HttpStatus.OK);
+		if (bucket.tryConsume(1)) {
+			List<EstudianteDTO> estudiantes = cursoService.obtieneEstudiantes();
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+			return new ResponseEntity<>(estudiantes, responseHeaders, HttpStatus.OK);
+		}
+		return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
 	}
 
 	@GetMapping(value = "/obtenerCalificaciones", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -11,20 +11,19 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.wizeline.gradle.practicajava.client.AccountsJSONClient;
 import com.wizeline.gradle.practicajava.model.BankAccountDTO;
-import com.wizeline.gradle.practicajava.model.Post;
 import com.wizeline.gradle.practicajava.service.BankAccountService;
-import com.wizeline.gradle.practicajava.utils.Utils;
 
 @RestController
 @RequestMapping("/apiBank")
@@ -36,8 +35,18 @@ public class BankingAccountController {
 	@Autowired
 	BankAccountService bankAccountService;
 
+	@Autowired
+	private KafkaTemplate<Object, Object> template;
+	
 //	@Autowired
 //	AccountsJSONClient accountsJSONClient;
+	
+	@PostMapping(path = "/send/{userId}")
+	public void sendUserAccount(@PathVariable Integer userId) {
+			List<BankAccountDTO> accounts = bankAccountService.getAccounts();
+			BankAccountDTO account = accounts.get(userId);
+			this.template.send("useraccount-topic", account);
+	}
 	
 	@DeleteMapping("/deleteAccounts")
 	public ResponseEntity<String> deleteAccounts(){

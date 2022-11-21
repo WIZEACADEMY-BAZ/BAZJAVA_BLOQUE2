@@ -25,7 +25,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	//implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springframework.kafka:spring-kafka-test'
+	
 	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.1'
 	implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.2.11'
 	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.2.11'	
@@ -43,7 +46,7 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.3'
 	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.72'
 	implementation 'javax.validation:validation-api:2.0.1.Final'
-	
+	implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-core', version: '7.6.0'
 
 }
 
