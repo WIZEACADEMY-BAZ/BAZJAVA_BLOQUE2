@@ -4,6 +4,8 @@ package com.baz.wizeline.learningspring.service;
 import com.baz.wizeline.learningspring.LearningspringApplication;
 import com.baz.wizeline.learningspring.enums.Country;
 import com.baz.wizeline.learningspring.model.BankAccountDTO;
+import com.baz.wizeline.learningspring.model.CuentasActivasDTO;
+import com.baz.wizeline.learningspring.model.CuentasActivasDTO.*;
 import com.baz.wizeline.learningspring.repository.BankingAccountRepository;
 import com.baz.wizeline.learningspring.utils.GenerateAccounts;
 import com.baz.wizeline.learningspring.utils.Utils;
@@ -39,65 +41,47 @@ public class BankAccountServiceImpl implements BankAccountService{
     MongoTemplate mongoTemplate;
 
 
+
     @Override
     public List<BankAccountDTO> getAccounts() {
-        // Definicion de lista con la informacion de las cuentas existentes.
         List<BankAccountDTO> accountDTOList = new ArrayList<>();
         BankAccountDTO bankAccountOne = buildBankAccount("user3@wizeline.com", true, Country.MX, LocalDateTime.now().minusDays(7));
         accountDTOList.add(bankAccountOne);
 
-        //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
         mongoTemplate.save(bankAccountOne);
 
-        BankAccountDTO bankAccountTwo = buildBankAccount("user1@wizeline.com", false, Country.FR, LocalDateTime.now().minusMonths(2));
+        BankAccountDTO bankAccountTwo = buildBankAccount("user1@wizeline.com", true, Country.FR, LocalDateTime.now().minusMonths(2));
         accountDTOList.add(bankAccountTwo);
 
-        //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
         mongoTemplate.save(bankAccountTwo);
 
-        BankAccountDTO bankAccountThree = buildBankAccount("user2@wizeline.com" ,false, Country.US, LocalDateTime.now().minusYears(4));
+        BankAccountDTO bankAccountThree = buildBankAccount("user2@wizeline.com" ,true, Country.US, LocalDateTime.now().minusYears(4));
         accountDTOList.add(bankAccountThree);
 
-        //Verificar Optional
+        BankAccountDTO bankAccountFour = buildBankAccount("user4@wizeline.com" ,true, Country.US, LocalDateTime.now().minusYears(4));
+        accountDTOList.add(bankAccountFour);
         BankAccountDTO bankAccountOptional = buildBankAccount(null ,false, Country.US, LocalDateTime.now().minusYears(4));
         Optional<String> re = Utils.nombreCuentaOptional(bankAccountOptional);
         bankAccountOptional.setUserName(re.get());
         accountDTOList.add(bankAccountOptional);
 
-
-
-        //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
         mongoTemplate.save(bankAccountThree);
 
-        //Imprime en la Consola cuales son los records encontrados en la coleccion
-        //bankAccountCollection de la mongo db
         mongoTemplate.findAll(BankAccountDTO.class).stream().map(bankAccountDTO -> bankAccountDTO.getUserName()).forEach(
                 (user) -> {
                     LOGGER.info("User stored in bankAccountCollection " + user );
                 });
 
-        //Esta es la respuesta que se retorna al Controlador
-        //y que sera desplegada cuando se haga la llamada a los
-        //REST endpoints que la invocan (un ejemplo es el endpoint de  getAccounts)
         return accountDTOList;
     }
 
     public List<BankAccountDTO> getAccountsActives() {
 
         List<BankAccountDTO> accountActives = getAccounts();
-
         accountActives = accountActives.stream().filter( active -> active.isAccountActive()==true).collect(Collectors.toList());
-
-
         accountActives = accountActives.stream().peek(w->w.setAccountName("Uso de PEEK ") ).collect(Collectors.toList());
 
-
-
-
-
         return accountActives;
-
-
     }
 
     @Override
@@ -185,23 +169,41 @@ public class BankAccountServiceImpl implements BankAccountService{
 
     @Override
     public void deleteAccounts() {
-        //Deleting all records inside of bankAccountCollection in the mongo db
         bankAccountRepository.deleteAll();
     }
 
     @Override
+    public void chainResponsa() {
+
+        int actives = 0;
+        List<BankAccountDTO> accounts = getAccounts();
+        for(BankAccountDTO cuentas : accounts){
+            if(cuentas.isAccountActive()){
+                actives++;
+            }
+        }
+        CuentasActivasDTO activas2 = new ConDosActivadas(2);
+        CuentasActivasDTO activas1 = new ConUnaActivada(1);
+
+        Scanner scan = new Scanner(String.valueOf(actives));
+
+        System.out.println("Cuentas que estan activas " + actives);
+        activas2.setNextHandler(activas1);
+        int choice = scan.nextInt();
+        activas2.handler(choice);
+        System.out.println("=============================");
+
+
+
+    }
+
+    @Override
     public List<BankAccountDTO> getAccountByUser(String user) {
-        //Buscamos todos aquellos registros de tipo BankAccountDTO
-        //que cumplen con la criteria de que el userName haga match
-        //con la variable user
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is(user));
         return mongoTemplate.find(query, BankAccountDTO.class);
     }
 
-
-
-    // Creación de tipo de dato BankAccount
     private  GenerateAccounts dummysAccount() {
         List<BankAccountDTO> cuentas = new ArrayList<>();
         GenerateAccounts dummysAccounts = () -> {
@@ -209,7 +211,6 @@ public class BankAccountServiceImpl implements BankAccountService{
 
             Runnable task = () -> {
                 String threadName = Thread.currentThread().getName();
-                System.out.println(threadName);
                 BankAccountDTO cuenta = buildBankAccount(threadName,true,Country.MX,LocalDateTime.now());
                 cuentas.add(cuenta);
             };
@@ -229,7 +230,6 @@ public class BankAccountServiceImpl implements BankAccountService{
     }
 
     public List<BankAccountDTO> getAccountsFunctional() {
-        // Definicion de lista con la informacion de las cuentas existentes.
         GenerateAccounts generateAccounts = dummysAccount();
         return generateAccounts.generateDummysccounts();
     }

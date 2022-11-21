@@ -16,9 +16,6 @@ public class RestTemplateServiceImpl implements RestTemplateService{
 
     RestTemplate utilRestTemplate = new RestTemplate();
 
-
-
-
     @Override
     public AnswerAPIDTO exampleRest() throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();

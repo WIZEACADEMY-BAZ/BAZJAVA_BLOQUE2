@@ -18,5 +18,7 @@ public interface BankAccountService {
 
     void deleteAccounts();
 
+    void chainResponsa();
+
     List<BankAccountDTO> getAccountByUser(String user);
 }

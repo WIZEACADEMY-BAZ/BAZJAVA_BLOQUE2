@@ -1,11 +1,18 @@
 package com.baz.wizeline.learningspring.controller;
 
 
+import com.baz.wizeline.learningspring.model.EnSesion;
 import com.baz.wizeline.learningspring.model.ResponseDTO;
 import com.baz.wizeline.learningspring.model.UserDTO;
 import com.baz.wizeline.learningspring.service.UserService;
 import com.baz.wizeline.learningspring.utils.CommonServices;
+
+import java.time.Duration;
 import java.util.logging.Logger;
+
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -31,6 +38,16 @@ public class UserController {
     @Autowired
     CommonServices commonServices;
 
+    private final Bucket bucket;
+
+    public UserController() {
+        Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(5, refill);
+        this.bucket = Bucket.builder()
+                .addLimit(limit)
+                .build();
+    }
+
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
 
@@ -48,6 +65,18 @@ public class UserController {
         URI uri = URI.create(builder.toString());
         userName = userName.getParameters(splitQuery(uri));
         response = commonServices.login(userName.getUser(), userName.getPassword());
+
+
+        EnSesion sesion = EnSesion.getSingletonInstance(false);
+
+
+        System.out.println("sesion = " + sesion);
+        //Se simula que se esta conectando
+
+
+        EnSesion sesionActive = EnSesion.getSingletonInstance(true);
+
+        System.out.println("sesionActive = " + sesionActive);
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
@@ -103,5 +132,13 @@ public class UserController {
 
     private ResponseDTO createUser(String user, String password) {
         return userService.createUser(user, password);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<String> getUsers() {
+        if (bucket.tryConsume(1)) {
+            return ResponseEntity.ok("It's ok");
+        }
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 }
