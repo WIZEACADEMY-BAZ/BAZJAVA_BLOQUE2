@@ -3,11 +3,9 @@ package com.wizeline.entregabledavid;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import com.wizeline.entregabledavid.builder.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.kafka.annotation.EnableKafka;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
