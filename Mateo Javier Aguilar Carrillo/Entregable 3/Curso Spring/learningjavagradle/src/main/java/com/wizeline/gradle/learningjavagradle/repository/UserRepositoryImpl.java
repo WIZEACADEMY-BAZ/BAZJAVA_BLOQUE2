@@ -46,9 +46,7 @@ public class UserRepositoryImpl implements UserRepository{
 	@Override
 	public String createUser(String user, String password) {
 
-		UserDTO userDTO = new UserDTO();
-		userDTO.setUser(user);
-		userDTO.setPassword(password);
+		UserDTO userDTO = new UserDTO(user,password);
 
 		template.save(userDTO);
 
@@ -68,10 +66,7 @@ public class UserRepositoryImpl implements UserRepository{
 			LOGGER.info("Error: " + e.getMessage());
 		}
 
-		UserDTO userDTO = new UserDTO();
-		userDTO.setUser(user);
-		userDTO.setPassword(passwordEncriptada);
-
+		UserDTO userDTO = new UserDTO(user,passwordEncriptada);
 		template.save(userDTO);
 
 		LOGGER.info("Alta exitosa");

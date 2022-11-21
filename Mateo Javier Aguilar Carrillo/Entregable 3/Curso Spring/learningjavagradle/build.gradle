@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 	id 'java'
+	id "org.sonarqube" version "3.5.0.2730"
 }
 
 group = 'com.wizeline.gradle'
@@ -68,4 +69,12 @@ jacocoTestReport {
     reports{
         xml.required = true
     }
+}
+
+sonarqube {
+	properties {
+		property "sonar.projectKey", "AgnosticSix_learningjavagradle"
+		property "sonar.organization", "agnosticsix"
+		property "sonar.host.url", "https://sonarcloud.io"
+	}
 }

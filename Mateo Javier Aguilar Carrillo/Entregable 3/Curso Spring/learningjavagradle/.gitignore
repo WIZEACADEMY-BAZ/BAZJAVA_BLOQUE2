@@ -77,3 +77,4 @@ target/
 /.project
 /.gradle/
 /build/
+.github/

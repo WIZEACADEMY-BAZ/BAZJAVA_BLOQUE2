@@ -1,6 +1,7 @@
 package com.wizeline.gradle.learningjavagradle.model;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import javax.persistence.Id;
 
@@ -20,8 +21,24 @@ public class BankAccountDTO {
 	private boolean accountActive;
 	private LocalDateTime creationDate;
 	private LocalDateTime lastUsage;
-	
-	
+
+	public BankAccountDTO() {
+
+	}
+
+	public BankAccountDTO(Long accountNumber, String accountName, String userName, double accountBalance, AccountType accountType,
+						  String country, boolean accountActive, LocalDateTime creationDate, LocalDateTime lastUsage) {
+		this.accountNumber = accountNumber;
+		this.accountName = accountName;
+		this.userName = userName;
+		this.accountBalance = accountBalance;
+		this.accountType = accountType;
+		this.country = country;
+		this.accountActive = accountActive;
+		this.creationDate = creationDate;
+		this.lastUsage = lastUsage;
+	}
+
 	public long getAccountNumber() {
 		return accountNumber;
 	}
@@ -75,5 +92,18 @@ public class BankAccountDTO {
 	}
 	public void setLastUsage(LocalDateTime lastUsage) {
 		this.lastUsage = lastUsage;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		BankAccountDTO that = (BankAccountDTO) o;
+		return accountNumber == that.accountNumber && Double.compare(that.accountBalance, accountBalance) == 0 && accountActive == that.accountActive && Objects.equals(accountName, that.accountName) && Objects.equals(userName, that.userName) && accountType == that.accountType && Objects.equals(country, that.country) && Objects.equals(creationDate, that.creationDate) && Objects.equals(lastUsage, that.lastUsage);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accountNumber, accountName, userName, accountBalance, accountType, country, accountActive, creationDate, lastUsage);
 	}
 }

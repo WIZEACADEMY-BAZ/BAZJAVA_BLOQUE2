@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 		String result = "fail"; 
 		if (Utils.validateNullValue(user)) {
 			result = userDao.createUser(user, password);
-			response.setCode("OK000");
+			response.setCode("OK001");
 			response.setStatus(result);
 		}else {
 			response.setCode("OK000");
@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService{
 		String result = "fail"; 
 		if (Utils.validateNullValue(user)) {
 			result = userDao.createUser(user);
-			response.setCode("OK000");
+			response.setCode("OK001");
 			response.setStatus(result);
 		}else {
 			response.setCode("OK000");

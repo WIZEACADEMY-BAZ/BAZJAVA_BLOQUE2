@@ -1,8 +1,8 @@
 package com.wizeline.gradle.learningjavagradle.service;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.security.InvalidKeyException;
@@ -13,9 +13,14 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.wizeline.gradle.learningjavagradle.model.RandomPassword;
@@ -24,69 +29,49 @@ import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
 import com.wizeline.gradle.learningjavagradle.singleton.RestTemplateConfig;
 import com.wizeline.gradle.learningjavagradle.utils.EncryptorRSA;
+import org.springframework.http.HttpStatus;
 
+@SpringBootTest
+@AutoConfigureMockMvc
+@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 	@Mock
-	private MongoTemplate template;
-	
-	@InjectMocks
-	private UserRepositoryImpl userRepositoryImpl;
+	MongoTemplate template;
 
-	@Mock
-	private EncryptorRSA encryptorRSA;
-	
 	@InjectMocks
-	private UserServiceImpl userServiceImpl;
-	
-	@Mock
-	UserDTO userDTO;
-	
+	EncryptorRSA encryptorRSA;
+
+	@InjectMocks
+	UserServiceImpl userServiceImpl;
+
 	private static final String USER = "mateo";
-	
-	
-	@BeforeEach
-	public void setUp() {
-		MockitoAnnotations.openMocks(this);
-	}
-	
-	public void createUser() 
-			throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-		RandomPassword password = RestTemplateConfig.getInstance().getRandomPassword();
-		assertNotNull(password);
-		
-		String passwordEncriptada = encryptorRSA.encrypt(password.toString());
-		
-		assertEquals(encryptorRSA.decrypt(passwordEncriptada), password);
-		
-		userDTO.setUser(USER);
-		userDTO.setPassword(passwordEncriptada);
-				
+	private static final String PASSWORD = "Mateo1@";
+
+	@Test
+	public void createUser() {
+
+		UserDTO userDTO = new UserDTO(USER, PASSWORD);
+
+		when(template.findOne(any(), any())).thenReturn(userDTO);
 		when(template.save(userDTO)).thenReturn(userDTO);
-		ResponseDTO response = userServiceImpl.createUser(USER, passwordEncriptada);
+		ResponseDTO response = userServiceImpl.createUser(USER, PASSWORD);
 		
 		assertAll(
 				() -> assertNotNull(response),
-				() -> assertEquals(response.getCode(), 200)
+				() -> assertEquals(response.getCode(), "OK001")
 				);
 	}
-	
-	public void createUserError() throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException {
-		RandomPassword password = RestTemplateConfig.getInstance().getRandomPassword();
-		assertNotNull(password);
-		
-		String passwordEncriptada = encryptorRSA.encrypt(password.toString());
-		
-		assertEquals(encryptorRSA.decrypt(passwordEncriptada), password);
-		
-		userDTO.setUser(USER);
-		userDTO.setPassword(passwordEncriptada);
-				
+
+	@Test
+	public void createUserError() {
+		UserDTO userDTO = new UserDTO(USER, PASSWORD);
+
 		when(template.save(userDTO)).thenReturn(null);
-		ResponseDTO response = userServiceImpl.createUser(USER, passwordEncriptada);
+		ResponseDTO response = userServiceImpl.createUser(USER, PASSWORD);
 		
 		assertAll(
 				() -> assertNotNull(response),
-				() -> assertEquals(response.getCode(), 400)
+				() -> assertEquals(response.getCode(), "OK000")
 				);
 	}
 }

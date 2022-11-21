@@ -18,11 +18,14 @@ import com.wizeline.gradle.learningjavagradle.batch.UserJob;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.util.logging.Logger;
+
 @Tag(name = "Batch", description = "Inicia manualmente un job.")
 @RestController
 @RequestMapping(path = "/batch")
 public class BatchController {
 
+	private static final Logger LOGGER = Logger.getLogger(BatchController.class.getName());
 	@Autowired
 	private JobLauncher jobLauncher;
 
@@ -38,7 +41,7 @@ public class BatchController {
 			jobLauncher.run(userJob.printUsersJob(), parameters);
 		} catch (JobExecutionAlreadyRunningException | JobRestartException
 				| JobInstanceAlreadyCompleteException | JobParametersInvalidException e) {
-			e.printStackTrace();
+			LOGGER.info("context: " + e);
 		}
 		return new ResponseEntity<>("Batch Process started!!", HttpStatus.OK);
 	}
