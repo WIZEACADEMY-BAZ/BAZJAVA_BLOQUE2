@@ -4,7 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizeline.maven.learningjavamaven.batch.AccountsJSONClient;
 import com.wizeline.maven.learningjavamaven.chainofresponsibility.MoneyChainHandler;
 import com.wizeline.maven.learningjavamaven.model.Account;
+import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.model.Post;
+import com.wizeline.maven.learningjavamaven.model.UserDTO;
 import com.wizeline.maven.learningjavamaven.service.BankAccountService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +18,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,6 +40,7 @@ class BankingAccountControllerTest {
 
     @InjectMocks
     private BankingAccountController bankingAccountController;
+
 
     @Test
     void getAccounts() {
@@ -114,9 +119,9 @@ class BankingAccountControllerTest {
     void getExternalUser() {
         //Prepara el esenario de la prueba
         LOGGER.info("Entrando a la prueba ");
-        //Ejecuta la logica
         Post p = new Post();
         Long userId = 2L;
+        //Ejecuta la logica
         when(accountsJSONClient.getPostById(any())).thenReturn(p);
         ResponseEntity<Post> resul = bankingAccountController.getExternalUser(userId);
         assertTrue(resul.getStatusCode().is2xxSuccessful(), "El código HTTP retornado no fue exitoso");
@@ -126,13 +131,40 @@ class BankingAccountControllerTest {
 
     @Test
     void sendUserAccount() {
+        //Haca si no puedo necesito hayuda
+        Integer userId = 2;
+        bankingAccountController.sendUserAccount(userId);
+    //Preparo el esenario
+        LOGGER.info("Preparo el metodo");
+
     }
 
     @Test
     void getAccountByAccountNumber() {
+    //Preparo el esenario
+        LOGGER.info("Preparo el metodo . . ");
+        long accountNumber = 2;
+        BankAccountDTO o = new BankAccountDTO();
+        when(bankAccountService.getAccountByAccountNumber(accountNumber)).thenReturn(Optional.of(o));
+        //Ejecuto la preuba
+        ResponseEntity<BankAccountDTO>  a = bankingAccountController.getAccountByAccountNumber(accountNumber);
+        //LLamadas
+        assertTrue(a.getStatusCode().is2xxSuccessful(), "El código HTTP retornado no fue exitoso");
+
     }
 
     @Test
     void putCountry() {
+        //Preparo el esenario de prueba
+        LOGGER.info("Preparo el metodo. . . ");
+        BankAccountDTO m = new BankAccountDTO();
+        String country = "mexico";
+        when(bankAccountService.putCountry(country)).thenReturn(m);
+        //Ejecuto la logica
+        ResponseEntity<BankAccountDTO> l = bankingAccountController.putCountry(country);
+        //Realizo la llamad a
+        assertTrue(l.getStatusCode().is2xxSuccessful(), "El código HTTP retornado no fue exitoso");
+
+
     }
 }

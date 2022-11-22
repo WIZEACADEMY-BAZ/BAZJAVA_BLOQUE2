@@ -70,7 +70,8 @@ public class UserController {
     //@Autowired
     private final Bucket bucket;
 
-    public UserController( @Autowired UserService userService,
+    public UserController( @Autowired KafkaProducer producer,
+                           @Autowired UserService userService,
                            @Autowired RestTemplate restTemplate,
                            @Autowired BankAccountService bankAccountService,
                            @Autowired CommonServices commonServices)
@@ -268,37 +269,6 @@ public class UserController {
     private ResponseDTO createUser(String user, String password) {
         return userService.createUser(user, password);
     }
-    /*
-    public void run() {
-        try {
-            crearUsuarios();
-        } catch (Exception e) {
-            LOGGER.severe(e.getMessage());
-        }
-    }
-
-    public void crearUsuarios() {
-        try {
-            String user = "user";
-            String pass = "password";
-            JSONArray jsonArray = new JSONArray(textThread);
-            JSONObject userJson;
-
-            ResponseDTO response = null;
-
-            LOGGER.info("jsonArray.length(): " + jsonArray.length());
-            for (int i = 0; i < jsonArray.length(); i++) {
-                userJson = new JSONObject(jsonArray.get(i).toString());
-                response = createUser(userJson.getString(user), userJson.getString(pass));
-                responseTextThread = new JSONObject(response).toString();
-                LOGGER.info("Usuario " + (i + 1) + ": " + responseTextThread);
-                Thread.sleep(1000);
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-*/
 
     public static Map<String, String> splitQuery(URI uri) {
         Map<String, String> queryPairs = new LinkedHashMap<String, String>();
@@ -314,7 +284,7 @@ public class UserController {
     private void assertTrue(boolean present) {
     }
 
-
+/*
     private static Optional<Object> getParameterValueObject(Map<String, String> param, String paramName) {
         String val = param.get(paramName);
         if (val != null && val != "") {
@@ -322,7 +292,7 @@ public class UserController {
         }
         return Optional.ofNullable("NA");
     }
-
+*/
     //Trabajando con mi PAI de REST Template
     @GetMapping("/ResTemplate")
     public Object getApi(){

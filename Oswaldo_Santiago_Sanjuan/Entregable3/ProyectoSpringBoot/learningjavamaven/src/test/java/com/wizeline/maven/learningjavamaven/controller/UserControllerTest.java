@@ -1,10 +1,10 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
 
-import com.wizeline.maven.learningjavamaven.enums.AccountType;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
 import com.wizeline.maven.learningjavamaven.model.UserDTO;
+import com.wizeline.maven.learningjavamaven.producer.KafkaProducer;
 import com.wizeline.maven.learningjavamaven.service.BankAccountService;
 import com.wizeline.maven.learningjavamaven.service.UserService;
 import com.wizeline.maven.learningjavamaven.utils.CommonServices;
@@ -12,27 +12,26 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.internal.stubbing.BaseStubbing;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.enums.AccountType.AHORRO;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.client.ExpectedCount.once;
+
 
 @ExtendWith(MockitoExtension.class) // prueba anotando los campos simulados
 class UserControllerTest {
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     //Usando REST Template
+    @Mock
+    private KafkaProducer producer;
     @Mock
     private RestTemplate restTemplate;
     @Mock
@@ -41,6 +40,7 @@ class UserControllerTest {
     private BankAccountService bankAccountService;
     @Mock
     private CommonServices commonServices;
+ 
 
     @InjectMocks
     private UserController userController;
@@ -190,8 +190,16 @@ class UserControllerTest {
         assertTrue(createUser.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
     }
 
+
+
     @Test
-    void getParameterValueObject() {
+    void kafkapro() {
+        ResponseDTO responseDTO = new ResponseDTO();
+        ResponseEntity p = userController.kafkapro();
+        assertTrue(p.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
+
 
     }
+
+
 }

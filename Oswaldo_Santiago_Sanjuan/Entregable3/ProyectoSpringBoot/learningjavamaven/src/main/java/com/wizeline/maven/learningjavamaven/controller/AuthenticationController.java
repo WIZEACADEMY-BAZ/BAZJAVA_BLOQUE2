@@ -36,9 +36,7 @@ public class AuthenticationController {
     public ResponseEntity<?> getAuthenticationToken(@RequestBody UserDTO userDTO) {
         UserDetails userDetails;
         try {
-
             //InMemoryUserDetailsManager userDetailsService = new InMemoryUserDetailsManager(); //Lo cree
-
             userDetails = userDetailsService.loadUserByUsername(userDTO.getUser());
         } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
