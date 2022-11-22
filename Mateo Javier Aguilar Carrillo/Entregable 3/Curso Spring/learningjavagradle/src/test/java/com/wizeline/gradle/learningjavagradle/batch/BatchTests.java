@@ -1,7 +1,6 @@
 package com.wizeline.gradle.learningjavagradle.batch;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -15,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.job.flow.FlowJob;
 import org.springframework.batch.core.launch.JobLauncher;
@@ -45,7 +43,7 @@ public class BatchTests {
 	}
 
 	@Test
-	public void batch() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+	public void batchTest() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
 
 		Job job = new FlowJob("jobTest");
 		JobExecution jobExecution = new JobExecution(1L);
@@ -56,8 +54,5 @@ public class BatchTests {
 
 		assertNotNull(batchController.startBatch());
 		assertEquals(batchController.startBatch().getStatusCode().value(), HttpStatus.OK.value());
-
-
 	}
-
 }

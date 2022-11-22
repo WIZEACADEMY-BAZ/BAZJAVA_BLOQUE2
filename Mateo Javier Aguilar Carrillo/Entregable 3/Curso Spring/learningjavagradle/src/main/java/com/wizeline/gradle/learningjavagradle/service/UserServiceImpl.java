@@ -3,11 +3,9 @@ package com.wizeline.gradle.learningjavagradle.service;
 import java.util.logging.Logger;
 
 import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
-import com.wizeline.gradle.learningjavagradle.repository.UserRepository;
 import com.wizeline.gradle.learningjavagradle.utils.Utils;
 
 @Service
