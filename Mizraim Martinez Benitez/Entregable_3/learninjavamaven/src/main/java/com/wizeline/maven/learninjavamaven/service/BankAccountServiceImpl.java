@@ -33,7 +33,7 @@ public class BankAccountServiceImpl implements BankAccountService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    private BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage){
+    public BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage){
         BankAccountDTO bankAccountDTO = new BankAccountDTO();
         bankAccountDTO.setAccountNumber(Utils.randomAccountNumber());
         bankAccountDTO.setAccountName("Dummy Account ".concat(Utils.randomInt()));
@@ -183,19 +183,5 @@ public class BankAccountServiceImpl implements BankAccountService {
         //Deleting all records inside bankAccountCollection in the mongo db
         bankingAccountRepository.deleteAll();
     }
-
-    /*
-    private BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, String lastUsage){
-        BankAccountDTO bankAccountDTO = new BankAccountDTO();
-        bankAccountDTO.setAccountNumber(Utils.randomAccountNumber());
-        bankAccountDTO.setAccountName("Dummy Account ".concat(Utils.randomInt()));
-        bankAccountDTO.setUser(user);
-        bankAccountDTO.setAccountBalance(Utils.randomBalance());
-        bankAccountDTO.setAccountType(Utils.pickRandomAccountType());
-        bankAccountDTO.setCountry(lastUsage);
-        bankAccountDTO.setLastUsage(lastUsage);
-        bankAccountDTO.setAccountActive(isActive);
-        return bankAccountDTO;
-    }*/
 
 }

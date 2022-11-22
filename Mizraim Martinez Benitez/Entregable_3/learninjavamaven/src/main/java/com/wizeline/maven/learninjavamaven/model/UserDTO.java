@@ -10,6 +10,14 @@ public class UserDTO extends Persona {
 
     private Persona persona;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(String user, String password) {
+        this.user = user;
+        this.password = password;
+    }
+
     public String getUser() {
         return user;
     }

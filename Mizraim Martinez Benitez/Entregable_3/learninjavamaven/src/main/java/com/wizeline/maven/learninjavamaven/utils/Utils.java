@@ -78,7 +78,7 @@ public class Utils {
         return DATE_PATTERN.matcher(date).matches();
     }
 
-    public static String getSring(String value){
+    public static String getString(String value){
         if (value != null){
             return value;
         }

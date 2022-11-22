@@ -10,6 +10,7 @@ import com.wizeline.maven.learninjavamaven.service.BankAccountService;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
+import com.wizeline.maven.learninjavamaven.service.BankAccountServiceImpl;
 import com.wizeline.maven.learninjavamaven.utils.exceptions.ExceptionGenerica;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,9 +27,12 @@ import org.springframework.kafka.core.KafkaTemplate;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.logging.Logger;
 
 @ExtendWith(MockitoExtension.class)
 public class BankingAccountControllerTest {
+
+    private static final Logger LOGGER = Logger.getLogger(BankingAccountControllerTest.class.getName());
 
     @InjectMocks
     private BankingAccountController bankingController;
@@ -55,6 +59,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void getAccountByUserTest(){
+        LOGGER.info("getAccountByUserTest");
         String user = "user";
         BankAccountDTO bankAccountDTO= new BankAccountDTO();
         List<BankAccountDTO> accounts = new ArrayList<>();
@@ -69,6 +74,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void getAccountsGroupByTypeTest() throws JsonProcessingException {
+        LOGGER.info("getAccountsGroupByTypeTest");
         List<BankAccountDTO> accounts = bankAccountService.getAccounts();
 
         when(bankAccountService.getAccounts()).thenReturn(accounts);
@@ -80,6 +86,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void sayHelloGuestTest(){
+        LOGGER.info("sayHelloGuestTest");
         ResponseEntity<String> httpResponse = bankingController.sayHelloGuest();
 
         assertEquals("Hola invitado!!", httpResponse.getBody());
@@ -87,6 +94,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void updateBankAccountTest() throws ExceptionGenerica {
+        LOGGER.info("updateBankAccountTest");
         BankAccountDTO bankAccountDTODetails = new BankAccountDTO();
         BankAccountDTO bankAccountDTO =  new BankAccountDTO();
 
@@ -104,6 +112,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void updateBankAccountNotFoundTest(){
+        LOGGER.info("updateBankAccountNotFoundTest");
         BankAccountDTO bankAccountDTODetails = new BankAccountDTO();
         when(bankAccountService.findByUser(anyString())).thenReturn(null);
 
@@ -115,6 +124,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void sendUserAccountTest (){
+        LOGGER.info("sendUserAccountTest");
         BankAccountDTO bankAccountDTO = new BankAccountDTO();
         List<BankAccountDTO> accounts = new ArrayList<>();
         accounts.add(bankAccountDTO);
@@ -124,7 +134,8 @@ public class BankingAccountControllerTest {
     }
 
     @Test
-    void sobrecargaTest(){
+    void sobreCargaTest(){
+        LOGGER.info("sobreCargaTest");
         LocalDateTime localDateTime = LocalDateTime.now();
         BankAccountDTO bankAccountDTO = new BankAccountDTO();
         bankAccountDTO.setUser("user");
@@ -141,6 +152,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void getExternalUserTest(){
+        LOGGER.info("getExternalUserTest");
         Post post = new Post("userId", 1L, "title", "body");
 
         when(accountsJSONClient.getPostById(1L)).thenReturn(post);
@@ -156,6 +168,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void encryptedAccountsTest(){
+        LOGGER.info("encryptedAccountsTest");
         List<BankAccountDTO> accounts = new ArrayList<>();
 
         when(bankAccountService.encryptedAccounts()).thenReturn(accounts);
@@ -171,6 +184,7 @@ public class BankingAccountControllerTest {
 
     @Test
     void deleteAccountsTest(){
+        LOGGER.info("deleteAccountsTest");
         ResponseEntity responseEntity = bankingController.deleteAccounts();
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -178,9 +192,25 @@ public class BankingAccountControllerTest {
 
     @Test
     void createUsersThreadTest(){
-
+        LOGGER.info("createUsersThreadTest");
         ResponseEntity responseEntity = bankingController.createUsersThread();
         assertNotNull(responseEntity);
+    }
+
+    @Test
+    void getAccountsTest(){
+        LOGGER.info("getAccountsTest");
+        List<BankAccountDTO> responseEntity = new ArrayList<>();
+
+        when(bankAccountService.getAccounts()).thenReturn(responseEntity);
+
+        ResponseEntity<List<BankAccountDTO>> listaResponseEntity = bankingController.getAccounts();
+
+        assertAll(
+                () -> assertNotNull(responseEntity),
+                () -> assertEquals(HttpStatus.OK, listaResponseEntity.getStatusCode()),
+                () -> assertEquals(responseEntity, listaResponseEntity.getBody())
+        );
     }
 
 }

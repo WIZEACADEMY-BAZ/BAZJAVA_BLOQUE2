@@ -58,12 +58,8 @@ public class UserController extends Thread{
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getUserAccount", produces = "application/json")
-    public ResponseEntity<ResponseDTO> getUserAccount (){
-        return null;
-    }
 
-	//Patron de diseño "Throttling"
+    //Patron de diseño "Throttling"
     @GetMapping("/users")
     public ResponseEntity<String> getUsers() {
         if (bucket.tryConsume(1)) {
