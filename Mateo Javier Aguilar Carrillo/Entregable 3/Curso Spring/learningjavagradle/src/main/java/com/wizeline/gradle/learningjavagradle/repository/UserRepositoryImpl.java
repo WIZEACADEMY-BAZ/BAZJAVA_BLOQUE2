@@ -22,6 +22,7 @@ import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.singleton.RestTemplateConfig;
 import com.wizeline.gradle.learningjavagradle.utils.EncryptorRSA;
 import com.wizeline.gradle.learningjavagradle.utils.exceptions.ExcepcionGenerica;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -53,7 +54,7 @@ public class UserRepositoryImpl implements UserRepository{
 		passwordEncriptada = rsa.encrypt(password.toString());
 
 		UserDTO userDTO = new UserDTO(user,passwordEncriptada);
-		template.save(userDTO);
+		UserDTO entity = template.save(userDTO);
 
 		LOGGER.info("Alta exitosa");
 		return "success";
@@ -87,7 +88,7 @@ public class UserRepositoryImpl implements UserRepository{
 		return result.getDeletedCount() > 0 ? "Usuario eliminado" : "No se realizó ninguna eliminación";
 	}
 
-	private Optional<UserDTO> buscarUsuario(String user){
+	public Optional<UserDTO> buscarUsuario(String user){
 		Query query = Query.query(Criteria.where("user").is(user));
 		UserDTO userDTO = template.findOne(query, UserDTO.class);
 		return Optional.ofNullable(userDTO);

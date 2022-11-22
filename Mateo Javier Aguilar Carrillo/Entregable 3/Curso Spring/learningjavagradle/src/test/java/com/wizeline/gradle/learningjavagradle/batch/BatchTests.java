@@ -12,6 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -24,11 +26,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
 public class BatchTests {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(BatchTests.class);
 	@Mock
 	UserJob userJob;
 	@Mock
@@ -44,6 +50,7 @@ public class BatchTests {
 
 	@Test
 	public void batchTest() throws JobInstanceAlreadyCompleteException, JobExecutionAlreadyRunningException, JobParametersInvalidException, JobRestartException {
+		LOGGER.info("batch Testing...");
 
 		Job job = new FlowJob("jobTest");
 		JobExecution jobExecution = new JobExecution(1L);
@@ -54,5 +61,24 @@ public class BatchTests {
 
 		assertNotNull(batchController.startBatch());
 		assertEquals(batchController.startBatch().getStatusCode().value(), HttpStatus.OK.value());
+	}
+
+	@Test
+	public void readerTest() throws Exception {
+		LOGGER.info("reader Testing...");
+		UserReader reader = new UserReader();
+
+		assertNotNull(reader.read());
+	}
+
+	@Test
+	public void writerTest() throws Exception {
+		LOGGER.info("writer Testing...");
+		UserWriter writer = new UserWriter();
+		List<String> list = new ArrayList<>();
+		list.add("ABC");
+		list.add("DEF");
+
+		writer.write(list);
 	}
 }
