@@ -11,7 +11,7 @@ spring:
       database: baz-wizeline
   security:
     white-list:
-      url: "/authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**. //api/btach"
+      url: "/authenticate, /api2/**, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**. //api/btach"
   batch:
     job:
       enabled: false

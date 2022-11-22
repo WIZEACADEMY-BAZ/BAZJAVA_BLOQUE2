@@ -5,7 +5,6 @@ import com.wizeline.baz.LearningSpring.model.ResponseDTO;
 import com.wizeline.baz.LearningSpring.service.BankAccountService;
 import com.wizeline.baz.LearningSpring.utils.CommonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -93,7 +92,6 @@ public class BankingAccountController {
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('USER')")
     @GetMapping("/getAccountByUser")
     public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam String user) {
         LOGGER.info(msgProcPeticion);
@@ -109,7 +107,6 @@ public class BankingAccountController {
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/getAccountsGroupByType")
     public ResponseEntity<Map<String, List<BankAccountDTO>>> getAccountsGroupByType() {
         LOGGER.info(msgProcPeticion);
@@ -132,12 +129,12 @@ public class BankingAccountController {
         return new ResponseEntity<>("All accounts deleted", HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('GUEST')")
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHelloGuest() {
         return new ResponseEntity<>("Hola invitado by Erick!!", HttpStatus.OK);
     }
 
+    @GetMapping("/getAccountDetails")
     private BankAccountDTO getAccountDetails(String user, String lastUsage) {
         return bankAccountService.getAccountDetails(user, lastUsage);
     }

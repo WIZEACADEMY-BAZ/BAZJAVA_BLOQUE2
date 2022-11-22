@@ -1,37 +1,40 @@
 package com.wizeline.baz.LearningSpring.controller;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.wizeline.baz.LearningSpring.patron.creational.ResponseDTO;
+import com.wizeline.baz.LearningSpring.service.KafkaService;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.util.MimeTypeUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
-@RunWith(SpringRunner.class)
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import java.util.logging.Logger;
+
 @WebMvcTest(KafkaController.class)
 class KafkaControllerTest {
 
+    private static final Logger LOGGER = Logger.getLogger(KafkaControllerTest.class.getName());
+
+    @MockBean
+    private KafkaService service;
 
     @Autowired
     private MockMvc mockMvc;
 
+
     @Test
-    public void testKafkaController() throws Exception {
-        mockMvc.perform( MockMvcRequestBuilders
-                        .get("/api2/kafkaProducer/{input}", 1)
-                        .accept(MediaType.APPLICATION_JSON) )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.input").value(1));
+    void testProducerKafka() throws Exception {
+        LOGGER.info("Prueba de Controller Kafka");
+        ResponseDTO responseDTO = new ResponseDTO.ResponseDTOBuilder("OK000","SUCCESS").build();
+        when(service.producerKafka(anyString())).thenReturn(responseDTO);
+        mockMvc.perform(get("/api2/kafkaProducer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("input","test"))
+                .andExpect(status().isOk()).andReturn();
     }
 }
