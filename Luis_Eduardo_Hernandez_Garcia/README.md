@@ -50,6 +50,12 @@ Entregable_2:
             -Se sugiere primero ejecutar el "getAccounts" ya que este genera los usuarios en la base de datos en mongo
             -Nota: Si quiere probar excesos, quitar de la lista blanca los endpoints a probar y posteriormente
             generar el toque deseado con el tipo de usuario adecuado para el endpoint "user", "guest", "admin".
+
+Entregable_3:
+    *Configuracion
+        --En general se realizo la arquitectura para el entregable 3 y final
+        >Proyecto learningjavamaven
+        >Capturacoverage.jpg
 ```
 
 De antemano muchas gracias por el curso
