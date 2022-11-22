@@ -75,8 +75,9 @@ public class BankAccountServiceImpl implements BankAccountService{
         LocalDate usage = LocalDate.parse(lastUsage, dateformatter);
         return buildBankAccount(user, true, Country.MX, usage.atStartOfDay());
     }
-	
-	private BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage) {
+
+	@Override
+	public BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage) {
 		BankAccountDTO bankAccountDTO = new BankAccountDTO();
 		bankAccountDTO.setAccountNumber(randomAcountNumber());
 		bankAccountDTO.setAccountName("Dummy Account ".concat(randomInt()));
@@ -84,7 +85,6 @@ public class BankAccountServiceImpl implements BankAccountService{
 		bankAccountDTO.setAccountBalance(randomBalance());
 		bankAccountDTO.setAccountType(pickRandomAccountType());
 		bankAccountDTO.setCountry(getCountry(country));
-		bankAccountDTO.getLastUsage();
 		bankAccountDTO.setCreationDate(lastUsage);
 		bankAccountDTO.setAccountActive(isActive);
 		return bankAccountDTO;

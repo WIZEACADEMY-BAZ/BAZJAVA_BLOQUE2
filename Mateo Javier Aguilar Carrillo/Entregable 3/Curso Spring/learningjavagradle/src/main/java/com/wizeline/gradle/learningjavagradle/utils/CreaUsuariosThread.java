@@ -3,23 +3,27 @@ package com.wizeline.gradle.learningjavagradle.utils;
 import java.util.List;
 
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
-import com.wizeline.gradle.learningjavagradle.repository.UserRepository; 
+import com.wizeline.gradle.learningjavagradle.repository.UserRepository;
+import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
+import com.wizeline.gradle.learningjavagradle.service.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CreaUsuariosThread extends Thread {
 	
 	private List<UserDTO> listGlobal;
-	private UserRepository repositoryGlobal;
+	@Autowired
+	private UserServiceImpl serviceGlobal;
 
-	public CreaUsuariosThread(List<UserDTO> userDTOList, UserRepository repository) {
+	public CreaUsuariosThread(List<UserDTO> userDTOList, UserServiceImpl service) {
 		this.listGlobal = userDTOList;
-		this.repositoryGlobal = repository;
+		this.serviceGlobal = service;
 	}
 
 	private void createUsers() {
 		listGlobal.stream().forEach(userDTO -> {
 			String user = userDTO.getUser();
 			String pass = userDTO.getPassword();
-			repositoryGlobal.createUser(user, pass);
+			serviceGlobal.createUser(user, pass);
 		});
 	}
 

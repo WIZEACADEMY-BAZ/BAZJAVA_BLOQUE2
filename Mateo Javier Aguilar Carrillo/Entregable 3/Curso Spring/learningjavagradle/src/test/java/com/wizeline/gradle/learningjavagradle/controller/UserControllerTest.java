@@ -1,10 +1,11 @@
 package com.wizeline.gradle.learningjavagradle.controller;
 
-import com.wizeline.gradle.learningjavagradle.model.RandomPassword;
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.repository.UserRepository;
+import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
 import com.wizeline.gradle.learningjavagradle.service.UserService;
+import com.wizeline.gradle.learningjavagradle.service.UserServiceImpl;
 import com.wizeline.gradle.learningjavagradle.utils.CommonServices;
 import com.wizeline.gradle.learningjavagradle.utils.CreaUsuariosThread;
 
@@ -20,8 +21,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import static com.wizeline.gradle.learningjavagradle.Datos.Datos.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +41,7 @@ public class UserControllerTest {
     UserController userController;
 
     @Mock
-    UserService userService;
+    UserServiceImpl userService;
 
     @MockBean
     CommonServices commonServices;
@@ -45,20 +52,15 @@ public class UserControllerTest {
     @Mock
     ResponseDTO responseDTO;
 
-    @Mock
-    UserRepository repository;
-
-
-
     @BeforeEach
     void init() {
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void createUserTest() {
+    public void createUserTest() throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         LOGGER.info("CreateUser Testing...");
-        lenient().when(userService.createUser(userDTO.getUser(), userDTO.getPassword())).thenReturn(responseDTO);
+        lenient().when(userService.createUser(USER_001.getUser(), USER_001.getPassword())).thenReturn(responseDTO);
 
         assertNotNull(userController.createUser(userDTO));
     }
@@ -75,7 +77,7 @@ public class UserControllerTest {
         LOGGER.info("CreateUsers Testing...");
         List<UserDTO> userDTOList = List.of(new UserDTO("userT1", "passT1"), new UserDTO("userT2", "passT2"));
 
-        CreaUsuariosThread thread = new CreaUsuariosThread(userDTOList, repository);
+        CreaUsuariosThread thread = new CreaUsuariosThread(userDTOList, userService);
 
         assertAll(
                 () -> assertNotNull(thread),
@@ -86,7 +88,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void createUserWithRandomPasswordTest() {
+    public void createUserWithRandomPasswordTest() throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         LOGGER.info("createUserWithRandomPassword Testing...");
         UserDTO userDTOMock = new UserDTO("user1", "");
         lenient().when(userService.createUser(userDTOMock.getUser())).thenReturn(responseDTO);
@@ -96,14 +98,16 @@ public class UserControllerTest {
     @Test
     public void updateUserTest() {
         LOGGER.info("UpdateUser Testing...");
-        lenient().when(userService.updateUser(userDTO.getUser(), userDTO.getPassword())).thenReturn(responseDTO);
-        assertNotNull(userController.updateUser(userDTO));
+        userService.createUser(USER_001.getUser(), USER_001.getPassword());
+        lenient().when(userService.updateUser(USER_001.getUser(), USER_002.getPassword())).thenReturn(responseDTO);
+        assertNotNull(userController.updateUser(new UserDTO(USER_001.getUser(), USER_002.getPassword())));
     }
 
     @Test
     public void deleteUserTest() {
         LOGGER.info("DeleteUser Testing...");
-        lenient().when(userService.deleteUser(userDTO.getUser())).thenReturn(responseDTO);
-        assertNotNull(userController.deleteUser(userDTO.getUser()));
+        userService.createUser(USER_001.getUser(), USER_001.getPassword());
+        lenient().when(userService.deleteUser(USER_001.getUser())).thenReturn(responseDTO);
+        assertNotNull(userController.deleteUser(USER_001.getUser()));
     }
 }

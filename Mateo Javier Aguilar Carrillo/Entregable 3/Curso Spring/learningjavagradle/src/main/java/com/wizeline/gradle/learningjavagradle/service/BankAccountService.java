@@ -1,7 +1,9 @@
 package com.wizeline.gradle.learningjavagradle.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+import com.wizeline.gradle.learningjavagradle.enums.Country;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountDTO;
 
 public interface BankAccountService {
@@ -10,5 +12,5 @@ public interface BankAccountService {
     BankAccountDTO getAccountDetails(String user, String lastUsage);
     void deleteAccounts();
     List<BankAccountDTO> getAccountByUser(String user);
-
+    BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage);
 }

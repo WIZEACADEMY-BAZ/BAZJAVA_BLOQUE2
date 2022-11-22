@@ -22,10 +22,11 @@ import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.singleton.RestTemplateConfig;
 import com.wizeline.gradle.learningjavagradle.utils.EncryptorRSA;
 import com.wizeline.gradle.learningjavagradle.utils.exceptions.ExcepcionGenerica;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository{
 	private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class.getName());
-
 
 	@Autowired
 	MongoTemplate template;
@@ -45,16 +46,11 @@ public class UserRepositoryImpl implements UserRepository{
 	}
 
 	@Override
-	public String createUser(String user) {
+	public String createUser(String user) throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 		RandomPassword password = RestTemplateConfig.getInstance().getRandomPassword();
 		String passwordEncriptada = "";
 
-		try {
-			passwordEncriptada = rsa.encrypt(password.toString());
-		} catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
-				| BadPaddingException e) {
-			LOGGER.info("Error: " + e.getMessage());
-		}
+		passwordEncriptada = rsa.encrypt(password.toString());
 
 		UserDTO userDTO = new UserDTO(user,passwordEncriptada);
 		template.save(userDTO);
