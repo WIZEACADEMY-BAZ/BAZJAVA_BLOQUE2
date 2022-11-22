@@ -105,7 +105,6 @@ private static String SUCCESS_CODE = "OK000";
             LOGGER.info("Login - Completed");
             return ResponseEntity.ok("It's ok");
         }
-
         //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }

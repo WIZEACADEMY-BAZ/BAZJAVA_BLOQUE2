@@ -28,7 +28,7 @@ import static org.mockito.Mockito.times;
 @ExtendWith(MockitoExtension.class)
 class BankAccountBOImplTest {
 
-    public static final Logger LOGGER = Logger.getLogger(BankAccountBOImpl.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(BankAccountBOImplTest.class.getName());
 
     @Mock
     BankingAccountRepository bankingAccountRepositoryTest;
@@ -41,6 +41,7 @@ class BankAccountBOImplTest {
 
     @Test
     void getAccountDetails() {
+        LOGGER.info("Se incializa proceso TEST para getAccountDetails...");
         BankAccountDTO response=new BankAccountDTO();
 
         response = bankAccountBOTest.getAccountDetails("Ana","21-11-2022");
@@ -50,6 +51,7 @@ class BankAccountBOImplTest {
 
     @Test
     void testGetAccountDetails() {
+        LOGGER.info("Se incializa proceso TEST para testGetAccountDetails...");
         BankAccountDTO response=new BankAccountDTO();
 
         response = bankAccountBOTest.getAccountDetails("21-11-2022");
@@ -58,6 +60,7 @@ class BankAccountBOImplTest {
 
     @Test
     void getAccounts() {
+        LOGGER.info("Se incializa proceso TEST para getAccounts...");
         List<BankAccountDTO> accountDTOList = new ArrayList<>();
         BankAccountDTO bankAccountOne = bankAccountBOTest.buildBankAccount("user3@wizeline.com", true, Country.MX, LocalDateTime.now().minusDays(7));
         accountDTOList = bankAccountBOTest.getAccounts();
@@ -68,7 +71,7 @@ class BankAccountBOImplTest {
 
     @Test
     void updateAccount() {
-
+        LOGGER.info("Se incializa proceso TEST para updateAccount...");
         Query query = new Query();
         query.addCriteria(Criteria.where("accountName").is("Ana"));
 
@@ -81,12 +84,14 @@ class BankAccountBOImplTest {
 
     @Test
     void deleteAccounts() {
+        LOGGER.info("Se incializa proceso TEST para deleteAccounts...");
         bankAccountBOTest.deleteAccounts();
         verify(bankingAccountRepositoryTest,times(1)).deleteAll();
     }
 
     @Test
     void getAccountByUser() {
+        LOGGER.info("Se incializa proceso TEST para getAccountByUser...");
         String user = "Ana";
         Query query = new Query();
         query.addCriteria(Criteria.where("user").is("Ana"));
@@ -97,6 +102,7 @@ class BankAccountBOImplTest {
 
     @Test
     void getAccountByName() {
+        LOGGER.info("Se incializa proceso TEST para getAccountByName...");
         String user = "Ana";
         Query query = new Query();
         BankAccountDTO response= new BankAccountDTO();

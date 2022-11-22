@@ -40,7 +40,7 @@ import java.util.logging.Logger;
 @ExtendWith(MockitoExtension.class)
 public class BankingAccountControllerTest {
 
-    public static final Logger LOGGER = Logger.getLogger(BankAccountBOImpl.class.getName());
+    public static final Logger LOGGER = Logger.getLogger(BankingAccountControllerTest.class.getName());
 
     @Mock
     UserBO userBOTest;
@@ -60,6 +60,7 @@ public class BankingAccountControllerTest {
     public void getAccountByUserTest(){
         String user = "Mario";
         List<BankAccountDTO> accounts = new ArrayList<>();
+        LOGGER.info("Se inicializa el TEST de getAccountByUserTest");
 
         lenient().when(bankAccountServiceTest.getAccountByUser(anyString())).thenReturn(accounts);
 
@@ -73,6 +74,8 @@ public class BankingAccountControllerTest {
 
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
+
+        LOGGER.info("Se inicializa el TEST de getUserAccountTest...");
 
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
@@ -89,6 +92,7 @@ public class BankingAccountControllerTest {
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
 
+        LOGGER.info("Se inicializa el proceso TEST para getUserAccountTestInvalidPass...");
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
         lenient().when(bankAccountService.getAccountDetails(user,"18-11-2022")).thenReturn(new BankAccountDTO());
@@ -105,6 +109,8 @@ public class BankingAccountControllerTest {
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
 
+        LOGGER.info("Se inicializa el proceso TEST de getUserAccountTestInvalidDate...");
+
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
         lenient().when(bankAccountService.getAccountDetails(user,"18-11-2022")).thenReturn(new BankAccountDTO());
@@ -119,6 +125,7 @@ public class BankingAccountControllerTest {
         String user = "Lalo", pass = "Pass1$", date = "18-11-2022";
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
+        LOGGER.info("Se inicializa el proceso TEST de getUserAccountWUTest...");
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
         lenient().when(bankAccountService.getAccountDetails(user,"18-11-2022")).thenReturn(new BankAccountDTO());
@@ -132,6 +139,7 @@ public class BankingAccountControllerTest {
 
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
+        LOGGER.info("Se incializa el proceso TEST de getUserAccountWUTestInvalidPass...");
 
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
@@ -148,6 +156,7 @@ public class BankingAccountControllerTest {
 
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
+        LOGGER.info("Se inicializa proceso TEST de getUserAccountWUTestInvalidDate...");
 
 
         lenient().when(userBOTest.login(anyString(),anyString())).thenReturn(response);
@@ -163,6 +172,7 @@ public class BankingAccountControllerTest {
         List<BankAccountDTO> accounts = new ArrayList<>();
 
         lenient().when(bankAccountServiceTest.getAccounts()).thenReturn(accounts);
+        LOGGER.info("Se inicializa el proceso TEST para getAccountsTest...");
 
         ResponseEntity<List<BankAccountDTO>> response = bankingAccountController.getAccounts();
         assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -171,6 +181,7 @@ public class BankingAccountControllerTest {
     @Test
     public void getAccountsGroupByTypeTest() throws JsonProcessingException{
         List<BankAccountDTO> accounts = new ArrayList<>();
+        LOGGER.info("Se inicializa proceso TEST de getAccountsGroupByTypeTest...");
 
         lenient().when(bankAccountServiceTest.getAccounts()).thenReturn(accounts);
 
@@ -180,6 +191,7 @@ public class BankingAccountControllerTest {
 
     @Test
     public void sayHelloGuestTest(){
+        LOGGER.info("Se inicializa el proceso TEST de sayHelloGuestTest...");
         ResponseEntity<?> responseFinal = bankingAccountController.sayHelloGuest();
         assertEquals(responseFinal.getStatusCode(), HttpStatus.OK);
     }
@@ -188,6 +200,7 @@ public class BankingAccountControllerTest {
     public void getAccountByNameTest(){
         String name = "Ana";
         BankAccountDTO response = new BankAccountDTO();
+        LOGGER.info("Se inicializa el proceso TEST de getAccountByNameTest...");
 
         Optional<String> optionalNombre = Optional.ofNullable(name);
         String nombreOp = optionalNombre.orElse("Bad Request");
@@ -201,6 +214,7 @@ public class BankingAccountControllerTest {
     @Test
     public void getEncryptedAccountsTest(){
         List<BankAccountDTO> accounts = bankAccountService.getAccounts();
+        LOGGER.info("Se inicializa el proceso TEST de getEncryptedAccountsTest...");
 
         lenient().when(bankAccountService.getAccounts()).thenReturn(accounts);
 
@@ -210,6 +224,7 @@ public class BankingAccountControllerTest {
 
     @Test
     public void getEncryptedAccountsTestInvalidKey() throws NoSuchPaddingException, NoSuchAlgorithmException, NoSuchProviderException, InvalidAlgorithmParameterException, InvalidKeyException {
+        LOGGER.info("Se inicializa el proceso TEST de getEncryptedAccountsTestInvalidKey...");
         byte[] keyBytes = new byte[]{
                 0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
         };
@@ -233,6 +248,7 @@ public class BankingAccountControllerTest {
     @Test
     public void getExternalUserTest(){
         Long userId = 23123123L;
+        LOGGER.info("Se inicializa el proceso TEST de getExternalUserTest...");
 
         lenient().when(accountsJSONClient.getPostById(userId)).thenReturn(new Post());
 
@@ -243,6 +259,7 @@ public class BankingAccountControllerTest {
     @Test
     public void sendUserAccount(){
         int userIdTest = 13;
+        LOGGER.info("Se inicializa el proceso TEST de sendUserAccount...");
         List<BankAccountDTO> accountsTest = new ArrayList<>();
 
         accountsTest.add(new BankAccountDTO());
@@ -256,6 +273,7 @@ public class BankingAccountControllerTest {
 
     @Test
     public void updateAccountTest(){
+        LOGGER.info("Se inicializa el proceso TEST de updateAccountTest...");
         String accountNameStringTest = "ana_banana", newAccountNameTest = "Ana_sponja";
         BankAccountDTO resCuenta = new BankAccountDTO();
 
@@ -267,6 +285,7 @@ public class BankingAccountControllerTest {
 
     @Test
     public void apiExternalTest(){
+        LOGGER.info("Se inicializa el proceso TEST de apiExternalTest...");
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<?> responseFinal = bankingAccountController.apiExternal();
@@ -275,7 +294,7 @@ public class BankingAccountControllerTest {
 
     @Test
     public void deletedAccountsTest(){
-
+        LOGGER.info("Se inicializa el proceso TEST de deletedAccountsTest...");
         ResponseEntity<?> responseFinal = bankingAccountController.deleteAccounts();
         assertEquals(responseFinal.getBody(),"All accounts deleted");
     }

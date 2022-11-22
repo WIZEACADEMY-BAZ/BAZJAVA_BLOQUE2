@@ -19,12 +19,14 @@ import java.net.http.WebSocket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Logger;
 
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class UserControllerTest {
 
+    public static final Logger LOGGER = Logger.getLogger(UserControllerTest.class.getName());
     @Mock
     UserBO userBO;
 
@@ -34,6 +36,7 @@ public class UserControllerTest {
     @Test
     public void loginTest(){
         String user = "Megaman", pass = "123";
+        LOGGER.info("Se inicializa proceso TEST para loginTest...");
         when(userBO.login(user, pass)).thenReturn(new ResponseDTO());
 
         assertEquals(userController.login(user,pass).getStatusCode(), HttpStatus.OK);
@@ -42,6 +45,7 @@ public class UserControllerTest {
 
     @Test
     public void createUserTest(){
+        LOGGER.info("Se inicializa proceso TEST para createUserTest...");
         UserDTO objeto = new UserDTO();
 
         objeto.setUser("User1");
@@ -54,6 +58,7 @@ public class UserControllerTest {
 
     @Test
     public void createUsersAccountTest(){
+        LOGGER.info("Se inicializa proceso TEST para createUsersAccountTest...");
         List<UserDTO> userDTOList = new ArrayList<>();
 
         lenient().when(userBO.createUser(anyString(), anyString())).thenReturn(new ResponseDTO());
@@ -64,6 +69,7 @@ public class UserControllerTest {
 
     @Test
     public void createUserUnicTest(){
+        LOGGER.info("Se inicializa proceso TEST para createUserUnicTest...");
         ResponseDTO response = new ResponseDTO();
         response.setCode("OK000");
 
@@ -79,6 +85,7 @@ public class UserControllerTest {
 
     @Test
     public void getUsersTest(){
+        LOGGER.info("Se inicializa proceso TEST para getUsersTest...");
         final Bucket bucket;
 
         ResponseDTO response = new ResponseDTO();
@@ -91,20 +98,19 @@ public class UserControllerTest {
         assertEquals(responseFinal.getStatusCode(),HttpStatus.OK);
 
     }
-/*
+    /*
     @Test
     public void getUsersTooManyTest(){
-        final Bucket bucket =;
+        final Bucket bucket = null;
 
         ResponseDTO response = new ResponseDTO();
-        response.setCode("OK000");
+        response.setCode("fail");
 
-        lenient().when(bucket.asBlocking()).thenReturn(bucket.asBlocking());
+        lenient().when(bucket.tryConsumeAsMuchAsPossible(2)).thenReturn("fail");
 
         ResponseEntity<?> responseFinal = userController.getUsers(anyString(),anyString());
 
-        assertEquals(responseFinal.getStatusCode(),HttpStatus.TOO_MANY_REQUESTS);
+        assertEquals(HttpStatus.TOO_MANY_REQUESTS,responseFinal.getStatusCode());
     }
-
- */
+     */
 }
