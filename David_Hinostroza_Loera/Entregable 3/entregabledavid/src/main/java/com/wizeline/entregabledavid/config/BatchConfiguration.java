@@ -25,9 +25,7 @@ public class BatchConfiguration {
     private static final Logger LOGGER =
             LoggerFactory.getLogger(BatchConfiguration.class);
 
-    /*@Autowired
-    private BankAccountJob bankAccountJob;
-    */
+
     @Autowired
     private JobLauncher jobLauncher;
 
@@ -43,7 +41,6 @@ public class BatchConfiguration {
                 .addString("launchDate", format.format(Calendar.getInstance().getTime()))
                 .addString("project", "LearningJava")
                 .toJobParameters();
-        //jobLauncher.run(bankAccountJob.bankAccountsBackupJob(), jobParameters);
         LOGGER.info("Batch job executed successfully");
     }
 

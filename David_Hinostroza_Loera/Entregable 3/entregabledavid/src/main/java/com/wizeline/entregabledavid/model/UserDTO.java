@@ -6,6 +6,14 @@ public class UserDTO {
     private String user;
     private String password;
 
+    public UserDTO() {
+    }
+
+    public UserDTO(String user, String password) {
+        this.user = user;
+        this.password = password;
+    }
+
     /**
      *
      * @return the user
@@ -43,5 +51,10 @@ public class UserDTO {
         user.setUser(userParam.get("user"));
         user.setPassword(userParam.get("password"));
         return user;
+    }
+
+    @Override
+    public String toString(){
+        return "UserDTO = " + this.user + ", Password = " + this.password;
     }
 }
