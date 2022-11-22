@@ -1,7 +1,4 @@
-package com.wizeline.maven.learningjavamaven.configuration;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.wizeline.maven.learningjavamaven.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -51,7 +51,7 @@ public class SecurityConfig {
      * @return Regresa y habilita los usuarios asi como su información (user, password, rol).
      */
     @Bean
-    public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
         List<UserDetails> userDetailsList = new ArrayList<>();
         userDetailsList.add(User.withUsername("user").password("password")
                 .roles("USER").build());

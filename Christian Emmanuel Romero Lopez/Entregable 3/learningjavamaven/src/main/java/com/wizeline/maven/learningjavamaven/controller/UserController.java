@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizeline.maven.learningjavamaven.model.ResponseModel;
 import com.wizeline.maven.learningjavamaven.model.UserModel;
 import com.wizeline.maven.learningjavamaven.service.UserService;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -30,6 +33,16 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    private final Bucket bucket;
+
+    public UserController() {
+        Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+        Bandwidth limit = Bandwidth.classic(5, refill);
+        this.bucket = Bucket.builder()
+                .addLimit(limit)
+                .build();
+    }
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
     private static String msgProcPeticion = "LearningJavaMaven - Inicia procesamiento de peticion ...";
@@ -62,25 +75,32 @@ public class UserController {
 
     @PostMapping(value="/createUser", produces="application/json")
     public ResponseEntity<?> createUser(@RequestBody UserModel request) throws JsonProcessingException {
-        LOGGER.info(msgProcPeticion);
-        inicio = Instant.now();
-        ResponseModel response;
-        HttpHeaders responseHeaders = new HttpHeaders();
-        String responseText = "";
-        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
 
-        if (isPasswordValid(request.getPassword())) {
-            response = userService.createUser(request.getUser(),request.getPassword());
-            String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
-            LOGGER.info("Tiempo de respuesta: ".concat(total));
-            return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
-        } else {
-            LOGGER.info("LearningJava - Cerrando recursos ...");
-            String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
-            LOGGER.info("Tiempo de respuesta: ".concat(total));
-            responseText = "Password Incorrecto";
-            return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+        if (bucket.tryConsume(1)) {
+            LOGGER.info(msgProcPeticion);
+            inicio = Instant.now();
+            ResponseModel response;
+            HttpHeaders responseHeaders = new HttpHeaders();
+            String responseText = "";
+            responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+
+            if (isPasswordValid(request.getPassword())) {
+                response = userService.createUser(request.getUser(),request.getPassword());
+                String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
+                LOGGER.info("Tiempo de respuesta: ".concat(total));
+                return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
+            } else {
+                LOGGER.info("LearningJava - Cerrando recursos ...");
+                String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" segundos.");
+                LOGGER.info("Tiempo de respuesta: ".concat(total));
+                responseText = "Password Incorrecto";
+                return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+            }
+
         }
+
+        //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
+        return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 
     @PostMapping("/createUsers")

@@ -1,6 +1,6 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
-import com.wizeline.maven.learningjavamaven.configuration.JwtTokenConfig;
+import com.wizeline.maven.learningjavamaven.config.JwtTokenConfig;
 import com.wizeline.maven.learningjavamaven.model.UserModel;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -20,6 +20,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+@Tag(name = "Authentication",
+        description = "Genera token de autenticación.")
 @RestController
 public class AuthenticationController {
 
@@ -30,22 +32,22 @@ public class AuthenticationController {
     private UserDetailsService userDetailsService;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> getAuthenticationToken(@RequestBody UserModel userModel) {
+    public ResponseEntity<?> getAuthenticationToken(@RequestBody UserModel userDTO) {
         UserDetails userDetails;
         try {
-            userDetails = userDetailsService.loadUserByUsername(userModel.getUser());
+            userDetails = userDetailsService.loadUserByUsername(userDTO.getUser());
         } catch (UsernameNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found");
         }
-        Claims claims = Jwts.claims().setSubject(userModel.getUser());
-        claims.put("username", userModel.getUser());
+        Claims claims = Jwts.claims().setSubject(userDTO.getUser());
+        claims.put("username", userDTO.getUser());
         String authorities = userDetails.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
         claims.put("authorities", authorities);
         claims.put("date", new Date());
 
-        String token = jwtTokenConfig.generateToken(userModel, claims);
+        String token = jwtTokenConfig.generateToken(userDTO, claims);
         System.out.println("Token: " + token);
         return ResponseEntity.ok(token);
     }

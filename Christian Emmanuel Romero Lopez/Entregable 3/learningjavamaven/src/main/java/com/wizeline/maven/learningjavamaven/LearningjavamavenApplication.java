@@ -8,15 +8,15 @@ import com.wizeline.maven.learningjavamaven.service.UserService;
 import com.wizeline.maven.learningjavamaven.service.UserServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
+@EnableFeignClients
+@EnableKafka
 public class LearningjavamavenApplication {
-
-	public static void main(String[] args) throws IOException {
-		SpringApplication.run(LearningjavamavenApplication.class, args);
-	}
 
 	@Bean
 	public static UserService userService() {
@@ -29,5 +29,10 @@ public class LearningjavamavenApplication {
 	@Bean
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
+	}
+
+
+	public static void main(String[] args) throws IOException {
+		SpringApplication.run(LearningjavamavenApplication.class, args);
 	}
 }
