@@ -1,5 +1,6 @@
 package com.wizeline.maven.learningjavamaven.service;
 
+import com.wizeline.maven.learningjavamaven.controller.UserController;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.repository.BankingAccountRepository;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,6 +27,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BankAccountServiceImplTest {
+    private static final Logger LOGGER = Logger.getLogger(BankAccountServiceImplTest.class.getName());
 
     @Mock
     BankingAccountRepository bankAccountRepository;
@@ -40,55 +43,64 @@ class BankAccountServiceImplTest {
 
     @Test
     void getAccountDetails() {
+        LOGGER.info("Probando el log getAccountDetails ");
         BankAccountDTO bankAccountDTO = bankAccountService.getAccountDetails("oswaldo","17-11-2022");
+        LOGGER.info("bankAccountDTO"+bankAccountDTO);
         assertNotNull(bankAccountDTO);
     }
 
     @Test
     void testGetAccountDetails() {
+        LOGGER.info("Probando el logs de testGetAccountDetails. ");
         BankAccountDTO bankAccountDTO = bankAccountService.getAccountDetails("oswaldito");
+        LOGGER.info("bankAccountDTO"+bankAccountDTO);
         assertNotNull(bankAccountDTO);
     }
 
-    @Test
-    void testGetAccountDetails1() {
-
-    }
 
     @Test
     void getAccounts() {
+        LOGGER.info("Probando el logs de getAccounts");
         List<BankAccountDTO> bankAccountDTO = bankAccountService.getAccounts();
+        LOGGER.info("bankAccountDTO"+bankAccountDTO);
         assertNotNull(bankAccountDTO);
     }
 
     @Test
     void deleteAccounts() {
+        LOGGER.info("Probando el logs de deleteAccounts");
         bankAccountService.deleteAccounts();
         verify(bankAccountRepository,times(1)).deleteAll();
+        LOGGER.info("Prueba pasada correctamete ... ");
     }
 
     @Test
     void getAccountByUser() {
+        LOGGER.info("Probando el logs de getAccountByUser ");
         List<BankAccountDTO> bankAccountDTO = bankAccountService.getAccountByUser("oswaldo");
+        LOGGER.info("bankAccountDTO"+bankAccountDTO);
         assertNotNull(bankAccountDTO);
     }
 
     @Test
     void getAccountByAccountNumber() {
+        LOGGER.info("Entrando a realizar las prubas. ");
         Optional<BankAccountDTO> bankAccountDTOS = bankAccountService.getAccountByAccountNumber(123);
         assertNotNull(bankAccountDTOS);
+        LOGGER.info("Prueba correcta mente . . . ");
     }
 
 
     //Pregunta por este metodo
     @Test
     void putCountry() {
+        LOGGER.info("Entrando a realizar la edicion . . . ");
         BankAccountDTO bankAccountDTO = bankAccountService.putCountry("Ecatepec");
         Query query = new Query();
         query.addCriteria(Criteria.where("country").is("country"));
         Update update = new Update();
         update.set("country","Ecatepec");
         verify(mongoTemplate,times(1)).updateFirst(query,update, BankAccountDTO.class);
-
+        LOGGER.info("Pruebas de actualizacion correcta mente . . . ");
     }
 }

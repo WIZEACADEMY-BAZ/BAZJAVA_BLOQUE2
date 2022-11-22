@@ -67,11 +67,12 @@ class UserControllerTest {
         assertTrue(loginResponse.hasBody(), "Response body no presente en respuesta");
         assertEquals("200", loginResponse.getBody().getCode(), "Código response dto no es 200");
         verify(commonServices, times(1)).login(user, password);
+        LOGGER.info("Terminado de relizar la prueba . . . ");
     }
 
     @Test
     void createUser() {
-        LOGGER.info("Entrendo a realisar la prueba @PostMapping ");
+        LOGGER.info("Entrando a realizar la prueba @PostMapping ");
         //Preparo el esenario para la prueba
         UserDTO userDTO = new UserDTO();
         userDTO.setUser("oswaldo");
@@ -87,12 +88,14 @@ class UserControllerTest {
         assertTrue(createUser.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
         assertTrue(createUser.hasBody(), "Response body no presente en la respuesta. ");
         assertEquals("201", createUser.getBody().getCode(), "Codigo respuesta 201");
+        LOGGER.info("Terminando de probar el metodo de createUser ");
     }
 
     //Pronabando el endpoint @GetMapping("/getUser")
     @Test
     void getUserAccount() {
         //Preparo el esenario de la prueba
+        LOGGER.info("Entrando a realizar la prueba getUserAccount");
         ResponseDTO responseDTO = new ResponseDTO();
         BankAccountDTO accounts = new BankAccountDTO();
         accounts.setUserName("oswaldo");
@@ -104,7 +107,7 @@ class UserControllerTest {
         //Valido las llamadas
         assertTrue(count.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
         assertTrue(count.hasBody(), "Response body no presente en la respuesta. ");
-
+        LOGGER.info("Terminando de realizar la prueba del metodo de getUserAccount . . . ");
 
     }
 
@@ -135,8 +138,7 @@ class UserControllerTest {
         ResponseEntity respuesta = userController.getEncryip();
         // Assert - valida resultados/llamadas
         assertTrue(respuesta.getStatusCode().is2xxSuccessful(), "El código HTTP retornado no fue exitoso");
-
-
+        LOGGER.info("Terminando de realizar la pruba del metodo de getEncryip ");
     }
 
     @Test
@@ -151,6 +153,7 @@ class UserControllerTest {
 
     @Test
     void createUserAccount() {
+        LOGGER.info("Entrando a realizar la pruba de createUserAccount . . ");
         //Preparo el esenario de la prueba
         UserDTO userDTO = new UserDTO();
         userDTO.setUser("oswaldo");
@@ -165,6 +168,7 @@ class UserControllerTest {
         assertTrue(createUser.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
         assertTrue(createUser.hasBody(), "Response body no presente en la respuesta. ");
         //assertEquals("200", getUser.getBody(), "Codigo respuesta 200");
+        LOGGER.info("Entrando a realizar la pruba de createUserAccount.");
     }
 
     @Test
@@ -178,26 +182,31 @@ class UserControllerTest {
 
     @Test
     void getApi() {
+        LOGGER.info("Entrando a realizar la pruba de getApi");
         Object obj = new Object();
         when(restTemplate.getForObject(anyString(), any())).thenReturn(obj);
         Object resul = userController.getApi();
         assertNotNull(resul);
+        LOGGER.info("Terminado de realizar la pruba de getApi");
     }
 
     @Test
     void getUsers() {
+        LOGGER.info("Entrando a realizar la prueba getUsers");
         ResponseEntity<?> createUser = userController.getUsers();
         assertTrue(createUser.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
+        LOGGER.info("Terminando de realizar la pruba de getUsers");
     }
 
 
 
     @Test
     void kafkapro() {
+        LOGGER.info("Entrando a realizar la pruba del metodo de kafkapro... ");
         ResponseDTO responseDTO = new ResponseDTO();
         ResponseEntity p = userController.kafkapro();
         assertTrue(p.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
-
+        LOGGER.info("Terminando de realizar la prueba del metodo de kafkapro");
 
     }
 

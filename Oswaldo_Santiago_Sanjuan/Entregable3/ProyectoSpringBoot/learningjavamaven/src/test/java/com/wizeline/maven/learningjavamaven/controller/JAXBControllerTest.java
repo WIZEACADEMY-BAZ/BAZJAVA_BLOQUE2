@@ -25,6 +25,7 @@ class JAXBControllerTest {
         ResponseEntity<XmlBean> l = jAXBController.loginUser();
         //Llamada
         assertTrue(l.getStatusCode().is2xxSuccessful(), "El codigo de respuesta fue exitoso");
+        LOGGER.info("Terminada de realizar la prueba . . . ");
     }
 
     @Test
