@@ -34,12 +34,20 @@ private static final Logger LOGGER = Logger.getLogger(UserServiceImplTest.class.
 
 	@Test
 	void testCreateUser() {
+		LOGGER.info("Creacion de un Nuevo Usuario");
 		ResponseDTO response = userServiceImpl.createUser("user1@wizeline.com", "pass1");
 		assertNotNull(response);
+	}
+	
+	@Test
+	void testCreateUserIn() {
+		LOGGER.info("Creacion de Usuario Incorrecto");
+		ResponseDTO resp = userServiceImpl.createUser(null, null);
 	}
 
 	@Test
 	void testLogin() {
+		LOGGER.info("Prueba Login de Servicio");
 		ResponseDTO response = userServiceImpl.login("user1@wizeline.com", "pass1");
 		assertNotNull(response);
 		
@@ -47,6 +55,13 @@ private static final Logger LOGGER = Logger.getLogger(UserServiceImplTest.class.
         .thenReturn(new ResponseDTO());
 
 		assertEquals(new ResponseDTO(), userServiceImpl.login("user1@wizeline.com", "pass1"));
+	}
+	
+	@Test
+	void testLoginIn() {
+		LOGGER.info("Prueba Login de Servicio Incorrecto (parametros nulos)");
+		ResponseDTO resp = userServiceImpl.login("null", "null");
+		assertNotNull(resp);
 	}
 
 	@Test

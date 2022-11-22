@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.logging.Logger;
 
+import com.mongodb.assertions.Assertions;
 import com.wizeline.gradle.learningjavagradle.controller.UserController;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountDTO;
 import org.junit.jupiter.api.Test;
@@ -27,17 +28,18 @@ class BankAccountItemProcessorTest {
 	void testProcess() {
 		
 		LOGGER.info("Preparando Prueba");
-		BankAccountDTO o = new BankAccountDTO();
-        o.setAccountNumber(3);
-        o.setCountry("mexico");
-        o.setAccountName("mex");
-        o.setAccountBalance(3);
-        o.setUser("mx");
-        o.setAccountType(AHORRO);
+		BankAccountDTO account = new BankAccountDTO();
+		account.setAccountNumber(3);
+		account.setCountry("mexico");
+		account.setAccountName("Cuenta alex");
+		account.setAccountBalance(3);
+		account.setUser("Alex");
+		account.setAccountType(AHORRO);
 
         try {
         	LOGGER.info("Prueba Exitosa");
-            bankAccountItemProcessor.process(o);
+            bankAccountItemProcessor.process(account);
+            Assertions.assertNotNull(account);
         } catch (Exception e) {
             e.printStackTrace();
     }

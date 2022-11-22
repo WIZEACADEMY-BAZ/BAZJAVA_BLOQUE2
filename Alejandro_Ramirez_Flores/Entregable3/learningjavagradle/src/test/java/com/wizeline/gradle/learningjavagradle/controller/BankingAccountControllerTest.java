@@ -38,7 +38,7 @@ import java.util.logging.Logger;
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BankingAccountControllerTest {
-	 private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+	 private static final Logger LOGGER = Logger.getLogger(BankingAccountControllerTest.class.getName());
 	
 	 @InjectMocks
 	    private BankingAccountController bankingController;
