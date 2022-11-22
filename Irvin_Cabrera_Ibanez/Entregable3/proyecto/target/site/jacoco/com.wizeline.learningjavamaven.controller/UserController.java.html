@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.controller;
+
+import com.wizeline.learningjavamaven.model.ResponseDTO;
+import com.wizeline.learningjavamaven.model.UserDTO;
+import com.wizeline.learningjavamaven.model.UserDateDTO;
+import com.wizeline.learningjavamaven.service.UserService;
+import com.wizeline.learningjavamaven.utils.CommonServices;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.logging.Logger;
+
+@Tag(name = &quot;User&quot;,
+    description = &quot;Contiene operaciones comunes realizadas para usuarios.&quot;)
+@RequestMapping(&quot;/api&quot;)
+@RestController
+public class UserController {
+
+<span class="fc" id="L36">  private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());</span>
+
+<span class="fc" id="L38">  String msgProcPeticion = &quot;LearningJava - Inicia procesamiento de peticion ...&quot;;</span>
+
+  @Autowired
+  UserService userService;
+
+  @Autowired
+  CommonServices commonServices;
+
+  private final Bucket bucket;
+
+<span class="fc" id="L48">  public UserController() {</span>
+<span class="fc" id="L49">    Refill refill = Refill.intervally(5, Duration.ofMinutes(1));</span>
+<span class="fc" id="L50">    Bandwidth limit = Bandwidth.classic(5, refill);</span>
+<span class="fc" id="L51">    this.bucket = Bucket.builder()</span>
+<span class="fc" id="L52">        .addLimit(limit)</span>
+<span class="fc" id="L53">        .build();</span>
+<span class="fc" id="L54">  }</span>
+
+  @GetMapping(&quot;/users&quot;)
+  public ResponseEntity&lt;String&gt; getUsers() {
+<span class="pc bpc" id="L58" title="1 of 2 branches missed.">    if (bucket.tryConsume(1)) {</span>
+<span class="fc" id="L59">      return ResponseEntity.ok(&quot;It's ok&quot;);</span>
+    }
+
+<span class="nc" id="L62">    return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();</span>
+  }
+
+  @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+  @GetMapping(&quot;/login&quot;)
+  public ResponseEntity&lt;ResponseDTO&gt; loginUser(@RequestParam String username, @RequestParam String password) {
+<span class="fc" id="L68">    LOGGER.info(msgProcPeticion);</span>
+<span class="fc" id="L69">    LOGGER.info(&quot;LearningJava - Procesando peticion HTTP de tipo GET&quot;);</span>
+<span class="fc" id="L70">    UserDTO userName = new UserDTO();</span>
+<span class="fc" id="L71">    StringBuilder builder = new StringBuilder(&quot;http://localhost:8080/api/login&quot;);</span>
+<span class="fc" id="L72">    builder.append(&quot;?username=&quot; + username);</span>
+<span class="fc" id="L73">    builder.append(&quot;&amp;password=&quot; + password);</span>
+<span class="fc" id="L74">    URI uri = URI.create(builder.toString());</span>
+<span class="fc" id="L75">    userName = userName.getParameters(splitQuery(uri));</span>
+<span class="fc" id="L76">    ResponseDTO response = commonServices.login(userName.getUsername(), userName.getPassword());</span>
+
+<span class="fc" id="L78">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L79">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+<span class="fc" id="L80">    return new ResponseEntity&lt;ResponseDTO&gt;(response, responseHeaders, HttpStatus.OK);</span>
+  }
+
+  @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+  @PostMapping(&quot;/createUser&quot;)
+  public ResponseEntity&lt;ResponseDTO&gt; createUserAccount(@RequestBody UserDTO userDTO) {
+<span class="fc" id="L86">    LOGGER.info(msgProcPeticion);</span>
+
+<span class="fc" id="L88">    ResponseDTO response = createUser(userDTO.getUsername(), userDTO.getPassword());</span>
+
+<span class="fc" id="L90">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L91">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+<span class="fc" id="L92">    return new ResponseEntity&lt;&gt;(response, responseHeaders, HttpStatus.OK);</span>
+  }
+
+  @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+  @PostMapping(&quot;/createUsers&quot;)
+  public ResponseEntity&lt;List&lt;ResponseDTO&gt;&gt; createUsersAccount(@RequestBody List&lt;UserDTO&gt; userDTOList) {
+<span class="fc" id="L98">    LOGGER.info(msgProcPeticion);</span>
+<span class="fc" id="L99">    AtomicReference&lt;ResponseDTO&gt; response = new AtomicReference&lt;&gt;(new ResponseDTO());</span>
+<span class="fc" id="L100">    List&lt;ResponseDTO&gt; responseList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc" id="L102">    userDTOList.stream().forEach(userDTO -&gt; {</span>
+<span class="fc" id="L103">      String user = userDTO.getUsername();</span>
+<span class="fc" id="L104">      String password = userDTO.getPassword();</span>
+<span class="fc" id="L105">      response.set(createUser(user, password));</span>
+<span class="fc" id="L106">      responseList.add(response.get());</span>
+<span class="fc" id="L107">    });</span>
+
+<span class="fc" id="L109">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L110">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+
+<span class="fc" id="L112">    return new ResponseEntity&lt;List&lt;ResponseDTO&gt;&gt;(responseList, responseHeaders, HttpStatus.OK);</span>
+  }
+
+  @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+  @PutMapping(&quot;/updateUser&quot;)
+  public ResponseEntity&lt;ResponseDTO&gt; updateUserAccount(@RequestBody UserDTO userDTO) {
+<span class="fc" id="L118">    LOGGER.info(msgProcPeticion);</span>
+
+<span class="fc" id="L120">    ResponseDTO response = userService.updateUser(userDTO.getUsername(), userDTO.getPassword());</span>
+
+<span class="fc" id="L122">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L123">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+<span class="fc" id="L124">    return new ResponseEntity&lt;&gt;(response, responseHeaders, HttpStatus.OK);</span>
+  }
+
+  @PreAuthorize(&quot;hasRole('ADMIN')&quot;)
+  @DeleteMapping(&quot;/deleteUser&quot;)
+  public ResponseEntity&lt;ResponseDTO&gt; deleteUserAccount(@RequestParam String username) {
+<span class="fc" id="L130">    LOGGER.info(msgProcPeticion);</span>
+
+<span class="fc" id="L132">    ResponseDTO response = userService.deleteUser(username);</span>
+
+<span class="fc" id="L134">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L135">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+<span class="fc" id="L136">    return new ResponseEntity&lt;&gt;(response, responseHeaders, HttpStatus.OK);</span>
+  }
+
+  public static Map&lt;String, String&gt; splitQuery(URI uri) {
+<span class="fc" id="L140">    Map&lt;String, String&gt; queryPairs = new LinkedHashMap&lt;String, String&gt;();</span>
+<span class="fc" id="L141">    String query = uri.getQuery();</span>
+<span class="fc" id="L142">    String[] pairs = query.split(&quot;&amp;&quot;);</span>
+<span class="fc bfc" id="L143" title="All 2 branches covered.">    for (String pair : pairs) {</span>
+<span class="fc" id="L144">      int idx = pair.indexOf(&quot;=&quot;);</span>
+<span class="fc" id="L145">      queryPairs.put(URLDecoder.decode(pair.substring(0, idx), StandardCharsets.UTF_8),</span>
+<span class="fc" id="L146">          URLDecoder.decode(pair.substring(idx + 1), StandardCharsets.UTF_8));</span>
+    }
+<span class="fc" id="L148">    return queryPairs;</span>
+  }
+
+  private ResponseDTO createUser(String username, String password) {
+<span class="fc" id="L152">    return userService.createUser(username, password);</span>
+  }
+
+  @GetMapping(&quot;/userDate&quot;)
+  public ResponseEntity&lt;List&lt;UserDateDTO&gt;&gt; userDate(@RequestParam String userId) {
+<span class="fc" id="L157">    LOGGER.info(msgProcPeticion);</span>
+
+<span class="fc" id="L159">    List&lt;UserDateDTO&gt; response = userService.getUserDateIterator(userId);</span>
+
+<span class="fc" id="L161">    HttpHeaders responseHeaders = new HttpHeaders();</span>
+<span class="fc" id="L162">    responseHeaders.set(&quot;Content-Type&quot;, &quot;application/json; charset=UTF-8&quot;);</span>
+<span class="fc" id="L163">    return new ResponseEntity&lt;&gt;(response, responseHeaders, HttpStatus.OK);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
