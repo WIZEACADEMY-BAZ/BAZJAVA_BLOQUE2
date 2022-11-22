@@ -6,6 +6,7 @@ import baz.practice.wizeline.learningjavamaven.model.BankAccountDTO;
 import baz.practice.wizeline.learningjavamaven.model.Post;
 import baz.practice.wizeline.learningjavamaven.model.ResponseDTO;
 import baz.practice.wizeline.learningjavamaven.service.BankAccountBO;
+import baz.practice.wizeline.learningjavamaven.service.BankAccountBOImpl;
 import baz.practice.wizeline.learningjavamaven.service.UserBO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
@@ -34,9 +35,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @ExtendWith(MockitoExtension.class)
 public class BankingAccountControllerTest {
+
+    public static final Logger LOGGER = Logger.getLogger(BankAccountBOImpl.class.getName());
 
     @Mock
     UserBO userBOTest;
@@ -48,6 +52,7 @@ public class BankingAccountControllerTest {
     BankingAccountController bankingAccountController;
     @Mock
     BankAccountBO bankAccountService;
+
     @Mock
     private KafkaTemplate<Object, Object> template;
 

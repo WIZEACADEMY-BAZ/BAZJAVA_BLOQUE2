@@ -34,7 +34,7 @@ public class UserBOImpl implements UserBO{
             response.setCode("OK000");
             response.setStatus(result);
         }else {
-            response.setCode("OK000");
+            response.setCode("ER001");
             response.setStatus(result);
             response.setErrors(new ErrorDTO.ErrorDTOBuilder("ER001", "Error al crear usuario")
                     .errorCode("ER001")

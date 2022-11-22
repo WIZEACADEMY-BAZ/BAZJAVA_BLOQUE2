@@ -109,7 +109,7 @@ public class BankAccountBOImpl implements BankAccountBO{
     }
 
     // Creación de tipo de dato BankAccount
-    private BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage) {
+    public BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage) {
         BankAccountDTO bankAccountDTO = new BankAccountDTO();
         bankAccountDTO.setAccountNumber(Utils.randomAcountNumber());
         bankAccountDTO.setAccountName("Dummy Account ".concat(Utils.randomInt()));
