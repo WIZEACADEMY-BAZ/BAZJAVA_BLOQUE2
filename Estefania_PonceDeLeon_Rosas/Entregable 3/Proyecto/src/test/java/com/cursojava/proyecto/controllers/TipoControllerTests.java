@@ -26,15 +26,15 @@ public class TipoControllerTests {
 
     @Test
     public void init(){
-        TipoDTO tipoDTO=new TipoDTO("Fuego");
+        TipoDTO tipoDTO=new TipoDTO("Volador");
         tipoController.init(tipoDTO);
         verify(tipoRepository,times(1)).save(tipoDTO);
     }
     @Test
     public void getAll(){
         List<TipoDTO> tipoDTOList = new ArrayList<>();
-        tipoDTOList.add(new TipoDTO("Fuego"));
-        tipoDTOList.add(new TipoDTO("Agua"));
+        tipoDTOList.add(new TipoDTO("Normal"));
+        tipoDTOList.add(new TipoDTO("Veneno"));
 
         when(tipoRepository.findAll()).thenReturn(tipoDTOList);
 
@@ -46,7 +46,7 @@ public class TipoControllerTests {
                         response.stream()
                                 .map(TipoDTO::getNombre)
                                 .collect(Collectors.toList())
-                                .containsAll(List.of("Fuego", "Agua")))
+                                .containsAll(List.of("Veneno", "Normal")))
         );
 
     }

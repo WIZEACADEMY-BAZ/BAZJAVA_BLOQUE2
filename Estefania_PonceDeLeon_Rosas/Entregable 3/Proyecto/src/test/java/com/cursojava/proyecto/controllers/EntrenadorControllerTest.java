@@ -49,6 +49,33 @@ public class EntrenadorControllerTest {
     }
 
     @Test
+    public void registrarDatosNullTrainer() {
+
+        Mockito.when(entrenadorRepository.save(null)).thenReturn(null);
+
+        ResponseEntity<?> result=this.entrenadorController.registrarDatos(null);
+
+        Assertions.assertEquals(HttpStatus.FAILED_DEPENDENCY, result.getStatusCode());
+
+    }
+
+    @Test
+    public void registrarDatosToManyRequest() {
+        EntrenadorDTO entrenadorDTO=new EntrenadorDTO(nombreEntrenador, passwordEntrenador, claveEntrenador);
+
+        Mockito.when(entrenadorRepository.save(entrenadorDTO)).thenReturn(entrenadorDTO);
+
+        ResponseEntity<?> result=new ResponseEntity<>("Success",HttpStatus.OK);
+
+        for (int i=0; i<6; i++){
+            result=this.entrenadorController.registrarDatos(entrenadorDTO);
+        }
+
+        ResponseEntity<?> finalResult = result;
+        Assertions.assertEquals(HttpStatus.TOO_MANY_REQUESTS, finalResult.getStatusCode());
+
+    }
+    @Test
     public void consultarInformacion() {
         EntrenadorDTO entrenadorDTO=new EntrenadorDTO(nombreEntrenador,passwordEntrenador);
         Mockito.when(entrenadorRepository.findFirstByNombreAndPassword(nombreEntrenador,passwordEntrenador)).thenReturn(entrenadorDTO);
@@ -83,6 +110,44 @@ public class EntrenadorControllerTest {
                 () -> Assertions.assertEquals("Success",result.getBody()),
                 () -> Assertions.assertEquals(HttpStatus.OK, result.getStatusCode())
         );
+
+    }
+
+    @Test
+    public void crearEquipoNullTrainer() {
+
+        PokemonDTO[] equipo=new PokemonDTO[3];
+
+        equipo[0]=new PokemonDTO("Pikachu", "Electrico");
+        equipo[1]=new PokemonDTO("Charmelon", "Fuego");
+        equipo[2]=new PokemonDTO("Blastoise", "Agua");
+
+        Mockito.when(entrenadorController.consultarInformacion(nombreEntrenador,passwordEntrenador)).thenReturn(null);
+        ResponseEntity<?> result=entrenadorController.crearEquipo(equipo,nombreEntrenador,passwordEntrenador);
+        Assertions.assertEquals(HttpStatus.FORBIDDEN, result.getStatusCode());
+
+    }
+
+    @Test
+    public void crearEquipoFailed() {
+
+        PokemonDTO[] equipo=new PokemonDTO[3];
+
+        equipo[0]=new PokemonDTO("Pikachu", "Electrico");
+        equipo[1]=new PokemonDTO("Charmelon", "Fuego");
+        equipo[2]=new PokemonDTO("Blastoise", "Agua");
+
+        EntrenadorDTO entrenadorDTO=new EntrenadorDTO(nombreEntrenador,passwordEntrenador);
+
+        Mockito.when(entrenadorController.consultarInformacion(nombreEntrenador,passwordEntrenador)).thenReturn(entrenadorDTO);
+
+        entrenadorDTO.setEquipo(equipo);
+
+        Mockito.when(entrenadorRepository.save(entrenadorDTO)).thenReturn(null);
+
+        ResponseEntity<?> result=entrenadorController.crearEquipo(equipo,nombreEntrenador,passwordEntrenador);
+
+        Assertions.assertEquals(HttpStatus.FAILED_DEPENDENCY, result.getStatusCode());
 
     }
 

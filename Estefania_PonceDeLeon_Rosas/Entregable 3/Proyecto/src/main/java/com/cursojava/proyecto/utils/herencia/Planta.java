@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Planta extends Movimiento{
+public class Planta extends Movimiento {
 
     public Planta(){
         super();

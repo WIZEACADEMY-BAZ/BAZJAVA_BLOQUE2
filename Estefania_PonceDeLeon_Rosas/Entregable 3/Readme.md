@@ -20,3 +20,9 @@ Los puntos que se abarcaron completamente son los siguientes:
 ## Implementación del patrón de diseño "Throttling"
 ![Patterns_01](/Estefania_PonceDeLeon_Rosas/Entregable%203/Evidencias/Patterns_001.png)
 ![Patterns_02](/Estefania_PonceDeLeon_Rosas/Entregable%203/Evidencias/Patterns_002.png)
+## Prueba unitaria de cada endpoint de la API
+## Prueba unitaria de cada operación CRUD
+## Uso de Mockito en cada prueba
+## Pruebas para Happy Path
+## Implementación de JaCoCo o SonarCloud (mínimo 70% de cobertura)
+![JaCoCo_01](/Estefania_PonceDeLeon_Rosas/Entregable%203/Evidencias/JaCoCo.png)

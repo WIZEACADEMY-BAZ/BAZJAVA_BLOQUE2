@@ -9,16 +9,21 @@ public class Movimiento {
     protected List<String> movimientos;
 
     protected Movimiento(){
-        this.movimientos= new ArrayList<>();
+        this.movimientos = new ArrayList<>();
     }
 
-    public String accion (String nombre){
+    public String action (){
         Random rnd = new Random();
         int r = rnd.nextInt(movimientos.size());
-        return nombre + " atacó con un "+movimientos.get(r);
+        return movimientos.get(r);
     }
-    public List<String> getMovimientos(){
+
+    public List<String> getMovimientos() {
         return movimientos;
+    }
+
+    public void setMovimientos(List<String> movimientos) {
+        this.movimientos = movimientos;
     }
 
     @Override

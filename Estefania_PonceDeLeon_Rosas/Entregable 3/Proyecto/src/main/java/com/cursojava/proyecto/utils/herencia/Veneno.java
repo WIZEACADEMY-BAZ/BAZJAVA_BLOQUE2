@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Veneno extends Movimiento{
+public class Veneno extends Movimiento {
 
     public Veneno(){
         super();

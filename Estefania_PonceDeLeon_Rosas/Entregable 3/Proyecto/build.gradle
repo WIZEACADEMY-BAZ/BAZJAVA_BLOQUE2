@@ -51,6 +51,10 @@ dependencies {
 
 }
 
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
 test {
 	finalizedBy jacocoTestReport // report is always generated after tests run
 }
@@ -65,12 +69,10 @@ jacoco {
 
 jacocoTestReport {
 	reports {
-		xml.required = false
-		csv.required = false
+		xml.required = true
+		csv.required = true
 		html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
 	}
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
-}
+

@@ -11,10 +11,6 @@ public class Observable {
     private List<Observer> observers = new ArrayList<>();
     private EntrenadorDTO entrenadorDTO;
 
-    public EntrenadorDTO getEntrenadorDTO() {
-        return entrenadorDTO;
-    }
-
     public void setEntrenadorDTO(EntrenadorDTO entrenadorDTO) {
         this.entrenadorDTO = entrenadorDTO;
         notifyAllObserversUpdate();

@@ -4,7 +4,6 @@ import com.cursojava.proyecto.client.EntrenadorJSONClient;
 import com.cursojava.proyecto.model.EntrenadorDTO;
 import com.cursojava.proyecto.model.PokemonDTO;
 import com.cursojava.proyecto.model.Post;
-import com.cursojava.proyecto.model.ResponseDTO;
 import com.cursojava.proyecto.repository.EntrenadorRepository;
 import com.cursojava.proyecto.utils.Utils;
 import io.github.bucket4j.Bandwidth;
@@ -79,9 +78,9 @@ public class EntrenadorController {
     }
 
     @DeleteMapping(value = "retirarse")
-    public ResponseDTO retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad) {
+    public ResponseEntity<?> retirarse(@RequestParam String nombre, @RequestParam String claveDeSeguridad) {
         this.entrenadorRepository.deleteEntrenadorDTOByNombreAndClaveDeSeguridad(nombre, claveDeSeguridad);
-        return new ResponseDTO();
+        return new ResponseEntity<>("Success",HttpStatus.OK);
     }
 
     //The usage of FeignClient for demo purposes

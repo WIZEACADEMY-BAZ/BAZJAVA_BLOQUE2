@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Volador extends Movimiento{
+public class Volador extends Movimiento {
 
     public Volador(){
         super();

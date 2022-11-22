@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Electrico extends Movimiento{
+public class Electrico extends Movimiento {
     public Electrico(){
         super();
         movimientos.add("Amplificador");

@@ -1,33 +1,26 @@
 package com.cursojava.proyecto.model;
+
 import com.cursojava.proyecto.utils.herencia.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Document("pokemonDTO")
 public class PokemonDTO {
 
     private String nombre;
 
-    private String sonido;
-
     private TipoDTO tipo1;
+
+    private String ultimoMovimiento;
 
     private List<Movimiento> movimientos;
 
     private TipoDTO tipo2;
 
-    private LocalDateTime lastTraning;
-
-    private String date;
-
     private String status;
 
-    private Optional<PokemonDTO> evolucion;
 
     public PokemonDTO(){}
 
@@ -35,18 +28,13 @@ public class PokemonDTO {
         this.nombre=nombre;
         this.movimientos=new ArrayList<>();
         this.setTipo1(new TipoDTO(tipo1));
-        this.tipo2=new TipoDTO();
-        agregarMovimientos(tipo1);
-
     }
 
     public PokemonDTO(String nombre, String tipo1, String tipo2){
         this.nombre=nombre;
         this.movimientos=new ArrayList<>();
         this.setTipo1(new TipoDTO(tipo1));
-        if(tipo2!=null){
-            this.setTipo2(new TipoDTO(tipo2));
-        }
+        this.setTipo2(new TipoDTO(tipo2));
     }
 
     public String getNombre() {
@@ -57,21 +45,19 @@ public class PokemonDTO {
         this.nombre = nombre;
     }
 
-    public String getSonido() {
-        return sonido;
-    }
-
-    public void setSonido(String sonido) {
-        this.sonido = sonido;
-    }
 
     public TipoDTO getTipo1() { return tipo1; }
 
-    public void setTipo1(TipoDTO tipo1) { this.tipo1 = tipo1;}
+    public void setTipo1(TipoDTO tipo1) {
+        this.tipo1 = tipo1;
+        agregarMovimientos(tipo1.getNombre());
+    }
 
     public TipoDTO getTipo2() { return this.tipo2; }
 
-    public void setTipo2(TipoDTO tipo2) { this.tipo2 = tipo2;
+    public void setTipo2(TipoDTO tipo2) {
+        this.tipo2 = tipo2;
+        agregarMovimientos(tipo2.getNombre());
     }
 
     public List<Movimiento> getMovimientos() {
@@ -82,20 +68,12 @@ public class PokemonDTO {
         this.movimientos = movimientos;
     }
 
-    public LocalDateTime getLastTraning() {
-        return lastTraning;
+    public String getUltimoMovimiento() {
+        return ultimoMovimiento;
     }
 
-    public void setLastTraning(LocalDateTime lastTraning) {
-        this.lastTraning = lastTraning;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
+    public void setUltimoMovimiento(String ultimoMovimiento) {
+        this.ultimoMovimiento = ultimoMovimiento;
     }
 
     public String getStatus() {
@@ -135,30 +113,10 @@ public class PokemonDTO {
         }
     }
 
-    public Optional<PokemonDTO> getEvolucion() {
-        return evolucion;
-    }
-
-    public void setEvolucion(Optional<PokemonDTO> evolucion) {
-        this.evolucion = evolucion;
-    }
-
-    @Override
-    public String toString() {
-        return "PokemonDTO{" +
-                "nombre='" + nombre + '\'' +
-                ", sonido='" + sonido + '\'' +
-                ", tipo1=" + tipo1.getNombre() +
-                ", tipo2=" + tipo2.getNombre() +
-                ", lastTraning=" + lastTraning +
-                ", status='" + status + '\'' +
-                '}';
-    }
 
     public String toStringSimple() {
         return "PokemonDTO{" +
                 "nombre='" + nombre + '\'' +
-                ", sonido='" + sonido + '\'' +
                 ", tipo1=" + tipo1.getNombre() +
                 '}';
     }

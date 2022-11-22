@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Normal extends Movimiento{
+public class Normal extends Movimiento {
 
     public Normal(){
         super();
@@ -186,6 +186,5 @@ public class Normal extends Movimiento{
         movimientos.add("Viento cortante");
         movimientos.add("Vozarrón");
         movimientos.add("Yo primero");
-
     }
 }

@@ -2,7 +2,7 @@ package com.cursojava.proyecto.controllers;
 
 import com.cursojava.proyecto.model.Pokeapi.PokeApiPokemon;
 import com.cursojava.proyecto.model.PokemonDTO;
-import com.cursojava.proyecto.model.ResponseDTO;
+import com.cursojava.proyecto.model.TipoDTO;
 import com.cursojava.proyecto.repository.PokemonRepository;
 import com.cursojava.proyecto.services.PokemonService;
 import org.junit.jupiter.api.Assertions;
@@ -41,13 +41,13 @@ public class PokemonControllerTest {
     @BeforeAll
     private void init(){
         pokemonDTOS = new ArrayList<>();
-        pokemonDTOS.add(new PokemonDTO("Picachu","Electrico"));
+        pokemonDTOS.add(new PokemonDTO("Pikachu","Electrico"));
         pokemonDTOS.add(new PokemonDTO("Charmander","Fuego"));
         pokemonDTOS.add(new PokemonDTO("Blastoise","Agua"));
     }
     @Test
     public void createOne() {
-        PokemonDTO pokemonDTO=new PokemonDTO("Picachu","Electrico");
+        PokemonDTO pokemonDTO=new PokemonDTO("Pikachu","Electrico");
         pokemonController.createOne(pokemonDTO);
         verify(pokemonRepository,times(1)).save(pokemonDTO);
     }
@@ -60,7 +60,7 @@ public class PokemonControllerTest {
     }
 
     @Test
-    public void entrenarTresPokemon() {
+    public void entrenarTresPokemon() throws InterruptedException {
         PokemonDTO[] pokemons =new PokemonDTO[3];
         pokemons[0]=pokemonDTOS.get(0);
         pokemons[1]=pokemonDTOS.get(1);
@@ -76,13 +76,55 @@ public class PokemonControllerTest {
     }
 
     @Test
-    public void batalla() {
+    public void batallaTrueTipo1() {
         PokemonDTO[] pokemons=new PokemonDTO[2];
         pokemons[0]=pokemonDTOS.get(0);
         pokemons[1]=pokemonDTOS.get(1);
-        PokemonDTO result=pokemonController.batalla(pokemons);
-        Assertions.assertNotNull(result);
+        PokemonDTO result=pokemonController.batalla(pokemons,true);
+        Assertions.assertEquals(pokemonDTOS.get(0).getNombre(), result.getNombre());
     }
+
+    @Test
+    public void batallaTrueTipo2() {
+        PokemonDTO[] pokemons=new PokemonDTO[2];
+        pokemons[0]=pokemonDTOS.get(0);
+        pokemons[1]=pokemonDTOS.get(1);
+
+        pokemons[0].setTipo2(new TipoDTO("Fuego"));
+        pokemons[1].setTipo2(new TipoDTO("Normal"));
+
+        PokemonDTO result=pokemonController.batalla(pokemons,true);
+
+        Assertions.assertEquals(pokemonDTOS.get(0).getNombre(), result.getNombre());
+    }
+
+    @Test
+    public void batallaFalseTipo1() {
+        PokemonDTO[] pokemons=new PokemonDTO[2];
+        pokemons[0]=pokemonDTOS.get(0);
+        pokemons[1]=pokemonDTOS.get(1);
+        PokemonDTO result=pokemonController.batalla(pokemons,false);
+        System.out.println(result.getNombre());
+        System.out.println(result.getUltimoMovimiento());
+        Assertions.assertEquals(pokemonDTOS.get(1).getNombre(), result.getNombre());
+    }
+
+    @Test
+    public void batallaFalseTipo2() {
+        PokemonDTO[] pokemons=new PokemonDTO[2];
+        pokemons[0]=pokemonDTOS.get(0);
+        pokemons[1]=pokemonDTOS.get(1);
+
+        pokemons[0].setTipo2(new TipoDTO("Fuego"));
+        pokemons[1].setTipo2(new TipoDTO("Normal"));
+
+        PokemonDTO result=pokemonController.batalla(pokemons,false);
+        System.out.println(result.getNombre());
+        System.out.println(result.getUltimoMovimiento());
+        Assertions.assertEquals(pokemonDTOS.get(1).getNombre(), result.getNombre());
+    }
+
+
 
     @Test
     public void borrarTodos(){
@@ -108,8 +150,8 @@ public class PokemonControllerTest {
     public void getTotalByType(){
 
         Mockito.when(pokemonRepository.findAll()).thenReturn(pokemonDTOS);
-        ResponseDTO responseDTO=pokemonController.getTotalByType("Fuego");
-        Assertions.assertEquals(HttpStatus.OK,responseDTO.getHttpStatus());
+        ResponseEntity<?> response=pokemonController.getTotalByType("Fuego");
+        Assertions.assertEquals(HttpStatus.OK,response.getStatusCode());
 
     }
 

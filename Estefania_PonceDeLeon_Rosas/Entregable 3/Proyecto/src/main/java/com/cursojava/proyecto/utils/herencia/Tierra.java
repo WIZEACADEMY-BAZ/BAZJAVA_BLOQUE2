@@ -1,6 +1,6 @@
 package com.cursojava.proyecto.utils.herencia;
 
-public class Tierra extends Movimiento{
+public class Tierra extends Movimiento {
 
     public Tierra(){
         super();
