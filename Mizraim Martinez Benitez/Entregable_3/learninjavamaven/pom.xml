@@ -215,7 +215,9 @@
 					<excludes>
 						<exclude>com/wizeline/springboot/SpringbootApplication.class</exclude>
 						<exclude>com/wizeline/maven/learninjavamaven/model/*</exclude>
-						<exclude>com/wizeline/maven/learninjavamaven/patronesdedisenio/*</exclude>
+						<exclude>com/wizeline/maven/learninjavamaven/patronesdedisenio/iterator/*</exclude>
+						<exclude>com/wizeline/maven/learninjavamaven/patronesdedisenio/singleton/*</exclude>
+						<exclude>com/wizeline/maven/learninjavamaven/patronesdedisenio/visor/*</exclude>
 					</excludes>
 				</configuration>
 				<executions>
