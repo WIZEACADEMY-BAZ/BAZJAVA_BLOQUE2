@@ -1,0 +1,3 @@
+spring.mongodb.embedded.version: 4.4.6
+
+logging.level.org.springframework.boot.autoconfigure.mongo.embedded: OFF

@@ -1,7 +1,5 @@
 package com.wizeline.baz.controller;
 
-import java.time.Duration;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.service.DummyService;
 
-import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
-import io.github.bucket4j.Refill;
 
 @RestController
 @RequestMapping("/dummy")
@@ -23,16 +19,8 @@ public class DummyController {
 	
 	@Autowired
 	private DummyService dummyService;
-	
-	private final Bucket bucket;
-	
-	public DummyController() {
-		Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
-        Bandwidth limit = Bandwidth.classic(5, refill);
-        this.bucket = Bucket.builder()
-                .addLimit(limit)
-                .build();
-	}
+	@Autowired
+	private Bucket bucket;
 	
 	@GetMapping("/postalcode/{code}")
 	public ResponseEntity<BaseResponseDTO> getPostalCodeInfo(@PathVariable String code) {

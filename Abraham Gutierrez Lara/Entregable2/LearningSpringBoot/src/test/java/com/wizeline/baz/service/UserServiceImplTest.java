@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -39,6 +40,7 @@ import com.wizeline.baz.model.request.UpdatePasswordRequest;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.model.response.CreateUserResponse;
 import com.wizeline.baz.model.response.GetUsersResponse;
+import com.wizeline.baz.model.response.LoginResponse;
 import com.wizeline.baz.repository.UserRepository;
 import com.wizeline.baz.utils.JwtTokenService;
 import com.wizeline.baz.utils.StatusCodes;
@@ -153,9 +155,9 @@ class UserServiceImplTest {
 	
 	@Test
 	void loginFailedPassword() {
-		UserDTO user = getUser("Abraham", "abraham@gmail.com", "password123", Arrays.asList(UserRole.USER));
-		when(userRepo.findUserByEmail(anyString())).thenReturn(Optional.of(user));
-		when(cipher.decrypt(user.getPassword())).thenReturn(user.getPassword());
+		UserDTO savedUser = getUser("Abraham", "abraham@gmail.com", "password123", Arrays.asList(UserRole.USER));
+		when(userRepo.findUserByEmail(anyString())).thenReturn(Optional.of(savedUser));
+		when(cipher.decrypt(savedUser.getPassword())).thenReturn(savedUser.getPassword());
 		
 		LoginRequest request = new LoginRequest();
 		request.setEmail("email@gmail.com");
@@ -165,6 +167,27 @@ class UserServiceImplTest {
 		FailedLoginException exception = assertThrows(FailedLoginException.class,() -> service.login(request));
 		assertNotNull(exception);
 		assertNotNull(exception.operationData());
+	}
+	
+	@Test
+	void successfulLogin() {
+		String password = "password123";
+		UserDTO user = getUser("Abraham", "abraham@gmail.com", password, Arrays.asList(UserRole.USER));
+		when(userRepo.findUserByEmail(anyString())).thenReturn(Optional.of(user));
+		when(cipher.decrypt(user.getPassword())).thenReturn(user.getPassword());
+		when(jwtTokenService.generateToken(anyString(), any())).thenReturn(UUID.randomUUID().toString());
+		
+		LoginRequest request = new LoginRequest();
+		request.setEmail("email@gmail.com");
+		request.setPassword(password);
+		when(cipher.decrypt(request.getPassword())).thenReturn(request.getPassword());
+		
+		ResponseEntity<BaseResponseDTO> responseEntity = service.login(request);
+		assertNotNull(responseEntity);
+		assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+		assertInstanceOf(LoginResponse.class, responseEntity.getBody());
+		LoginResponse response = (LoginResponse) responseEntity.getBody();
+		assertNotNull(response.getJwtToken());
 	}
 	
 	private void assertCreateUserResponseEntity(ResponseEntity<BaseResponseDTO> responseEntity, String expectedName, 

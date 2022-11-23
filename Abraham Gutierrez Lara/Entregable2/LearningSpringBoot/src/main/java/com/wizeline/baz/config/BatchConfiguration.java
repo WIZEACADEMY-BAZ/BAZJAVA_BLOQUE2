@@ -11,6 +11,7 @@ import org.springframework.batch.core.configuration.annotation.EnableBatchProces
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -19,6 +20,7 @@ import com.wizeline.baz.batch.FailedLoginJob;
 @Configuration
 @EnableBatchProcessing
 @EnableScheduling
+@Profile({"!test"})
 public class BatchConfiguration {
 
 	
