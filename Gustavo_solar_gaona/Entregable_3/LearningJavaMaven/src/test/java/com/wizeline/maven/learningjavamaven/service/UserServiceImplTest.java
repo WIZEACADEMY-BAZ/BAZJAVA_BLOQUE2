@@ -10,9 +10,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -45,6 +47,9 @@ class UserServiceImplTest {
 
     @InjectMocks
     private UserServiceImpl userService;
+
+    @Mock
+    private RestTemplate restTemplate;
 
     @BeforeEach
     void init(){
@@ -123,6 +128,7 @@ class UserServiceImplTest {
 
     @Test
     void getUserTodosTest(){
+        System.out.println("@Test => getUserTodosTest()");
         List<TodoDTO> todoDTOList = new ArrayList<TodoDTO>();
         todoDTOList.add(todoDTO);
         when(todosHelper.covertDTOs(todoDTOList, true)).thenReturn(todoDTOList);

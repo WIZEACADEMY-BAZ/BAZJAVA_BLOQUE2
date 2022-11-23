@@ -3,8 +3,6 @@ package com.wizeline.maven.learningjavamaven.service;
 import com.wizeline.maven.learningjavamaven.model.*;
 import com.wizeline.maven.learningjavamaven.repository.PostRepository;
 import com.wizeline.maven.learningjavamaven.repository.UserRepository;
-import com.wizeline.maven.learningjavamaven.repository.UserRepositoryImpl;
-import com.wizeline.maven.learningjavamaven.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -14,11 +12,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static com.wizeline.maven.learningjavamaven.constants.MessageConstants.*;
 import static com.wizeline.maven.learningjavamaven.constants.Constants.*;
 
 @Service

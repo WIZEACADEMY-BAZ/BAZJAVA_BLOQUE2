@@ -19,9 +19,6 @@ public class BankAccountDTO {
   private LocalDateTime creationDate;
   private LocalDateTime lastUsage;
 
-  public LocalDateTime getCreationDate() {
-    return creationDate;
-  }
 
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
@@ -31,20 +28,8 @@ public class BankAccountDTO {
     return LocalDateTime.now();
   }
 
-  public void setLastUsage(LocalDateTime lastUsage) {
-    this.lastUsage = lastUsage;
-  }
-
-  public long getAccountNumber() {
-    return accountNumber;
-  }
-
   public void setAccountNumber(long accountNumber) {
     this.accountNumber = accountNumber;
-  }
-
-  public String getAccountName() {
-    return accountName;
   }
 
   public void setAccountName(String accountName) {
@@ -59,32 +44,16 @@ public class BankAccountDTO {
     this.userName = userName;
   }
 
-  public double getAccountBalance() {
-    return accountBalance;
-  }
-
   public void setAccountBalance(double accountBalance) {
     this.accountBalance = accountBalance;
-  }
-
-  public AccountType getAccountType() {
-    return accountType;
   }
 
   public void setAccountType(AccountType accountType) {
     this.accountType = accountType;
   }
 
-  public String getCountry() {
-    return country;
-  }
-
   public void setCountry(String country) {
     this.country = country;
-  }
-
-  public boolean isAccountActive() {
-    return accountActive;
   }
 
   public void setAccountActive(boolean accountActive) {
