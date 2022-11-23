@@ -1,29 +1,35 @@
 package com.wizeline.baz.utils;
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+
+import com.wizeline.baz.model.KafkaMessage;
 import com.wizeline.baz.model.OperationData;
 
-public class RegisterOperationThread<T extends BuildOperationData> extends Thread {
+public class RegisterOperationThread extends Thread {
 	
 	private static final Logger LOGGER = Logger.getLogger(RegisterOperationThread.class.getName());
 	
-	private ObjectMapper jsonMapper = new ObjectMapper();
-	private OperationData operationData;
+	@Autowired
+	private KafkaTemplate<String, KafkaMessage> kafkaTemplate;
 	
-	public RegisterOperationThread(T buildOperationData) {
-		this.operationData = buildOperationData.operationData();
+	private final OperationData operationData;
+	private final String topic;
+	
+	public RegisterOperationThread(OperationData operationData, String topic) {
+		this.operationData = operationData;
+		this.topic = topic;
 	}
 	
 	@Override
 	public void run() {
-		LOGGER.info("Sendig operation data...");
-		try {
-			LOGGER.info(jsonMapper.writeValueAsString(operationData));
-		} catch (JsonProcessingException e) {
-			LOGGER.info("Failed sending operation data");
-		}
+		final String kafkaMessageId = UUID.randomUUID().toString();
+		KafkaMessage message = new KafkaMessage(kafkaMessageId, operationData.getFlowName(), operationData.getData());
+		kafkaTemplate.send(topic, kafkaMessageId, message);
+		LOGGER.info(String.format("Kafka message send; topic: '%s', flow: '%s', messageId: '%s' ",
+											topic, operationData.getFlowName(), kafkaMessageId ));
 	}
 }

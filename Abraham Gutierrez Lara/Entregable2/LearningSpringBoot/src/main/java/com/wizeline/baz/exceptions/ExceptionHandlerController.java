@@ -2,8 +2,6 @@ package com.wizeline.baz.exceptions;
 
 import java.util.stream.Collectors;
 
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,7 +19,10 @@ public class ExceptionHandlerController {
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<BaseResponseDTO> userNotFoundException(UserNotFoundException ex) {
 		ErrorDTO error = new ErrorDTO(StatusCodes.USER_DOESNT_EXIST, "User -> " +  ex.getUser());
-		return new ResponseEntity<>(new BaseResponseDTO(ResponseStatus.FAILED, StatusCodes.FAILED, error),
+		return new ResponseEntity<>(BaseResponseDTO.builder()
+										.status(ResponseStatus.FAILED)
+										.code(StatusCodes.FAILED)
+										.errors(error).build(),
 									HttpStatus.NOT_FOUND);
 	}
 	
@@ -30,7 +31,15 @@ public class ExceptionHandlerController {
 		String errors = ex.getAllErrors().stream().map(error -> error.getDefaultMessage()).
 							collect(Collectors.joining(System.lineSeparator()));
 		ErrorDTO error = new ErrorDTO(StatusCodes.INVALID_REQUES_INPUT, "Errors -> " + errors);
-		return new ResponseEntity<>(new BaseResponseDTO(ResponseStatus.FAILED, StatusCodes.FAILED, error),
-				HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(BaseResponseDTO.builder()
+										.status(ResponseStatus.FAILED)
+										.code(StatusCodes.FAILED)
+										.errors(error).build(),
+									HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FailedLoginException.class)
+	public ResponseEntity<BaseResponseDTO> failedLoginException(FailedLoginException ex) {
+		return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 	}
 }

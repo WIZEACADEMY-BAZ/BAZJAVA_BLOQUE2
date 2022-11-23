@@ -1,10 +1,16 @@
 package com.wizeline.baz.model.request;
 
-import com.wizeline.baz.enums.AccountType;
+import com.wizeline.baz.enums.BankAccountType;
 
 public class CreateAccountRequest {
 	private String userId;
-	private AccountType accountType;
+	private BankAccountType accountType;
+	
+	public CreateAccountRequest() {}
+	public CreateAccountRequest(String userId, BankAccountType accountType) {
+		this.userId = userId;
+		this.accountType = accountType;
+	}
 	
 	public String getUserId() {
 		return userId;
@@ -12,10 +18,10 @@ public class CreateAccountRequest {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public AccountType getAccountType() {
+	public BankAccountType getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(AccountType accountType) {
+	public void setAccountType(BankAccountType accountType) {
 		this.accountType = accountType;
 	}
 }

@@ -1,6 +1,5 @@
 package com.wizeline.baz.service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.wizeline.baz.enums.AccountType;
-import com.wizeline.baz.enums.Country;
 import com.wizeline.baz.enums.ResponseStatus;
 import com.wizeline.baz.exceptions.UserNotFoundException;
 import com.wizeline.baz.model.BankAccountDTO;
@@ -21,6 +18,8 @@ import com.wizeline.baz.model.response.BankAccountDetailsResponse;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.model.response.CreateBankAccountResponseDTO;
 import com.wizeline.baz.model.response.GetAccountsResponse;
+import com.wizeline.baz.repository.BankAccountFactory;
+import com.wizeline.baz.repository.BankAccountFactoryImp;
 import com.wizeline.baz.repository.BankAccountRepository;
 import com.wizeline.baz.repository.UserRepository;
 import com.wizeline.baz.utils.StatusCodes;
@@ -34,13 +33,15 @@ public class BankAccountServiceImpl implements BankAccountService {
 	@Autowired
 	private UserRepository userRepository;
 	
+	private BankAccountFactory bankAccountFactory = BankAccountFactoryImp.getInstance();
+	
 	
 	@Override
 	public ResponseEntity<BaseResponseDTO> createAccount(CreateAccountRequest request) {		
 		boolean existsUser = userRepository.existsById(request.getUserId());
 		if(!existsUser)
 			throw new UserNotFoundException(request.getUserId());
-		BankAccountDTO bankAccount = generateBankAccount(request.getUserId(), request.getAccountType());
+		BankAccountDTO bankAccount = bankAccountFactory.createBankAccount(request.getUserId(), request.getAccountType());
 		bankAccountRepository.insert(bankAccount);
 		CreateBankAccountResponseDTO response = new CreateBankAccountResponseDTO();
 		BeanUtils.copyProperties(bankAccount, response);
@@ -54,7 +55,10 @@ public class BankAccountServiceImpl implements BankAccountService {
 		Optional<BankAccountDTO> bankAccountOpt = bankAccountRepository.findById(account);
 		if(!bankAccountOpt.isPresent()) {
 			ErrorDTO error = new ErrorDTO(StatusCodes.BANK_ACCOUNT_DOESNT_EXIST, "BankAccount -> " +  account);
-			return new ResponseEntity<>(new BaseResponseDTO(ResponseStatus.FAILED, StatusCodes.FAILED, error),
+			return new ResponseEntity<>(BaseResponseDTO.builder()
+											.status(ResponseStatus.FAILED)
+											.code(StatusCodes.FAILED)
+											.errors(error).build(),
 										HttpStatus.NOT_FOUND);
 		}
 		BankAccountDetailsResponse response = new BankAccountDetailsResponse();
@@ -67,7 +71,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 	@Override
 	public ResponseEntity<BaseResponseDTO> deleteAccount(long account) {
 		bankAccountRepository.deleteById(account);
-		BaseResponseDTO response = new BaseResponseDTO();
+		BaseResponseDTO response = BaseResponseDTO.builder().build();
 		response.makeSuccess();
 		return ResponseEntity.ok(response);
 	}
@@ -81,15 +85,5 @@ public class BankAccountServiceImpl implements BankAccountService {
 		return ResponseEntity.ok(response);
 	}
 	
-	private BankAccountDTO generateBankAccount(String userId, AccountType accountType) {
-		BankAccountDTO bankAccount = new BankAccountDTO();
-		bankAccount.setAccountNumber(System.currentTimeMillis());
-		bankAccount.setUserId(userId);
-		bankAccount.setAccountAlias(accountType.toString());
-		bankAccount.setAccountType(accountType);
-		bankAccount.setCountry(Country.MX);
-		bankAccount.setActive(true);
-		bankAccount.setCreationDate(LocalDateTime.now());
-		return bankAccount;
-	}
+	
 }

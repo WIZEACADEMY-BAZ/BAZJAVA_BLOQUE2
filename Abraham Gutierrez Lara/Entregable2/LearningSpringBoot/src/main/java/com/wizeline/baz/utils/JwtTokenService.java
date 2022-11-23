@@ -2,6 +2,7 @@ package com.wizeline.baz.utils;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -29,18 +31,14 @@ public class JwtTokenService {
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 	
-	public boolean validateAccessToken(String token) {
+	public Optional<Jws<Claims>> validateAccessToken(String token) {
+		Jws<Claims> jwtInfo = null;
 		try {
-			Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-			return true;
+			jwtInfo = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
 		} catch (ExpiredJwtException | IllegalArgumentException | MalformedJwtException | UnsupportedJwtException
 				| SignatureException ex) {
 			LOGGER.info("No se pudo validar el jwt token. Excepcion -> " + ex.getClass().getName());
 		}
-		return false;
-	}
-
-	public String getSecret() {
-		return secret;
+		return Optional.ofNullable(jwtInfo);
 	}
 }

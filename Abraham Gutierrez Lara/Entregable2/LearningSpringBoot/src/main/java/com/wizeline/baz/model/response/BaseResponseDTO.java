@@ -10,13 +10,14 @@ public class BaseResponseDTO {
 	private String code;
 	private ErrorDTO errors;
 	
-	public BaseResponseDTO() {
+	protected BaseResponseDTO() {
+		
 	}
 	
-	public BaseResponseDTO(ResponseStatus status, String code, ErrorDTO errors) {
-		this.status = status;
-		this.code = code;
-		this.errors = errors;
+	private BaseResponseDTO(BaseResponseBuilder builder) {
+		this.status = builder.status;
+		this.code = builder.code;
+		this.errors = builder.errors;
 	}
 	
 	public ResponseStatus getStatus() {
@@ -42,4 +43,36 @@ public class BaseResponseDTO {
 		this.code = StatusCodes.SUCESS;
 		this.status = ResponseStatus.OK;
 	}
+	
+	public static BaseResponseBuilder builder() {
+		return new BaseResponseBuilder();
+	}
+	
+	public static final class BaseResponseBuilder {
+		private ResponseStatus status;
+		private String code;
+		private ErrorDTO errors;
+		
+		private BaseResponseBuilder() {
+		}
+		
+		public BaseResponseBuilder status(ResponseStatus status) {
+			this.status = status;
+			return this;
+		}
+		public BaseResponseBuilder code(String code) {
+			this.code = code;
+			return this;
+		}
+		public BaseResponseBuilder errors(ErrorDTO errors) {
+			this.errors = errors;
+			return this;
+		}
+		
+		public BaseResponseDTO build() {
+			return new BaseResponseDTO(this);
+		}
+	}
+	
+	
 }

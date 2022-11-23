@@ -21,6 +21,10 @@ import com.wizeline.baz.model.request.UpdatePasswordRequest;
 import com.wizeline.baz.model.response.BaseResponseDTO;
 import com.wizeline.baz.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+@Tag(name = "UserController", description = "Provide User Operations and Login")
 @RequestMapping("/user")
 @RestController
 @Validated

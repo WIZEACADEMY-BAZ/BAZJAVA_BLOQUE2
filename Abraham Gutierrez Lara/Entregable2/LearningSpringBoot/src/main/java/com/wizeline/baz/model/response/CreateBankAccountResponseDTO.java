@@ -1,12 +1,12 @@
 package com.wizeline.baz.model.response;
 
-import com.wizeline.baz.enums.AccountType;
+import com.wizeline.baz.enums.BankAccountType;
 
 public class CreateBankAccountResponseDTO extends BaseResponseDTO {
 	private long accountNumber;
     private String accountAlias;    
     private double accountBalance;
-    private AccountType accountType;
+    private BankAccountType accountType;
     
 	public long getAccountNumber() {
 		return accountNumber;
@@ -26,10 +26,10 @@ public class CreateBankAccountResponseDTO extends BaseResponseDTO {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public AccountType getAccountType() {
+	public BankAccountType getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(AccountType accountType) {
+	public void setAccountType(BankAccountType accountType) {
 		this.accountType = accountType;
 	}
 }

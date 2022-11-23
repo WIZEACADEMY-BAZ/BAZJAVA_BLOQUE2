@@ -3,6 +3,7 @@ package com.wizeline.baz.filter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.wizeline.baz.utils.JwtTokenService;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Jws;
 
 @Component
 public class JwtTokenFilter extends OncePerRequestFilter {
@@ -37,10 +38,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         if(jwtExists(request)) {
             String token = getAccessToken(request);
-
-            if (jwtTokenService.validateAccessToken(token)) {
-                Claims claims = validateToken(token);
-                setUpSpringAuthentication(claims, request);
+            Optional<Jws<Claims>> jwtInfoOpt = jwtTokenService.validateAccessToken(token);
+            if (jwtInfoOpt.isPresent()) {
+            	Jws<Claims> jwtInfo = jwtInfoOpt.get();
+                setUpSpringAuthentication(jwtInfo.getBody(), request);
             }
         }
         filterChain.doFilter(request, response);
@@ -58,16 +59,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = header.split(" ")[1].trim();
         return token;
     }
-
-    /**
-     * Válida el token ingresado en el request.
-     * @param token token ingresado en el header del request.
-     * @return Regresa si el token es válido o no.
-     */
-    private Claims validateToken(String token) {
-        return Jwts.parser().setSigningKey(jwtTokenService.getSecret()).parseClaimsJws(token).getBody();
-    }
-
+    
     /**
      * Válida si se ha ingresado un token en el header del request.
      * @param request Petición por parte del usuario.

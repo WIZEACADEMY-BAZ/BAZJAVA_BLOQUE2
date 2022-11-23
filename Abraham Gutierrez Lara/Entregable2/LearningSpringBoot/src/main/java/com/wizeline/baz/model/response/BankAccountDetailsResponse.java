@@ -2,13 +2,13 @@ package com.wizeline.baz.model.response;
 
 import java.time.LocalDateTime;
 
-import com.wizeline.baz.enums.AccountType;
+import com.wizeline.baz.enums.BankAccountType;
 
 public class BankAccountDetailsResponse extends BaseResponseDTO {
 	private long accountNumber;
     private String accountAlias;    
     private double accountBalance;
-    private AccountType accountType;
+    private BankAccountType accountType;
     private boolean active;
     private LocalDateTime creationDate;
     private LocalDateTime lastUsage;
@@ -31,10 +31,10 @@ public class BankAccountDetailsResponse extends BaseResponseDTO {
 	public void setAccountBalance(double accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public AccountType getAccountType() {
+	public BankAccountType getAccountType() {
 		return accountType;
 	}
-	public void setAccountType(AccountType accountType) {
+	public void setAccountType(BankAccountType accountType) {
 		this.accountType = accountType;
 	}
 	public boolean isActive() {

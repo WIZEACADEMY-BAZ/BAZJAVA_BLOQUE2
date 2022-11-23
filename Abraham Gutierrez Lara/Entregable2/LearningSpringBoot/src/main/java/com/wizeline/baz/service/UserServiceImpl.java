@@ -1,8 +1,7 @@
 package com.wizeline.baz.service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -14,13 +13,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.wizeline.baz.annotations.ReportFailedOperation;
 import com.wizeline.baz.cipher.DESCipher;
 import com.wizeline.baz.enums.ResponseStatus;
 import com.wizeline.baz.enums.UserRole;
+import com.wizeline.baz.exceptions.FailedLoginException;
 import com.wizeline.baz.exceptions.UserNotFoundException;
 import com.wizeline.baz.model.ErrorDTO;
-import com.wizeline.baz.model.OperationData;
 import com.wizeline.baz.model.UserDTO;
+import com.wizeline.baz.model.batch.FailedLoginInfo;
 import com.wizeline.baz.model.request.CreateUserRequest;
 import com.wizeline.baz.model.request.LoginRequest;
 import com.wizeline.baz.model.request.UpdatePasswordRequest;
@@ -29,9 +30,8 @@ import com.wizeline.baz.model.response.CreateUserResponse;
 import com.wizeline.baz.model.response.GetUsersResponse;
 import com.wizeline.baz.model.response.LoginResponse;
 import com.wizeline.baz.repository.UserRepository;
-import com.wizeline.baz.utils.BuildOperationData;
+import com.wizeline.baz.utils.Constants;
 import com.wizeline.baz.utils.JwtTokenService;
-import com.wizeline.baz.utils.RegisterOperationThread;
 import com.wizeline.baz.utils.StatusCodes;
 
 import io.jsonwebtoken.Claims;
@@ -69,16 +69,15 @@ public class UserServiceImpl implements UserService {
 		}
 		UserDTO user = userOpt.get();
 		String encryptedPassword = desCipher.encrypt(request.getNewPassword());
-		boolean passwordUpdated = userRepository.updateUserPassword(user.getId(), encryptedPassword);
-		if(!passwordUpdated) {
-			throw new UserNotFoundException(user.getId());
-		}
-		BaseResponseDTO response = new BaseResponseDTO();
+		userRepository.updateUserPassword(user.getId(), encryptedPassword);
+		BaseResponseDTO response = BaseResponseDTO.builder().build();
 		response.makeSuccess();
 		return ResponseEntity.ok(response);
 	}
 
+	
 	@Override
+	@ReportFailedOperation(exception = FailedLoginException.class, topic = Constants.FAILED_LOGINS_TOPIC)
 	public ResponseEntity<BaseResponseDTO> login(LoginRequest request) {
 		Optional<UserDTO> userOpt = userRepository.findUserByEmail(request.getEmail());
 		if(!userOpt.isPresent()) {
@@ -91,9 +90,7 @@ public class UserServiceImpl implements UserService {
 		
 		if(savedPassword != null && password != null && !savedPassword.equals(password)) {
 			FailedLoginDetails failedLoginDetails = new FailedLoginDetails(user.getId(), user.getEmail(),request.getPassword());
-			RegisterOperationThread<FailedLoginDetails> registerOperationThread = new RegisterOperationThread<>(failedLoginDetails);
-			registerOperationThread.start();
-			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
+			throw new FailedLoginException(failedLoginDetails.toMap());
 		}
 		
 		Claims claims = Jwts.claims();
@@ -118,8 +115,11 @@ public class UserServiceImpl implements UserService {
 		boolean existsByEmail = userRepository.existsByEmail(request.getEmail());
 		if(existsByEmail) {
 			ErrorDTO error = new ErrorDTO(StatusCodes.EMAIL_EXIST, "Email -> " + request.getEmail());
-			BaseResponseDTO response = new BaseResponseDTO(ResponseStatus.FAILED, StatusCodes.FAILED, error);
-			return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(BaseResponseDTO.builder()
+											.status(ResponseStatus.FAILED)
+											.code(StatusCodes.FAILED)
+											.errors(error).build(),
+										HttpStatus.BAD_REQUEST);
 		}
 		String userId = UUID.randomUUID().toString().replace("-", "");
 		String encryptedPassword = desCipher.encrypt(request.getPassword());
@@ -130,25 +130,20 @@ public class UserServiceImpl implements UserService {
 		return new ResponseEntity<>(response, HttpStatus.CREATED);
 	}
 	
-	private class FailedLoginDetails implements BuildOperationData  {
-		private final String userId;
-		private final String email;
-		private final String failedPassword;
+	private class FailedLoginDetails  {
+		
+		private final FailedLoginInfo info;
 		
 		public FailedLoginDetails(String userId, String email, String failedPassword) {
-			this.userId = userId;
-			this.email = email;
-			this.failedPassword = failedPassword;
+			info = new FailedLoginInfo();
+			info.setEmail(email);
+			info.setFailedPassword(failedPassword);
+			info.setUserId(userId);
+			info.setTime(LocalDateTime.now());
 		}
 
-		@Override
-		public OperationData operationData() {
-			Map<String, Object> operationData = new HashMap<>();
-			operationData.put("userId", this.userId);
-			operationData.put("email", this.email);
-			operationData.put("failedPassword", this.failedPassword);
-			operationData.put("timeStamp", System.currentTimeMillis());
-			return new OperationData("FAILED_LOGIN",  operationData);
+		public Map<String, Object> toMap() {
+			return info.toMap();
 		}
 		
 		
