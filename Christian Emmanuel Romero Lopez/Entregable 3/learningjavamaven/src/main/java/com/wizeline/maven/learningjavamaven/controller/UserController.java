@@ -1,12 +1,17 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wizeline.maven.learningjavamaven.elements.Element;
+import com.wizeline.maven.learningjavamaven.elements.JsonElement;
+import com.wizeline.maven.learningjavamaven.elements.XmlElement;
 import com.wizeline.maven.learningjavamaven.patterns.ClientModel;
 import com.wizeline.maven.learningjavamaven.model.ResponseModel;
 import com.wizeline.maven.learningjavamaven.model.UserModel;
+import com.wizeline.maven.learningjavamaven.patterns.ElementVisitor;
 import com.wizeline.maven.learningjavamaven.patterns.Invoker;
 import com.wizeline.maven.learningjavamaven.patterns.Receiver;
 import com.wizeline.maven.learningjavamaven.repository.CopyCommand;
+import com.wizeline.maven.learningjavamaven.repository.Visitor;
 import com.wizeline.maven.learningjavamaven.service.UserService;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -30,6 +35,7 @@ import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.utils.Utils.cifrarDato;
 import static com.wizeline.maven.learningjavamaven.utils.Utils.isPasswordValid;
+import static com.wizeline.maven.learningjavamaven.utils.Utils.generateUuid;
 
 @RequestMapping("/api")
 @RestController
@@ -39,6 +45,8 @@ public class UserController {
     UserService userService;
 
     private final Bucket bucket;
+
+    List<Element> elements = new ArrayList<>();
 
     public UserController() {
         Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
@@ -129,6 +137,13 @@ public class UserController {
     @PreAuthorize("hasRole('GUEST')")
     @GetMapping("/sayBye")
     public ResponseEntity<String> sayByeGuest() {
+
+        elements.add(new XmlElement(generateUuid()));
+        elements.add(new JsonElement(generateUuid()));
+
+        Visitor visitor = new ElementVisitor();
+        visitor.visit(elements);
+
         return new ResponseEntity<>("Adios invitado!!", HttpStatus.OK);
     }
 
@@ -138,18 +153,17 @@ public class UserController {
         inicio = Instant.now();
 
         ClientModel cliente = new ClientModel.ClientBuilder()
-                .apellidoPaterno( "Romero" )
-                .nombre( "Christian" )
-                .edad( 30 )
-                .telefono( "5580453128" )
-                .tipoCliente( "Nuevo" )
+                .apellidoPaterno("Romero")
+                .nombre("Christian")
+                .edad(30)
+                .telefono("5580453128")
+                .tipoCliente("Nuevo")
                 .build();
+        elements.add(new XmlElement(generateUuid()));
+        elements.add(new JsonElement(generateUuid()));
 
-        Invoker invoker = new Invoker();
-        Receiver receiver = new Receiver();
-        invoker.executeOperation(new CopyCommand(new Receiver()));
-        invoker.executeOperation(() -> receiver.paste());
-        invoker.executeOperation(() -> receiver.cut());
+        Visitor visitor = new ElementVisitor();
+        visitor.visit(elements);
 
         LOGGER.info( "Msg:" + cliente );
         LOGGER.info("Create Client - Completed");
@@ -158,6 +172,8 @@ public class UserController {
 
         return new ResponseEntity<>("Se ejecuto el cliente!!", HttpStatus.OK);
     }
+
+
 
     @NotNull
     private ResponseEntity<ResponseModel> getResponseModelResponseEntity(ResponseModel responseModel, Instant inicioDeEjecucion) {

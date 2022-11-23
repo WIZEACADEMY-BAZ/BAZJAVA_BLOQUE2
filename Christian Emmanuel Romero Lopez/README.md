@@ -25,5 +25,5 @@ _Se agrega la parte de patrones de diseño_
  _Se agrega el patterns/ClientModel donde se muestra la logica que contendra el patron builder._
  _Para su utilizacion se hace uso del controller/UserController en el path createClient._
  * BehavioralPatterns -
- _Se agrega el patterns/ClientModel donde se muestra la logica que contendra el patron commands._
+ _Se agrega el patterns/ClientModel donde se muestra la logica que contendra el patron visitor._
  _Para su utilizacion se hace uso del controller/UserController en el path createClient._

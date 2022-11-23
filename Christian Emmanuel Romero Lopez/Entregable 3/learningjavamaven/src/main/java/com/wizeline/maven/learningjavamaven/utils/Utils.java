@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.UUID;
 
 public class Utils {
 
@@ -138,5 +139,9 @@ public class Utils {
         });
     }
 
+    public static String generateUuid() {
+        return UUID.randomUUID()
+                .toString();
+    }
 
 }
