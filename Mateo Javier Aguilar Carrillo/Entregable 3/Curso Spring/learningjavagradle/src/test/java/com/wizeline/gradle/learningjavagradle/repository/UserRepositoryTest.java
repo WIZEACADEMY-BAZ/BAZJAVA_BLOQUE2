@@ -93,48 +93,4 @@ public class UserRepositoryTest {
             assertNotNull(userRepository.login(USER_001.getUser(), USER_001.getPassword()));
         });
     }
-
-//    @Test
-//    public void loginTest() {
-//        LOGGER.info("login Testing...");
-//
-//        when(userRepository.createUser(USER_001.getUser(), USER_001.getPassword())).thenReturn("success");
-//
-//        assertNotNull(userRepository.login(USER_001.getUser(), USER_001.getPassword()));
-//
-//    }
-
-//    @Test
-//    public void updateUserTest() {
-//        LOGGER.info("updateUser Testing...");
-//        UserDTO userDTO = new UserDTO(USER_001.getUser(), USER_001.getPassword());
-//
-//        when(template.save(any())).thenReturn(userDTO);
-//
-//        Update update = new Update();
-//        update.set("password", USER_002.getPassword());
-//        Query query = Query.query(Criteria.where("user").is(USER_001.getUser()));
-//
-//        UpdateResult result = template.updateFirst(query, update, userDTO.getClass());
-//
-//        assertNotNull(result);
-//        assertNotNull(userRepository.updateUser(USER_001.getUser(), USER_002.getPassword()));
-//        assertEquals(userRepository.updateUser(USER_001.getUser(), USER_002.getPassword()), "Usuario Actualizado");
-//    }
-//
-//    @Test
-//    public void deleteUserTest() {
-//        LOGGER.info("deleteUserTest Testing...");
-//        UserDTO userDTO = new UserDTO(USER_001.getUser(), USER_001.getPassword());
-//
-//        when(template.save(any())).thenReturn(userDTO);
-//
-//        assertNotNull(userRepository.deleteUser(USER_001.getUser()));
-//        assertEquals(userRepository.deleteUser(USER_001.getUser()), "Usuario eliminado");
-//    }
-
-    private void createUserForTest(String user, String password){
-        ResponseDTO responseDTO = new ResponseDTO();
-        when(userService.createUser(eq(user), eq(password))).thenReturn(responseDTO);
-    }
 }

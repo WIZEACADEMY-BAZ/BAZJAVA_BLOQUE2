@@ -5,6 +5,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,9 @@ import java.util.logging.Logger;
 
 import com.wizeline.gradle.learningjavagradle.repository.UserRepositoryImpl;
 import com.wizeline.gradle.learningjavagradle.service.UserServiceImpl;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Refill;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -27,7 +31,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 import com.wizeline.gradle.learningjavagradle.model.UserDTO;
-import com.wizeline.gradle.learningjavagradle.service.UserService;
 import com.wizeline.gradle.learningjavagradle.utils.CommonServices;
 import com.wizeline.gradle.learningjavagradle.utils.CreaUsuariosThread;
 
@@ -39,6 +42,8 @@ import javax.crypto.NoSuchPaddingException;
 @RequestMapping("/user")
 public class UserController{
 
+	private final Bucket bucket;
+
 	@Autowired
 	UserServiceImpl userService;
 
@@ -48,6 +53,14 @@ public class UserController{
 
 	private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
 	String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
+
+	public UserController() {
+		Refill refill = Refill.intervally(5, Duration.ofMinutes(1));
+		Bandwidth limit = Bandwidth.classic(5, refill);
+		this.bucket = Bucket.builder()
+				.addLimit(limit)
+				.build();
+	}
 
 	@GetMapping("/login")
 	public ResponseEntity<ResponseDTO> loginUser(@RequestParam String user, @RequestParam String password){
@@ -72,14 +85,17 @@ public class UserController{
 	public  ResponseEntity<ResponseDTO> createUser(@RequestBody UserDTO userDTO)
 			throws NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 		LOGGER.info(msgProcPeticion);
-		ResponseDTO response;
-		
-		
-		response = createUser(userDTO.getUser(), userDTO.getPassword());
+		if(bucket.tryConsume(1)) {
+			ResponseDTO response;
 
-		HttpHeaders responseHeaders = new HttpHeaders();
-		responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-		return ResponseEntity.ok(response);
+
+			response = createUser(userDTO.getUser(), userDTO.getPassword());
+
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+			return ResponseEntity.ok(response);
+		}
+		return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
 	}
 	
 	@PostMapping("createUsers")
