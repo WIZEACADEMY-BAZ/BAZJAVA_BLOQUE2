@@ -76,3 +76,19 @@ Entregable 2
 	src/main/resources
 	
 	application.properties
+	
+Entregable 2
+
+	Proyecto: entregabledavid
+	Dependencias: build.gradle
+	Coleccion Postman para peticiones
+	Dockerfile
+	
+	src/main/test
+	
+	com.wizeline.entregabledavid.batch
+	com.wizeline.entregabledavid.builder
+	com.wizeline.entregabledavid.consumer
+	com.wizeline.entregabledavid.iterator
+	
+	
