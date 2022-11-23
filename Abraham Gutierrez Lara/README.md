@@ -10,7 +10,7 @@
 
 ## Estructura de Entregable 2 y 3 (semana 3-6)
 
-El entregable 2 representa una API centrada en simular dos recursos: cuentas de usuarios y cuentas bancarias asociadas a los usuarios.
+El entregable 2 y 3 representa una API centrada en simular dos recursos: cuentas de usuarios y cuentas bancarias asociadas a los usuarios.
 
 Dado el contexto anterior se crearon los recursos necesarios para realizar las siguientes operaciones:
 - Crear usuarios de tipo administradores (BANKER) y de tipo usuario
