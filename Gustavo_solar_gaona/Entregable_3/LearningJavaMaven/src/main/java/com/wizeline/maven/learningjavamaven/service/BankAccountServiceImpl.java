@@ -39,37 +39,20 @@ public class BankAccountServiceImpl implements BankAccountService {
 
   @Override
   public List<BankAccountDTO> getAccounts() {
-    //Definición de lista de la información de las cuentas existentes
     List<BankAccountDTO> accountDTOList = new ArrayList<>();
-    // Revisión: Uso de API de Fechas y Tiempos en un método
     BankAccountDTO bankAccountOne = buildBankAccount("user3@wizeline.com", true, Country.MX, LocalDateTime.now().minusDays(7));
     accountDTOList.add(bankAccountOne);
-
-    //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
     mongoTemplate.save(bankAccountOne);
-
     BankAccountDTO bankAccountTwo = buildBankAccount("user1@wizeline.com", false, Country.FR, LocalDateTime.now().minusMonths(2));
     accountDTOList.add(bankAccountTwo);
-
-    //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
     mongoTemplate.save(bankAccountTwo);
-
     BankAccountDTO bankAccountThree = buildBankAccount("user2@wizeline.com" ,false, Country.US, LocalDateTime.now().minusYears(4));
     accountDTOList.add(bankAccountThree);
-
-    //Guardar cada record en la db de mongo (en la coleccion bankAccountCollection)
     mongoTemplate.save(bankAccountThree);
-
-    //Imprime en la Consola cuales son los records encontrados en la coleccion
-    //bankAccountCollection de la mongo db
     mongoTemplate.findAll(BankAccountDTO.class).stream().map(bankAccountDTO -> bankAccountDTO.getUserName()).forEach(
         (user) -> {
           LOGGER.info("User stored in bankAccountCollection " + user );
         });
-
-    //Esta es la respuesta que se retorna al Controlador
-    //y que sera desplegada cuando se haga la llamada a los
-    //REST endpoints que la invocan (un ejemplo es el endpoint de  getAccounts)
     return accountDTOList;
   }
 
@@ -82,15 +65,11 @@ public class BankAccountServiceImpl implements BankAccountService {
 
   @Override
   public void deleteAccounts() {
-    //Deleting all records inside of bankAccountCollection in the mongo db
     bankAccountRepository.deleteAll();
   }
 
   @Override
   public List<BankAccountDTO> getAccountByUser(String user){
-    //Buscamos todos aquellos registros de tipo BankAccountDTO
-    //que cumplen con la criteria de que el userName haga match
-    //con la variable user
     Query query = new Query();
     query.addCriteria(Criteria.where("userName").is(user));
     return mongoTemplate.find(query, BankAccountDTO.class);
@@ -98,9 +77,6 @@ public class BankAccountServiceImpl implements BankAccountService {
 
   @Override
   public Optional<BankAccountDTO> changeCountry(long accountNumber, String country){
-    //Buscamos todos aquellos registros de tipo BankAccountDTO
-    //que cumplen con la criteria de que el userName haga match
-    //con la variable user
     Query query = new Query();
     query.addCriteria(Criteria.where("accountNumber").is(accountNumber));
     Optional<BankAccountDTO> bankAccountDTO = Optional.ofNullable(mongoTemplate.findOne(query, BankAccountDTO.class));

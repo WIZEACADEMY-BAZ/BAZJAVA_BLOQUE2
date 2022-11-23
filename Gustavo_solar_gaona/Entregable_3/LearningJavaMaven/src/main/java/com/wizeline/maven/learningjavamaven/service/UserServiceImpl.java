@@ -35,27 +35,6 @@ public class UserServiceImpl implements UserService {
 
   private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
-  /*@Override
-  public ResponseDTO createUser(String user, String password) {
-    LOGGER.info(INIT_BUSINESS_LAYER);
-    ResponseDTO response = new ResponseDTO();
-    String result = "fail";
-    System.out.println("Prueba 1");
-    if (Utils.validateNullValue(user) && Utils.validateNullValue(password)) {
-      UserRepository userRepository = new UserRepositoryImpl();
-      result = userRepository.createUser(user, password);
-      response.setCode(SUCCESS_CODE);
-      response.setStatus(result);
-      System.out.println("Prueba 2");
-    }else {
-      System.out.println("Prueba 3");
-      response.setCode(SUCCESS_CODE);
-      response.setStatus(result);
-      response.setErrors(new ErrorDTO(ERROR_CODE,"Error al crear usuario"));
-    }
-    return response;
-  }*/
-
   @Override
   public ResponseDTO createUserMongo(UserDTO userDTO){
     UserDTO userDTOOptional = userRepository.save(userDTO);
@@ -73,18 +52,10 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public ResponseDTO getUserMongo(String user, String password){
-    //Buscamos todos aquellos registros de tipo UserDTO
-    //que cumplen con la criteria de que el userName  y password hagan match
-    //con la variable user
-    System.out.println("Paso aqui");
-    System.out.println(user);
-    System.out.println(password);
     Query query = new Query();
     query.addCriteria(Criteria.where("user").is(user).and("password").is(password));
     UserDTO userDTO = mongoTemplate.findOne(query, UserDTO.class);
-    System.out.println(userDTO);
     ResponseDTO response = new ResponseDTO();
-    System.out.println("Paso aqui");
     if(userDTO != null){
       response.setCode(SUCCESS_CODE);
       response.setStatus(SUCCESS_STATUS);
@@ -96,37 +67,15 @@ public class UserServiceImpl implements UserService {
     return response;
   }
 
-  /*@Override
-  public ResponseDTO login(String user, String password) {
-    LOGGER.info(INIT_BUSINESS_LAYER);
-    ResponseDTO response = new ResponseDTO();
-    String result = "";
-    if(Utils.validateNullValue(user) && Utils.validateNullValue(password)){
-      UserRepository userRepository = new UserRepositoryImpl();
-      result = userRepository.login(user,password);
-    }
-    if(SUCCESS_STATUS.equals(result)) {
-      response.setCode(SUCCESS_CODE);
-      response.setStatus(result);
-    } else {
-      response.setCode(ERROR_CODE);
-      response.setErrors(new ErrorDTO(ERROR_CODE,result));
-      response.setStatus("fail");
-    }
-    return response;
-  }*/
-
   @Override
   public List<TodoDTO> getUserTodos(String userId){
     String url = JSON_TODOS_API_URL.replace("?", userId);
     RestTemplate restTemplate = new RestTemplate();
-    // Revisión: Uso de por lo menos un arreglo
     return Arrays.asList(restTemplate.getForObject(url, TodoDTO[].class));
   }
 
   @Override
   public List<TodoDTO> getUserTodos(String userId, boolean status){
-    // Revisión: Uso de por lo menos una lista
     List<TodoDTO> todoDTOS = getUserTodos(userId);
     TodosHelper todosHelper = new TodosHelper();
     return todosHelper.covertDTOs(todoDTOS, status);
@@ -134,19 +83,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<PostDTO> getUserPosts(String userId){
-    // Revisión: Uso de por lo menos una lista
     return postRepository.getUserPosts(userId);
   }
 
-  // Revisión: Clase interna dentro de al menos una clase
   class TodosHelper{
     List<TodoDTO> covertDTOs(List<TodoDTO> todoDTOS, boolean status){
-      // Revisión: Uso de por lo menos 2 operaciones intermedias y 2 tipos de colectores en un Stream
       return todoDTOS.stream().filter( (TodoDTO todoDTO) ->
           todoDTO.getCompleted() == status
       ).map( (TodoDTO todoDTO) -> {
         if(todoDTO.getUserId() == 1){
-          return new TodoDTO(todoDTO.getId(), "Abraham Moran", todoDTO.getTitle(), todoDTO.getCompleted());
+          return new TodoDTO(todoDTO.getId(), "Gustavo Solar", todoDTO.getTitle(), todoDTO.getCompleted());
         }
         return new TodoDTO(todoDTO.getId(), todoDTO.getUserId(), todoDTO.getTitle(), todoDTO.getCompleted());
       }).collect(Collectors.toList());
