@@ -2,10 +2,9 @@ package com.wizeline.maven.learningjavamaven.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wizeline.maven.learningjavamaven.LearningjavamavenApplication;
+import com.wizeline.maven.learningjavamaven.chainofresponsibility.*;
 import com.wizeline.maven.learningjavamaven.client.AccountsJSONClient;
-import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
-import com.wizeline.maven.learningjavamaven.model.Post;
-import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
+import com.wizeline.maven.learningjavamaven.model.*;
 import com.wizeline.maven.learningjavamaven.service.BankAccountService;
 import com.wizeline.maven.learningjavamaven.utils.CommonServices;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,10 +22,12 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static com.wizeline.maven.learningjavamaven.enums.AccountType.*;
 import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
 
 
@@ -40,14 +41,13 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
 
     @Autowired
     private KafkaTemplate<Object, Object> template;
-        @Autowired
-        BankAccountService bankAccountService;
+    @Autowired
+    BankAccountService bankAccountService;
     @Autowired
     CommonServices commonServices;
 
     @Autowired
     AccountsJSONClient accountsJSONClient;
-
 
         private static final Logger LOGGER = Logger.getLogger(LearningjavamavenApplication.class.getName());
         String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
@@ -93,8 +93,6 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
         return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
     }
 
-
-
     @GetMapping("/getAccounts")
         public ResponseEntity<List<BankAccountDTO>> getAccounts() {
             LOGGER.info(msgProcPeticion);
@@ -116,6 +114,34 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
         }
 
 
+
+    //Voy a tratar de implementar  el patron de diseño Factory
+    @GetMapping("/factory")
+    public ResponseEntity<List<Account>> Factory(){
+        LOGGER.info("Entrando mi patron factory ");
+        AccountFactory obj = new AccountFactory();
+
+        Account cuenta = obj.getcuenta(NOMINA);
+        cuenta.setAccountNumber(34443);
+        cuenta.setEfectivo(8);
+        cuenta.tieneFondos();
+
+        Account cuenta2 = obj.getcuenta(PLATINUM);
+        cuenta2.setAccountNumber(56456);
+        cuenta2.setEfectivo(3);
+        cuenta2.tieneFondos();
+
+        Account cuenta3 = obj.getcuenta(AHORRO);
+        cuenta3.setAccountNumber(546);
+        cuenta3.setEfectivo(0);
+        cuenta3.tieneFondos();
+
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity(List.of(cuenta,cuenta2,cuenta3),responseHeaders, HttpStatus.OK);
+    }
+
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/getAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam String user) {
@@ -134,7 +160,6 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
     }
-
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/getAccountsGroupByType")
@@ -174,7 +199,7 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
         }
 
         private BankAccountDTO getAccountDetails(String user, String lastUsage) {
-            return bankAccountService.getAccountDetails(user, lastUsage);
+            return bankAccountService.getAccountDetails(user);
         }
 
     //The usage of FeignClient for demo purposes
@@ -201,6 +226,60 @@ import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
         List<BankAccountDTO> accounts = bankAccountService.getAccounts();
         BankAccountDTO account = accounts.get(userId);
         this.template.send("useraccount-topic", account);
+    }
+
+
+    //Consultar todas las cuentas y buscarla por nombre utilizando Optional por si no es encontrada
+    @GetMapping("/getAccountByAccountNumber")
+    public ResponseEntity<BankAccountDTO> getAccountByAccountNumber(@RequestParam long accountNumber) {
+        LOGGER.info("Iniciado la ejecuccion... ");
+        Optional<BankAccountDTO> optional = bankAccountService.getAccountByAccountNumber(accountNumber);
+        if (optional.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(optional.get(), responseHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/responsibility")
+    public ResponseEntity <List<MoneyChainHandler>> responsibility(@RequestParam Integer cantidad){
+        LOGGER.info("Entrando ");
+        MoneyChainHandler hundredDollarHandler_100 = new HundrenDollarHandler_100(100);
+        MoneyChainHandler fiftyDollarHandler_50 = new FiftyDollarHandler_50(50);
+        MoneyChainHandler tenDollarHandler_10 = new TenDollarHandler_10(10);
+        MoneyChainHandler fiveDollarHandler_5 = new FiveDollarHandler_5(5);
+        MoneyChainHandler twoDollarHandler_2 = new TwoDollarHandler_2(2);
+        MoneyChainHandler oneDollarHandler_1 = new OneDollarHandler_1(1);
+
+        // Setting up the change
+
+        hundredDollarHandler_100.setNextHandler(fiftyDollarHandler_50);
+        fiftyDollarHandler_50.setNextHandler(tenDollarHandler_10);
+        tenDollarHandler_10.setNextHandler(fiveDollarHandler_5);
+        fiveDollarHandler_5.setNextHandler(twoDollarHandler_2);
+        twoDollarHandler_2.setNextHandler(oneDollarHandler_1);
+
+        System.out.println("Please enter amount you want to withdraw ex: 3450 ");
+        //int choice = scan.nextInt();
+        hundredDollarHandler_100.handler(cantidad);
+
+        System.out.println("=============================");
+
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(responseHeaders, HttpStatus.OK);
+    }
+
+    @GetMapping("/putCountry")
+    public ResponseEntity<BankAccountDTO> putCountry(@RequestParam String country){
+        LOGGER.info("Iniciando la ejecucion . . . ");
+        BankAccountDTO modificar = bankAccountService.putCountry(country);
+        //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity(responseHeaders, HttpStatus.OK);
     }
 
     }

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static com.wizeline.maven.learningjavamaven.utils.Utils.*;
@@ -65,10 +66,15 @@ public class BankAccountServiceImpl implements BankAccountService {
         return accountDTOList;
     }
     @Override
-    public BankAccountDTO getAccountDetails(String user, String lastUsage) {
+    public BankAccountDTO getAccountDetails(String user,String  lastUsage) {
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate usage = LocalDate.parse(lastUsage, dateformatter);
         return buildBankAccount(user, true, Country.MX, usage.atStartOfDay());
+    }
+
+    @Override
+    public BankAccountDTO getAccountDetails(String user) {
+        return null;
     }
 
     // Creación de tipo de dato BankAccount
@@ -100,6 +106,16 @@ public class BankAccountServiceImpl implements BankAccountService {
         Query query = new Query();
         query.addCriteria(Criteria.where("userName").is(user));
         return mongoTemplate.find(query, BankAccountDTO.class);
+    }
+
+    @Override
+    public Optional<BankAccountDTO> getAccountByAccountNumber(long accountNumber) {
+        return Optional.empty();
+    }
+
+    @Override
+    public BankAccountDTO putCountry(String country) {
+        return null;
     }
 
 
