@@ -1,9 +1,6 @@
 package com.wizeline.maven.learningjavamaven.service;
 
-import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
-import com.wizeline.maven.learningjavamaven.model.PostDTO;
-import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
-import com.wizeline.maven.learningjavamaven.model.UserDTO;
+import com.wizeline.maven.learningjavamaven.model.*;
 import com.wizeline.maven.learningjavamaven.repository.PostRepository;
 import com.wizeline.maven.learningjavamaven.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +26,13 @@ class UserServiceImplTest {
     private PostDTO postDTO;
 
     @Mock
+    private TodoDTO todoDTO;
+
+    @Mock
     private ResponseDTO responseDTO;
+
+    @Mock
+    private UserServiceImpl.TodosHelper todosHelper;
 
     @Mock
     private MongoTemplate mongoTemplate;
@@ -117,4 +120,13 @@ class UserServiceImplTest {
                 () -> assertEquals(userService.getUserPosts("userId").size(), 0)
         );
     }
+
+    @Test
+    void getUserTodosTest(){
+        List<TodoDTO> todoDTOList = new ArrayList<TodoDTO>();
+        todoDTOList.add(todoDTO);
+        when(todosHelper.covertDTOs(todoDTOList, true)).thenReturn(todoDTOList);
+        assertNotNull(userService.getUserTodos("userId", true));
+    }
+
 }
