@@ -1,7 +1,11 @@
 package com.wizeline.maven.learningjavagmaven.controller;
 
+import com.wizeline.maven.learningjavagmaven.LearningjavagmavenApplication;
+import com.wizeline.maven.learningjavagmaven.client.AccountsJSONClient;
 import com.wizeline.maven.learningjavagmaven.configuration.KafkaConfiguration;
+import com.wizeline.maven.learningjavagmaven.enums.AccountType;
 import com.wizeline.maven.learningjavagmaven.model.BankAccountModel;
+import com.wizeline.maven.learningjavagmaven.model.Post;
 import com.wizeline.maven.learningjavagmaven.model.ResponseModel;
 import com.wizeline.maven.learningjavagmaven.service.BankAccountService;
 import com.wizeline.maven.learningjavagmaven.service.BankAccountServiceImpl;
@@ -13,15 +17,28 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.wizeline.maven.learningjavagmaven.controller.BankingAccountController;
-
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javax.annotation.meta.When;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,10 +47,12 @@ import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
 
 @ExtendWith(MockitoExtension.class)
 public class BankingAccountControllerTest {
-
+    private static final Logger LOGGER = Logger.getLogger(LearningjavagmavenApplication.class.getName());
 
 
     @InjectMocks
@@ -46,107 +65,46 @@ public class BankingAccountControllerTest {
     private CommonServices commonServices;
 
     @Mock
-    private  BankAccountModel bankAccountModel;
-
-    @Mock
     private Util util;
 
     @Mock
     private KafkaConfiguration kafkaConfiguration;
 
-    @Test
-    public void getUserAccountTest() {
-        String user ="Ana", pass="Pass1$";
-        //ResponseEntity responseEntityTest= new ResponseEntity<>("All accounts deleted", HttpStatus.OK);
-
-        ResponseModel response=new ResponseModel();
-        response.setCode("OK000");
-
-        lenient().when(commonServices.login(anyString(),anyString())).thenReturn(response);
-        lenient().when(bankAccountService.getAccountDetails(user,"18-11-2022")).thenReturn(new BankAccountModel());
-        ResponseEntity<?> responsefinal =bankingController.getUserAccount(user,pass,"18-11-2022");
-        assertEquals(responsefinal.getStatusCode(),HttpStatus.OK);
-
-    }
-
-    @Test
-    public void getAccountByUserTest(){
-        String usuario  ="Luis";
-        List<BankAccountModel> accounts = new ArrayList<>();
-
-        when(bankAccountService.getAccountByUser(anyString())).thenReturn(accounts);
-
-        ResponseEntity<List<BankAccountModel>> response=bankingController.getAccountByUser(usuario);
-        assertEquals(response.getStatusCode(),HttpStatus.OK);
-    }
-
-    @Test
-    void putAccount(  ) {
-        //Ingreso de una cuenta
-        //Resultado esperado
-     //   String msjEsperado="Dato Ingresado" ;
-
-      //  ResponseEntity respuesta1= bankingAccountController.putAccount("user2@wizeline.com","Pass1$", "01-10-2010");
-
-    //    System.out.println(respuesta1.getClass());
-      //  System.out.println(bankingAccountController.);
-    //    assertEquals(msjEsperado,respuesta1);
-
-    }
-
-    @Test
-    void deleteAccountsTest() {
-        ResponseEntity response= new ResponseEntity("nada",HttpStatus.OK);
-        List<BankAccountModel> accounts = new ArrayList<>();
-        response = bankingController.deleteAccounts();
-        assertEquals(response.getBody(),"All accounts deleted");
-    }
+    @Mock
+    private AccountsJSONClient accountsJSONClient;
 
 
-    @Test
-    void testPutAccount() {
-    }
 
-    @Test
-    void getAccountsTest() {
-    /*    List<BankAccountModel> responseEntity =new ArrayList<>();
-
-        when(bankAccountService.getAccounts()).thenReturn(responseEntity);
-
-        //ResponseEntity<List<BankingAccountController>> listResponseEntity= (ResponseEntity<List<BankingAccountController>>) bankAccountService.getAccounts();
-
-        assertAll(
-                () -> assertNotNull(responseEntity)
-        //        () -> assertEquals(HttpStatus.OK, listResponseEntity.getStatusCode()),
-        //        () -> assertEquals(responseEntity,  listResponseEntity.getBody())
-        );
-   */ }
-
-    @Test
-    public void sendUserAccountTest(){
-        BankAccountModel bankAccountModel =new BankAccountModel();
-        List<BankAccountModel> accounts =new ArrayList<>();
-        accounts.add(bankAccountModel);
-        when(bankAccountService.getAccounts()).thenReturn(accounts);
-    //    bankingController.sendUserAccount(0);
-        assertEquals(1,accounts.size());
-
-    }
-
-    @Test
-    void sendUserAccount() {
-    }
-
-    @Test
-    void getUserAccount() {
-    }
 
     @Test
     void getExternalUser() {
+        LOGGER.info("Inicia Test de getExternalUser");
+        Post post = new Post();
+        when(accountsJSONClient.getPostById(1L)).thenReturn(post);
+        ResponseEntity<Post> responseEntity = bankingController.getExternalUser(1L);
+        assertAll(
+                () -> assertNotNull(responseEntity),
+                () -> assertEquals(HttpStatus.OK, responseEntity.getStatusCode()),
+                () -> assertEquals(post, responseEntity.getBody())
+        );
     }
 
     @Test
     void sayHelloGuest() {
+        LOGGER.info("Inicia prueba de sayHelloGuest");
+        ResponseEntity<String> httpResponse = bankingController.sayHelloGuest();
+        assertEquals("Hola invitado!!", httpResponse.getBody());
+    }
+
+    @Test
+    void sendUserAccountTest(){
+        LOGGER.info("Inicia prueba de sendUserAccountTest");
+        BankAccountModel bankAccountDTO = new BankAccountModel();
+        List<BankAccountModel> accounts = new ArrayList<>();
+        accounts.add(bankAccountDTO);
+        when(bankAccountService.getAccounts()).thenReturn(accounts);
+        bankingController.sendUserAccount(0);
+        assertEquals(1, accounts.size());
     }
 
 

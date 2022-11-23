@@ -240,7 +240,7 @@ public class BankingAccountController {
     }
 
     private BankAccountModel getAccountDetails(String user, String lastUsage) {
-        return bankAccountService.getAccountDetails(user, lastUsage);
+        return BankAccountService.getAccountDetails(user, lastUsage);
     }
 
 
@@ -301,7 +301,9 @@ public class BankingAccountController {
     }
 
 
-
+    @PutMapping(path = "/updateAccount/{accountName}/{newAccountName}")
+    public ResponseEntity<BankAccountModel> updateAccount(@PathVariable String accountName, @PathVariable String newAccountName){
+        BankAccountModel account = bankAccountService.updateAccount(accountName, newAccountName);    return new ResponseEntity<>(account,HttpStatus.OK);}
 
 
 }

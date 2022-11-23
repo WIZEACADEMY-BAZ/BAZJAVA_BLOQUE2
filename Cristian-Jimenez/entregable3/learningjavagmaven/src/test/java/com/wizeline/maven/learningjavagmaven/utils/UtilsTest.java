@@ -38,9 +38,7 @@ String date="01-10-2010", value,value2, password="Pass1$";
     }
 
     @Test
-    void randomAccountNumberTest(){
-        utilsMock.randomAccountNumber();
-    }
+    void randomAccountNumberTest(){ utilsMock.randomAccountNumber(); }
 
     @Test
     void randomBalanceTest() {
@@ -58,6 +56,6 @@ String date="01-10-2010", value,value2, password="Pass1$";
     }
 
     @Test
-    void getCountry() {utilsMock.getCountry(country);
-    }
+    void getCountry() {utilsMock.getCountry(country); }
+
 }

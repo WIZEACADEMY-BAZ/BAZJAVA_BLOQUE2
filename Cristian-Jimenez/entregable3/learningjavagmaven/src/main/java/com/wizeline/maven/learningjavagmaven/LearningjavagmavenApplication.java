@@ -9,6 +9,8 @@ import org.springframework.boot.logging.java.JavaLoggingSystem;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.kafka.annotation.EnableKafka;
 
+import javax.validation.constraints.Null;
+
 @SpringBootApplication
 @EnableFeignClients
 @EnableKafka

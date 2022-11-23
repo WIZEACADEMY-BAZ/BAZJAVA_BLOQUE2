@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import com.wizeline.maven.learningjavagmaven.enums.Country;
 import com.wizeline.maven.learningjavagmaven.repository.BankingAccountRepository;
+import com.wizeline.maven.learningjavagmaven.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 //import javax.management.Query;
@@ -33,14 +35,14 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 
     // Creación de tipo de dato BankAccount
-    private BankAccountModel buildBankAccount(String user, boolean isActive, String lastUsage) {
+    public BankAccountModel buildBankAccount(String user, boolean isActive, Country country) {
         BankAccountModel bankAccountModel = new BankAccountModel();
         bankAccountModel.setAccountNumber(123L);
         bankAccountModel.setAccountName("Dummy Account");
         bankAccountModel.setUser(user);
         bankAccountModel.setAccountBalance(843.24);
         bankAccountModel.setAccountType(AccountType.NOMINA);
-        bankAccountModel.setCountry("Mexico");
+        bankAccountModel.setCountry(Utils.getCountry(country));
         bankAccountModel.setAccountActive(isActive);
         return bankAccountModel;
     }
@@ -98,7 +100,7 @@ public class BankAccountServiceImpl implements BankAccountService {
         bankingAccountRepository.deleteAll();
     }
 
-    @Override
+  //  @Override
     public BankAccountModel getAccountDetails(String user, String lastUsage) {
         DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate usage = LocalDate.parse(lastUsage, dateformatter);
@@ -132,7 +134,20 @@ public class BankAccountServiceImpl implements BankAccountService {
   //                return null;
     }
 
-
+    @Override
+    public BankAccountModel updateAccount(String accountName, String newAccountName) {
+         //returns only 'name' field
+         Query query = new Query();
+         query.addCriteria(Criteria.where("accountName").is(accountName));
+        // query.fields().include("name");
+         Update update = new Update();
+         update.set("accountName", newAccountName);
+         mongoTemplate.updateFirst(query, update, BankAccountModel.class);
+         //returns everything
+        Query query1 = new Query();
+        query1.addCriteria(Criteria.where("accountName").is(newAccountName));
+        BankAccountModel cuenta = mongoTemplate.findOne(query, BankAccountModel.class);
+        return cuenta;}
 
 
 }
