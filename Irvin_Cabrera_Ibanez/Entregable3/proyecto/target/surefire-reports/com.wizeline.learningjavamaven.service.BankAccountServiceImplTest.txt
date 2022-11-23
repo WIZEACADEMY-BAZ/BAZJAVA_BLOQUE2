@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.wizeline.learningjavamaven.service.BankAccountServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.532 s - in com.wizeline.learningjavamaven.service.BankAccountServiceImplTest

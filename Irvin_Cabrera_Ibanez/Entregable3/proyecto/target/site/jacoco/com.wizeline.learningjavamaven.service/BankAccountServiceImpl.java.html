@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BankAccountServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.service</a> &gt; <span class="el_source">BankAccountServiceImpl.java</span></div><h1>BankAccountServiceImpl.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.service;
+
+import com.wizeline.learningjavamaven.enums.Country;
+import com.wizeline.learningjavamaven.model.AccountInsertDTO;
+import com.wizeline.learningjavamaven.model.BankAccountDTO;
+import com.wizeline.learningjavamaven.model.UserDTO;
+import com.wizeline.learningjavamaven.repository.BankingAccountRepository;
+import com.wizeline.learningjavamaven.utils.Utils;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Service;
+
+import javax.crypto.*;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.security.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+@Service
+<span class="fc" id="L28">public class BankAccountServiceImpl implements BankAccountService {</span>
+
+<span class="fc" id="L30">  private static final Logger LOGGER = Logger.getLogger(BankAccountServiceImpl.class.getName());</span>
+
+  @Autowired
+  BankingAccountRepository bankAccountRepository;
+
+  @Autowired
+  UserService userService;
+
+  @Autowired
+  MongoTemplate mongoTemplate;
+
+  @Override
+  public List&lt;BankAccountDTO&gt; getAccounts() {
+<span class="fc" id="L43">    List&lt;BankAccountDTO&gt; accountDTOList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L44">    List&lt;AccountInsertDTO&gt; accountInsertDTOList = agregarCuentas();</span>
+
+<span class="fc" id="L46">    accountInsertDTOList.forEach(accountInsertDTO -&gt; {</span>
+<span class="fc" id="L47">      UserDTO userExist = userService.getUser(accountInsertDTO.getUsuario());</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">      if (userExist != null) {</span>
+<span class="fc" id="L49">        BankAccountDTO bankAccountExist = getUserName(accountInsertDTO.getUsuario());</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (bankAccountExist == null) {</span>
+<span class="fc" id="L51">          BankAccountDTO bankAccount = buildBankAccount(accountInsertDTO.getUsuario(), accountInsertDTO.isActivo(), accountInsertDTO.getCountry(), accountInsertDTO.getDateTime());</span>
+<span class="fc" id="L52">          accountDTOList.add(bankAccount);</span>
+<span class="fc" id="L53">          mongoTemplate.save(bankAccount);</span>
+<span class="fc" id="L54">        } else {</span>
+<span class="fc" id="L55">          LOGGER.info(&quot;Bank existe&quot;);</span>
+<span class="fc" id="L56">          accountDTOList.add(buildBankAccount(accountInsertDTO.getUsuario(), accountInsertDTO.isActivo(), accountInsertDTO.getCountry(), accountInsertDTO.getDateTime()));</span>
+        }
+<span class="fc" id="L58">      } else {</span>
+<span class="fc" id="L59">        LOGGER.info(&quot;No existe el usuario registrado&quot;);</span>
+      }
+<span class="fc" id="L61">    });</span>
+
+    //Imprime en la Consola cuales son los records encontrados en la coleccion
+    //bankAccountCollection de la mongo db
+<span class="fc" id="L65">    mongoTemplate.findAll(BankAccountDTO.class).stream().map(bankAccountDTO -&gt; bankAccountDTO.getUserName()).forEach(</span>
+<span class="fc" id="L66">        (user) -&gt; LOGGER.info(&quot;User stored in bankAccountCollection &quot; + user)</span>
+    );
+<span class="fc" id="L68">    return accountDTOList;</span>
+  }
+
+  private List&lt;AccountInsertDTO&gt; agregarCuentas() {
+<span class="fc" id="L72">    List&lt;AccountInsertDTO&gt; accountInsertDTOList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L73">    AccountInsertDTO accountInsertDTO = new AccountInsertDTO(&quot;alex&quot;, Country.MX, LocalDateTime.now().minusDays(7), true);</span>
+<span class="fc" id="L74">    accountInsertDTOList.add(accountInsertDTO);</span>
+<span class="fc" id="L75">    accountInsertDTO = new AccountInsertDTO(&quot;user1@wizeline.com&quot;, Country.FR, LocalDateTime.now().minusDays(7), false);</span>
+<span class="fc" id="L76">    accountInsertDTOList.add(accountInsertDTO);</span>
+<span class="fc" id="L77">    accountInsertDTO = new AccountInsertDTO(&quot;user2@wizeline.com&quot;, Country.US, LocalDateTime.now().minusMonths(2), false);</span>
+<span class="fc" id="L78">    accountInsertDTOList.add(accountInsertDTO);</span>
+<span class="fc" id="L79">    accountInsertDTO = new AccountInsertDTO(&quot;user3@wizeline.com&quot;, Country.MX, LocalDateTime.now().minusYears(4), true);</span>
+<span class="fc" id="L80">    accountInsertDTOList.add(accountInsertDTO);</span>
+<span class="fc" id="L81">    return accountInsertDTOList;</span>
+  }
+
+  @Override
+  public void deleteAccounts() {
+<span class="fc" id="L86">    bankAccountRepository.deleteAll();</span>
+<span class="fc" id="L87">  }</span>
+
+  @Override
+  public List&lt;BankAccountDTO&gt; getAccountByUser(String user) {
+<span class="fc" id="L91">    Query query = new Query();</span>
+<span class="fc" id="L92">    query.addCriteria(Criteria.where(&quot;userName&quot;).is(user));</span>
+<span class="fc" id="L93">    return mongoTemplate.find(query, BankAccountDTO.class);</span>
+  }
+
+  @Override
+  public BankAccountDTO getAccountDetails(String user, String lastUsage) {
+<span class="fc" id="L98">    DateTimeFormatter dateformatter = DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;);</span>
+<span class="fc" id="L99">    LocalDate usage = LocalDate.parse(lastUsage, dateformatter);</span>
+<span class="fc" id="L100">    return buildBankAccount(user, true, Country.MX, usage.atStartOfDay());</span>
+  }
+
+  private BankAccountDTO buildBankAccount(String user, boolean isActive, Country country, LocalDateTime lastUsage) {
+<span class="fc" id="L104">    BankAccountDTO bankAccountDTO = new BankAccountDTO();</span>
+<span class="fc" id="L105">    bankAccountDTO.setAccountNumber(Utils.randomAcountNumber());</span>
+<span class="fc" id="L106">    bankAccountDTO.setAccountName(&quot;Dummy Account &quot;.concat(Utils.randomInt()));</span>
+<span class="fc" id="L107">    bankAccountDTO.setUserName(user);</span>
+<span class="fc" id="L108">    bankAccountDTO.setAccountBalance(Utils.randomBalance());</span>
+<span class="fc" id="L109">    bankAccountDTO.setAccountType(Utils.pickRandomAccountType());</span>
+<span class="fc" id="L110">    bankAccountDTO.setCountry(Utils.getCountry(country));</span>
+<span class="fc" id="L111">    bankAccountDTO.getLastUsage();</span>
+<span class="fc" id="L112">    bankAccountDTO.setCreationDate(lastUsage);</span>
+<span class="fc" id="L113">    bankAccountDTO.setAccountActive(isActive);</span>
+<span class="fc" id="L114">    return bankAccountDTO;</span>
+  }
+
+  @Override
+  public List&lt;BankAccountDTO&gt; getEncryptedAccount() {
+<span class="fc" id="L119">    List&lt;BankAccountDTO&gt; accounts = getAccounts();</span>
+<span class="fc" id="L120">    byte[] keyBytes = new byte[]{</span>
+        0x01, 0x23, 0x45, 0x67, (byte) 0x89, (byte) 0xab, (byte) 0xcd, (byte) 0xef
+    };
+<span class="fc" id="L123">    byte[] ivBytes = new byte[]{</span>
+        0x00, 0x01, 0x02, 0x03, 0x00, 0x00, 0x00, 0x01
+    };
+<span class="fc" id="L126">    Security.addProvider(new BouncyCastleProvider());</span>
+<span class="fc" id="L127">    SecretKeySpec key = new SecretKeySpec(keyBytes, &quot;DES&quot;);</span>
+<span class="fc" id="L128">    IvParameterSpec ivSpec = new IvParameterSpec(ivBytes);</span>
+<span class="fc" id="L129">    Cipher cipher = null;</span>
+    try {
+<span class="fc" id="L131">      cipher = Cipher.getInstance(&quot;DES/CTR/NoPadding&quot;, &quot;BC&quot;);</span>
+<span class="fc" id="L132">      cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);</span>
+      // Cifraremos solamente el nombre y el country (pueden cifrar todos los parámetros que gusten)
+<span class="fc bfc" id="L134" title="All 2 branches covered.">      for (BankAccountDTO account : accounts) {</span>
+<span class="fc" id="L135">        String accountName = account.getAccountName();</span>
+<span class="fc" id="L136">        byte[] arrAccountName = accountName.getBytes();</span>
+<span class="fc" id="L137">        byte[] accountNameCipher = new byte[cipher.getOutputSize(arrAccountName.length)];</span>
+<span class="fc" id="L138">        int ctAccountNameLength = cipher.update(arrAccountName, 0, arrAccountName.length, accountNameCipher, 0);</span>
+<span class="fc" id="L139">        ctAccountNameLength += cipher.doFinal(accountNameCipher, ctAccountNameLength);</span>
+<span class="fc" id="L140">        account.setAccountName(accountNameCipher.toString());</span>
+
+<span class="fc" id="L142">        String accountCountry = account.getCountry();</span>
+<span class="fc" id="L143">        byte[] arrAccountCountry = accountCountry.getBytes();</span>
+<span class="fc" id="L144">        byte[] accountCountryCipher = new byte[cipher.getOutputSize(arrAccountCountry.length)];</span>
+<span class="fc" id="L145">        int ctAccountCountryLength = cipher.update(arrAccountCountry, 0, arrAccountCountry.length, accountCountryCipher, 0);</span>
+<span class="fc" id="L146">        ctAccountCountryLength += cipher.doFinal(accountCountryCipher, ctAccountCountryLength);</span>
+<span class="fc" id="L147">        account.setCountry(accountCountryCipher.toString());</span>
+
+<span class="fc" id="L149">      }</span>
+<span class="nc" id="L150">    } catch (InvalidAlgorithmParameterException e) {</span>
+<span class="nc" id="L151">      throw new RuntimeException(e);</span>
+<span class="nc" id="L152">    } catch (NoSuchPaddingException e) {</span>
+<span class="nc" id="L153">      throw new RuntimeException(e);</span>
+<span class="nc" id="L154">    } catch (ShortBufferException e) {</span>
+<span class="nc" id="L155">      throw new RuntimeException(e);</span>
+<span class="nc" id="L156">    } catch (IllegalBlockSizeException e) {</span>
+<span class="nc" id="L157">      throw new RuntimeException(e);</span>
+<span class="nc" id="L158">    } catch (NoSuchAlgorithmException e) {</span>
+<span class="nc" id="L159">      throw new RuntimeException(e);</span>
+<span class="nc" id="L160">    } catch (BadPaddingException e) {</span>
+<span class="nc" id="L161">      throw new RuntimeException(e);</span>
+<span class="nc" id="L162">    } catch (NoSuchProviderException e) {</span>
+<span class="nc" id="L163">      throw new RuntimeException(e);</span>
+<span class="nc" id="L164">    } catch (InvalidKeyException e) {</span>
+<span class="nc" id="L165">      throw new RuntimeException(e);</span>
+<span class="fc" id="L166">    }</span>
+<span class="fc" id="L167">    return accounts;</span>
+  }
+
+  public BankAccountDTO getUserName(String username) {
+<span class="fc" id="L171">    Query query = new Query();</span>
+<span class="fc" id="L172">    query.addCriteria(Criteria.where(&quot;userName&quot;).is(username));</span>
+<span class="fc" id="L173">    return mongoTemplate.findOne(query, BankAccountDTO.class);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
