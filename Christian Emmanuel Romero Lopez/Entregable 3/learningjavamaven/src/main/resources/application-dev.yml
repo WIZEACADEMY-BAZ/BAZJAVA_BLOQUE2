@@ -8,3 +8,4 @@ consumers:
   authenticate: '/authenticate'
   sayHello: '/api/sayHello'
   sayBye: '/api/sayBye'
+  createClient: '/api/createClient'

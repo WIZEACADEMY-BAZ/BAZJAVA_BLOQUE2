@@ -8,6 +8,7 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -114,6 +115,27 @@ public class Utils {
         } catch (InvalidKeyException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    public static Map<String, String> convertToMap(String data){
+        data = data.replace("\"","");
+        data = data.substring(1, data.length()-1);
+        String[] keyValuePairs = data.split(",");
+        Map<String,String> map = new HashMap<>();
+
+        for(String pair : keyValuePairs) {
+            String[] entry = pair.split(":");
+            map.put(entry[0].trim(), entry[1].trim());
+        }
+        return map;
+    }
+
+
+    public static <T> void muestraMensajeConsola(ArrayList<T> datos){
+        datos.stream().forEach((elemento) ->{
+            System.out.print(elemento+"");
+        });
     }
 
 

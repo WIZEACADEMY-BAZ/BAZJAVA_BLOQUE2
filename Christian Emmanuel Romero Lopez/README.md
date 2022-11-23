@@ -16,3 +16,14 @@ _Se han ido agregado las siguientes actividades_
  _Capturas del topico que se utilizo en Kafka_
  * Curso MongoDB -
  _Muestra y Colletions para el uso de querys en MongoDB_
+
+ 
+
+### Entregable 3 📋
+_Se agrega la parte de patrones de diseño_
+ * CreationalPatterns -
+ _Se agrega el patterns/ClientModel donde se muestra la logica que contendra el patron builder._
+ _Para su utilizacion se hace uso del controller/UserController en el path createClient._
+ * BehavioralPatterns -
+ _Se agrega el patterns/ClientModel donde se muestra la logica que contendra el patron commands._
+ _Para su utilizacion se hace uso del controller/UserController en el path createClient._

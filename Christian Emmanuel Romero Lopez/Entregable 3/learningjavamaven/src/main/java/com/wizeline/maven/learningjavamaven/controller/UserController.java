@@ -1,8 +1,12 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.wizeline.maven.learningjavamaven.patterns.ClientModel;
 import com.wizeline.maven.learningjavamaven.model.ResponseModel;
 import com.wizeline.maven.learningjavamaven.model.UserModel;
+import com.wizeline.maven.learningjavamaven.patterns.Invoker;
+import com.wizeline.maven.learningjavamaven.patterns.Receiver;
+import com.wizeline.maven.learningjavamaven.repository.CopyCommand;
 import com.wizeline.maven.learningjavamaven.service.UserService;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
@@ -126,6 +130,33 @@ public class UserController {
     @GetMapping("/sayBye")
     public ResponseEntity<String> sayByeGuest() {
         return new ResponseEntity<>("Adios invitado!!", HttpStatus.OK);
+    }
+
+    @GetMapping("/createClient")
+    public ResponseEntity<String> createClientAccount() {
+        LOGGER.info(msgProcPeticion);
+        inicio = Instant.now();
+
+        ClientModel cliente = new ClientModel.ClientBuilder()
+                .apellidoPaterno( "Romero" )
+                .nombre( "Christian" )
+                .edad( 30 )
+                .telefono( "5580453128" )
+                .tipoCliente( "Nuevo" )
+                .build();
+
+        Invoker invoker = new Invoker();
+        Receiver receiver = new Receiver();
+        invoker.executeOperation(new CopyCommand(new Receiver()));
+        invoker.executeOperation(() -> receiver.paste());
+        invoker.executeOperation(() -> receiver.cut());
+
+        LOGGER.info( "Msg:" + cliente );
+        LOGGER.info("Create Client - Completed");
+        String total = String.valueOf(Duration.between(inicio, Instant.now()).toMillis()).concat(" milisegundos");
+        LOGGER.info("Tiempo de respuesta: ".concat(total));
+
+        return new ResponseEntity<>("Se ejecuto el cliente!!", HttpStatus.OK);
     }
 
     @NotNull

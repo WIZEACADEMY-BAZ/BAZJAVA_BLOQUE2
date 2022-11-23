@@ -26,7 +26,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureWebTestClient
-public class BankingAccountControllerTest {
+class BankingAccountControllerTest {
+
     private static final Logger LOGGER = Logger.getLogger(BankingAccountControllerTest.class.getName());
 
     @Autowired

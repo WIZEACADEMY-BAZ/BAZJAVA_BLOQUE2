@@ -2,6 +2,7 @@ package com.wizeline.maven.learningjavamaven.controller;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -164,6 +165,7 @@ public class BankingAccountController {
         Map<String, List<BankAccountModel>> groupedAccounts;
         Function<BankAccountModel, String> groupFunction = (account) -> account.getAccountType().toString();
         groupedAccounts = accounts.stream().collect(Collectors.groupingBy(groupFunction));
+
         Instant finalDeEjecucion = Instant.now();
 
         LOGGER.info("LearningJava - Cerrando recursos ...");
@@ -182,7 +184,16 @@ public class BankingAccountController {
     @PreAuthorize("hasRole('GUEST')")
     @GetMapping("/sayHello")
     public ResponseEntity<String> sayHelloGuest() {
-        return new ResponseEntity<>("Hola invitado!!", HttpStatus.OK);
+        ArrayList<String> mensaje = new ArrayList<String>() {{
+            add("Hola");
+            add(" ");
+            add("invitado");
+            add("!");
+            add("!");
+        }};
+
+        muestraMensajeConsola(mensaje);
+        return new ResponseEntity<>("Hola invitado!! "+mensaje, HttpStatus.OK);
     }
 
     private BankAccountModel getAccountDetails(String user, String lastUsage) {
