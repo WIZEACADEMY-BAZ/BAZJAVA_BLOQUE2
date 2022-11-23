@@ -7,4 +7,6 @@ import java.util.List;
 // Revisión: Uso de por lo menos una interfaz de creación propia
 public interface PostRepository {
   List<PostDTO> getUserPosts(String userId);
+
+  List<PostDTO> getAllPosts();
 }

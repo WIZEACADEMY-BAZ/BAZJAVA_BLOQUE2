@@ -20,6 +20,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.Date;
 import java.util.stream.Collectors;
 
+// Revisión: Creación de contrato de API usando Swagger (OpenAPI) en un controlador
 @Tag(name = "Authentication",
     description = "Genera token de autenticación.")
 @RestController

@@ -19,24 +19,12 @@ public class BankAccountDTO {
   private LocalDateTime creationDate;
   private LocalDateTime lastUsage;
 
-  public LocalDateTime getCreationDate() {
-    return creationDate;
-  }
-
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
   }
 
   public LocalDateTime getLastUsage() {
     return LocalDateTime.now();
-  }
-
-  public void setLastUsage(LocalDateTime lastUsage) {
-    this.lastUsage = lastUsage;
-  }
-
-  public long getAccountNumber() {
-    return accountNumber;
   }
 
   public void setAccountNumber(long accountNumber) {

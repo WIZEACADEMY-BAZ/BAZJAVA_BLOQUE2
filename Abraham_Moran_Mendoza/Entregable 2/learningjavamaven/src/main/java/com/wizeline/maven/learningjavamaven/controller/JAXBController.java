@@ -41,10 +41,10 @@ public class JAXBController {
     } catch (JAXBException | IOException e) {
       e.printStackTrace();
     }
-    return new ResponseEntity<XmlBean>(response, responseHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
   }
 
-  public void marshal() throws JAXBException, IOException {
+  public void marshal() throws JAXBException {
     BookBean book = new BookBean();
     book.setId(1L);
     book.setName("Book1");

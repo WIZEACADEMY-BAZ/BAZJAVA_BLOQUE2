@@ -1,24 +1,28 @@
 package com.wizeline.maven.learningjavamaven.model;
 
-public class PostDTO {
-  private Integer id;
-  private Integer userId;
+import com.wizeline.maven.learningjavamaven.paterns.creational.builder.attachments.Attachment;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+  public class PostDTO {
+  private String id;
+  private String userId;
   private String title;
   private String body;
+  private Date postDate;
+  public List<Attachment> attachments = new ArrayList<>();
 
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
-  public Integer getUserId() {
+  public String getUserId() {
     return userId;
   }
 
-  public void setUserId(Integer userId) {
+  public void setUserId(String userId) {
     this.userId = userId;
   }
 
@@ -36,5 +40,21 @@ public class PostDTO {
 
   public void setBody(String body) {
     this.body = body;
+  }
+
+  public void setPostDate(Date postDate) {
+    this.postDate = postDate;
+  }
+
+  @Override
+  public String toString() {
+    return "PostDTO{" +
+          "id='" + id + '\'' +
+          ", userId='" + userId + '\'' +
+          ", title='" + title + '\'' +
+          ", body='" + body + '\'' +
+          ", postDate=" + postDate +
+          ", attachments=" + attachments +
+          '}';
   }
 }

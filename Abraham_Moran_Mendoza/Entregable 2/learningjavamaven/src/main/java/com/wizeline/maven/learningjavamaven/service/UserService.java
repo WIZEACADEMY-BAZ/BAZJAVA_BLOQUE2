@@ -20,7 +20,14 @@ public interface UserService {
   List<TodoDTO> getUserTodos(String userId);
 
   List<TodoDTO> getUserTodos(String userId, boolean status);
-
   List<PostDTO> getUserPosts(String userId);
+
+  List<PostDTO> getUserPostsIterator(String userId);
+
+  PostDTO createUserPostWithImage(String userId);
+
+  PostDTO createUserPostWithDocument(String userId);
+
+  PostDTO createUserPostWithImageAndDocument(String userId);
 
 }

@@ -2,10 +2,6 @@ package com.wizeline.maven.learningjavamaven.constants;
 
 public class MessageConstants {
 
-  private MessageConstants() {
-    throw new IllegalStateException("Utility class");
-  }
-
   public static final String INIT_PROCESS = "LearningJava - Inicia procesamiento de peticion ...";
 
   public static final String PROCESSING_GET_METHOD = "LearningJava - Procesando peticion HTTP de tipo GET";
