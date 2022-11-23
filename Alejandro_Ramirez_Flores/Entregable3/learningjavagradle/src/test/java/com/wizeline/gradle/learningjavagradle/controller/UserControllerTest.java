@@ -7,6 +7,8 @@ import com.wizeline.gradle.learningjavagradle.model.UserDTO;
 import com.wizeline.gradle.learningjavagradle.service.BankAccountService;
 import com.wizeline.gradle.learningjavagradle.service.UserService;
 import com.wizeline.gradle.learningjavagradle.utils.CommonServices;
+
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,6 +37,8 @@ class UserControllerTest {
 	
 	    @Mock
 	    private RestTemplate restTemplate;
+	    @Mock
+	    private KafkaProducer producer;
 	    @Mock
 	    private UserService userService;
 	    @Mock
@@ -100,9 +104,4 @@ class UserControllerTest {
 
         assertTrue(respuesta.getStatusCode().is2xxSuccessful(), "Codigo de Respuesta Exitoso");
 	}
-
-	@Test
-	void testSplitQuery() {
-	}
-
 }

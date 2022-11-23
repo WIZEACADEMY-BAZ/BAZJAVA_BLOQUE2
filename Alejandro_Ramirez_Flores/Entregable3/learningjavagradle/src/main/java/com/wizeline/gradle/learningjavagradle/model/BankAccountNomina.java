@@ -12,7 +12,7 @@ import com.wizeline.gradle.learningjavagradle.utils.Utils;
 @Document("BankAccountNomina")
 public class BankAccountNomina extends BankAccountDTO {
 
-	private static final Logger LOGGER = Logger.getLogger(BankAccountDTO.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(BankAccountNomina.class.getName());
 
 	private String nombreUser;
 	private String apellidosUser;
