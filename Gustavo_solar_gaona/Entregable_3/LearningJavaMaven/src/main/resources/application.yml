@@ -16,6 +16,7 @@ spring:
     mongodb:
       database: baz-bootcamp
       port: 27017
+      host: host.docker.internal
 
 server:
   port: 8080
