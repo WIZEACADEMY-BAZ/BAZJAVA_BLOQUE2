@@ -19,6 +19,37 @@ public class BankAccountDTO {
   private LocalDateTime creationDate;
   private LocalDateTime lastUsage;
 
+  public long getAccountNumber() {
+    return accountNumber;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
+  public double getAccountBalance() {
+    return accountBalance;
+  }
+
+  public AccountType getAccountType() {
+    return accountType;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public boolean isAccountActive() {
+    return accountActive;
+  }
+
+  public LocalDateTime getCreationDate() {
+    return creationDate;
+  }
+
+  public void setLastUsage(LocalDateTime lastUsage) {
+    this.lastUsage = lastUsage;
+  }
 
   public void setCreationDate(LocalDateTime creationDate) {
     this.creationDate = creationDate;
