@@ -48,33 +48,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    /**
-     * Obtiene el token de acceso desde el header del request.
-     * @param request Petición del usuario, debe incluir header Authorization.
-     * @return Regresa únicamente el token, sin la palabra Bearer
-     */
+
     private String getAccessToken(HttpServletRequest request) {
         String header = request.getHeader(HEADER);
         String token = header.split(" ")[1].trim();
         return token;
     }
 
-    /**
-     * Válida el token ingresado en el request.
-     * @param token token ingresado en el header del request.
-     * @return Regresa si el token es válido o no.
-     */
     private Claims validateToken(String token) {
         //byte[] secret = new byte[0];//Lo creee
 
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 
-    /**
-     * Válida si se ha ingresado un token en el header del request.
-     * @param request Petición por parte del usuario.
-     * @return Regresa si hay un token.
-     */
     private boolean jwtExists(HttpServletRequest request) {
         String authenticationHeader = request.getHeader(HEADER);
         if (authenticationHeader == null)
@@ -82,10 +68,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         return true;
     }
 
-    /**
-     * Genera la autenticación del usuario y agrega sus roles.
-     * @param claims Información adicional del usuario (roles).
-     */
     private void setUpSpringAuthentication(Claims claims) {
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(claims.get("authorities").toString());

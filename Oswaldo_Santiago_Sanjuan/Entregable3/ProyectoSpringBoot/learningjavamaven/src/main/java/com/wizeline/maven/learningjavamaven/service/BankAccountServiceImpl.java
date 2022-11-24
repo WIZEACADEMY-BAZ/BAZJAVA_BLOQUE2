@@ -2,7 +2,6 @@ package com.wizeline.maven.learningjavamaven.service;
 
 import com.wizeline.maven.learningjavamaven.enums.Country;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
-import com.wizeline.maven.learningjavamaven.model.BankAccountDTOUpdate;
 import com.wizeline.maven.learningjavamaven.repository.BankingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;

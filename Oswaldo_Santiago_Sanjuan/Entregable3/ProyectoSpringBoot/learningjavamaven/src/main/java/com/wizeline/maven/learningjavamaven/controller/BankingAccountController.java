@@ -196,9 +196,7 @@ public class BankingAccountController {
     }
 
     //?accountNumber=xxxxx
-//@RequestParam String user
-
-    //Consultar todas las cuentas y buscarla por nombre utilizando Optional por si no es encontrada
+    //@RequestParam String user
     @GetMapping("/getAccountByAccountNumber")
     public ResponseEntity<BankAccountDTO> getAccountByAccountNumber(@RequestParam long accountNumber) {
         LOGGER.info("Iniciado la ejecuccion... ");
@@ -216,7 +214,6 @@ public class BankingAccountController {
     public ResponseEntity<BankAccountDTO> putCountry(@RequestParam String country){
         LOGGER.info("Iniciando la ejecucion . . . ");
         BankAccountDTO modificar = bankAccountService.putCountry(country);
-        //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
         return new ResponseEntity(responseHeaders, HttpStatus.OK);

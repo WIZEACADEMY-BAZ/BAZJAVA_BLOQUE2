@@ -11,7 +11,6 @@ public class CommonServices {
     UserService userService;
 
     public ResponseDTO login(String user, String password) {
-        //UserService UserService = new UserServiceImpl();
         return userService.login(user, password);
     }
 }

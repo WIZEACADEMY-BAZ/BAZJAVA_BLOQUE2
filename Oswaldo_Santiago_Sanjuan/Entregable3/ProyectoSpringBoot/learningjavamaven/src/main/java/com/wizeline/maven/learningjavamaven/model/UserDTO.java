@@ -45,7 +45,7 @@ public class UserDTO {
         this.password = password;
 
     }
-    //constructor vacion
+    //constructor vacio
     public UserDTO() {
 
     }

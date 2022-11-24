@@ -14,8 +14,6 @@ import java.util.logging.Logger;
 
 
 public class UserServiceImpl implements UserService{
-    //private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
-
     @Autowired
     UserRepository userRepository;
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
@@ -52,7 +50,6 @@ public class UserServiceImpl implements UserService{
             response.setStatus(result);
         } else {
             response.setCode("ER001");
-            //response.setErrors(new ErrorDTO.ErroDTOBilder("ER001",result));
             response.setErrors(new ErrorDTO.ErrorDTOBuilder().errorCode("ER001").message("Error al crear usuario").build());
 
             response.setStatus("fail");

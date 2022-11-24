@@ -44,7 +44,6 @@ public class KafkaConfiguration {
         return new NewTopic("useraccount-topic", 1, (short) 1);
     }
 
-    // String Deserializer
     @Bean
     public ConsumerFactory<Object, Object> consumerFactory() {
         Map<String, Object> config = new HashMap<>();
@@ -62,8 +61,6 @@ public class KafkaConfiguration {
         factory.setConsumerFactory(consumerFactory());
         return factory;
     }
-
-    // Json Deserializer
 
     @Bean
     public ConsumerFactory<String, Object> jsonConsumerFactory() {

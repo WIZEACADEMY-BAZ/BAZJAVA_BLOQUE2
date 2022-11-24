@@ -1,6 +1,5 @@
 package com.wizeline.maven.learningjavamaven.controller;
 
-import java.net.URI;
 import com.wizeline.maven.learningjavamaven.model.BankAccountDTO;
 import com.wizeline.maven.learningjavamaven.model.ResponseDTO;
 import com.wizeline.maven.learningjavamaven.model.UserDTO;
@@ -9,14 +8,10 @@ import com.wizeline.maven.learningjavamaven.service.BankAccountService;
 import com.wizeline.maven.learningjavamaven.service.BankAccountServiceImpl;
 import com.wizeline.maven.learningjavamaven.service.UserService;
 import com.wizeline.maven.learningjavamaven.utils.CommonServices;
-
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
-
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,16 +19,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-
 import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 
@@ -67,15 +65,13 @@ public class UserController {
     CommonServices commonServices;
 
     //Creado el contructor REST Template
-    //@Autowired
     private final Bucket bucket;
 
-    public UserController( @Autowired KafkaProducer producer,
-                           @Autowired UserService userService,
-                           @Autowired RestTemplate restTemplate,
-                           @Autowired BankAccountService bankAccountService,
-                           @Autowired CommonServices commonServices)
-    {
+    public UserController(@Autowired KafkaProducer producer,
+                          @Autowired UserService userService,
+                          @Autowired RestTemplate restTemplate,
+                          @Autowired BankAccountService bankAccountService,
+                          @Autowired CommonServices commonServices) {
         this.userService = userService;
         this.restTemplate = restTemplate;
         this.bankAccountService = bankAccountService;
@@ -92,13 +88,13 @@ public class UserController {
 
 
     @GetMapping("/producer")
-    public ResponseEntity<ResponseDTO> kafkapro(){
+    public ResponseEntity<ResponseDTO> kafkapro() {
         producer.producerPrueba("Pruba del producer .... ");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/login")
-    public ResponseEntity<ResponseDTO> loginUser(@RequestParam String user, @RequestParam String password){
+    public ResponseEntity<ResponseDTO> loginUser(@RequestParam String user, @RequestParam String password) {
         LOGGER.info("Entrando a realizar la peticion ");
 
         LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
@@ -188,7 +184,6 @@ public class UserController {
         try {
             cipher = Cipher.getInstance("DES/CTR/NoPadding", "BC");
             cipher.init(Cipher.ENCRYPT_MODE, key, ivSpec);
-            // Cifraremos solamente el nombre y el country (pueden cifrar todos los parámetros que gusten)
             for (int i = 0; i < accounts.size(); i++) {
                 String accountName = accounts.get(i).getAccountName();
                 byte[] arrAccountName = accountName.getBytes();
@@ -226,8 +221,6 @@ public class UserController {
 
     }
 
-//Trabajando con con el metodo creacion de usuario
-
     //Creacion de usuario
     @PostMapping("/createUsers")
     public ResponseEntity<List<ResponseDTO>> createUsersAccount(@RequestBody List<UserDTO> userDTOList) {
@@ -249,11 +242,9 @@ public class UserController {
         return new ResponseEntity<List<ResponseDTO>>(responseList, responseHeaders, HttpStatus.OK);
     }
 
-    //Empesando a trabajar en PUT
     //PUT --> Actualizar
     @PutMapping("/UpdateUser")
-    //@PostMapping("/createUser")
-    public  ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<ResponseDTO> createUserAccount(@RequestBody UserDTO userDTO) {
         LOGGER.info("Iniciado a actualiza el usuario");
         ResponseDTO response = new ResponseDTO();
 
@@ -284,18 +275,9 @@ public class UserController {
     private void assertTrue(boolean present) {
     }
 
-/*
-    private static Optional<Object> getParameterValueObject(Map<String, String> param, String paramName) {
-        String val = param.get(paramName);
-        if (val != null && val != "") {
-            return Optional.ofNullable(val);
-        }
-        return Optional.ofNullable("NA");
-    }
-*/
     //Trabajando con mi PAI de REST Template
     @GetMapping("/ResTemplate")
-    public Object getApi(){
+    public Object getApi() {
         String url = "https://pokeapi.co/api/v2/pokemon/ditto";
         Object forObject = restTemplate.getForObject(url, Object.class);
         return forObject;
@@ -304,12 +286,8 @@ public class UserController {
     @GetMapping("/users")
     public ResponseEntity<String> getUsers() {
         if (bucket.tryConsume(1)) {
-            //Aqui va la logica para obtener la informacion
-            //Se regresa la respuesta normalmente
             return ResponseEntity.ok("It's ok");
         }
-
-        //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
         return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
     }
 }

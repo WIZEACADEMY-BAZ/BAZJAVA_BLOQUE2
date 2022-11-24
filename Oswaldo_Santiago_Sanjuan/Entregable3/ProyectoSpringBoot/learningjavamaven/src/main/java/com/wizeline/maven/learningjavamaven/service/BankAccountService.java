@@ -12,13 +12,9 @@ public interface BankAccountService {
 
     BankAccountDTO getAccountDetails(String user, String lastUsage);
     BankAccountDTO getAccountDetails(String user);
-
-    //BankAccountDTO getAccountDetails(String user);
-
     void  deleteAccounts();
 
     List<BankAccountDTO> getAccountByUser(String user);
-    //Declarando el metodo del optional
     Optional<BankAccountDTO> getAccountByAccountNumber(long accountNumber);
     BankAccountDTO putCountry(String country);
 }

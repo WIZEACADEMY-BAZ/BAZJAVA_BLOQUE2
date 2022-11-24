@@ -1,21 +1,13 @@
 package com.wizeline.maven.learningjavamaven.repository;
 
-import com.wizeline.maven.learningjavamaven.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
 import java.util.logging.Logger;
 
 @Repository
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
     private static final Logger LOGGER = Logger.getLogger(UserRepositoryImpl.class.getName());
-
-//    public UserRepositoryImpl(@Autowired String createUser
-//    ) {
-//        String User = createUser;
-//
-//    }
 
     @Override
     public String createUser(String user, String password) {
@@ -65,11 +57,11 @@ public class UserRepositoryImpl implements UserRepository{
             } else {
                 LOGGER.info("File already exists.");
             }
-            FileWriter fileWritter = new FileWriter(file.getName(),true);
+            FileWriter fileWritter = new FileWriter(file.getName(), true);
 
             BufferedWriter bw = new BufferedWriter(fileWritter);
 
-            bw.write(user+", "+password);
+            bw.write(user + ", " + password);
             bw.newLine();
             bw.close();
             LOGGER.info("Successfully wrote to the file.");
@@ -86,7 +78,7 @@ public class UserRepositoryImpl implements UserRepository{
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line = "";
             while ((line = br.readLine()) != null) {
-                if(line.contains(user) && line.contains(password)) {
+                if (line.contains(user) && line.contains(password)) {
                     result = "success";
                 }
             }
