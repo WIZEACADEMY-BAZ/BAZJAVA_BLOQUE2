@@ -7,6 +7,7 @@ plugins {
 
 group = 'com.wizeline.gradle'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
 
 configurations {
 	compileOnly {
@@ -18,13 +19,6 @@ repositories {
 	mavenCentral()
 }
 
-apply plugin: 'java'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'base'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'jacoco'
 
 dependencies {
@@ -33,17 +27,18 @@ dependencies {
 	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
 	implementation group: 'org.bouncycastle', name: 'bcprov-jdk18on', version: '1.72'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: '2.7.4'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.7.3'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.4'
     implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.6.3'
+    implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.10'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.6.3'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
     implementation group: 'io.github.classgraph', name: 'classgraph', version: '4.8.138'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-batch', version: '2.6.7'
+    testImplementation 'org.springframework.batch:spring-batch-test'
     implementation group: 'com.h2database', name: 'h2', version: '2.1.210'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '2.6.6'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-dependencies', version: '2021.0.3', ext: 'pom'
@@ -63,7 +58,8 @@ dependencies {
     implementation group: 'junit', name: 'junit', version: '4.13.1'    
     // https://mvnrepository.com/artifact/org.apache.maven/maven-core
     implementation group: 'org.apache.maven', name: 'maven-core', version: '3.6.3'
-           
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'  
+    implementation group: 'javax.cache', name: 'cache-api', version: '1.1.1'      
 }
 
 tasks.named('test') {
