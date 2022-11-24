@@ -4,18 +4,19 @@ import java.util.logging.Logger;
 
 import com.wizeline.maven.learningjava.Learning.model.ResponseDTO;
 import com.wizeline.maven.learningjava.Learning.model.UserDTO;
+import com.wizeline.maven.learningjava.Learning.model.UserDateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
-
 import java.time.Duration;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.wizeline.maven.learningjava.Learning.service.UserService;
+import java.util.List;
+import org.springframework.http.HttpHeaders;
 
 @RestController
 @RequestMapping("/api")
@@ -26,6 +27,7 @@ public class UserController {
 
 
     private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+    String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
 
     private final Bucket bucket;
 
@@ -67,5 +69,15 @@ public class UserController {
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
 
 }
+    @GetMapping("/userDate")
+    public ResponseEntity<List<UserDateDTO>> userDate(@RequestParam String userId) {
+        LOGGER.info(msgProcPeticion);
+
+        List<UserDateDTO> response = userService.getUserDateIterator(userId);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
+        return new ResponseEntity<>(response, responseHeaders, HttpStatus.OK);
+    }
 
 }
