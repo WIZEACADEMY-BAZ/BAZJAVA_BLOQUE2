@@ -29,4 +29,8 @@
 - Evidencia configuracion Spring
 - Evidencia entregable semana 3 y 4
 
-- README.md
+### Entregable 3
+- Evidencia pruebas unitarias
+- Evidencia cobertura de codigo
+
+README.md
