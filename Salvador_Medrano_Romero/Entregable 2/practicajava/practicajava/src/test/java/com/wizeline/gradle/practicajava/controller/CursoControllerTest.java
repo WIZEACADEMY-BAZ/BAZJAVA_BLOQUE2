@@ -2,6 +2,7 @@ package com.wizeline.gradle.practicajava.controller;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
@@ -19,6 +20,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -50,6 +53,9 @@ class CursoControllerTest {
 
 	@MockBean
 	private Bucket bucket;
+
+	@MockBean
+	private UserDetailsService userDetailsService;
 
 	@Mock
 	private RestTemplate restTemplate;
@@ -211,6 +217,25 @@ class CursoControllerTest {
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
 				.andExpect(MockMvcResultMatchers.content().string(
 						"{\"page\":2,\"per_page\":6,\"total\":12,\"total_pages\":2,\"data\":[{\"id\":7,\"email\":\"michael.lawson@reqres.in\",\"first_name\":\"Michael\",\"last_name\":\"Lawson\",\"avatar\":\"https://reqres.in/img/faces/7-image.jpg\"},{\"id\":8,\"email\":\"lindsay.ferguson@reqres.in\",\"first_name\":\"Lindsay\",\"last_name\":\"Ferguson\",\"avatar\":\"https://reqres.in/img/faces/8-image.jpg\"},{\"id\":9,\"email\":\"tobias.funke@reqres.in\",\"first_name\":\"Tobias\",\"last_name\":\"Funke\",\"avatar\":\"https://reqres.in/img/faces/9-image.jpg\"},{\"id\":10,\"email\":\"byron.fields@reqres.in\",\"first_name\":\"Byron\",\"last_name\":\"Fields\",\"avatar\":\"https://reqres.in/img/faces/10-image.jpg\"},{\"id\":11,\"email\":\"george.edwards@reqres.in\",\"first_name\":\"George\",\"last_name\":\"Edwards\",\"avatar\":\"https://reqres.in/img/faces/11-image.jpg\"},{\"id\":12,\"email\":\"rachel.howell@reqres.in\",\"first_name\":\"Rachel\",\"last_name\":\"Howell\",\"avatar\":\"https://reqres.in/img/faces/12-image.jpg\"}],\"support\":{\"url\":\"https://reqres.in/#support-heading\",\"text\":\"To keep ReqRes free, contributions towards server costs are appreciated!\"}}"));
+
+	}
+
+	@Test
+	void obtenerTokenTest() throws Exception {
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("user", "guest");
+		body.put("password", "password");
+
+		final UserDetails user = mock(UserDetails.class);
+		when(userDetailsService.loadUserByUsername("guest")).thenReturn(user);
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiCurso/autenticacion")
+				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(body));
+		;
+		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.status().isOk());
 
 	}
 
