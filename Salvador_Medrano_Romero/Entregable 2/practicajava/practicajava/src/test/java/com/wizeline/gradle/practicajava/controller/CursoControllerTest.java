@@ -6,12 +6,10 @@ import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -19,16 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -64,12 +56,26 @@ class CursoControllerTest {
 
 	@Test
 	void sendUserAccountTest() throws Exception {
-		when(cursoService.obtieneEstudiantes()).thenReturn(new ArrayList<>());
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiCurso/send/{matricula}",
-				"urlVariables", "urlVariables");
-		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(cursoController).build()
-				.perform(requestBuilder);
-		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
+		List<EstudianteDTO> estudiantes = new ArrayList<>();
+		EstudianteDTO estudiante1 = new EstudianteDTO();
+		estudiante1.setApellidoMat("ApellidoMat");
+		estudiante1.setApellidoPat("ApellidoPat");
+		int[] calificaciones = { 10, 9, 8 };
+		estudiante1.setCalificaciones(calificaciones);
+		estudiante1.setCorreo("correo@mail.com");
+		estudiante1.setFechaCreacion(LocalDateTime.now());
+		estudiante1.setMatricula("matricula1");
+		estudiante1.setNombre("Juan");
+		estudiante1.setSemestre(6);
+		estudiante1.setTurno(Turno.MATUTINO);
+		estudiante1.setUniversidad("UNAM");
+		estudiantes.add(estudiante1);
+		when(cursoService.obtieneEstudiantes()).thenReturn(estudiantes);
+
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiCurso/send/0");
+		;
+		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
@@ -199,15 +205,27 @@ class CursoControllerTest {
 
 	@Test
 	void restTemplateTest() throws Exception {
-		HttpHeaders headers = new HttpHeaders();
-		String resultado = "";
-		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		HttpEntity<String> entity = new HttpEntity<String>(headers);
-		when(restTemplate.exchange("https://reqres.in/api/users?page=2", HttpMethod.GET, entity, String.class))
-				.thenReturn(new ResponseEntity<String>(resultado, HttpStatus.OK));
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/apiCurso/consumeRestTemplate");
+		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+				.andExpect(MockMvcResultMatchers.content().string(
+						"{\"page\":2,\"per_page\":6,\"total\":12,\"total_pages\":2,\"data\":[{\"id\":7,\"email\":\"michael.lawson@reqres.in\",\"first_name\":\"Michael\",\"last_name\":\"Lawson\",\"avatar\":\"https://reqres.in/img/faces/7-image.jpg\"},{\"id\":8,\"email\":\"lindsay.ferguson@reqres.in\",\"first_name\":\"Lindsay\",\"last_name\":\"Ferguson\",\"avatar\":\"https://reqres.in/img/faces/8-image.jpg\"},{\"id\":9,\"email\":\"tobias.funke@reqres.in\",\"first_name\":\"Tobias\",\"last_name\":\"Funke\",\"avatar\":\"https://reqres.in/img/faces/9-image.jpg\"},{\"id\":10,\"email\":\"byron.fields@reqres.in\",\"first_name\":\"Byron\",\"last_name\":\"Fields\",\"avatar\":\"https://reqres.in/img/faces/10-image.jpg\"},{\"id\":11,\"email\":\"george.edwards@reqres.in\",\"first_name\":\"George\",\"last_name\":\"Edwards\",\"avatar\":\"https://reqres.in/img/faces/11-image.jpg\"},{\"id\":12,\"email\":\"rachel.howell@reqres.in\",\"first_name\":\"Rachel\",\"last_name\":\"Howell\",\"avatar\":\"https://reqres.in/img/faces/12-image.jpg\"}],\"support\":{\"url\":\"https://reqres.in/#support-heading\",\"text\":\"To keep ReqRes free, contributions towards server costs are appreciated!\"}}"));
 
-		Assertions.assertEquals("", resultado);
-				
+	}
+
+	@Test
+	void obtenerTokenTest() throws Exception {
+		ResponseDTO responseDTO = new ResponseDTO();
+		responseDTO.setCode("Code");
+		responseDTO.setErrors(new ErrorDTO("An error occurred", "Not all who wander are lost"));
+		responseDTO.setStatus("Status");
+		when(commonServices.login((String) any(), (String) any())).thenReturn(responseDTO);
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/login")
+				.param("password", "values").param("user", "values");
+		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(userController).build()
+				.perform(requestBuilder);
+		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(200));
 	}
 
 }
