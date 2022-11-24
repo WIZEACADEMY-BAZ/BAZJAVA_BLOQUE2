@@ -35,6 +35,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wizeline.gradle.practicajava.enums.Turno;
 import com.wizeline.gradle.practicajava.model.EstudianteDTO;
+import com.wizeline.gradle.practicajava.repository.CursoRepository;
 import com.wizeline.gradle.practicajava.service.CursoServiceImpl;
 
 import io.github.bucket4j.Bucket;
@@ -46,6 +47,9 @@ class CursoControllerTest {
 
 	@MockBean
 	private CursoServiceImpl cursoService;
+	
+	@MockBean
+	private CursoRepository cursoRepository;
 
 	@Autowired
 	private CursoController cursoController;
@@ -138,6 +142,7 @@ class CursoControllerTest {
 
 	@Test
 	void borrarEstudiantesTest() throws Exception {
+		doNothing().when(cursoRepository).deleteAll();
 		doNothing().when(cursoService).borrarEstudiantes();
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/apiCurso/borrarEstudiantes");
 		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
