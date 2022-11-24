@@ -3,14 +3,8 @@ package com.wizeline.maven.learningjava.Learning.model;
 public class ResponseDTO {
 
     private String status;
-    /**
-     * Attribute code: Guarda el codigo de la operacion realizada o error.
-     */
     private String code;
 
-    /**
-     * Attribute error: Bean que maneja un listado de errores presentados en durante el procesamiento de request.
-     */
     private ErrorDTO errors = new ErrorDTO();
 
     public String getStatus() {
