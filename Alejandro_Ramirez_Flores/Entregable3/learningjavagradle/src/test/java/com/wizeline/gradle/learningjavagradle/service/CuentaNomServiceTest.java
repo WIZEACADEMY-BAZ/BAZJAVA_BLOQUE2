@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountNomina;
 import com.wizeline.gradle.learningjavagradle.model.ResponseDTO;
 import com.wizeline.gradle.learningjavagradle.repository.BankingAccountNominaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 class CuentaNomServiceTest {
 	
@@ -29,6 +31,9 @@ class CuentaNomServiceTest {
 	
 	@Autowired
 	BankingAccountNominaRepository dao;
+	
+	@Autowired
+	MongoTemplate mongoTemplate;
 
 	@Test
 	void testObtenerCuenta() {
@@ -36,6 +41,7 @@ class CuentaNomServiceTest {
 		LOGGER.info("Obtener nueva cuenta");
 		Optional<BankAccountNomina> resp = dao.obtenerCuenta(user);
 		assertNotNull(resp);
+		mongoTemplate.save(resp);
 		LOGGER.info("en caso de que los datos sean correctos");
 	}
 	
@@ -44,6 +50,7 @@ class CuentaNomServiceTest {
 		LOGGER.info("Obtener nueva cuenta");
 		Optional<BankAccountNomina> resp = dao.obtenerCuenta(null);
 		assertNotNull(resp);
+		mongoTemplate.save(resp);
 		LOGGER.info("en caso de que los datos sean Incorrectos");
 	}
 
@@ -56,6 +63,7 @@ class CuentaNomServiceTest {
 		request.setRfc("RAFA881004D86");
 		ResponseEntity<?> respo = cuentaNomService.createNomina(request);	
 		assertNotNull(respo);
+		mongoTemplate.save(respo);
 		LOGGER.info("en caso de que los datos sean correctos");
 	}
 
@@ -68,6 +76,7 @@ class CuentaNomServiceTest {
 		request.setRfc(null);
 		ResponseEntity<?> respo = cuentaNomService.createNomina(request);	
 		assertNotNull(respo);
+		mongoTemplate.save(respo);
 		LOGGER.info("en caso de que los datos sean Incorrectos");
 	}
 	
@@ -80,6 +89,7 @@ class CuentaNomServiceTest {
 		request.setRfc("RAFA881004D86");
 		ResponseEntity<?> resp1 = cuentaNomService.updateNomina(request);
 		assertNotNull(resp1);
+		mongoTemplate.save(resp1);
 		LOGGER.info("en caso de que los datos sean correctos");
 	}
 
@@ -92,6 +102,7 @@ class CuentaNomServiceTest {
 		request.setRfc(null);
 		ResponseEntity<?> resp1 = cuentaNomService.updateNomina(request);
 		assertNotNull(resp1);
+		mongoTemplate.save(resp1);
 		LOGGER.info("en caso de que los datos sean Incorrectos o nulos");
 	}
 	
@@ -101,6 +112,7 @@ class CuentaNomServiceTest {
 		long accountNumber = 10;
 		ResponseEntity<?> respo1 = cuentaNomService.deleteNomina(accountNumber);
 		assertNotNull(respo1);
+		mongoTemplate.delete(respo1);
 		LOGGER.info("Para el caso de que los datos sean correctos");
 	}
 	
@@ -110,6 +122,7 @@ class CuentaNomServiceTest {
 		long accountNumber = null;
 		ResponseEntity<?> respo1 = cuentaNomService.deleteNomina(accountNumber);
 		assertNotNull(respo1);
+		mongoTemplate.delete(respo1);
 		LOGGER.info("en caso de que los datos sean Incorrectos o nulos");
 	}
 

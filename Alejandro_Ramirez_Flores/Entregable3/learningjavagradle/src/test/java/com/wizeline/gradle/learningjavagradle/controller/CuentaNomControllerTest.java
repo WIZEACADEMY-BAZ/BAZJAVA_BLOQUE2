@@ -1,8 +1,6 @@
 package com.wizeline.gradle.learningjavagradle.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,8 +21,6 @@ class CuentaNomControllerTest {
 	 @Mock
 	 private CuentaNomService cuentaNomService;
 	 
-	    @Autowired
-		MongoTemplate mongoTemplate;
 
 	@Test
 	void testGetUserAccount() {
@@ -32,7 +28,6 @@ class CuentaNomControllerTest {
 	
 	 ResponseEntity<?> httpResponse = cuentaNomController.getUserAccount(user);
 	 assertNotNull(httpResponse);
-	 cuentaNomService.obtenerCuenta(user);
 	 assertEquals(httpResponse.getStatusCode(), HttpStatus.OK);
 	}
 
@@ -44,7 +39,6 @@ class CuentaNomControllerTest {
 		request.setRfc("RAFA881004D85");
 		ResponseEntity<?> httpResponse1 = cuentaNomController.createAccountNomina(request );
 		 assertNotNull(httpResponse1);
-		 cuentaNomService.createNomina(request);
 		assertEquals(httpResponse1.getStatusCode(), HttpStatus.OK);
 	}
 
@@ -55,7 +49,6 @@ class CuentaNomControllerTest {
 		requestA.setApellidosUser("ramirez");
 		ResponseEntity<?> httpResponseA = cuentaNomController.createAccountNomina(requestA);
 		assertNotNull(httpResponseA);
-		cuentaNomService.updateNomina(requestA);
 		assertEquals(httpResponseA.getStatusCode(), HttpStatus.OK);
 	}
 
@@ -63,8 +56,7 @@ class CuentaNomControllerTest {
 	void testDeleteAccountNomina() {
 		long AccountNumber=2;
 		ResponseEntity<?> httpResponseAccountNumber = cuentaNomController.deleteNomina(AccountNumber);
-		assertNotNull(httpResponseAccountNumber);
-		cuentaNomService.deleteNomina( AccountNumber); 
+		assertNotNull(httpResponseAccountNumber); 
 		assertEquals(httpResponseAccountNumber.getStatusCode(), HttpStatus.OK);
 	}
 
