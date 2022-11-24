@@ -5,6 +5,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +14,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.wizeline.gradle.practicajava.model.BankAccountDTO;
 import com.wizeline.gradle.practicajava.service.BankAccountService;
 
 @ContextConfiguration(classes = { BankingAccountController.class })
@@ -36,12 +37,14 @@ class BankingAccountControllerTest {
 
 	@Test
 	void sendUserAccountTest() throws Exception {
-		when(bankAccountService.getAccounts()).thenReturn(new ArrayList<>());
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiBank/send/{userId}",
-				"urlVariables", "urlVariables");
-		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(bankingAccountController).build()
-				.perform(requestBuilder);
-		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
+		List<BankAccountDTO> cuentas = new ArrayList<>();
+		BankAccountDTO cuenta = new BankAccountDTO();
+		cuenta.setAccountName("cuenta1");
+		cuentas.add(cuenta);
+		when(bankAccountService.getAccounts()).thenReturn(cuentas);
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiBank/send/0");
+		MockMvcBuilders.standaloneSetup(bankingAccountController).build().perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
@@ -95,6 +98,13 @@ class BankingAccountControllerTest {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json; charset=UTF-8"))
 				.andExpect(MockMvcResultMatchers.content().string("[]"));
+	}
+	
+	@Test
+	void sayHelloGuestTest() throws Exception {
+		MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/apiBank/sayHello");
+		MockMvcBuilders.standaloneSetup(bankingAccountController).build().perform(getResult)
+		.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 }

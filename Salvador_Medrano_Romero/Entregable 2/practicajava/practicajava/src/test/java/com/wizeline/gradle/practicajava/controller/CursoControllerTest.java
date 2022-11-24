@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wizeline.gradle.practicajava.enums.Turno;
@@ -233,9 +235,24 @@ class CursoControllerTest {
 		ObjectMapper objectMapper = new ObjectMapper();
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiCurso/autenticacion")
 				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(body));
-		;
 		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
 				.andExpect(MockMvcResultMatchers.status().isOk());
+
+	}
+
+	@Test
+	void obtenerTokenUnauthorizedTest() throws Exception {
+
+		Map<String, Object> body = new HashMap<>();
+		body.put("user", "guest");
+		body.put("password", "password1");
+		ResponseStatusException responseStatusException = new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		ObjectMapper objectMapper = new ObjectMapper();
+		when(userDetailsService.loadUserByUsername("guest")).thenThrow(responseStatusException);
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/apiCurso/autenticacion")
+				.contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(body));
+		MockMvcBuilders.standaloneSetup(cursoController).build().perform(requestBuilder)
+				.andExpect(MockMvcResultMatchers.status().isUnauthorized());
 
 	}
 
