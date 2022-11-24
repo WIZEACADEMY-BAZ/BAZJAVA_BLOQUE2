@@ -214,18 +214,4 @@ class CursoControllerTest {
 
 	}
 
-	@Test
-	void obtenerTokenTest() throws Exception {
-		ResponseDTO responseDTO = new ResponseDTO();
-		responseDTO.setCode("Code");
-		responseDTO.setErrors(new ErrorDTO("An error occurred", "Not all who wander are lost"));
-		responseDTO.setStatus("Status");
-		when(commonServices.login((String) any(), (String) any())).thenReturn(responseDTO);
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/login")
-				.param("password", "values").param("user", "values");
-		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(userController).build()
-				.perform(requestBuilder);
-		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(200));
-	}
-
 }
