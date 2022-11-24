@@ -36,6 +36,15 @@ class CuentaNomServiceTest {
 		LOGGER.info("Obtener nueva cuenta");
 		Optional<BankAccountNomina> resp = dao.obtenerCuenta(user);
 		assertNotNull(resp);
+		LOGGER.info("en caso de que los datos sean correctos");
+	}
+	
+	@Test
+	void testObtenerCuentaIn() {
+		LOGGER.info("Obtener nueva cuenta");
+		Optional<BankAccountNomina> resp = dao.obtenerCuenta(null);
+		assertNotNull(resp);
+		LOGGER.info("en caso de que los datos sean Incorrectos");
 	}
 
 	@Test
@@ -47,8 +56,21 @@ class CuentaNomServiceTest {
 		request.setRfc("RAFA881004D86");
 		ResponseEntity<?> respo = cuentaNomService.createNomina(request);	
 		assertNotNull(respo);
+		LOGGER.info("en caso de que los datos sean correctos");
 	}
 
+	@Test
+	void testCreateNominaIn() {
+		LOGGER.info("Prueba del metodo CreateNomina");
+		BankAccountNomina request = new BankAccountNomina();
+		request.setNombreUser(null);
+		request.setApellidosUser(null);
+		request.setRfc(null);
+		ResponseEntity<?> respo = cuentaNomService.createNomina(request);	
+		assertNotNull(respo);
+		LOGGER.info("en caso de que los datos sean Incorrectos");
+	}
+	
 	@Test
 	void testUpdateNomina() {
 		LOGGER.info("Prueba del metodo updateNomina");
@@ -58,14 +80,37 @@ class CuentaNomServiceTest {
 		request.setRfc("RAFA881004D86");
 		ResponseEntity<?> resp1 = cuentaNomService.updateNomina(request);
 		assertNotNull(resp1);
+		LOGGER.info("en caso de que los datos sean correctos");
 	}
 
+	@Test
+	void testUpdateNominaIn() {
+		LOGGER.info("Prueba del metodo updateNomina");
+		BankAccountNomina request = new BankAccountNomina();
+		request.setNombreUser(null);
+		request.setApellidosUser(null);
+		request.setRfc(null);
+		ResponseEntity<?> resp1 = cuentaNomService.updateNomina(request);
+		assertNotNull(resp1);
+		LOGGER.info("en caso de que los datos sean Incorrectos o nulos");
+	}
+	
 	@Test
 	void testDeleteNomina() {
 		LOGGER.info("Realizando Prueba del metodo DeleteNomina");
 		long accountNumber = 10;
 		ResponseEntity<?> respo1 = cuentaNomService.deleteNomina(accountNumber);
 		assertNotNull(respo1);
+		LOGGER.info("Para el caso de que los datos sean correctos");
+	}
+	
+	@Test
+	void testDeleteNominaIn() {
+		LOGGER.info("Realizando Prueba del metodo DeleteNomina");
+		long accountNumber = null;
+		ResponseEntity<?> respo1 = cuentaNomService.deleteNomina(accountNumber);
+		assertNotNull(respo1);
+		LOGGER.info("en caso de que los datos sean Incorrectos o nulos");
 	}
 
 }

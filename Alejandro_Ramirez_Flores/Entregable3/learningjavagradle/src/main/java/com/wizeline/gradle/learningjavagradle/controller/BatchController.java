@@ -18,9 +18,6 @@ import com.wizeline.gradle.learningjavagradle.batch.UserJob;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-/**
- * Controller to trigger a job manually.
- */
 @Tag(name = "Batch",
         description = "Inicia manualmente un job.")
 @RestController

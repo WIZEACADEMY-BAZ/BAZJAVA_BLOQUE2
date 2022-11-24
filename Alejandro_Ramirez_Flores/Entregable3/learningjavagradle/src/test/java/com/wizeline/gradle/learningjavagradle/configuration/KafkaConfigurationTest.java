@@ -13,7 +13,7 @@ import org.springframework.kafka.core.ProducerFactory;
 
 import com.mongodb.assertions.Assertions;
 
-@WebMvcTest(KafkaConfiguration.class)
+@WebMvcTest(KafkaConfigurationTest.class)
 class KafkaConfigurationTest {
 	
 	private static final Logger LOGGER = Logger.getLogger(KafkaConfigurationTest.class.getName());

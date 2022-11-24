@@ -19,7 +19,7 @@ import static com.wizeline.gradle.learningjavagradle.enums.AccountType.AHORRO;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BankAccountItemProcessorTest {
 	
-	private static final Logger LOGGER = Logger.getLogger(UserController.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(BankAccountItemProcessorTest.class.getName());
 	
 	@InjectMocks 
 	BankAccountItemProcessor bankAccountItemProcessor;
@@ -32,7 +32,7 @@ class BankAccountItemProcessorTest {
 		account.setAccountNumber(3);
 		account.setCountry("mexico");
 		account.setAccountName("Cuenta alex");
-		account.setAccountBalance(3);
+		account.setAccountBalance(30.6);
 		account.setUser("Alex");
 		account.setAccountType(AHORRO);
 

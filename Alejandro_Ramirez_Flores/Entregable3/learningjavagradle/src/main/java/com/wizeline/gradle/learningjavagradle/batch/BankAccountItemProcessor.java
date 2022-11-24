@@ -6,9 +6,7 @@ import org.springframework.batch.item.ItemProcessor;
 
 import com.wizeline.gradle.learningjavagradle.model.BankAccountDTO;
 
-/**
- * Processor for BankAccountJob.
- */
+
 public class BankAccountItemProcessor implements ItemProcessor<BankAccountDTO, String> {
 
     private static final Logger LOGGER =

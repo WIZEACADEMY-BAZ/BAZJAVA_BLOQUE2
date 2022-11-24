@@ -4,9 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 
-/**
- * Processor for UserJob.
- */
 public class UserProcessor implements ItemProcessor<String, String> {
 
     private static final Logger LOGGER =

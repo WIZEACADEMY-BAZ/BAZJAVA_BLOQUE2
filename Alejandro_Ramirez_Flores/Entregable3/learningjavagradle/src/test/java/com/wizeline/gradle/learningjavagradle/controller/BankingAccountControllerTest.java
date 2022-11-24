@@ -1,5 +1,7 @@
 package com.wizeline.gradle.learningjavagradle.controller;
 
+import org.springframework.test.web.servlet.MockMvc;
+
 import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.Test;
@@ -21,12 +23,16 @@ import com.wizeline.gradle.learningjavagradle.utils.exceptions.ExcepcionGenerica
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
+
 import static org.mockito.Mockito.*;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.OngoingStubbing;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 
@@ -36,6 +42,7 @@ import java.util.logging.Logger;
 
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@WebMvcTest(BankingAccountControllerTest.class)
 class BankingAccountControllerTest {
 	private static final Logger LOGGER = Logger.getLogger(BankingAccountControllerTest.class.getName());
 
@@ -65,7 +72,7 @@ class BankingAccountControllerTest {
 		LOGGER.info("Hacemos no nulo a httpResponse y comparamos la igualdad");
 		assertEquals(httpResponse, HttpStatus.OK);
 	}
-
+	
 	@Test
 	void testGetAccounts() {
 		LOGGER.info("Realizando Prueba");

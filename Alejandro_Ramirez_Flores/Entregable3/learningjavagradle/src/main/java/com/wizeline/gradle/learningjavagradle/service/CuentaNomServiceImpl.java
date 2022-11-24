@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 import com.wizeline.gradle.learningjavagradle.model.BankAccountNomina;
 import com.wizeline.gradle.learningjavagradle.repository.BankingAccountNominaRepository;
 import com.wizeline.gradle.learningjavagradle.utils.exceptions.NotificationsException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 
 @Service
 public class CuentaNomServiceImpl implements CuentaNomService{
 
 	@Autowired
 	BankingAccountNominaRepository dao;
+	@Autowired
+	MongoTemplate mongoTemplate;
 	
 	@Override
 	public ResponseEntity<BankAccountNomina> obtenerCuenta(String user) {
@@ -23,6 +27,7 @@ public class CuentaNomServiceImpl implements CuentaNomService{
 		 */
 		Optional<BankAccountNomina> cuenta = dao.obtenerCuenta(user);
 		if(cuenta.isPresent()) {
+			mongoTemplate.save(cuenta);
 			return ResponseEntity.ok(cuenta.get());
 		}else {
 			
@@ -33,6 +38,7 @@ public class CuentaNomServiceImpl implements CuentaNomService{
 	@Override
 	public ResponseEntity<?> createNomina(BankAccountNomina request) {
 		if(dao.insertaCuenta(request)) {
+			mongoTemplate.save(request);
 			return ResponseEntity.ok("Cuenta creada correctamente");
 		}else {
 	    	throw new NotificationsException("Error al crear la cuenta", HttpStatus.BAD_REQUEST);
@@ -43,6 +49,7 @@ public class CuentaNomServiceImpl implements CuentaNomService{
 	@Override
 	public ResponseEntity<?> updateNomina(BankAccountNomina request) {
 		if(dao.updateCuenta(request)) {
+			mongoTemplate.save(request);
 			return ResponseEntity.ok("Cuenta actualizada correctamente");
 		}else {
 	    	throw new NotificationsException("Error al actualizar la cuenta", HttpStatus.BAD_REQUEST);
@@ -52,6 +59,7 @@ public class CuentaNomServiceImpl implements CuentaNomService{
 	@Override
 	public ResponseEntity<?> deleteNomina(Long accountNumber) {
 		if(dao.deleteCuenta(accountNumber)) {
+			mongoTemplate.delete(accountNumber);
 			return ResponseEntity.ok("Cuenta eliminada correctamente");
 		}else {
 	    	throw new NotificationsException("Error al eliminar la cuenta", HttpStatus.BAD_REQUEST);
