@@ -86,11 +86,17 @@ Entregable 3
 
     - Kafka: Para la parte de kafka hay un prerequisito y es tener corriendo el broker de kafka en la dirección 127.0.0.1:9092  ya que el producer y consumer trabajan en esta dirección. Puede usar el endpoint "LearningJava/KafkaProducer"que se encuentra en coleccion de Postman
 
+    - Patrones de Diseño "Creacion y de Comportamiento" se encuentran en la clase PatternDesignController
+
     - Patron de Diseño "Throttling": Para la prueba puede hacer uso del endpoint "LearningJava/LimitUsers" el cual tambien puede encontrar en la coleccion de Postman
 
     - Pruebas Unitarias CRUD: Las pruebas unitarias de CRUD puede encontrarlas en la clase BankingAccountControllerTest
-
+    
     - Uso de Mokito y Logs en las Pruebas: Todas las pruebas hacen uso de LOGS, así como de Mokito
+
+    - Cobertura: Usando el comando "mvn clean install" puede generar el reporte de jacoco el cual se genera en la ruta target->site->jacoco->index.html
+
+    NOTA: Para las pruebas y por ende el reporte de cobertura se requiere que el proyecto tenga el archivo file.txt (en la raiz del proyecto) teniendo como contenido el siguiente usuario "user10@wizeline.com, Pass10$" ya que se ocupa para mapear un testunitario
 
 
 

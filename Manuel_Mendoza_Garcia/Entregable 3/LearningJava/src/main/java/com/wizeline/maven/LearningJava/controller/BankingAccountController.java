@@ -55,8 +55,9 @@ public class BankingAccountController {
     private static final Logger LOGGER = Logger.getLogger(LearningJavaApplication.class.getName());
     String msgProcPeticion = "LearningJava - Inicia procesamiento de peticion ...";
 
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/getUserAccount")
-    public ResponseEntity<?> getUserAccount(@RequestParam String user, @RequestParam String password, @RequestParam String date) {
+    public ResponseEntity<?> getUserAccount(@RequestParam String user, @RequestParam String password, @RequestParam String date) throws JsonProcessingException {
         LOGGER.info(msgProcPeticion);
         Instant inicioDeEjecucion = Instant.now();
         ResponseDTO response = new ResponseDTO();
@@ -73,7 +74,7 @@ public class BankingAccountController {
                     LOGGER.info("LearningJava - Cerrando recursos ...");
                     String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" milisegundos."));
                     LOGGER.info("Tiempo de respuesta: ".concat(total));
-                    return new ResponseEntity<>(bankAccountDTO, responseHeaders, HttpStatus.OK);
+                    return new ResponseEntity(Json.mapper().writeValueAsString(bankAccountDTO), responseHeaders, HttpStatus.OK);
                 }
             } else {
                 Instant finalDeEjecucion = Instant.now();
@@ -81,7 +82,7 @@ public class BankingAccountController {
                 String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" milisegundos."));
                 LOGGER.info("Tiempo de respuesta: ".concat(total));
                 responseText = "Password Incorrecto";
-                return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+                return new ResponseEntity(Json.mapper().writeValueAsString(responseText), responseHeaders, HttpStatus.OK);
             }
         } else {
             responseText = "Formato de Fecha Incorrecto";
@@ -90,7 +91,7 @@ public class BankingAccountController {
         LOGGER.info("LearningJava - Cerrando recursos ...");
         String total = new String(String.valueOf(Duration.between(inicioDeEjecucion, finalDeEjecucion).toMillis()).concat(" milisegundos."));
         LOGGER.info("Tiempo de respuesta: ".concat(total));
-        return new ResponseEntity<>(responseText, responseHeaders, HttpStatus.OK);
+        return new ResponseEntity(Json.mapper().writeValueAsString(responseText), responseHeaders, HttpStatus.OK);
     }
 
     @GetMapping("/getAccounts")
@@ -132,7 +133,7 @@ public class BankingAccountController {
 
     @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/getAccountByUser", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam Optional<String> user) {
+    public ResponseEntity<List<BankAccountDTO>> getAccountByUser(@RequestParam Optional<String> user) throws JsonProcessingException {
         LOGGER.info(msgProcPeticion);
         Instant inicioDeEjecucion = Instant.now();
         LOGGER.info("LearningJava - Procesando peticion HTTP de tipo GET");
@@ -146,10 +147,10 @@ public class BankingAccountController {
 
         HttpHeaders responseHeaders = new HttpHeaders();
         responseHeaders.set("Content-Type", "application/json; charset=UTF-8");
-        return new ResponseEntity<>(accounts, responseHeaders, HttpStatus.OK);
+        return new ResponseEntity(Json.mapper().writeValueAsString(accounts), responseHeaders, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @GetMapping(value = "/getAccountsGroupByType")
     public ResponseEntity<Map<String, List<BankAccountDTO>>> getAccountsGroupByType() throws JsonProcessingException {
 
