@@ -148,19 +148,20 @@ public class UserController {
     }
 
     @GetMapping("/createClient")
-    public ResponseEntity<String> createClientAccount() {
+    public ResponseEntity<String> createClientAccount(@RequestParam String apellido, @RequestParam String nombre, @RequestParam Integer edad, @RequestParam String telefono, @RequestParam String tipo) {
         LOGGER.info(msgProcPeticion);
         inicio = Instant.now();
 
         ClientModel cliente = new ClientModel.ClientBuilder()
-                .apellidoPaterno("Romero")
-                .nombre("Christian")
-                .edad(30)
-                .telefono("5580453128")
-                .tipoCliente("Nuevo")
+                .apellidoPaterno(apellido)
+                .nombre(nombre)
+                .edad(edad)
+                .telefono(telefono)
+                .tipoCliente(tipo)
                 .build();
-        elements.add(new XmlElement(generateUuid()));
-        elements.add(new JsonElement(generateUuid()));
+
+        elements.add(new XmlElement(generateUuid() + " - " + cliente));
+        elements.add(new JsonElement(generateUuid() + " - " + cliente));
 
         Visitor visitor = new ElementVisitor();
         visitor.visit(elements);

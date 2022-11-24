@@ -1,5 +1,7 @@
 package com.wizeline.maven.learningjavamaven.model;
 
+import com.wizeline.maven.learningjavamaven.patterns.ClientModel;
+
 import java.util.List;
 
 public class ResponseModel {

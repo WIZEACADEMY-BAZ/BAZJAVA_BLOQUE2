@@ -15,7 +15,7 @@ public class ElementVisitor implements Visitor {
 
     @Override
     public void visit(XmlElement xe) {
-        LOGGER.info( "Processing an XML element with uuid: " + xe.uuid );
+        LOGGER.info( "Processing an XML element with Cliente: " + xe.uuid );
     }
 
     @Override
