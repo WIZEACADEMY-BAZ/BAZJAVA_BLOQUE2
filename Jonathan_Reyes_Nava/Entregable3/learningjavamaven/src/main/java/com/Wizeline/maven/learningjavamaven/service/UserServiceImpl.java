@@ -1,6 +1,7 @@
 package com.Wizeline.maven.learningjavamaven.service;
 
 import com.Wizeline.maven.learningjavamaven.model.*;
+import com.Wizeline.maven.learningjavamaven.repository.UserDAO;
 import com.Wizeline.maven.learningjavamaven.repository.UserDAOImpl;
 import com.Wizeline.maven.learningjavamaven.repository.UsersDAO;
 import com.Wizeline.maven.learningjavamaven.utils.Utils;

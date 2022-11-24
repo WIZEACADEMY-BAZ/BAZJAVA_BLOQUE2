@@ -2,8 +2,8 @@ package com.Wizeline.maven.learningjavamaven.service;
 
 import com.Wizeline.maven.learningjavamaven.LearningjavamavenApplication;
 import com.Wizeline.maven.learningjavamaven.enums.AccountType;
-import com.Wizeline.maven.learningjavamaven.enums.Country;
 import com.Wizeline.maven.learningjavamaven.model.BankAccountDTO;
+import com.Wizeline.maven.learningjavamaven.enums.Country;
 import com.Wizeline.maven.learningjavamaven.repository.BankingAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+//import javax.management.Query;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,7 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import static com.Wizeline.maven.learningjavamaven.utils.Utils.*;
+import static com.Wizeline.maven.learningjavamaven.utils.Utils.getCountry;
+import static com.Wizeline.maven.learningjavamaven.utils.Utils.pickRandomAccountType;
+import static com.Wizeline.maven.learningjavamaven.utils.Utils.randomAccountNumber;
+import static com.Wizeline.maven.learningjavamaven.utils.Utils.randomBalance;
+import static com.Wizeline.maven.learningjavamaven.utils.Utils.randomInt;
 
 @Service
 public class BankAccountServiceImpl implements BankAccountService {

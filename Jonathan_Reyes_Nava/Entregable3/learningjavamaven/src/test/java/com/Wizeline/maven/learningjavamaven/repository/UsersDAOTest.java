@@ -21,7 +21,7 @@ import java.util.List;
 @WebMvcTest(UsersDAO.class)
 public class UsersDAOTest {
 
-    /* Generación de logs por cada prueba  */
+    /* Generación de logs por prueba - UserControllerTest: Logger */
     private static final Logger LOGGER = LoggerFactory.getLogger(UsersDAOTest.class);
 
     /* Uso de Mockito en cada prueba - UserDAOTest */
@@ -114,7 +114,7 @@ public class UsersDAOTest {
         Query query = new Query();
         Update update = new Update();
 
-        LOGGER.info("Consume el servicio");
+        LOGGER.info("Se consume el servicio");
         /* Prueba unitaria de cada operación CRUD - mongoTemplate.updateFirst */
         UpdateResult result = mongoTemplate.updateFirst(query, update, Usuario.class);
 

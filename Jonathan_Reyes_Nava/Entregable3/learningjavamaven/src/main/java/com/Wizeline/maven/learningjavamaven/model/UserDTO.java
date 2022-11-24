@@ -2,6 +2,8 @@ package com.Wizeline.maven.learningjavamaven.model;
 
 import com.Wizeline.maven.learningjavamaven.utils.Utils;
 
+import java.util.Map;
+
 public class UserDTO {
 
     private String user;

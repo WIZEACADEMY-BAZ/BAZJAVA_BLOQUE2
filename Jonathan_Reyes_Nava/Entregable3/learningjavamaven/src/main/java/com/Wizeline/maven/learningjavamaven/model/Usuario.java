@@ -1,6 +1,5 @@
 package com.Wizeline.maven.learningjavamaven.model;
 
-
 import com.Wizeline.maven.learningjavamaven.utils.Utils;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

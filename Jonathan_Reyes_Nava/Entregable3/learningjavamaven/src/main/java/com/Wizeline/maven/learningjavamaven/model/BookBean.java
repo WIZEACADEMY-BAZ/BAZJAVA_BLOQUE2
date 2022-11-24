@@ -1,8 +1,14 @@
 package com.Wizeline.maven.learningjavamaven.model;
 
-import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "book")
 @XmlType(propOrder = { "id", "name", "date" })

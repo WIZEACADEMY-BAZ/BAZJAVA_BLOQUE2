@@ -1,7 +1,5 @@
 package com.Wizeline.maven.learningjavamaven.controller;
 
-import com.Wizeline.maven.learningjavamaven.batch.UserJob;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
@@ -15,6 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.Wizeline.maven.learningjavamaven.batch.UserJob;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Tag(name = "Batch",
             description = "Inicia manualmente un job.")
