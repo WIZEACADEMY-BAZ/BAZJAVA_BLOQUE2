@@ -17,8 +17,7 @@ spring:
       database: baz-bootcamp
       port: 27017
       # host: host.docker.internal
-
-batch:
+  batch:
     job:
       enabled: false
 
