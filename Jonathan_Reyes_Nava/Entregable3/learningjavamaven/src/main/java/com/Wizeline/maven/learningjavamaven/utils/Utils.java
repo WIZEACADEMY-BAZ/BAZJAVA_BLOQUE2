@@ -41,7 +41,13 @@ public class Utils {
         }
 
         public static long randomAccountNumber() {
-            return new Random().nextLong();
+
+            int id = new Random().nextInt();
+            if (id < 0) {
+                id = id * -1;
+            }
+
+            return id;
         }
 
         public static double randomBalance() {

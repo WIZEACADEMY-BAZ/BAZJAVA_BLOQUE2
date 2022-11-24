@@ -1,10 +1,9 @@
 package com.Wizeline.maven.learningjavamaven.utils;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.Wizeline.maven.learningjavamaven.model.ResponseDTO;
 import com.Wizeline.maven.learningjavamaven.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 
 @Component

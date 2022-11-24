@@ -1,7 +1,5 @@
 package com.Wizeline.maven.learningjavamaven.repository;
 
-import org.springframework.stereotype.Repository;
-
 import java.io.*;
 import java.util.logging.Logger;
 

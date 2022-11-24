@@ -1,20 +1,27 @@
 package com.Wizeline.maven.learningjavamaven.model;
 
 public class ResponseDTO {
-    /**
-     * Attribute status: Guarda el resultado del request, posibles valores success a fail.
-     */
 
     private String status;
-    /**
-     * Attribute code: Guarda el codigo de la operacion realizada o error.
-     */
-
     private String code;
 
-    /**
-     * Attribute error: Bean que maneja un listado de errores presentados durante el procesamiento.
-     */
+    private Object resultado;
+    // Sobrecarga de almenos un constructor: ResponseDTO
+    public ResponseDTO(){
+    }
+    public ResponseDTO(String status, String code, Object obj){
+        this.status = status;
+        this.code = code;
+        this.resultado = obj;
+    }
+
+    public Object getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(Object resultado) {
+        this.resultado = resultado;
+    }
 
     private ErrorDTO errors = new ErrorDTO();
 
@@ -29,5 +36,7 @@ public class ResponseDTO {
     public ErrorDTO getErrors() { return errors; }
 
     public void setErrors(ErrorDTO errors) { this.errors = errors; }
+
+
 }
 
