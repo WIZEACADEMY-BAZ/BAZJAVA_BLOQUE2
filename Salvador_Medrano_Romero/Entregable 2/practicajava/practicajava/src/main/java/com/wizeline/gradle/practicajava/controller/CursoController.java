@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -18,6 +20,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +46,10 @@ import io.jsonwebtoken.Jwts;
 
 @RestController
 @RequestMapping("/apiCurso")
+@ActiveProfiles({"test"})
 public class CursoController {
+
+	private static final Logger LOGGER = LoggerFactory.getLogger(CursoController.class.getName());
 
 	@Autowired
 	CursoService cursoService;
@@ -65,7 +71,7 @@ public class CursoController {
 	@PostMapping(path = "/send/{matricula}")
 	public void sendUserAccount(@PathVariable Integer matricula) {
 		List<EstudianteDTO> estudiantes = cursoService.obtieneEstudiantes();
-		System.out.println("Se obtuvieron: " + estudiantes.size());
+		LOGGER.info("Se obtuvieron: {}", estudiantes.size());
 		EstudianteDTO estudiante = estudiantes.get(matricula);
 		this.template.send("estudiante-topic", estudiante);
 	}

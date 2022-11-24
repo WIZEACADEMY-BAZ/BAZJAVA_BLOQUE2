@@ -28,13 +28,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.wizeline.gradle.practicajava.model.EstudianteDTO;
 import com.wizeline.gradle.practicajava.repository.CursoRepository;
 import com.wizeline.gradle.practicajava.utils.exceptions.ExcepcionCurso;
 
-@Service
+@Component
 public class CursoServiceImpl extends Thread implements CursoService {
 
 	@Autowired
