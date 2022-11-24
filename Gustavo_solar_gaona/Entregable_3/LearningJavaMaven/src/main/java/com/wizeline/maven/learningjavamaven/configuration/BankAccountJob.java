@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.PathResource;
 
 @Configuration
 public class BankAccountJob {
@@ -48,7 +49,7 @@ public class BankAccountJob {
     public FlatFileItemReader<BankAccountDTO> bankAccountsReader() {
         return new FlatFileItemReaderBuilder<BankAccountDTO>()
                 .name("bankAccountsReader")
-                .resource(new ClassPathResource("csv/accounts.csv"))
+                .resource(new ClassPathResource("./csv/accounts.csv"))
                 .delimited().names(new String[] {"country", "accountName", "accountType", "accountBalance", "userName"})
                 .targetType(BankAccountDTO.class).build();
     }
