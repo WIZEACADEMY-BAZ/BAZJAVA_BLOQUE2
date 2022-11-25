@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wizeline.gradle.practicajava.model.ErrorDTO;
 import com.wizeline.gradle.practicajava.model.ResponseDTO;
 import com.wizeline.gradle.practicajava.model.UserDTO;
-import com.wizeline.gradle.practicajava.service.UserServiceImpl;
+import com.wizeline.gradle.practicajava.service.UserService;
 
 @ContextConfiguration(classes = { UserController.class })
 @SpringBootTest
@@ -33,7 +33,7 @@ class UserControllerTest {
 	private UserController userController;
 
 	@MockBean
-	private UserServiceImpl userService;
+	private UserService userService;
 	
 	@Mock
 	private RestTemplate restTemplate;
