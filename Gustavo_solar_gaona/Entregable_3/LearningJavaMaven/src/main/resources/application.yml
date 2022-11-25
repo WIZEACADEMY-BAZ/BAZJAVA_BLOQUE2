@@ -6,7 +6,7 @@ spring:
     include: dev
   security:
     white-list:
-      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**, /api/getEncryptedAccounts, /api/getAccountsByUser, /api/createAccount, /api/createUser, /api/login, /api/getUserAccount, /dising_patterns/api/prototype, /dising_patterns/api/singleton, /api/users
+      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**, /api/getEncryptedAccounts, /api/getAccountsByUser, /api/createAccount, /api/createUser, /api/login, /api/getUserAccount, /dising_patterns/api/prototype, /dising_patterns/api/singleton, /api/users, /dising_patterns/api/iterator
   h2:
     console:
       enabled: true
@@ -16,6 +16,10 @@ spring:
     mongodb:
       database: baz-bootcamp
       port: 27017
+      # host: host.docker.internal
+  batch:
+    job:
+      enabled: false
 
 server:
   port: 8080

@@ -5,4 +5,3 @@ consumers:
   userAccount: '/api/getUserAccount'
   accounts: '/api/getAccounts'
   accountsGroupByType: '/api/getAccountsGroupByType'
-  singleton: '/dising_patterns/api/singleton'

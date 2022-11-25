@@ -52,7 +52,7 @@ public class UserController {
 
   @PreAuthorize("hasAnyRole('USER','GUEST','ADMIN')")
   @GetMapping(value = "/users/{userId}/posts", produces = CONTENT_TYPE_JSON)
-  public ResponseEntity<List<PostDTO>> getGetUserPosts(@PathVariable("userId") String userId){
+  public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable("userId") String userId){
     LOGGER.info( PROCESSING_GET_METHOD);
     List<PostDTO> postDTOS = userService.getUserPosts(userId);
     return new ResponseEntity<List<PostDTO>>(postDTOS, HttpStatus.OK);
@@ -60,7 +60,7 @@ public class UserController {
 
   @PreAuthorize("hasRole('USER')")
   @GetMapping(value = "/users/{userId}/filteredTodos", produces = CONTENT_TYPE_JSON)
-  public ResponseEntity<List<TodoDTO>> getGetUserTodos(@PathVariable("userId") String userId, @RequestParam("status") boolean status ){
+  public ResponseEntity<List<TodoDTO>> getUserTodos(@PathVariable("userId") String userId, @RequestParam("status") boolean status ){
     LOGGER.info( PROCESSING_GET_METHOD);
     List<TodoDTO> todoDTOS = userService.getUserTodos(userId,status);
     return new ResponseEntity<List<TodoDTO>>(todoDTOS, HttpStatus.OK);
@@ -95,7 +95,6 @@ public class UserController {
       //Se regresa la respuesta normalmente
       return ResponseEntity.ok("It's ok");
     }
-
     //En caso de que se hayan hecho mas de 5 peticiones en 1 minuto respondera con este status
     return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).build();
   }
