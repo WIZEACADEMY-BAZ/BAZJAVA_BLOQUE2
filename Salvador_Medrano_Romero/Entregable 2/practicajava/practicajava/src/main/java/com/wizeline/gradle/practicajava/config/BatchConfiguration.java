@@ -23,20 +23,23 @@ public class BatchConfiguration {
 	BankAccountJob bankAccountJob;
 	
 	@Autowired
+	CursoJob cursoJob;
+	
+	@Autowired
 	JobLauncher jobLauncher;
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(BatchConfiguration.class);
 	
-//	@Scheduled(fixedRate = 15000)
-//	 public void scheduledByFixedRate() throws Exception {
-//	     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
-//	     LOGGER.info("Batch job starting");
-//	     JobParameters jobParameters = new JobParametersBuilder()
-//	             .addString("launchDate", format.format(Calendar.getInstance().getTime()))
-//	             .addString("project", "LearningJava")
-//	             .toJobParameters();
-//	     jobLauncher.run(bankAccountJob.bankAccountsBackupJob(), jobParameters);
-//	     LOGGER.info("Batch job executed successfully");
-//	 }
+	@Scheduled(fixedRate = 30000)
+	 public void scheduledByFixedRate() throws Exception {
+	     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");
+	     LOGGER.info("Batch job starting");
+	     JobParameters jobParameters = new JobParametersBuilder()
+	             .addString("launchDate", format.format(Calendar.getInstance().getTime()))
+	             .addString("project", "LearningJava")
+	             .toJobParameters();
+	     jobLauncher.run(cursoJob.cursoBackupJob(), jobParameters);
+	     LOGGER.info("Batch job executed successfully");
+	 }
 
 }

@@ -28,13 +28,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import com.wizeline.gradle.practicajava.model.EstudianteDTO;
 import com.wizeline.gradle.practicajava.repository.CursoRepository;
 import com.wizeline.gradle.practicajava.utils.exceptions.ExcepcionCurso;
 
-@Service
+@Component
 public class CursoServiceImpl extends Thread implements CursoService {
 
 	@Autowired
@@ -194,15 +194,6 @@ public class CursoServiceImpl extends Thread implements CursoService {
 
 	private void actualizaApellido() {
 		try {
-//			List<EstudianteDTO> estudiantes = obtieneEstudiantes();
-//			for (EstudianteDTO estudianteDTO : estudiantes) {
-//				estudianteDTO.setApellidoMat(estudianteDTO.getApellidoMat().toUpperCase());
-//				Update update = new Update();
-//				update.set("apellidoMat", estudianteDTO.getApellidoMat());
-//				mongoTemplate.upsert(Query.query(Criteria.where("_id").is(estudianteDTO.getMatricula())), update,
-//						EstudianteDTO.class);
-//				Thread.sleep(1000);
-//			}
 			for (int i = 0; i < 5; i++) {
 				LOGGER.info("Actualiza usuario " + i);
 				Thread.sleep(1000);
