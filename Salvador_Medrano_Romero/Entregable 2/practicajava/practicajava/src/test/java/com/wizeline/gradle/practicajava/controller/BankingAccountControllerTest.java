@@ -99,12 +99,12 @@ class BankingAccountControllerTest {
 				.andExpect(MockMvcResultMatchers.content().contentType("application/json; charset=UTF-8"))
 				.andExpect(MockMvcResultMatchers.content().string("[]"));
 	}
-	
+
 	@Test
 	void sayHelloGuestTest() throws Exception {
 		MockHttpServletRequestBuilder getResult = MockMvcRequestBuilders.get("/apiBank/sayHello");
 		MockMvcBuilders.standaloneSetup(bankingAccountController).build().perform(getResult)
-		.andExpect(MockMvcResultMatchers.status().isOk());
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 }
