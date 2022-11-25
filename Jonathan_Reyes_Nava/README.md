@@ -88,3 +88,120 @@ BAZJAVA_BLOQUE2/Jonathan_Reyes_Nava
 
 
 
+ >Entregable 3 (Semana 5 y 6)
+
+>com.Wizeline.maven.learningjavamaven
+
+           >batch
+
+                 *BankAccountJob
+                 *BatchJobCompletionListener
+                 *UserJob
+                 *UserProcessor
+                 *UserReader
+                 *UserWriter
+
+           >client
+                 *AccountsJSONClient
+
+           >config
+                 * EndpointBean
+                 * JwtTokenConfig
+                 * JwtTokenFilter
+                 * KafkaConfiguration
+                 * OpenAPIConfiguration
+                 * SecurityConfig
+
+
+            >consumer
+                 *KafkaConsumer
+
+            >controller
+                 *AuthenticationController
+                 *BankingAccountController
+                 *BatchController
+                 *ControllerThrttlin
+                 *ExceptionHandlerAdvice
+                 *JAXBController
+                 *UserController
+
+            >enums
+                 *AccountType
+                 *Country
+
+            >model
+                 *BankAccountDTO
+                 *BookBean
+                 *ErrorDTO
+                 *JsonplaceHolderDTO
+                 *Post
+                 *ResponseDTO
+                 *UserDTO
+                 *Usuario
+                 *XmlBean
+
+             >PatronesDiseno
+                  >Iterator
+                       *Channel
+                       *ChannelCollection
+                       *ChanelCollectionImpl
+                       *Client
+                       *Iterator
+                       *IteratorImpl
+
+                   >Singleton
+                       *Cliente
+                       *DatabaseConfig
+
+
+             >repository
+                 *BankingAccountRepository
+                 *UserDAO
+                 *UserDAOImpl
+                 *UsersDAO
+
+             >service
+                 *BankAccountService
+                 *BankAccountServiceImpl
+                 *UserService
+                 *UserServiceImpl
+
+             >utils
+                >exceptions
+                    *ExceptionGenerica
+                >CommonServices
+                >Utils
+
+
+             >LearningjavamavenApplication
+
+
+>test
+    >java
+       >com.Wizeline.maven.learningjavamaven
+          >controller
+             *BankingAccountControllerTest
+          >repository
+             *UsersDAOTest
+          >service
+             *UserServiceImplTest
+             *UserServiceTest
+          >utils 
+             *UtilsTest
+       **LearningjavamavenApplicationTests.
+
+
+1) La ruta del Dockerfile es Entregable3\learningjavamaven\Dockerfile.
+
+2)Se implementa la configuración de Kafka en el paquete \config.KafkaConfiguration
+
+3)Se implementan pruebas unitarias y los happy path.
+
+
+
+
+
+
+
+
+
