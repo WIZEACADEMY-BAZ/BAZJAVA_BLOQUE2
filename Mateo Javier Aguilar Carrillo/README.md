@@ -23,6 +23,11 @@ A continuación se describe la estructura de las carpetas y evidencias, incluyen
     > Curso Spring
         - Proyecto Java 11 con Gradle y screenshot de creacion de proyecto
 
+## Entregable 3
+
+    > Curso Spring
+        - Proyecto Java 11 con Gradle y screenshot de creacion de proyecto, con pruebas unitarias
+
 ## Instrucciones para Docker
 
 ### 1. Descargar los archivos y colocarlos en una carpeta </br>
