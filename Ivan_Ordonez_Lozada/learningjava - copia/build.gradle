@@ -1,0 +1,64 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.5'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+}
+
+group = 'com.baz.wizeline.learningspring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.bouncycastle:bcprov-jdk18on:1.72'
+	implementation 'org.springframework.cloud:spring-cloud-dependencies:2021.0.4'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:3.1.5'
+    implementation("org.springframework.kafka:spring-kafka:2.9.1")
+    implementation 'com.github.vladimir-bukhtoyarov:bucket4j-core:7.6.0'
+	
+	implementation group: 'org.json', name: 'json', version: '20090211'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+	implementation group: 'com.h2database', name: 'h2'
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.4'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.13.3'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.5'
+	implementation group: 'com.github.vladimir-bukhtoyarov', name: 'bucket4j-core', version: '7.6.0'
+	
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.batch:spring-batch-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+	
+//	testCompile 'org.jmockit:jmockit:1.49'
+//    testImplementation 'org.jmockit:jmockit:1.49'
+//    testCompile 'org.mockito:mockito-core:4.8.0'
+//    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+//    testCompile 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+//    testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+//    testImplementation 'org.mockito:mockito-inline:4.8.0'
+//    testImplementation 'org.mockito:mockito-junit-jupiter:4.8.0'
+//	testImplementation("org.springframework.kafka:spring-kafka-test:2.9.1")
+	
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
