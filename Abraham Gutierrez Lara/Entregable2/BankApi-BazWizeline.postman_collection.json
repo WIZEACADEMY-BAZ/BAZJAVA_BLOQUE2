@@ -1,0 +1,429 @@
+{
+	"info": {
+		"_postman_id": "07534c75-964d-42f6-8a4b-e68aaa8863b1",
+		"name": "BankApi-BazWizeline",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Dummy - Postal Code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/dummy/postalcode/04660",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"dummy",
+						"postalcode",
+						"04660"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"email\": \"admin@gmail.com\",\r\n     \"password\": \"MtWK4InuoH2mD/enyw==\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"email\": \"abraham@gmaail.com\",\r\n     \"name\": \"Abraham GL\",\r\n     \"password\": \"Superpass1$\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update password",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{USER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"email\": \"abraham@gmaail.com\",\r\n     \"newPassword\": \"Superpass2$\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user/password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user",
+						"password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"email\": \"admin@gmail.com\",\r\n     \"name\": \"Banker User\",\r\n     \"password\": \"Superpass100$\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user/banker",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user",
+						"banker"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bank Accounts",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/bank-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"bank-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Bank Account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"c19d8daa8dc54f698a5ff3e3c311a0d0\",\r\n    \"accountType\": \"AHORRO\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/bank-account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"bank-account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Bank Account Details",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/bank-account/1667885072997",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"bank-account",
+						"1667885072997"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login - User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n     \"email\": \"abraham@gmaail.com\",\r\n     \"password\": \"MtWK4InuoH2mD+M=\"\r\n }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Bank Account",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{BANKER_TOKEN}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/wizeline/baz/bank-api/v1/bank-account/1667885072997",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"wizeline",
+						"baz",
+						"bank-api",
+						"v1",
+						"bank-account",
+						"1667885072997"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BANKER_TOKEN",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjMTlkOGRhYThkYzU0ZjY5OGE1ZmYzZTNjMzExYTBkMCIsImF1dGhvcml0aWVzIjoiQkFOS0VSIiwiZXhwIjoxNjY3OTI3OTQ2fQ.MNxvKx2I-ynmPAna9XHntXtPCwfSpRW-nUzDeItiWkHye6sE3EETp3x6TuMMZ9BX2DGKfqldCg9eLgHyUlUwrg",
+			"type": "default"
+		},
+		{
+			"key": "USER_TOKEN",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkZjIyNjFmNDg0YzQ0MjI5ODhhNGE4MDdlYzg5NmNlZSIsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY2NzkyODU2OX0.J4Qb8K7L296UO01Aug9uKCEzl-hNsIV4vXDb0FGfD-Hn2u567YEJO4RmxxXDHELVSulLgUdpNm5d2x2zB0T6nA",
+			"type": "default"
+		}
+	]
+}

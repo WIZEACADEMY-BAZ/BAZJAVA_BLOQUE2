@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.configuration</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.configuration;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+<span class="fc" id="L24">public class SecurityConfig {</span>
+
+  @Autowired
+  private JwtTokenFilter jwtTokenFilter;
+
+  @Value(&quot;${spring.security.white-list.url}&quot;)
+  private String[] whiteList;
+
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+<span class="fc" id="L34">    return httpSecurity.cors().and().csrf().disable()</span>
+<span class="fc" id="L35">        .authorizeRequests().antMatchers(whiteList).permitAll()</span>
+<span class="fc" id="L36">        .anyRequest().authenticated().and()</span>
+<span class="fc" id="L37">        .sessionManagement(session -&gt; session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))</span>
+<span class="fc" id="L38">        .httpBasic(Customizer.withDefaults())</span>
+<span class="fc" id="L39">        .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)</span>
+<span class="fc" id="L40">        .build();</span>
+  }
+
+  @Bean
+  public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
+<span class="fc" id="L45">    List&lt;UserDetails&gt; userDetailsList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L46">    userDetailsList.add(User.withUsername(&quot;user&quot;).password(&quot;password&quot;).roles(&quot;USER&quot;).build());</span>
+<span class="fc" id="L47">    userDetailsList.add(User.withUsername(&quot;admin&quot;).password(&quot;password&quot;).roles(&quot;ADMIN&quot;, &quot;USER&quot;).build());</span>
+<span class="fc" id="L48">    userDetailsList.add(User.withUsername(&quot;guest&quot;).password(&quot;password&quot;).roles(&quot;GUEST&quot;).build());</span>
+
+<span class="fc" id="L50">    return new InMemoryUserDetailsManager(userDetailsList);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

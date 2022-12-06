@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDescription.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">learningjavamaven</a> &gt; <a href="index.source.html" class="el_package">com.wizeline.learningjavamaven.model.detalle</a> &gt; <span class="el_source">UserDescription.java</span></div><h1>UserDescription.java</h1><pre class="source lang-java linenums">package com.wizeline.learningjavamaven.model.detalle;
+
+<span class="fc" id="L3">public class UserDescription extends UserData {</span>
+
+  private Long id;
+  private Address address;
+  private String website;
+  private Company company;
+
+  public Long getId() {
+<span class="nc" id="L11">    return id;</span>
+  }
+
+  public void setId(Long id) {
+<span class="fc" id="L15">    this.id = id;</span>
+<span class="fc" id="L16">  }</span>
+
+  public Address getAddress() {
+<span class="fc" id="L19">    return address;</span>
+  }
+
+  public void setAddress(Address address) {
+<span class="fc" id="L23">    this.address = address;</span>
+<span class="fc" id="L24">  }</span>
+
+
+  public String getWebsite() {
+<span class="nc" id="L28">    return website;</span>
+  }
+
+  public void setWebsite(String website) {
+<span class="fc" id="L32">    this.website = website;</span>
+<span class="fc" id="L33">  }</span>
+
+  public Company getCompany() {
+<span class="nc" id="L36">    return company;</span>
+  }
+
+  public void setCompany(Company company) {
+<span class="fc" id="L40">    this.company = company;</span>
+<span class="fc" id="L41">  }</span>
+
+<span class="fc" id="L43">  public static class Address {</span>
+    private String phone;
+    private String suite;
+    private String city;
+    private String zipcode;
+    private GEO geo;
+
+    public String getPhone() {
+<span class="nc" id="L51">      return phone;</span>
+    }
+
+    public void setPhone(String phone) {
+<span class="nc" id="L55">      this.phone = phone;</span>
+<span class="nc" id="L56">    }</span>
+
+    public String getSuite() {
+<span class="nc" id="L59">      return suite;</span>
+    }
+
+    public void setSuite(String suite) {
+<span class="fc" id="L63">      this.suite = suite;</span>
+<span class="fc" id="L64">    }</span>
+
+    public String getCity() {
+<span class="nc" id="L67">      return city;</span>
+    }
+
+    public void setCity(String city) {
+<span class="fc" id="L71">      this.city = city;</span>
+<span class="fc" id="L72">    }</span>
+
+    public String getZipcode() {
+<span class="fc" id="L75">      return zipcode;</span>
+    }
+
+    public void setZipcode(String zipcode) {
+<span class="fc" id="L79">      this.zipcode = zipcode;</span>
+<span class="fc" id="L80">    }</span>
+
+    public GEO getGeo() {
+<span class="nc" id="L83">      return geo;</span>
+    }
+
+    public void setGeo(GEO geo) {
+<span class="fc" id="L87">      this.geo = geo;</span>
+<span class="fc" id="L88">    }</span>
+
+<span class="fc" id="L90">    public static class GEO {</span>
+      private String lat;
+      private String lng;
+
+      public String getLat() {
+<span class="nc" id="L95">        return lat;</span>
+      }
+
+      public void setLat(String lat) {
+<span class="fc" id="L99">        this.lat = lat;</span>
+<span class="fc" id="L100">      }</span>
+
+      public String getLng() {
+<span class="nc" id="L103">        return lng;</span>
+      }
+
+      public void setLng(String lng) {
+<span class="fc" id="L107">        this.lng = lng;</span>
+<span class="fc" id="L108">      }</span>
+    }
+  }
+
+<span class="fc" id="L112">  public static class Company {</span>
+    private String name;
+    private String catchPhrase;
+    private String bs;
+
+    public String getName() {
+<span class="nc" id="L118">      return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L122">      this.name = name;</span>
+<span class="fc" id="L123">    }</span>
+
+    public String getCatchPhrase() {
+<span class="nc" id="L126">      return catchPhrase;</span>
+    }
+
+    public void setCatchPhrase(String catchPhrase) {
+<span class="fc" id="L130">      this.catchPhrase = catchPhrase;</span>
+<span class="fc" id="L131">    }</span>
+
+    public String getBs() {
+<span class="nc" id="L134">      return bs;</span>
+    }
+
+    public void setBs(String bs) {
+<span class="fc" id="L138">      this.bs = bs;</span>
+<span class="fc" id="L139">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

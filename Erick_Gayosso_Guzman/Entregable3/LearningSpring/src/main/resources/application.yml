@@ -1,0 +1,68 @@
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  data:
+    mongodb:
+      port: 27017
+      database: baz-wizeline
+  security:
+    white-list:
+      url: "/authenticate, /api2/**, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts, /actuator/**. //api/btach"
+  batch:
+    job:
+      enabled: false
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: wizeline-baz-group
+  cache:
+    cache-names: rate-limit-buckets
+    caffeine:
+      spec: maximumSize=10,expireAfterAccess=3600s
+
+topic:
+  name:
+    producer: wizeline-baz-topic
+
+auto:
+  create:
+    topics:
+      enable: true
+
+
+# Información del proyecto
+info:
+  app:
+    name: LearningSpring API
+    java: version=1.0
+    type: Spring Boot
+
+server:
+  port: 8081
+
+jwt:
+  secret: java-baz
+
+# Se habilitan endpoints a exponer en actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,beans,env
+  info:
+    env:
+      enabled: true
+
+bucket4j:
+  enabled: true
+  filters:
+    cache-name: rate-limit-buckets
+    url: /api2/.*
+    strategy: first
+    http-response-body: "{ \"status\": 429, \"error\": \"Too Many Requests\", \"message\": \"You have exhausted your API Request Quota\" }"

@@ -1,0 +1,6 @@
+# Configuration data loaded from a Config-server
+spring:
+  application:
+    name: Learning Java Maven
+  profiles:
+    include: dev

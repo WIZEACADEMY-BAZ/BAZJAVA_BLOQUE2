@@ -1,0 +1,18 @@
+user2@wizeline.com, pass2
+user1@wizeline.com, pass1
+user1@wizeline.com, pass1
+user1@wizeline.com, pass1
+eduardo, 123
+eduardo, 1234
+eduardo, 12345
+eduardo, 123456
+eduardo, 123456
+eduardo, 123
+eduardo, 123
+eduardo, 123
+eduardo, 123
+eduardo, 123
+eduardo, 123
+eduardo, 123eduardo, 123
+eduardo, 123
+eduardo, 123

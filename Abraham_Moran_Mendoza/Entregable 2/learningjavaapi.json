@@ -1,0 +1,1074 @@
+{
+	"info": {
+		"_postman_id": "cfe1f0ed-c023-40da-b114-24d4bead894a",
+		"name": "CapstoneProjectAbraham",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Spring",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "RestTemplate",
+							"item": [
+								{
+									"name": "Posts",
+									"item": [
+										{
+											"name": "RestTemplate - ClasePropia",
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2ODAzMDE4NzA0MCwiZXhwIjoxNjY4MDMwNDg3fQ.f3DC44fuHERixiaMkt4V80d-LiuSRJ2clIRQMI20Oem4J3Mq3F3IXZQNqaMEQ9Tj4ZcjET9BqLRNPHt0831OAg",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "localhost:8080/api/users/1/posts",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"users",
+														"1",
+														"posts"
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Todos",
+									"item": [
+										{
+											"name": "RestTemplate - All",
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NTY5MDEwODA4LCJleHAiOjE2Njg1NjkzMTB9.e5oxfwTnfmP-8xNwG-GpQ2kLVQvrl2l31rKNanlR82z-upng0j7jb_vbHTauI7yaymimQdfrt9ZwzE2NUoGE5w",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "localhost:8080/api/users/1/todos",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"users",
+														"1",
+														"todos"
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "RestTemplate - Sobrecarga",
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2NzYyODc3NzY3NSwiZXhwIjoxNjY3NjI5MDc3fQ.480vMP0JKoNMPccovJty2NubInmyMiBiUB_vzMZPXFqsCgwYDKjn4oIZGVffPOk730pr6SDuYIoZeiYRsaes1w",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "localhost:8080/api/users/1/filteredTodos?status=true",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"users",
+														"1",
+														"filteredTodos"
+													],
+													"query": [
+														{
+															"key": "status",
+															"value": "true"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "RestTemplate - Sobrecarga",
+											"protocolProfileBehavior": {
+												"disabledSystemHeaders": {}
+											},
+											"request": {
+												"auth": {
+													"type": "bearer",
+													"bearer": [
+														{
+															"key": "token",
+															"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2NzYyODc3NzY3NSwiZXhwIjoxNjY3NjI5MDc3fQ.480vMP0JKoNMPccovJty2NubInmyMiBiUB_vzMZPXFqsCgwYDKjn4oIZGVffPOk730pr6SDuYIoZeiYRsaes1w",
+															"type": "string"
+														}
+													]
+												},
+												"method": "GET",
+												"header": [
+													{
+														"key": "Accept",
+														"value": "application/json",
+														"type": "text"
+													},
+													{
+														"key": "Content-Type",
+														"value": "application/json",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "localhost:8080/api/users/2/filteredTodos?status=true",
+													"host": [
+														"localhost"
+													],
+													"port": "8080",
+													"path": [
+														"api",
+														"users",
+														"2",
+														"filteredTodos"
+													],
+													"query": [
+														{
+															"key": "status",
+															"value": "true"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "Mongo",
+							"item": [
+								{
+									"name": "Login",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "localhost:8080/api/login?user=abrmoran@outlook.com&password=Pass1@",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"login"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "abrmoran@outlook.com"
+												},
+												{
+													"key": "password",
+													"value": "Pass1@"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "CreateUser",
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"user\":\"user1@wizeline.com\",\n    \"password\":\"pass1\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/createUser",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"createUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "JAXB",
+					"item": [
+						{
+							"name": "GetXML",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/jaxb/getXML\n",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"jaxb",
+										"getXML\n"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "BankingAccount",
+					"item": [
+						{
+							"name": "Mongo",
+							"item": [
+								{
+									"name": "GetAccountByUser",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/getAccountByUser?user=user1@wizeline.com",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"getAccountByUser"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "user1@wizeline.com"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "CreateAccount",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountNumber\": 123123,\n  \"accountName\": \"Abraham Moran\",\n  \"userName\": \"Amoran\",\n  \"accountBalance\": 0.0,\n  \"accountType\": null,\n  \"country\": \"MX\",\n  \"accountActive\": false,\n  \"creationDate\": \"2022-11-04T22:12:29.773619\",\n  \"lastUsage\": \"2022-11-04T22:12:29.773619\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/createAccount",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"createAccount"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateAccount",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2NzYyOTcyNjczNiwiZXhwIjoxNjY3NjMwMDI2fQ.CtntdoyPfm9bLj-hnNmDfZAdo1-20uDCCOH6GLYSZZdc8ETuRgb34Yh8PETTm8lXhST-8wXRIikvDvZKa1xy9A",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/123123/changeCountry?country=EU",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"123123",
+												"changeCountry"
+											],
+											"query": [
+												{
+													"key": "country",
+													"value": "EU"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "DeleteAccounts",
+									"protocolProfileBehavior": {
+										"disabledSystemHeaders": {}
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsInVzZXJuYW1lIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IlJPTEVfQURNSU4sUk9MRV9VU0VSIiwiZGF0ZSI6MTY2NzYyOTcyNjczNiwiZXhwIjoxNjY3NjMwMDI2fQ.CtntdoyPfm9bLj-hnNmDfZAdo1-20uDCCOH6GLYSZZdc8ETuRgb34Yh8PETTm8lXhST-8wXRIikvDvZKa1xy9A",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "application/json",
+												"type": "text"
+											},
+											{
+												"key": "Content-Type",
+												"value": "application/json",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/deleteAccounts",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"deleteAccounts"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Métodos Exchange",
+			"item": [
+				{
+					"name": "Accounts",
+					"item": [
+						{
+							"name": "getUserAccount***",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/getUserAccount?user=abrmoran@outlook.com&password=Pass1@&date=12-03-2018",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getUserAccount"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "abrmoran@outlook.com"
+										},
+										{
+											"key": "password",
+											"value": "Pass1@"
+										},
+										{
+											"key": "date",
+											"value": "12-03-2018"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/getAccounts?date=01-09-1989",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getAccounts"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "01-09-1989"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountByName",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/getAccountByName?name=Dummy Account 4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getAccountByName"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Dummy Account 4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountsByUser",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/api/getAccountsByUser?user=user2@wizeline.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getAccountsByUser"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "user2@wizeline.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountsGroupByType",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/api/getAccountsGroupByType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getAccountsGroupByType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getEncryptedAccounts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8081/api/getEncryptedAccounts?date=10-10-2022",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"api",
+										"getEncryptedAccounts"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "10-10-2022"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Accounts(ConvertedToSpring)",
+					"item": [
+						{
+							"name": "getUserAccount***",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MDQ4NzkwLCJleHAiOjE2Njg3MDQzNDh9.9k9gjr8bqSTtO7x4lRbdHnM_fFA20vdBg1hZJHtMnHWCWn9VLEQctV0qeeSMNMqzn4C0qDdT-5dV99dvAymycA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/exchange/getUserAccount?user=abrmoran@outlook.com&password=Pass1@&date=12-03-2018",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getUserAccount"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "abrmoran@outlook.com"
+										},
+										{
+											"key": "password",
+											"value": "Pass1@"
+										},
+										{
+											"key": "date",
+											"value": "12-03-2018"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccounts",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MDQ4NzkwLCJleHAiOjE2Njg3MDQzNDh9.9k9gjr8bqSTtO7x4lRbdHnM_fFA20vdBg1hZJHtMnHWCWn9VLEQctV0qeeSMNMqzn4C0qDdT-5dV99dvAymycA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/exchange/getAccounts?date=01-09-1989",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getAccounts"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "01-09-1989"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountByName",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MzEwODg4LCJleHAiOjE2Njg3MDQ2MTB9._OQv7Klo0QmNUzP8DApCAY5d5f_WKy3FTAPT2VQmtHOVIhTWOwBQkPyEPtqnmGRvF2ppT1e4QGwiFkenkKLcdA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/exchange/getAccountByName?name=Dummy Account 4",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getAccountByName"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "Dummy Account 4"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountsByUser",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MzEwODg4LCJleHAiOjE2Njg3MDQ2MTB9._OQv7Klo0QmNUzP8DApCAY5d5f_WKy3FTAPT2VQmtHOVIhTWOwBQkPyEPtqnmGRvF2ppT1e4QGwiFkenkKLcdA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/exchange/getAccountsByUser?user=user2@wizeline.com",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getAccountsByUser"
+									],
+									"query": [
+										{
+											"key": "user",
+											"value": "user2@wizeline.com"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAccountsGroupByType",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MDQ4NzkwLCJleHAiOjE2Njg3MDQzNDh9.9k9gjr8bqSTtO7x4lRbdHnM_fFA20vdBg1hZJHtMnHWCWn9VLEQctV0qeeSMNMqzn4C0qDdT-5dV99dvAymycA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/exchange/getAccountsGroupByType",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getAccountsGroupByType"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getEncryptedAccounts",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NzA0MDQ4NzkwLCJleHAiOjE2Njg3MDQzNDh9.9k9gjr8bqSTtO7x4lRbdHnM_fFA20vdBg1hZJHtMnHWCWn9VLEQctV0qeeSMNMqzn4C0qDdT-5dV99dvAymycA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/exchange/getEncryptedAccounts?date=10-10-2022",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"exchange",
+										"getEncryptedAccounts"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "10-10-2022"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Patrones de creación",
+			"item": [
+				{
+					"name": "Builder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/1/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AbstractFactory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/createAccount/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"createAccount",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patrones de comportamiento",
+			"item": [
+				{
+					"name": "Iterator",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwiYXV0aG9yaXRpZXMiOiJST0xFX1VTRVIiLCJkYXRlIjoxNjY4NTY4Nzg5OTE0LCJleHAiOjE2Njg1NjkwODl9.PwR1qN6qVubNndIZCNiSZWOwjePuk_QWxE4poWRCfGUjb2Gfj0a2y6Zy1INvIcErYyPnJP9ut48mHfRufkZ0WQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/1/postsIterator",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"1",
+								"postsIterator"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authenticate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"user\",\n    \"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<usuario>
+    <datos>
+        <avatar>https://reqres.in/img/faces/2-image.jpg</avatar>
+        <email>janet.weaver@reqres.in</email>
+        <first_name>Janet</first_name>
+        <id>2</id>
+        <last_name>Weaver</last_name>
+    </datos>
+    <support>
+        <text>To keep ReqRes free, contributions towards server costs are appreciated!</text>
+        <url>https://reqres.in/#support-heading</url>
+    </support>
+</usuario>

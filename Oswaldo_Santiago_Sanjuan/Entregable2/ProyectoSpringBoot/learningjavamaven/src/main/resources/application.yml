@@ -1,0 +1,17 @@
+consumers:
+  login: '/api/login'
+  createUser: '/api/createUser'
+  createUsers: '/api/createUsers'
+  userAccount: '/api/getUserAccount'
+  accounts: '/api/getAccounts'
+  accountsGroupByType: '/api/getAccountsGroupByType'
+jwt:
+  secret: 'java-baz'
+
+spring:
+  security:
+    white-list:
+      url: /authenticate, /swagger-ui/**, /v3/api-docs/**, /api/getAccounts,/actuator/**, /batch/**
+  batch:
+    job:
+      enabled: false
